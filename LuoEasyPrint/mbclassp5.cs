@@ -395,7 +395,7 @@ namespace LuoEasyPrint
 				}
 				else if (String.Compare(left, "groupnewpage", false) == 0)
 				{
-					this.mycc.GroupNewPage = Convert.ToBoolean(value);
+					this.mycc.GroupNewPage = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "height", false) == 0)
 				{

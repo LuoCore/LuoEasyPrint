@@ -716,10 +716,10 @@ namespace LuoEasyPrint
 			this.LineWidth = Convert.ToSingle(array[4]);
 			this.LineColor = Module1.ConvertStringToColor(array[5]);
 			this.EHeight = Convert.ToSingle(array[6]);
-			this.LeftBorder = Convert.ToBoolean(array[7]);
-			this.RightBorder = Convert.ToBoolean(array[8]);
-			this.TopBorder = Convert.ToBoolean(array[9]);
-			this.BottomBorder = Convert.ToBoolean(array[10]);
+			this.LeftBorder = DataTypeConversion.ToBoolean(array[7]);
+			this.RightBorder = DataTypeConversion.ToBoolean(array[8]);
+			this.TopBorder = DataTypeConversion.ToBoolean(array[9]);
+			this.BottomBorder = DataTypeConversion.ToBoolean(array[10]);
 			this.FilledColor = Module1.ConvertStringToColor(array[11]);
 			this.CharType = array[12];
 			this.TextFont = Module1.ConvertStringToFont(array[13]);
@@ -1066,7 +1066,7 @@ namespace LuoEasyPrint
 				string left = this.theProp.ToLower();
 				if (String.Compare(left, "isprint", false) == 0)
 				{
-					this.mycc.IsPrint = Convert.ToBoolean(value);
+					this.mycc.IsPrint = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "x", false) == 0)
 				{
@@ -1108,19 +1108,19 @@ namespace LuoEasyPrint
 				}
 				else if (String.Compare(left, "leftborder", false) == 0)
 				{
-					this.mycc.LeftBorder = Convert.ToBoolean(value);
+					this.mycc.LeftBorder = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "rightborder", false) == 0)
 				{
-					this.mycc.RightBorder = Convert.ToBoolean(value);
+					this.mycc.RightBorder = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "topborder", false) == 0)
 				{
-					this.mycc.TopBorder = Convert.ToBoolean(value);
+					this.mycc.TopBorder = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "bottomborder", false) == 0)
 				{
-					this.mycc.BottomBorder = Convert.ToBoolean(value);
+					this.mycc.BottomBorder = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "textfont", false) == 0)
 				{

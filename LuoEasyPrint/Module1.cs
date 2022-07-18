@@ -3333,7 +3333,7 @@ namespace LuoEasyPrint
 				{
 					if (String.Compare(Versioned.TypeName(RuntimeHelpers.GetObjectValue(dgvcell.FormattedValue)), "Boolean", false) == 0)
 					{
-						if (Convert.ToBoolean(dgvcell.FormattedValue))
+						if (DataTypeConversion.ToBoolean(dgvcell.FormattedValue))
 						{
 							checkBox.Checked = true;
 						}

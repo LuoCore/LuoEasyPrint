@@ -1516,7 +1516,7 @@ namespace LuoEasyPrint
 			string[] array = Strings.Split(ss, separator, -1, CompareMethod.Binary);
 			this.AppearanceStyle = (Chartlet.AppearanceStyles)Convert.ToInt32(array[0]);
 			this.Alpha3D = Convert.ToByte(array[1]);
-			this.AutoBarWidth = Convert.ToBoolean(array[2]);
+			this.AutoBarWidth = DataTypeConversion.ToBoolean(array[2]);
 			this.AxisX = Module2.RestoreArrayFromString2(array[3]);
 			this.Background.Highlight = Module1.ConvertStringToColor(array[4]);
 			this.Background.Lowlight = Module1.ConvertStringToColor(array[5]);
@@ -1528,19 +1528,19 @@ namespace LuoEasyPrint
 			this.ChartTitle.Font = Module1.ConvertStringToFont(array[11]);
 			this.ChartTitle.OffsetY = Convert.ToInt32(array[12]);
 			this.ChartTitle.Text = array[13];
-			this.ChartTitle.Show = Convert.ToBoolean(array[14]);
+			this.ChartTitle.Show = DataTypeConversion.ToBoolean(array[14]);
 			this.ChartType = (Chartlet.ChartTypes)Convert.ToInt32(array[15]);
-			this.Colorful = Convert.ToBoolean(array[16]);
+			this.Colorful = DataTypeConversion.ToBoolean(array[16]);
 			this.ColorGuider.BackColor = Module1.ConvertStringToColor(array[17]);
 			this.ColorGuider.ForeColor = Module1.ConvertStringToColor(array[18]);
 			this.ColorGuider.Font = Module1.ConvertStringToFont(array[19]);
-			this.ColorGuider.Show = Convert.ToBoolean(array[20]);
+			this.ColorGuider.Show = DataTypeConversion.ToBoolean(array[20]);
 			this.CopyrightText = array[21];
-			this.ShowCopyright = Convert.ToBoolean(array[22]);
+			this.ShowCopyright = DataTypeConversion.ToBoolean(array[22]);
 			this.Crystal.Contraction = Convert.ToInt32(array[23]);
-			this.Crystal.CoverFull = Convert.ToBoolean(array[24]);
+			this.Crystal.CoverFull = DataTypeConversion.ToBoolean(array[24]);
 			this.Crystal.Direction = (Chartlet.Direction)Convert.ToInt32(array[25]);
-			this.Crystal.Enable = Convert.ToBoolean(array[26]);
+			this.Crystal.Enable = DataTypeConversion.ToBoolean(array[26]);
 			this.Depth3D = Convert.ToInt32(array[27]);
 			this.Dimension = (Chartlet.ChartDimensions)Convert.ToInt32(array[28]);
 			this.Fill.Color1 = Module1.ConvertStringToColor(array[29]);
@@ -1548,7 +1548,7 @@ namespace LuoEasyPrint
 			this.Fill.Color3 = Module1.ConvertStringToColor(array[31]);
 			this.Fill.ColorStyle = (Chartlet.ColorStyles)Convert.ToInt32(array[32]);
 			this.Fill.ShiftStep = Convert.ToInt32(array[33]);
-			this.Fill.TextureEnable = Convert.ToBoolean(array[34]);
+			this.Fill.TextureEnable = DataTypeConversion.ToBoolean(array[34]);
 			this.Fill.TextureStyle = (HatchStyle)Convert.ToInt32(array[35]);
 			this.GroupSize = Convert.ToInt32(array[36]);
 			this.InflateBottom = Convert.ToInt32(array[37]);
@@ -1560,13 +1560,13 @@ namespace LuoEasyPrint
 			this.MaxValueY = Convert.ToDouble(array[43]);
 			this.MinValueY = Convert.ToDouble(array[44]);
 			this.RoundRadius = Convert.ToInt32(array[45]);
-			this.RoundRectangle = Convert.ToBoolean(array[46]);
-			this.ShowErrorInfo = Convert.ToBoolean(array[47]);
+			this.RoundRectangle = DataTypeConversion.ToBoolean(array[46]);
+			this.ShowErrorInfo = DataTypeConversion.ToBoolean(array[47]);
 			this.SpecLine.Color = Module1.ConvertStringToColor(array[48]);
-			this.SpecLine.EnableTexture = Convert.ToBoolean(array[49]);
+			this.SpecLine.EnableTexture = DataTypeConversion.ToBoolean(array[49]);
 			this.SpecLine.HighLimit = Convert.ToInt32(array[50]);
 			this.SpecLine.LowLimit = Convert.ToInt32(array[51]);
-			this.SpecLine.Show = Convert.ToBoolean(array[52]);
+			this.SpecLine.Show = DataTypeConversion.ToBoolean(array[52]);
 			this.SpecLine.Width = Convert.ToInt32(array[53]);
 			this.SpecLine.TextureStyle = (HatchStyle)Convert.ToInt32(array[54]);
 			this.Stroke.Color1 = Module1.ConvertStringToColor(array[55]);
@@ -1574,13 +1574,13 @@ namespace LuoEasyPrint
 			this.Stroke.Color3 = Module1.ConvertStringToColor(array[57]);
 			this.Stroke.ColorStyle = (Chartlet.ColorStyles)Convert.ToInt32(array[58]);
 			this.Stroke.ShiftStep = Convert.ToInt32(array[59]);
-			this.Stroke.TextureEnable = Convert.ToBoolean(array[60]);
+			this.Stroke.TextureEnable = DataTypeConversion.ToBoolean(array[60]);
 			this.Stroke.TextureStyle = (HatchStyle)Convert.ToInt32(array[61]);
 			this.Stroke.Width = Convert.ToInt32(array[62]);
 			this.Tips.BackColor = Module1.ConvertStringToColor(array[63]);
 			this.Tips.ForeColor = Module1.ConvertStringToColor(array[64]);
 			this.Tips.Font = Module1.ConvertStringToFont(array[65]);
-			this.Tips.Show = Convert.ToBoolean(array[66]);
+			this.Tips.Show = DataTypeConversion.ToBoolean(array[66]);
 			this.Trend.EndString = array[67];
 			this.Trend.StartString = array[68];
 			this.Trend.TimeSpan = (Chartlet.TimeSpanTypes)Convert.ToInt32(array[69]);
@@ -1592,7 +1592,7 @@ namespace LuoEasyPrint
 			this.XLabels.LabelCount = Convert.ToInt32(array[75]);
 			this.XLabels.RotateAngle = Convert.ToSingle(array[76]);
 			this.XLabels.SampleSize = Convert.ToInt32(array[77]);
-			this.XLabels.Show = Convert.ToBoolean(array[78]);
+			this.XLabels.Show = DataTypeConversion.ToBoolean(array[78]);
 			this.XLabels.UnitText = array[79];
 			this.XLabels.ValueFormat = array[80];
 			this.YLabels.BackColor = Module1.ConvertStringToColor(array[81]);
@@ -1600,7 +1600,7 @@ namespace LuoEasyPrint
 			this.YLabels.Font = Module1.ConvertStringToFont(array[83]);
 			this.YLabels.UnitFont = Module1.ConvertStringToFont(array[84]);
 			this.YLabels.LabelCount = Convert.ToInt32(array[85]);
-			this.YLabels.Show = Convert.ToBoolean(array[86]);
+			this.YLabels.Show = DataTypeConversion.ToBoolean(array[86]);
 			this.YLabels.UnitText = array[87];
 			this.YLabels.ValueFormat = array[88];
 			this.GroupTitle = Module2.RestoreArrayFromString2(array[89]);
@@ -1611,7 +1611,7 @@ namespace LuoEasyPrint
 			this.BarPenColor = Module2.RestoreArrayFromString3(array[94]);
 			try
 			{
-				this.IsRightAngle = Convert.ToBoolean(array[95]);
+				this.IsRightAngle = DataTypeConversion.ToBoolean(array[95]);
 			}
 			catch (Exception ex)
 			{

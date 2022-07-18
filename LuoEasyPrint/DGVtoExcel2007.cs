@@ -575,7 +575,7 @@ namespace LuoEasyPrint
                                         }
                                         else if (String.Compare(Versioned.TypeName(mydgv.Columns[array3[j]]), "DataGridViewCheckBoxColumn", false) == 0)
                                         {
-                                            if (mydgv.Rows[i].Cells[array3[j]].Value != null && Convert.ToBoolean(mydgv.Rows[i].Cells[array3[j]].FormattedValue))
+                                            if (mydgv.Rows[i].Cells[array3[j]].Value != null && DataTypeConversion.ToBoolean(mydgv.Rows[i].Cells[array3[j]].FormattedValue))
                                             {
                                                 DGVtoExcel2007.SetCellValue(xssfsheet, num6 + i, j, true);
                                             }

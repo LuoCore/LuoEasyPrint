@@ -268,7 +268,7 @@ namespace LuoEasyPrint
 										{
 											if (mydgv.Rows[i].Cells[array3[j]].Value != null)
 											{
-												if (Convert.ToBoolean(mydgv.Rows[i].Cells[array3[j]].FormattedValue))
+												if (DataTypeConversion.ToBoolean(mydgv.Rows[i].Cells[array3[j]].FormattedValue))
 												{
 													valueTypes2 = newDGVtoExcel.ValueTypes.xlsText;
 													newDGVtoExcel newDGVtoExcel7 = newDGVtoExcel;

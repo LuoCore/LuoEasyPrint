@@ -4793,7 +4793,7 @@ namespace LuoEasyPrint
 							}
 							if (String.Compare(Versioned.TypeName(RuntimeHelpers.GetObjectValue(dgvcell.FormattedValue)), "Boolean", false) == 0)
 							{
-								if (Convert.ToBoolean(dgvcell.FormattedValue))
+								if (DataTypeConversion.ToBoolean(dgvcell.FormattedValue))
 								{
 									checkBox.Checked = true;
 								}
@@ -7514,7 +7514,7 @@ namespace LuoEasyPrint
 														float myheight2 = Convert.ToSingle(array2[4]);
 														string s = array2[5];
 														object obj5 = colorConverter.ConvertFromString(array2[6]);
-														this.MydrawtextHollow(x6, y6, mywidth2, myheight2, s, (obj5 != null) ? ((Color)obj5) : color, myHalg, myValg, Convert.ToBoolean(array2[9]), Convert.ToBoolean(array2[10]), Convert.ToBoolean(array2[11]), Convert.ToBoolean(array2[12]), Convert.ToSingle(Convert.ToDecimal(array2[13])));
+														this.MydrawtextHollow(x6, y6, mywidth2, myheight2, s, (obj5 != null) ? ((Color)obj5) : color, myHalg, myValg, DataTypeConversion.ToBoolean(array2[9]), DataTypeConversion.ToBoolean(array2[10]), DataTypeConversion.ToBoolean(array2[11]), DataTypeConversion.ToBoolean(array2[12]), Convert.ToSingle(Convert.ToDecimal(array2[13])));
 														goto IL_13C2;
 													}
 													float x7 = Convert.ToSingle(array2[1]);
@@ -7806,7 +7806,7 @@ namespace LuoEasyPrint
 										{
 											if (array2.Length > 10)
 											{
-												this.MyDrawText2(Convert.ToSingle(array2[1]), Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), array2[5], array2[6], myHalg, myValg, Convert.ToBoolean(array2[9]), Convert.ToBoolean(array2[10]), Convert.ToBoolean(array2[11]), Convert.ToBoolean(array2[12]));
+												this.MyDrawText2(Convert.ToSingle(array2[1]), Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), array2[5], array2[6], myHalg, myValg, DataTypeConversion.ToBoolean(array2[9]), DataTypeConversion.ToBoolean(array2[10]), DataTypeConversion.ToBoolean(array2[11]), DataTypeConversion.ToBoolean(array2[12]));
 												goto IL_13C2;
 											}
 											this.MyDrawText2(Convert.ToSingle(array2[1]), Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), array2[5], array2[6], myHalg, myValg, (StringFormatFlags)Convert.ToInt32(array2[9]));
@@ -7822,7 +7822,7 @@ namespace LuoEasyPrint
 												float myheight8 = Convert.ToSingle(array2[4]);
 												string s3 = array2[5];
 												object obj11 = colorConverter.ConvertFromString(array2[6]);
-												this.MyDrawText(x12, y12, mywidth8, myheight8, s3, (obj11 != null) ? ((Color)obj11) : color, myHalg, myValg, Convert.ToBoolean(array2[9]), Convert.ToBoolean(array2[10]), Convert.ToBoolean(array2[11]), Convert.ToBoolean(array2[12]));
+												this.MyDrawText(x12, y12, mywidth8, myheight8, s3, (obj11 != null) ? ((Color)obj11) : color, myHalg, myValg, DataTypeConversion.ToBoolean(array2[9]), DataTypeConversion.ToBoolean(array2[10]), DataTypeConversion.ToBoolean(array2[11]), DataTypeConversion.ToBoolean(array2[12]));
 												goto IL_13C2;
 											}
 											float x13 = Convert.ToSingle(array2[1]);
@@ -15958,7 +15958,7 @@ namespace LuoEasyPrint
 						return;
 					}
 					}
-					this.DrawCellImage(myimage, x, y, mywidth, myheight, linecolor, myborder, Convert.ToBoolean(Interaction.IIf(imageCellLayout == DataGridViewImageCellLayout.Stretch, true, false)), StringAlignment.Center, StringAlignment.Center);
+					this.DrawCellImage(myimage, x, y, mywidth, myheight, linecolor, myborder, DataTypeConversion.ToBoolean(Interaction.IIf(imageCellLayout == DataGridViewImageCellLayout.Stretch, true, false)), StringAlignment.Center, StringAlignment.Center);
 				}
 			}
 		}
@@ -23452,7 +23452,7 @@ namespace LuoEasyPrint
 										}
 										StringAlignment valign = mbsjmodule.GetValign(label.TextAlign);
 										StringAlignment myHalg = mbsjmodule.GetHalign(label.TextAlign);
-										this.DrawCell(label.Text, mywidth, num8, label.Font, textforecolor, Convert.ToString(Interaction.IIf(label.BorderStyle == BorderStyle.None, "0000", "1111")), myHalg, valign, Convert.ToBoolean(Interaction.IIf(label.AutoSize, false, true)), true, false, false, 20f, backcolor, Color.Black, 0);
+										this.DrawCell(label.Text, mywidth, num8, label.Font, textforecolor, Convert.ToString(Interaction.IIf(label.BorderStyle == BorderStyle.None, "0000", "1111")), myHalg, valign, DataTypeConversion.ToBoolean(Interaction.IIf(label.AutoSize, false, true)), true, false, false, 20f, backcolor, Color.Black, 0);
 									}
 									else
 									{
@@ -24430,7 +24430,7 @@ namespace LuoEasyPrint
 			try
 			{
 				linearGradientBrush = new LinearGradientBrush(rect, color, color2, (LinearGradientMode)Convert.ToInt32(array[8]));
-				linearGradientBrush.GammaCorrection = Convert.ToBoolean(array[0]);
+				linearGradientBrush.GammaCorrection = DataTypeConversion.ToBoolean(array[0]);
 				linearGradientBrush.WrapMode = (WrapMode)Convert.ToInt32(array[7]);
 				linearGradientBrush.Blend = new Blend
 				{
@@ -24443,7 +24443,7 @@ namespace LuoEasyPrint
 				try
 				{
 					linearGradientBrush = new LinearGradientBrush(rect, color, color2, LinearGradientMode.Horizontal);
-					linearGradientBrush.GammaCorrection = Convert.ToBoolean(array[0]);
+					linearGradientBrush.GammaCorrection = DataTypeConversion.ToBoolean(array[0]);
 					linearGradientBrush.WrapMode = (WrapMode)Convert.ToInt32(array[7]);
 				}
 				catch (Exception ex2)
@@ -24497,7 +24497,7 @@ namespace LuoEasyPrint
 			try
 			{
 				linearGradientBrush = new LinearGradientBrush(rect, color, color2, Convert.ToSingle(array[8]));
-				linearGradientBrush.GammaCorrection = Convert.ToBoolean(array[0]);
+				linearGradientBrush.GammaCorrection = DataTypeConversion.ToBoolean(array[0]);
 				linearGradientBrush.WrapMode = (WrapMode)Convert.ToInt32(array[7]);
 				linearGradientBrush.Blend = new Blend
 				{
@@ -24510,7 +24510,7 @@ namespace LuoEasyPrint
 				try
 				{
 					linearGradientBrush = new LinearGradientBrush(rect, color, color2, LinearGradientMode.Horizontal);
-					linearGradientBrush.GammaCorrection = Convert.ToBoolean(array[0]);
+					linearGradientBrush.GammaCorrection = DataTypeConversion.ToBoolean(array[0]);
 					linearGradientBrush.WrapMode = (WrapMode)Convert.ToInt32(array[7]);
 				}
 				catch (Exception ex2)

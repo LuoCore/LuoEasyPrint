@@ -243,7 +243,11 @@ namespace LuoEasyPrint
         // Token: 0x060007EA RID: 2026 RVA: 0x00048528 File Offset: 0x00046728
         public static Control RestoreControl(string ss)
         {
-            string[] array = Strings.Split(ss, mbsjmodule.G_MB_Spetator_control, -1, CompareMethod.Binary);
+            string[] array = ss.Split(mbsjmodule.G_MB_Spetator_control,StringSplitOptions.RemoveEmptyEntries);
+            if(array.Length < 1) 
+            {
+                return null;
+            }
             Control control = null;
             string left = array[0];
             Control result;

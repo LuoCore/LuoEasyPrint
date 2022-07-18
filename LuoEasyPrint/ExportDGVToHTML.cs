@@ -657,7 +657,7 @@ namespace LuoEasyPrint
 								{
 									text += "  <input  type=\"checkbox\"   />";
 								}
-								else if (Convert.ToBoolean(dgv.Rows[rowindex].Cells[array[j]].FormattedValue))
+								else if (DataTypeConversion.ToBoolean(dgv.Rows[rowindex].Cells[array[j]].FormattedValue))
 								{
 									text += "  <input  type=\"checkbox\"  checked />";
 								}

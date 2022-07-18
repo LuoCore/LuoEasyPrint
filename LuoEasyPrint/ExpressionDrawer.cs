@@ -153,8 +153,8 @@ namespace LuoEasyPrint
 			this.PrintStepX = Convert.ToInt32(array2[6]);
 			this.PrintStepY = Convert.ToInt32(array2[7]);
 			this.PolarSensitivity = Convert.ToInt32(array2[8]);
-			this.Grids = Convert.ToBoolean(Interaction.IIf(String.Compare(array2[9], "1", false) == 0, true, false));
-			this.DisplayText = Convert.ToBoolean(Interaction.IIf(String.Compare(array2[10], "1", false) == 0, true, false));
+			this.Grids = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array2[9], "1", false) == 0, true, false));
+			this.DisplayText = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array2[10], "1", false) == 0, true, false));
 			this.GraphMode = (GraphMode)Convert.ToInt32(array2[11]);
 			this.PenWidth = Convert.ToInt32(array2[12]);
 			this.ScaleFont = Module1.ConvertStringToFont(array2[13]);

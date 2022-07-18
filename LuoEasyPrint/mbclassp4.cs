@@ -442,7 +442,7 @@ namespace LuoEasyPrint
 				}
 				else if (String.Compare(left, "addemptyrows", false) == 0)
 				{
-					this.mycc.AddEmptyRows = Convert.ToBoolean(value);
+					this.mycc.AddEmptyRows = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "height", false) == 0)
 				{

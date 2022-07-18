@@ -605,7 +605,7 @@ namespace LuoEasyPrint
 				string left = this.theProp.ToLower();
 				if (String.Compare(left, "isprint", false) == 0)
 				{
-					this.mycc.IsPrint = Convert.ToBoolean(value);
+					this.mycc.IsPrint = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "x", false) == 0)
 				{

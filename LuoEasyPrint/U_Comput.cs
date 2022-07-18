@@ -928,24 +928,24 @@ namespace LuoEasyPrint
 			this.LineWidth = Convert.ToSingle(array[4]);
 			this.LineColor = Module1.ConvertStringToColor(array[5]);
 			this.EHeight = Convert.ToSingle(array[6]);
-			this.LeftBorder = Convert.ToBoolean(Interaction.IIf(String.Compare(array[7], "1", false) == 0, true, false));
-			this.RightBorder = Convert.ToBoolean(Interaction.IIf(String.Compare(array[8], "1", false) == 0, true, false));
-			this.TopBorder = Convert.ToBoolean(Interaction.IIf(String.Compare(array[9], "1", false) == 0, true, false));
-			this.BottomBorder = Convert.ToBoolean(Interaction.IIf(String.Compare(array[10], "1", false) == 0, true, false));
+			this.LeftBorder = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array[7], "1", false) == 0, true, false));
+			this.RightBorder = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array[8], "1", false) == 0, true, false));
+			this.TopBorder = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array[9], "1", false) == 0, true, false));
+			this.BottomBorder = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array[10], "1", false) == 0, true, false));
 			this.FilledColor = Module1.ConvertStringToColor(array[11]);
 			this.TextAlign = (ContentAlignment)Convert.ToInt32(array[12]);
 			this.TextFont = Module1.ConvertStringToFont(array[13]);
 			this.TextColor = Module1.ConvertStringToColor(array[14]);
 			this.Cols = Convert.ToInt32(array[15]);
-			this.Mulline = Convert.ToBoolean(Interaction.IIf(String.Compare(array[16], "1", false) == 0, true, false));
+			this.Mulline = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array[16], "1", false) == 0, true, false));
 			this.Margins = new Margins(Convert.ToInt32(array[17]), Convert.ToInt32(array[18]), Convert.ToInt32(array[19]), Convert.ToInt32(array[20]));
 			this.TextValue = array[21];
 			this.BeforeText = array[22];
 			this.Format = array[23];
 			this.TextType = (U_Comput.Compute_Type)Convert.ToInt32(array[24]);
-			this.Direction = Convert.ToBoolean(Interaction.IIf(String.Compare(array[25], "1", false) == 0, true, false));
-			this.IsTdBorder = Convert.ToBoolean(Interaction.IIf(String.Compare(array[26], "1", false) == 0, true, false));
-			this.IsTdBackColor = Convert.ToBoolean(Interaction.IIf(String.Compare(array[27], "1", false) == 0, true, false));
+			this.Direction = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array[25], "1", false) == 0, true, false));
+			this.IsTdBorder = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array[26], "1", false) == 0, true, false));
+			this.IsTdBackColor = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array[27], "1", false) == 0, true, false));
 		}
 
 		// Token: 0x06000ACD RID: 2765 RVA: 0x0005E614 File Offset: 0x0005C814
@@ -1356,7 +1356,7 @@ namespace LuoEasyPrint
 				string left = this.theProp.ToLower();
 				if (String.Compare(left, "isprint", false) == 0)
 				{
-					this.mycc.IsPrint = Convert.ToBoolean(value);
+					this.mycc.IsPrint = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "x", false) == 0)
 				{
@@ -1411,23 +1411,23 @@ namespace LuoEasyPrint
 				}
 				else if (String.Compare(left, "mulline", false) == 0)
 				{
-					this.mycc.Mulline = Convert.ToBoolean(value);
+					this.mycc.Mulline = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "leftborder", false) == 0)
 				{
-					this.mycc.LeftBorder = Convert.ToBoolean(value);
+					this.mycc.LeftBorder = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "rightborder", false) == 0)
 				{
-					this.mycc.RightBorder = Convert.ToBoolean(value);
+					this.mycc.RightBorder = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "topborder", false) == 0)
 				{
-					this.mycc.TopBorder = Convert.ToBoolean(value);
+					this.mycc.TopBorder = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "bottomborder", false) == 0)
 				{
-					this.mycc.BottomBorder = Convert.ToBoolean(value);
+					this.mycc.BottomBorder = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "margins", false) == 0)
 				{
@@ -1435,7 +1435,7 @@ namespace LuoEasyPrint
 				}
 				else if (String.Compare(left, "direction", false) == 0)
 				{
-					this.mycc.Direction = Convert.ToBoolean(value);
+					this.mycc.Direction = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "beforetext", false) == 0)
 				{
@@ -1451,11 +1451,11 @@ namespace LuoEasyPrint
 				}
 				else if (String.Compare(left, "istdborder", false) == 0)
 				{
-					this.mycc.IsTdBorder = Convert.ToBoolean(value);
+					this.mycc.IsTdBorder = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "istdbackcolor", false) == 0)
 				{
-					this.mycc.IsTdBackColor = Convert.ToBoolean(value);
+					this.mycc.IsTdBackColor = DataTypeConversion.ToBoolean(value);
 				}
 				else
 				{

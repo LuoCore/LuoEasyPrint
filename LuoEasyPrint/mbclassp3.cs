@@ -465,7 +465,7 @@ namespace LuoEasyPrint
                 }
                 else if (String.Compare(left, "backpicturemode", false) == 0)
                 {
-                    this.mycc.BackPictureMode = Convert.ToBoolean(value);
+                    this.mycc.BackPictureMode = DataTypeConversion.ToBoolean(value);
                 }
                 else if (String.Compare(left, "height", false) == 0)
                 {

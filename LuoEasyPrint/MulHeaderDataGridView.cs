@@ -326,7 +326,7 @@ namespace LuoEasyPrint
                     checkBox.BackColor = Module1.GetDGVCellBackColor(this.Rows[rowindex].Cells[colindex]);
                     if (String.Compare(Versioned.TypeName(RuntimeHelpers.GetObjectValue(e.FormattedValue)), "Boolean", false) == 0)
                     {
-                        if (Convert.ToBoolean(e.FormattedValue))
+                        if (DataTypeConversion.ToBoolean(e.FormattedValue))
                         {
                             checkBox.Checked = true;
                         }

@@ -1840,7 +1840,7 @@ namespace LuoEasyPrint
                             int num6 = num4;
                             for (int j = num5; j <= num6; j++)
                             {
-                                this.DrawRowEmpty(j, Convert.ToBoolean(Interaction.IIf(j == num4, true, false)), true);
+                                this.DrawRowEmpty(j, DataTypeConversion.ToBoolean(Interaction.IIf(j == num4, true, false)), true);
                             }
                         }
                         else
@@ -1849,7 +1849,7 @@ namespace LuoEasyPrint
                             int num8 = num4 - 1;
                             for (int k = num7; k <= num8; k++)
                             {
-                                this.DrawRowEmpty(k, Convert.ToBoolean(Interaction.IIf(k == num4 - 1, true, false)), true);
+                                this.DrawRowEmpty(k, DataTypeConversion.ToBoolean(Interaction.IIf(k == num4 - 1, true, false)), true);
                             }
                         }
                     }
@@ -1920,7 +1920,7 @@ namespace LuoEasyPrint
                             int num14 = num12;
                             for (int m = num13; m <= num14; m++)
                             {
-                                this.DrawRowEmpty(m, Convert.ToBoolean(Interaction.IIf(m == num12, true, false)), true);
+                                this.DrawRowEmpty(m, DataTypeConversion.ToBoolean(Interaction.IIf(m == num12, true, false)), true);
                             }
                         }
                         else
@@ -1929,7 +1929,7 @@ namespace LuoEasyPrint
                             int num16 = num12 - 1;
                             for (int n = num15; n <= num16; n++)
                             {
-                                this.DrawRowEmpty(n, Convert.ToBoolean(Interaction.IIf(n == num12 - 1, true, false)), true);
+                                this.DrawRowEmpty(n, DataTypeConversion.ToBoolean(Interaction.IIf(n == num12 - 1, true, false)), true);
                             }
                         }
                     }

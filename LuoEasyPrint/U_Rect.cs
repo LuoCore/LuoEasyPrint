@@ -66,7 +66,7 @@ namespace LuoEasyPrint
 
         public void RestoreFromString(string ss)
         {
-            string[] array = ss.Split(mbsjmodule.G_MB_Spetator_Proper, -1, StringSplitOptions.RemoveEmptyEntries);
+            string[] array = ss.Split(mbsjmodule.G_MB_Spetator_Proper, StringSplitOptions.RemoveEmptyEntries);
             if (String.Compare(array[0], "1", false) == 0)
             {
                 this.IsPrint = true;
@@ -552,7 +552,7 @@ namespace LuoEasyPrint
                 string left = this.theProp.ToLower();
                 if (String.Compare(left, "isprint", false) == 0)
                 {
-                    this.mycc.IsPrint = Convert.ToBoolean(value);
+                    this.mycc.IsPrint = DataTypeConversion.ToBoolean(value);
                 }
                 else if (String.Compare(left, "x", false) == 0)
                 {

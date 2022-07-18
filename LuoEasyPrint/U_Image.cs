@@ -682,10 +682,10 @@ namespace LuoEasyPrint
 			this.LineWidth = Convert.ToSingle(array[4]);
 			this.LineColor = Module1.ConvertStringToColor(array[5]);
 			this.EHeight = Convert.ToSingle(array[6]);
-			this.LeftBorder = Convert.ToBoolean(Interaction.IIf(String.Compare(array[7], "1", false) == 0, true, false));
-			this.RightBorder = Convert.ToBoolean(Interaction.IIf(String.Compare(array[8], "1", false) == 0, true, false));
-			this.TopBorder = Convert.ToBoolean(Interaction.IIf(String.Compare(array[9], "1", false) == 0, true, false));
-			this.BottomBorder = Convert.ToBoolean(Interaction.IIf(String.Compare(array[10], "1", false) == 0, true, false));
+			this.LeftBorder = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array[7], "1", false) == 0, true, false));
+			this.RightBorder = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array[8], "1", false) == 0, true, false));
+			this.TopBorder = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array[9], "1", false) == 0, true, false));
+			this.BottomBorder = DataTypeConversion.ToBoolean(Interaction.IIf(String.Compare(array[10], "1", false) == 0, true, false));
 			this.Img = Module1.ConvertStringToImage(array[11]);
 			if (array.Length >= 13)
 			{
@@ -978,7 +978,7 @@ namespace LuoEasyPrint
 				string left = this.theProp.ToLower();
 				if (String.Compare(left, "isprint", false) == 0)
 				{
-					this.mycc.IsPrint = Convert.ToBoolean(value);
+					this.mycc.IsPrint = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "x", false) == 0)
 				{
@@ -1007,19 +1007,19 @@ namespace LuoEasyPrint
 				}
 				else if (String.Compare(left, "leftborder", false) == 0)
 				{
-					this.mycc.LeftBorder = Convert.ToBoolean(value);
+					this.mycc.LeftBorder = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "rightborder", false) == 0)
 				{
-					this.mycc.RightBorder = Convert.ToBoolean(value);
+					this.mycc.RightBorder = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "topborder", false) == 0)
 				{
-					this.mycc.TopBorder = Convert.ToBoolean(value);
+					this.mycc.TopBorder = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "bottomborder", false) == 0)
 				{
-					this.mycc.BottomBorder = Convert.ToBoolean(value);
+					this.mycc.BottomBorder = DataTypeConversion.ToBoolean(value);
 				}
 				else if (String.Compare(left, "img", false) == 0)
 				{
