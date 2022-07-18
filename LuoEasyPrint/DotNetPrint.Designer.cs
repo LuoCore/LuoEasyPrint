@@ -866,7 +866,7 @@ namespace LuoEasyPrint
 
 		#endregion
 		private Font myZDXfont;
-		private Font mywatermarkfont;
+	
 		private Font myfont;
 		private PrintDocument Pd;
 		private PageSetupDialog PageSetupDialog1;
