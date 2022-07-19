@@ -37,7 +37,7 @@ namespace LuoEasyPrint
 	[Description("可混合打印窗口中的一个或多个DataGridView表格及文本和图片等的可视化打印控件。注意请不要被名称误解了，控件在.NET环境下的C#等语言中也是可以使用的(6.01版，net2.0)")]
 	public class VB2008Print : UserControl, objsafe.IObjectSafety
 	{
-		// Token: 0x06001247 RID: 4679 RVA: 0x00090608 File Offset: 0x0008E808
+		// Token: 0x06001247 RID: 4679 RVA: 0x00090608 File Offset: 0x0008E808QueryDefaultPageSettingsEventHandler
 		[DebuggerNonUserCode]
 		protected override void Dispose(bool disposing)
 		{
@@ -70,760 +70,18 @@ namespace LuoEasyPrint
 		[DebuggerStepThrough]
 		private void InitializeComponent()
 		{
-			this.components = new Container();
-			DataGridViewCellStyle dataGridViewCellStyle = new DataGridViewCellStyle();
-			DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-			DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-			DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-			DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-			DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-			ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof(VB2008Print));
-			this.Pd = new PrintDocument();
-			this.PageSetupDialog1 = new PageSetupDialog();
-			this.PrintDialog1 = new PrintDialog();
-			this.SaveFileDialog1 = new SaveFileDialog();
-			this.OpenFileDialog1 = new OpenFileDialog();
-			this.ContextMenuStrip1 = new ContextMenuStrip(this.components);
-			this.ToolStripMenuItem_0 = new ToolStripMenuItem();
-			this.ToolStripMenuItem_5 = new ToolStripMenuItem();
-			this.ToolStripMenuItem_1 = new ToolStripMenuItem();
-			this.ToolStripMenuItem13 = new ToolStripSeparator();
-			this.ToolStripMenuItem_2 = new ToolStripMenuItem();
-			this.ToolStripMenuItem14 = new ToolStripSeparator();
-			this.ToolStripMenuItem_3 = new ToolStripMenuItem();
-			this.ToolStripMenuItem_4 = new ToolStripMenuItem();
-			this.ToolStripMenuItem12 = new ToolStripSeparator();
-			this.ToolStripMenuItem_6 = new ToolStripMenuItem();
-			this.ColorDialog1 = new ColorDialog();
-			this.myms = new DataGridView();
-			this.mydgv2 = new DataGridView();
-			this.tempdgv = new DataGridView();
-			this.BeforePreviewD = new PrintDocument();
-			this.pagesetup = new ToolStripButton();
-			this.ToolStripSeparator2 = new ToolStripSeparator();
-			this.myopen = new ToolStripButton();
-			this.ToolStripSeparator3 = new ToolStripSeparator();
-			this.mybl = new ToolStripDropDownButton();
-			this.ToolStripMenuItem11 = new ToolStripMenuItem();
-			this.ToolStripMenuItem = new ToolStripMenuItem();
-			this.ToolStripMenuItem0 = new ToolStripMenuItem();
-			this.ToolStripMenuItem1 = new ToolStripMenuItem();
-			this.ToolStripMenuItem2 = new ToolStripMenuItem();
-			this.ToolStripMenuItem3 = new ToolStripMenuItem();
-			this.ToolStripMenuItem4 = new ToolStripMenuItem();
-			this.ToolStripMenuItem5 = new ToolStripMenuItem();
-			this.ToolStripMenuItem6 = new ToolStripMenuItem();
-			this.ToolStripMenuItem7 = new ToolStripMenuItem();
-			this.ToolStripMenuItem8 = new ToolStripMenuItem();
-			this.ToolStripMenuItem9 = new ToolStripMenuItem();
-			this.ToolStripMenuItem10 = new ToolStripMenuItem();
-			this.ToolStripSeparator4 = new ToolStripSeparator();
-			this.ToolStripMenuItem_16 = new ToolStripMenuItem();
-			this.mycolsperpage = new ToolStripDropDownButton();
-			this.ToolStripMenuItem_7 = new ToolStripMenuItem();
-			this.ToolStripMenuItem_8 = new ToolStripMenuItem();
-			this.ToolStripMenuItem_9 = new ToolStripMenuItem();
-			this.ToolStripMenuItem_10 = new ToolStripMenuItem();
-			this.ToolStripMenuItem_11 = new ToolStripMenuItem();
-			this.ToolStripMenuItem_12 = new ToolStripMenuItem();
-			this.ToolStripMenuItem_13 = new ToolStripMenuItem();
-			this.ToolStripMenuItem_14 = new ToolStripMenuItem();
-			this.myshowtype = new ToolStripDropDownButton();
-			this.mytype1 = new ToolStripMenuItem();
-			this.mytype2 = new ToolStripMenuItem();
-			this.cpage = new ToolStripComboBox();
-			this.ToolStripSeparator1 = new ToolStripSeparator();
-			this.mystatus = new ToolStripLabel();
-			this.ToolStripSeparator6 = new ToolStripSeparator();
-			this.fpage = new ToolStripButton();
-			this.ppage = new ToolStripButton();
-			this.npage = new ToolStripButton();
-			this.lpage = new ToolStripButton();
-			this.ToolStripSeparator5 = new ToolStripSeparator();
-			this.zdybutton = new ToolStripButton();
-			this.ToolStrip1 = new ToolStrip();
-			this.printd = new ToolStripSplitButton();
-			this.dy1 = new ToolStripMenuItem();
-			this.dy2 = new ToolStripMenuItem();
-			this.dy3 = new ToolStripMenuItem();
-			this.ToolStripMenuItem17 = new ToolStripSeparator();
-			this.dy4 = new ToolStripMenuItem();
-			this.dy5 = new ToolStripMenuItem();
-			this.ToolStripMenuItem16 = new ToolStripSeparator();
-			this.cgprint = new ToolStripMenuItem();
-			this.mysave = new ToolStripSplitButton();
-			this.ToolStripMenuItem15 = new ToolStripMenuItem();
-			this.ToolStripMenuItem_15 = new ToolStripMenuItem();
-			this.savepdf = new ToolStripSeparator();
-			this.saveaspdfcur = new ToolStripMenuItem();
-			this.saveaspdfall = new ToolStripMenuItem();
-			this.ToolStripSeparator7 = new ToolStripSeparator();
-			this.ToolStripMenuItem_17 = new ToolStripMenuItem();
-			this.ToolStripMenuItem_18 = new ToolStripMenuItem();
-			this.ZDYButton2 = new ToolStripButton();
-			this.ToolTip1 = new ToolTip(this.components);
-			this.PrintPreviewControl1 = new PrintPreviewControl();
-			this.ContextMenuStrip1.SuspendLayout();
-			((ISupportInitialize)this.myms).BeginInit();
-			((ISupportInitialize)this.mydgv2).BeginInit();
-			((ISupportInitialize)this.tempdgv).BeginInit();
-			this.ToolStrip1.SuspendLayout();
-			this.SuspendLayout();
-			this.Pd.DocumentName = "VB2008打印控件";
-			this.PageSetupDialog1.Document = this.Pd;
-			this.PageSetupDialog1.EnableMetric = true;
-			this.PrintDialog1.AllowSomePages = true;
-			this.PrintDialog1.Document = this.Pd;
-			this.PrintDialog1.ShowNetwork = false;
-			this.PrintDialog1.UseEXDialog = true;
-			this.SaveFileDialog1.Filter = "报表文件(*.you)|*.you";
-			this.OpenFileDialog1.Filter = "报表文件(*.you)|*.you";
-			this.ContextMenuStrip1.Items.AddRange(new ToolStripItem[]
-			{
-				this.ToolStripMenuItem_0,
-				this.ToolStripMenuItem_5,
-				this.ToolStripMenuItem_1,
-				this.ToolStripMenuItem13,
-				this.ToolStripMenuItem_2,
-				this.ToolStripMenuItem14,
-				this.ToolStripMenuItem_3,
-				this.ToolStripMenuItem_4,
-				this.ToolStripMenuItem12,
-				this.ToolStripMenuItem_6
-			});
-			this.ContextMenuStrip1.Name = "ContextMenuStrip1";
-			Control contextMenuStrip = this.ContextMenuStrip1;
-			Size size = new Size(161, 176);
-			contextMenuStrip.Size = size;
-			this.ToolStripMenuItem_0.Image = Properties.Resources.printer1;
-			this.ToolStripMenuItem_0.Name = "打印全部";
-			ToolStripItem toolStripItem = this.ToolStripMenuItem_0;
-			size = new Size(160, 22);
-			toolStripItem.Size = size;
-			this.ToolStripMenuItem_0.Text = "打印全部页";
-			this.ToolStripMenuItem_5.Image = Properties.Resources.printer1;
-			this.ToolStripMenuItem_5.Name = "打印当前页";
-			ToolStripItem toolStripItem2 = this.ToolStripMenuItem_5;
-			size = new Size(160, 22);
-			toolStripItem2.Size = size;
-			this.ToolStripMenuItem_5.Text = "打印当前页";
-			this.ToolStripMenuItem_1.Image = Properties.Resources.printer1;
-			this.ToolStripMenuItem_1.Name = "打印";
-			ToolStripItem toolStripItem3 = this.ToolStripMenuItem_1;
-			size = new Size(160, 22);
-			toolStripItem3.Size = size;
-			this.ToolStripMenuItem_1.Text = "打印……";
-			this.ToolStripMenuItem_1.ToolTipText = "选择打印机和打印范围打印";
-			this.ToolStripMenuItem13.Name = "ToolStripMenuItem13";
-			ToolStripItem toolStripMenuItem = this.ToolStripMenuItem13;
-			size = new Size(157, 6);
-			toolStripMenuItem.Size = size;
-			this.ToolStripMenuItem_2.Image = Properties.Resources.page1;
-			this.ToolStripMenuItem_2.Name = "页面设置";
-			ToolStripItem toolStripItem4 = this.ToolStripMenuItem_2;
-			size = new Size(160, 22);
-			toolStripItem4.Size = size;
-			this.ToolStripMenuItem_2.Text = "页面设置";
-			this.ToolStripMenuItem14.Name = "ToolStripMenuItem14";
-			ToolStripItem toolStripMenuItem2 = this.ToolStripMenuItem14;
-			size = new Size(157, 6);
-			toolStripMenuItem2.Size = size;
-			this.ToolStripMenuItem_3.Image = Properties.Resources.save;
-			this.ToolStripMenuItem_3.Name = "保存为报表文件";
-			ToolStripItem toolStripItem5 = this.ToolStripMenuItem_3;
-			size = new Size(160, 22);
-			toolStripItem5.Size = size;
-			this.ToolStripMenuItem_3.Text = "保存为报表文件";
-			this.ToolStripMenuItem_4.Image = Properties.Resources.foldopen;
-			this.ToolStripMenuItem_4.Name = "打开报表文件";
-			ToolStripItem toolStripItem6 = this.ToolStripMenuItem_4;
-			size = new Size(160, 22);
-			toolStripItem6.Size = size;
-			this.ToolStripMenuItem_4.Text = "打开报表文件";
-			this.ToolStripMenuItem12.Name = "ToolStripMenuItem12";
-			ToolStripItem toolStripMenuItem3 = this.ToolStripMenuItem12;
-			size = new Size(157, 6);
-			toolStripMenuItem3.Size = size;
-			this.ToolStripMenuItem_6.Name = "关于";
-			ToolStripItem toolStripItem7 = this.ToolStripMenuItem_6;
-			size = new Size(160, 22);
-			toolStripItem7.Size = size;
-			this.ToolStripMenuItem_6.Text = "关于";
-			this.ToolStripMenuItem_6.Visible = false;
-			this.myms.AllowUserToAddRows = false;
-			dataGridViewCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle.BackColor = SystemColors.Control;
-			dataGridViewCellStyle.Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 134);
-			dataGridViewCellStyle.ForeColor = SystemColors.WindowText;
-			dataGridViewCellStyle.SelectionBackColor = SystemColors.Highlight;
-			dataGridViewCellStyle.SelectionForeColor = SystemColors.HighlightText;
-			dataGridViewCellStyle.WrapMode = DataGridViewTriState.True;
-			this.myms.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle;
-			this.myms.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle2.BackColor = SystemColors.Window;
-			dataGridViewCellStyle2.Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 134);
-			dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-			dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-			dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-			dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-			this.myms.DefaultCellStyle = dataGridViewCellStyle2;
-			Control myms = this.myms;
-			Point location = new Point(103, 93);
-			myms.Location = location;
-			this.myms.Name = "myms";
-			this.myms.RowTemplate.Height = 23;
-			Control myms2 = this.myms;
-			size = new Size(10, 0);
-			myms2.Size = size;
-			this.myms.TabIndex = 3;
-			this.mydgv2.AllowUserToAddRows = false;
-			dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = SystemColors.Control;
-			dataGridViewCellStyle3.Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 134);
-			dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-			dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-			this.mydgv2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-			this.mydgv2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle4.BackColor = SystemColors.Window;
-			dataGridViewCellStyle4.Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 134);
-			dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
-			dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-			dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-			dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-			this.mydgv2.DefaultCellStyle = dataGridViewCellStyle4;
-			Control mydgv = this.mydgv2;
-			location = new Point(330, 199);
-			mydgv.Location = location;
-			this.mydgv2.Name = "mydgv2";
-			this.mydgv2.RowTemplate.Height = 23;
-			Control mydgv2 = this.mydgv2;
-			size = new Size(10, 0);
-			mydgv2.Size = size;
-			this.mydgv2.TabIndex = 4;
-			this.tempdgv.AllowUserToAddRows = false;
-			dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle5.BackColor = SystemColors.Control;
-			dataGridViewCellStyle5.Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 134);
-			dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-			dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-			dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-			dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-			this.tempdgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-			this.tempdgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle6.BackColor = SystemColors.Window;
-			dataGridViewCellStyle6.Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 134);
-			dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
-			dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-			dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-			dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-			this.tempdgv.DefaultCellStyle = dataGridViewCellStyle6;
-			Control tempdgv = this.tempdgv;
-			location = new Point(338, 207);
-			tempdgv.Location = location;
-			this.tempdgv.Name = "tempdgv";
-			this.tempdgv.RowTemplate.Height = 23;
-			Control tempdgv2 = this.tempdgv;
-			size = new Size(10, 0);
-			tempdgv2.Size = size;
-			this.tempdgv.TabIndex = 5;
-			this.pagesetup.Image = (Image)componentResourceManager.GetObject("pagesetup.Image");
-			this.pagesetup.ImageTransparentColor = Color.Magenta;
-			this.pagesetup.Name = "pagesetup";
-			ToolStripItem pagesetup = this.pagesetup;
-			size = new Size(69, 25);
-			pagesetup.Size = size;
-			this.pagesetup.Text = "页面(&U)";
-			this.pagesetup.ToolTipText = "显示页面设置对话框";
-			this.ToolStripSeparator2.Name = "ToolStripSeparator2";
-			ToolStripItem toolStripSeparator = this.ToolStripSeparator2;
-			size = new Size(6, 28);
-			toolStripSeparator.Size = size;
-			this.myopen.Image = (Image)componentResourceManager.GetObject("myopen.Image");
-			this.myopen.ImageTransparentColor = Color.Magenta;
-			this.myopen.Name = "myopen";
-			ToolStripItem myopen = this.myopen;
-			size = new Size(70, 25);
-			myopen.Size = size;
-			this.myopen.Text = "打开(&O)";
-			this.myopen.ToolTipText = "打开报表文件";
-			this.ToolStripSeparator3.Name = "ToolStripSeparator3";
-			ToolStripItem toolStripSeparator2 = this.ToolStripSeparator3;
-			size = new Size(6, 28);
-			toolStripSeparator2.Size = size;
-			this.mybl.DisplayStyle = ToolStripItemDisplayStyle.Text;
-			this.mybl.DropDownItems.AddRange(new ToolStripItem[]
-			{
-				this.ToolStripMenuItem11,
-				this.ToolStripMenuItem,
-				this.ToolStripMenuItem0,
-				this.ToolStripMenuItem1,
-				this.ToolStripMenuItem2,
-				this.ToolStripMenuItem3,
-				this.ToolStripMenuItem4,
-				this.ToolStripMenuItem5,
-				this.ToolStripMenuItem6,
-				this.ToolStripMenuItem7,
-				this.ToolStripMenuItem8,
-				this.ToolStripMenuItem9,
-				this.ToolStripMenuItem10,
-				this.ToolStripSeparator4,
-				this.ToolStripMenuItem_16
-			});
-			this.mybl.Image = (Image)componentResourceManager.GetObject("mybl.Image");
-			this.mybl.ImageTransparentColor = Color.Magenta;
-			this.mybl.Name = "mybl";
-			ToolStripItem mybl = this.mybl;
-			size = new Size(45, 25);
-			mybl.Size = size;
-			this.mybl.Text = "比例";
-			this.mybl.ToolTipText = "设置打印预览显示比例";
-			this.ToolStripMenuItem11.Name = "ToolStripMenuItem11";
-			ToolStripItem toolStripMenuItem4 = this.ToolStripMenuItem11;
-			size = new Size(172, 22);
-			toolStripMenuItem4.Size = size;
-			this.ToolStripMenuItem11.Text = "10%";
-			this.ToolStripMenuItem.Name = "ToolStripMenuItem";
-			ToolStripItem toolStripMenuItem5 = this.ToolStripMenuItem;
-			size = new Size(172, 22);
-			toolStripMenuItem5.Size = size;
-			this.ToolStripMenuItem.Text = "25%";
-			this.ToolStripMenuItem0.Name = "ToolStripMenuItem0";
-			ToolStripItem toolStripMenuItem6 = this.ToolStripMenuItem0;
-			size = new Size(172, 22);
-			toolStripMenuItem6.Size = size;
-			this.ToolStripMenuItem0.Text = "50%";
-			this.ToolStripMenuItem1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-			this.ToolStripMenuItem1.Name = "ToolStripMenuItem1";
-			ToolStripItem toolStripMenuItem7 = this.ToolStripMenuItem1;
-			size = new Size(172, 22);
-			toolStripMenuItem7.Size = size;
-			this.ToolStripMenuItem1.Text = "75%";
-			this.ToolStripMenuItem2.Checked = true;
-			this.ToolStripMenuItem2.CheckState = CheckState.Checked;
-			this.ToolStripMenuItem2.Name = "ToolStripMenuItem2";
-			ToolStripItem toolStripMenuItem8 = this.ToolStripMenuItem2;
-			size = new Size(172, 22);
-			toolStripMenuItem8.Size = size;
-			this.ToolStripMenuItem2.Text = "100%";
-			this.ToolStripMenuItem3.Name = "ToolStripMenuItem3";
-			ToolStripItem toolStripMenuItem9 = this.ToolStripMenuItem3;
-			size = new Size(172, 22);
-			toolStripMenuItem9.Size = size;
-			this.ToolStripMenuItem3.Text = "125%";
-			this.ToolStripMenuItem4.Name = "ToolStripMenuItem4";
-			ToolStripItem toolStripMenuItem10 = this.ToolStripMenuItem4;
-			size = new Size(172, 22);
-			toolStripMenuItem10.Size = size;
-			this.ToolStripMenuItem4.Text = "150%";
-			this.ToolStripMenuItem5.Name = "ToolStripMenuItem5";
-			ToolStripItem toolStripMenuItem11 = this.ToolStripMenuItem5;
-			size = new Size(172, 22);
-			toolStripMenuItem11.Size = size;
-			this.ToolStripMenuItem5.Text = "200%";
-			this.ToolStripMenuItem6.Name = "ToolStripMenuItem6";
-			ToolStripItem toolStripMenuItem12 = this.ToolStripMenuItem6;
-			size = new Size(172, 22);
-			toolStripMenuItem12.Size = size;
-			this.ToolStripMenuItem6.Text = "250%";
-			this.ToolStripMenuItem7.Name = "ToolStripMenuItem7";
-			ToolStripItem toolStripMenuItem13 = this.ToolStripMenuItem7;
-			size = new Size(172, 22);
-			toolStripMenuItem13.Size = size;
-			this.ToolStripMenuItem7.Text = "300%";
-			this.ToolStripMenuItem8.Name = "ToolStripMenuItem8";
-			ToolStripItem toolStripMenuItem14 = this.ToolStripMenuItem8;
-			size = new Size(172, 22);
-			toolStripMenuItem14.Size = size;
-			this.ToolStripMenuItem8.Text = "400%";
-			this.ToolStripMenuItem9.Name = "ToolStripMenuItem9";
-			ToolStripItem toolStripMenuItem15 = this.ToolStripMenuItem9;
-			size = new Size(172, 22);
-			toolStripMenuItem15.Size = size;
-			this.ToolStripMenuItem9.Text = "500%";
-			this.ToolStripMenuItem10.Name = "ToolStripMenuItem10";
-			ToolStripItem toolStripMenuItem16 = this.ToolStripMenuItem10;
-			size = new Size(172, 22);
-			toolStripMenuItem16.Size = size;
-			this.ToolStripMenuItem10.Text = "自适应";
-			this.ToolStripSeparator4.Name = "ToolStripSeparator4";
-			ToolStripItem toolStripSeparator3 = this.ToolStripSeparator4;
-			size = new Size(169, 6);
-			toolStripSeparator3.Size = size;
-			this.ToolStripMenuItem_16.Name = "测试ToolStripMenuItem";
-			ToolStripItem toolStripItem8 = this.ToolStripMenuItem_16;
-			size = new Size(172, 22);
-			toolStripItem8.Size = size;
-			this.ToolStripMenuItem_16.Text = "设置打印缩放比例";
-			this.mycolsperpage.DisplayStyle = ToolStripItemDisplayStyle.Text;
-			this.mycolsperpage.DropDownItems.AddRange(new ToolStripItem[]
-			{
-				this.ToolStripMenuItem_7,
-				this.ToolStripMenuItem_8,
-				this.ToolStripMenuItem_9,
-				this.ToolStripMenuItem_10,
-				this.ToolStripMenuItem_11,
-				this.ToolStripMenuItem_12,
-				this.ToolStripMenuItem_13,
-				this.ToolStripMenuItem_14
-			});
-			this.mycolsperpage.Image = (Image)componentResourceManager.GetObject("mycolsperpage.Image");
-			this.mycolsperpage.ImageTransparentColor = Color.Magenta;
-			this.mycolsperpage.Name = "mycolsperpage";
-			ToolStripItem mycolsperpage = this.mycolsperpage;
-			size = new Size(69, 21);
-			mycolsperpage.Size = size;
-			this.mycolsperpage.Text = "横向页数";
-			this.mycolsperpage.ToolTipText = "横向显示的页数";
-			this.ToolStripMenuItem_7.Checked = true;
-			this.ToolStripMenuItem_7.CheckState = CheckState.Checked;
-			this.ToolStripMenuItem_7.Name = "页ToolStripMenuItem";
-			ToolStripItem toolStripItem9 = this.ToolStripMenuItem_7;
-			size = new Size(102, 22);
-			toolStripItem9.Size = size;
-			this.ToolStripMenuItem_7.Text = "1页";
-			this.ToolStripMenuItem_8.Name = "页ToolStripMenuItem1";
-			ToolStripItem toolStripItem10 = this.ToolStripMenuItem_8;
-			size = new Size(102, 22);
-			toolStripItem10.Size = size;
-			this.ToolStripMenuItem_8.Text = "2页";
-			this.ToolStripMenuItem_9.Name = "页ToolStripMenuItem2";
-			ToolStripItem toolStripItem11 = this.ToolStripMenuItem_9;
-			size = new Size(102, 22);
-			toolStripItem11.Size = size;
-			this.ToolStripMenuItem_9.Text = "3页";
-			this.ToolStripMenuItem_10.Name = "页ToolStripMenuItem3";
-			ToolStripItem toolStripItem12 = this.ToolStripMenuItem_10;
-			size = new Size(102, 22);
-			toolStripItem12.Size = size;
-			this.ToolStripMenuItem_10.Text = "4页";
-			this.ToolStripMenuItem_11.Name = "页ToolStripMenuItem4";
-			ToolStripItem toolStripItem13 = this.ToolStripMenuItem_11;
-			size = new Size(102, 22);
-			toolStripItem13.Size = size;
-			this.ToolStripMenuItem_11.Text = "5页";
-			this.ToolStripMenuItem_12.Name = "页ToolStripMenuItem5";
-			ToolStripItem toolStripItem14 = this.ToolStripMenuItem_12;
-			size = new Size(102, 22);
-			toolStripItem14.Size = size;
-			this.ToolStripMenuItem_12.Text = "6页";
-			this.ToolStripMenuItem_13.Name = "页ToolStripMenuItem6";
-			ToolStripItem toolStripItem15 = this.ToolStripMenuItem_13;
-			size = new Size(102, 22);
-			toolStripItem15.Size = size;
-			this.ToolStripMenuItem_13.Text = "8页";
-			this.ToolStripMenuItem_14.Name = "页ToolStripMenuItem7";
-			ToolStripItem toolStripItem16 = this.ToolStripMenuItem_14;
-			size = new Size(102, 22);
-			toolStripItem16.Size = size;
-			this.ToolStripMenuItem_14.Text = "10页";
-			this.myshowtype.DisplayStyle = ToolStripItemDisplayStyle.Text;
-			this.myshowtype.DropDownItems.AddRange(new ToolStripItem[]
-			{
-				this.mytype1,
-				this.mytype2
-			});
-			this.myshowtype.Image = (Image)componentResourceManager.GetObject("myshowtype.Image");
-			this.myshowtype.ImageTransparentColor = Color.Magenta;
-			this.myshowtype.Name = "myshowtype";
-			ToolStripItem myshowtype = this.myshowtype;
-			size = new Size(45, 21);
-			myshowtype.Size = size;
-			this.myshowtype.Text = "显示";
-			this.myshowtype.ToolTipText = "打印预览显示方式";
-			this.mytype1.Name = "mytype1";
-			ToolStripItem mytype = this.mytype1;
-			size = new Size(124, 22);
-			mytype.Size = size;
-			this.mytype1.Text = "连续显示";
-			this.mytype2.Checked = true;
-			this.mytype2.CheckState = CheckState.Checked;
-			this.mytype2.Name = "mytype2";
-			ToolStripItem mytype2 = this.mytype2;
-			size = new Size(124, 22);
-			mytype2.Size = size;
-			this.mytype2.Text = "单页显示";
-			this.cpage.DropDownHeight = 180;
-			this.cpage.DropDownStyle = ComboBoxStyle.DropDownList;
-			this.cpage.DropDownWidth = 75;
-			this.cpage.Enabled = false;
-			this.cpage.Font = new Font("宋体", 12f, FontStyle.Regular, GraphicsUnit.Point, 134);
-			this.cpage.IntegralHeight = false;
-			this.cpage.Name = "cpage";
-			ToolStripControlHost cpage = this.cpage;
-			size = new Size(75, 24);
-			cpage.Size = size;
-			this.cpage.ToolTipText = "选择要在当前页面中显示的页码(在显示方式为<连续显示>下不可用";
-			this.ToolStripSeparator1.Name = "ToolStripSeparator1";
-			ToolStripItem toolStripSeparator4 = this.ToolStripSeparator1;
-			size = new Size(6, 25);
-			toolStripSeparator4.Size = size;
-			this.mystatus.BackColor = Color.Blue;
-			this.mystatus.DisplayStyle = ToolStripItemDisplayStyle.Text;
-			this.mystatus.ForeColor = Color.Red;
-			this.mystatus.Name = "mystatus";
-			ToolStripItem mystatus = this.mystatus;
-			size = new Size(63, 17);
-			mystatus.Size = size;
-			this.mystatus.Text = "共【0】页";
-			this.ToolStripSeparator6.Name = "ToolStripSeparator6";
-			ToolStripItem toolStripSeparator5 = this.ToolStripSeparator6;
-			size = new Size(6, 25);
-			toolStripSeparator5.Size = size;
-			this.fpage.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			this.fpage.Enabled = false;
-			this.fpage.Image = Properties.Resources.fFirst;
-			this.fpage.ImageTransparentColor = Color.Magenta;
-			this.fpage.Name = "fpage";
-			ToolStripItem fpage = this.fpage;
-			size = new Size(23, 20);
-			fpage.Size = size;
-			this.fpage.Text = "第一页";
-			this.ppage.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			this.ppage.Enabled = false;
-			this.ppage.Image = Properties.Resources.pPrev;
-			this.ppage.ImageTransparentColor = Color.Magenta;
-			this.ppage.Name = "ppage";
-			ToolStripItem ppage = this.ppage;
-			size = new Size(23, 20);
-			ppage.Size = size;
-			this.ppage.Text = "上一页";
-			this.npage.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			this.npage.Enabled = false;
-			this.npage.Image = Properties.Resources.pnNext;
-			this.npage.ImageTransparentColor = Color.Magenta;
-			this.npage.Name = "npage";
-			ToolStripItem npage = this.npage;
-			size = new Size(23, 20);
-			npage.Size = size;
-			this.npage.Text = "下一页";
-			this.lpage.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			this.lpage.Enabled = false;
-			this.lpage.Image = Properties.Resources.lLast;
-			this.lpage.ImageTransparentColor = Color.Magenta;
-			this.lpage.Name = "lpage";
-			ToolStripItem lpage = this.lpage;
-			size = new Size(23, 20);
-			lpage.Size = size;
-			this.lpage.Text = "最后一页";
-			this.ToolStripSeparator5.Name = "ToolStripSeparator5";
-			ToolStripItem toolStripSeparator6 = this.ToolStripSeparator5;
-			size = new Size(6, 25);
-			toolStripSeparator6.Size = size;
-			this.zdybutton.DisplayStyle = ToolStripItemDisplayStyle.Text;
-			this.zdybutton.Image = (Image)componentResourceManager.GetObject("zdybutton.Image");
-			this.zdybutton.ImageTransparentColor = Color.Magenta;
-			this.zdybutton.Name = "zdybutton";
-			ToolStripItem zdybutton = this.zdybutton;
-			size = new Size(23, 4);
-			zdybutton.Size = size;
-			this.zdybutton.Visible = false;
-			this.ToolStrip1.Items.AddRange(new ToolStripItem[]
-			{
-				this.pagesetup,
-				this.printd,
-				this.ToolStripSeparator2,
-				this.mysave,
-				this.myopen,
-				this.ToolStripSeparator3,
-				this.mybl,
-				this.mycolsperpage,
-				this.myshowtype,
-				this.cpage,
-				this.ToolStripSeparator1,
-				this.mystatus,
-				this.ToolStripSeparator6,
-				this.fpage,
-				this.ppage,
-				this.npage,
-				this.lpage,
-				this.ToolStripSeparator5,
-				this.zdybutton,
-				this.ZDYButton2
-			});
-			Control toolStrip = this.ToolStrip1;
-			location = new Point(0, 0);
-			toolStrip.Location = location;
-			this.ToolStrip1.Name = "ToolStrip1";
-			Control toolStrip2 = this.ToolStrip1;
-			size = new Size(410, 28);
-			toolStrip2.Size = size;
-			this.ToolStrip1.TabIndex = 1;
-			this.ToolStrip1.Text = "ToolStrip1";
-			this.printd.DropDownItems.AddRange(new ToolStripItem[]
-			{
-				this.dy1,
-				this.dy2,
-				this.dy3,
-				this.ToolStripMenuItem17,
-				this.dy4,
-				this.dy5,
-				this.ToolStripMenuItem16,
-				this.cgprint
-			});
-			this.printd.Image = Properties.Resources.printer1;
-			this.printd.ImageTransparentColor = Color.Magenta;
-			this.printd.Name = "printd";
-			ToolStripItem printd = this.printd;
-			size = new Size(79, 25);
-			printd.Size = size;
-			this.printd.Text = "打印(&P)";
-			this.printd.ToolTipText = "显示打印对话框，选择打印机进行打印输出。";
-			this.dy1.Image = Properties.Resources.printer1;
-			this.dy1.Name = "dy1";
-			ToolStripItem dy = this.dy1;
-			size = new Size(184, 22);
-			dy.Size = size;
-			this.dy1.Text = "打印……";
-			this.dy1.ToolTipText = "打印前选择打印机、打印范围、打印份数等选项";
-			this.dy2.Image = Properties.Resources.printer1;
-			this.dy2.Name = "dy2";
-			ToolStripItem dy2 = this.dy2;
-			size = new Size(184, 22);
-			dy2.Size = size;
-			this.dy2.Text = "快速打印全部页";
-			this.dy3.Image = Properties.Resources.printer1;
-			this.dy3.Name = "dy3";
-			ToolStripItem dy3 = this.dy3;
-			size = new Size(184, 22);
-			dy3.Size = size;
-			this.dy3.Text = "快速打印当前页";
-			this.ToolStripMenuItem17.Name = "ToolStripMenuItem17";
-			ToolStripItem toolStripMenuItem17 = this.ToolStripMenuItem17;
-			size = new Size(181, 6);
-			toolStripMenuItem17.Size = size;
-			this.dy4.Name = "dy4";
-			ToolStripItem dy4 = this.dy4;
-			size = new Size(184, 22);
-			dy4.Size = size;
-			this.dy4.Text = "手动双面打印……";
-			this.dy5.Name = "dy5";
-			ToolStripItem dy5 = this.dy5;
-			size = new Size(184, 22);
-			dy5.Size = size;
-			this.dy5.Text = "手动双面打印全部页";
-			this.ToolStripMenuItem16.Name = "ToolStripMenuItem16";
-			ToolStripItem toolStripMenuItem18 = this.ToolStripMenuItem16;
-			size = new Size(181, 6);
-			toolStripMenuItem18.Size = size;
-			this.cgprint.Name = "cgprint";
-			ToolStripItem cgprint = this.cgprint;
-			size = new Size(184, 22);
-			cgprint.Size = size;
-			this.cgprint.Text = "草稿打印……";
-			this.mysave.DropDownItems.AddRange(new ToolStripItem[]
-			{
-				this.ToolStripMenuItem15,
-				this.ToolStripMenuItem_15,
-				this.savepdf,
-				this.saveaspdfcur,
-				this.saveaspdfall,
-				this.ToolStripSeparator7,
-				this.ToolStripMenuItem_17,
-				this.ToolStripMenuItem_18
-			});
-			this.mysave.Image = (Image)componentResourceManager.GetObject("mysave.Image");
-			this.mysave.ImageTransparentColor = Color.Magenta;
-			this.mysave.Name = "mysave";
-			ToolStripItem mysave = this.mysave;
-			size = new Size(79, 25);
-			mysave.Size = size;
-			this.mysave.Text = "保存(&S)";
-			this.mysave.ToolTipText = "保存为文件";
-			this.ToolStripMenuItem15.Name = "ToolStripMenuItem15";
-			ToolStripItem toolStripMenuItem19 = this.ToolStripMenuItem15;
-			size = new Size(230, 22);
-			toolStripMenuItem19.Size = size;
-			this.ToolStripMenuItem15.Text = "保存";
-			this.ToolStripMenuItem15.ToolTipText = "保存为报表文件";
-			this.ToolStripMenuItem_15.Name = "加密保存ToolStripMenuItem";
-			ToolStripItem toolStripItem17 = this.ToolStripMenuItem_15;
-			size = new Size(230, 22);
-			toolStripItem17.Size = size;
-			this.ToolStripMenuItem_15.Text = "加密保存";
-			this.ToolStripMenuItem_15.ToolTipText = "保存为报表文件并设置密码";
-			this.savepdf.Name = "savepdf";
-			ToolStripItem savepdf = this.savepdf;
-			size = new Size(227, 6);
-			savepdf.Size = size;
-			this.saveaspdfcur.Name = "saveaspdfcur";
-			ToolStripItem saveaspdfcur = this.saveaspdfcur;
-			size = new Size(230, 22);
-			saveaspdfcur.Size = size;
-			this.saveaspdfcur.Text = "保存为PDF文件（仅当前页）";
-			this.saveaspdfall.Name = "saveaspdfall";
-			ToolStripItem saveaspdfall = this.saveaspdfall;
-			size = new Size(230, 22);
-			saveaspdfall.Size = size;
-			this.saveaspdfall.Text = "保存为PDF文件（全部页）";
-			this.ToolStripSeparator7.Name = "ToolStripSeparator7";
-			ToolStripItem toolStripSeparator7 = this.ToolStripSeparator7;
-			size = new Size(227, 6);
-			toolStripSeparator7.Size = size;
-			this.ToolStripMenuItem_17.Name = "保存为图像仅当前页ToolStripMenuItem";
-			ToolStripItem toolStripItem18 = this.ToolStripMenuItem_17;
-			size = new Size(230, 22);
-			toolStripItem18.Size = size;
-			this.ToolStripMenuItem_17.Text = "保存为图像（仅当前页）";
-			this.ToolStripMenuItem_17.ToolTipText = "将当前页保存为图像文件";
-			this.ToolStripMenuItem_18.Name = "保存为图像全部页ToolStripMenuItem";
-			ToolStripItem toolStripItem19 = this.ToolStripMenuItem_18;
-			size = new Size(230, 22);
-			toolStripItem19.Size = size;
-			this.ToolStripMenuItem_18.Text = "保存为图像（全部页）";
-			this.ToolStripMenuItem_18.ToolTipText = "将整个打印预览结果保存为图像";
-			this.ZDYButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
-			this.ZDYButton2.ImageTransparentColor = Color.Magenta;
-			this.ZDYButton2.Name = "ZDYButton2";
-			ToolStripItem zdybutton2 = this.ZDYButton2;
-			size = new Size(23, 4);
-			zdybutton2.Size = size;
-			this.ZDYButton2.Visible = false;
-			this.PrintPreviewControl1.AutoZoom = false;
-			this.PrintPreviewControl1.BackColor = SystemColors.AppWorkspace;
-			this.PrintPreviewControl1.Columns = 1;
-			this.PrintPreviewControl1.ContextMenuStrip = this.ContextMenuStrip1;
-			this.PrintPreviewControl1.Cursor = Cursors.Hand;
-			this.PrintPreviewControl1.Dock = DockStyle.Fill;
-			this.PrintPreviewControl1.Document = this.Pd;
-			this.PrintPreviewControl1.ForeColor = Color.White;
-			this.PrintPreviewControl1.IsShowprocessDialog = true;
-			Control printPreviewControl = this.PrintPreviewControl1;
-			location = new Point(0, 28);
-			printPreviewControl.Location = location;
-			this.PrintPreviewControl1.Name = "PrintPreviewControl1";
-			this.PrintPreviewControl1.Rows = 1;
-			Control printPreviewControl2 = this.PrintPreviewControl1;
-			size = new Size(410, 171);
-			printPreviewControl2.Size = size;
-			this.PrintPreviewControl1.StartPage = 0;
-			this.PrintPreviewControl1.TabIndex = 2;
-			this.PrintPreviewControl1.UseAntiAlias = true;
-			this.PrintPreviewControl1.Zoom = 1.0;
-			SizeF autoScaleDimensions = new SizeF(6f, 12f);
-			this.AutoScaleDimensions = autoScaleDimensions;
-			this.AutoScaleMode = AutoScaleMode.Font;
-			this.Controls.Add(this.tempdgv);
-			this.Controls.Add(this.mydgv2);
-			this.Controls.Add(this.myms);
-			this.Controls.Add(this.PrintPreviewControl1);
-			this.Controls.Add(this.ToolStrip1);
-			this.DoubleBuffered = true;
-			this.Name = "VB2008Print";
-			size = new Size(410, 199);
-			this.Size = size;
-			this.ContextMenuStrip1.ResumeLayout(false);
-			((ISupportInitialize)this.myms).EndInit();
-			((ISupportInitialize)this.mydgv2).EndInit();
-			((ISupportInitialize)this.tempdgv).EndInit();
-			this.ToolStrip1.ResumeLayout(false);
-			this.ToolStrip1.PerformLayout();
-			this.ResumeLayout(false);
-			this.PerformLayout();
+            this.SuspendLayout();
+            // 
+            // VB2008Print
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Name = "VB2008Print";
+            this.Size = new System.Drawing.Size(842, 418);
+            this.ResumeLayout(false);
+
 		}
 
 		// Token: 0x17000641 RID: 1601
@@ -7386,7 +6644,7 @@ namespace LuoEasyPrint
 										if (String.Compare(left, "i", false) == 0)
 										{
 											Image image;
-											if (Versioned.IsNumeric(array2[1]))
+											if (DataTypeConversion.IsNumeric(array2[1]))
 											{
 												memoryStream = new MemoryStream(this.mypicture[Convert.ToInt32(array2[1])].mypi);
 												image = Image.FromStream(memoryStream, true, true);
@@ -7414,7 +6672,7 @@ namespace LuoEasyPrint
 										if (String.Compare(left, "i2", false) == 0)
 										{
 											Image image;
-											if (Versioned.IsNumeric(array2[1]))
+											if (DataTypeConversion.IsNumeric(array2[1]))
 											{
 												memoryStream = new MemoryStream(this.mypicture[Convert.ToInt32(array2[1])].mypi);
 												image = Image.FromStream(memoryStream, true, true);
@@ -7435,7 +6693,7 @@ namespace LuoEasyPrint
 										if (String.Compare(left, "DrawImageUnscaledAndClipped", false) == 0)
 										{
 											Image image;
-											if (Versioned.IsNumeric(array2[1]))
+											if (DataTypeConversion.IsNumeric(array2[1]))
 											{
 												memoryStream = new MemoryStream(this.mypicture[Convert.ToInt32(array2[1])].mypi);
 												image = Image.FromStream(memoryStream, true, true);
@@ -7456,7 +6714,7 @@ namespace LuoEasyPrint
 										if (String.Compare(left, "DrawImageUnscaled", false) == 0)
 										{
 											Image image;
-											if (Versioned.IsNumeric(array2[1]))
+											if (DataTypeConversion.IsNumeric(array2[1]))
 											{
 												memoryStream = new MemoryStream(this.mypicture[Convert.ToInt32(array2[1])].mypi);
 												image = Image.FromStream(memoryStream, true, true);
@@ -7707,7 +6965,7 @@ namespace LuoEasyPrint
 													if (String.Compare(left, "i3", false) == 0)
 													{
 														Image image;
-														if (Versioned.IsNumeric(array2[1]))
+														if (DataTypeConversion.IsNumeric(array2[1]))
 														{
 															memoryStream = new MemoryStream(this.mypicture[Convert.ToInt32(array2[1])].mypi);
 															image = Image.FromStream(memoryStream, true, true);
@@ -7728,7 +6986,7 @@ namespace LuoEasyPrint
 													else if (String.Compare(left, "i4", false) == 0)
 													{
 														Image image;
-														if (Versioned.IsNumeric(array2[1]))
+														if (DataTypeConversion.IsNumeric(array2[1]))
 														{
 															memoryStream = new MemoryStream(this.mypicture[Convert.ToInt32(array2[1])].mypi);
 															image = Image.FromStream(memoryStream, true, true);
@@ -12105,7 +11363,7 @@ namespace LuoEasyPrint
 					printView.myp.EnableSaveAsPDF = this.EnableSaveAsPDF;
 					printView.myp.IsAutoAdjustPrinterMargin = this.IsAutoAdjustPrinterMargin;
 					printView.myp.CanOpenReport = this.CanOpenReport;
-					printView.myp.PageUnits = this.PageUnits;
+					//printView.myp.PageUnits = this.PageUnits;
 					printView.myp.OffsetX = this.OffsetX;
 					printView.myp.OffsetY = this.OffsetY;
 					printView.myp.OpenReportByString(this.SaveReportAsString());
@@ -17675,7 +16933,7 @@ namespace LuoEasyPrint
 				{
 					myborder = "0000";
 				}
-				else if (Strings.Len(text) != 4 | !Versioned.IsNumeric(text))
+				else if (Strings.Len(text) != 4 | !DataTypeConversion.IsNumeric(text))
 				{
 					myborder = "1111";
 				}
@@ -17815,7 +17073,7 @@ namespace LuoEasyPrint
 					text = Module1.GetINI(section, "左边", "", schemefilename);
 					tablel = text;
 					text = Module1.GetINI(section, "左边对齐[0-2]", "0", schemefilename);
-					if (!Versioned.IsNumeric(text))
+					if (!DataTypeConversion.IsNumeric(text))
 					{
 						text = "0";
 					}
@@ -17823,7 +17081,7 @@ namespace LuoEasyPrint
 					text = Module1.GetINI(section, "中间", "", schemefilename);
 					tablem = text;
 					text = Module1.GetINI(section, "中间对齐[0-2]", "1", schemefilename);
-					if (!Versioned.IsNumeric(text))
+					if (!DataTypeConversion.IsNumeric(text))
 					{
 						text = "1";
 					}
@@ -17831,7 +17089,7 @@ namespace LuoEasyPrint
 					text = Module1.GetINI(section, "右边", "", schemefilename);
 					tabler = text;
 					text = Module1.GetINI(section, "右边对齐[0-2]", "2", schemefilename);
-					if (!Versioned.IsNumeric(text))
+					if (!DataTypeConversion.IsNumeric(text))
 					{
 						text = "2";
 					}
@@ -17846,7 +17104,7 @@ namespace LuoEasyPrint
 					text = Module1.GetINI(section, "左边", "", schemefilename);
 					tableleft = text;
 					text = Module1.GetINI(section, "左边对齐[0-2]", "0", schemefilename);
-					if (!Versioned.IsNumeric(text))
+					if (!DataTypeConversion.IsNumeric(text))
 					{
 						text = "0";
 					}
@@ -17854,7 +17112,7 @@ namespace LuoEasyPrint
 					text = Module1.GetINI(section, "中间", "", schemefilename);
 					tablemiddle = text;
 					text = Module1.GetINI(section, "中间对齐[0-2]", "1", schemefilename);
-					if (!Versioned.IsNumeric(text))
+					if (!DataTypeConversion.IsNumeric(text))
 					{
 						text = "1";
 					}
@@ -17862,7 +17120,7 @@ namespace LuoEasyPrint
 					text = Module1.GetINI(section, "右边", "", schemefilename);
 					tableright = text;
 					text = Module1.GetINI(section, "右边对齐[0-2]", "2", schemefilename);
-					if (!Versioned.IsNumeric(text))
+					if (!DataTypeConversion.IsNumeric(text))
 					{
 						text = "2";
 					}
@@ -17903,7 +17161,7 @@ namespace LuoEasyPrint
 						color3 = Module1.ConvertStringToColor(text);
 						dataGridView.DefaultCellStyle.BackColor = color3;
 						text = Module1.GetINI(section, "默认行高[毫米]", "0", schemefilename);
-						if (Versioned.IsNumeric(text))
+						if (DataTypeConversion.IsNumeric(text))
 						{
 							float num17 = Convert.ToSingle(text);
 							try
@@ -18182,7 +17440,7 @@ namespace LuoEasyPrint
 											dataGridView.Columns[ini].DefaultCellStyle.WrapMode = DataGridViewTriState.False;
 										}
 										text = Module1.GetINI(section, "列宽(毫米)", "", schemefilename);
-										if (Versioned.IsNumeric(text))
+										if (DataTypeConversion.IsNumeric(text))
 										{
 											try
 											{
@@ -18217,7 +17475,7 @@ namespace LuoEasyPrint
 									}
 									myhzbackcolor = color3;
 									text = Module1.GetINI(section, "汇总行数字对齐方式[0-2]", "1", schemefilename);
-									if (!Versioned.IsNumeric(text))
+									if (!DataTypeConversion.IsNumeric(text))
 									{
 										text = "1";
 									}
@@ -23998,14 +23256,14 @@ namespace LuoEasyPrint
 			{
 				if (array2.Length == 1)
 				{
-					if (Versioned.IsNumeric(myborder) & Strings.Len(myborder) == 4 & Strings.InStr(myborder, ".", CompareMethod.Binary) <= 0)
+					if (DataTypeConversion.IsNumeric(myborder) & Strings.Len(myborder) == 4 & Strings.InStr(myborder, ".", CompareMethod.Binary) <= 0)
 					{
 						array[0] = (float)Conversion.Val(Strings.Mid(myborder, 1, 1));
 						array[1] = (float)Conversion.Val(Strings.Mid(myborder, 2, 1));
 						array[2] = (float)Conversion.Val(Strings.Mid(myborder, 3, 1));
 						array[3] = (float)Conversion.Val(Strings.Mid(myborder, 4, 1));
 					}
-					else if (Versioned.IsNumeric(myborder))
+					else if (DataTypeConversion.IsNumeric(myborder))
 					{
 						array[0] = (float)Conversion.Val(myborder);
 						array[1] = (float)Conversion.Val(myborder);

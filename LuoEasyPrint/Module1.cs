@@ -1342,7 +1342,7 @@ namespace LuoEasyPrint
 									if (dgv.Rows[j].Visible)
 									{
 										text = Convert.ToString(dgv.Rows[j].Cells[array[i]].Value);
-										if (Versioned.IsNumeric(text))
+										if (DataTypeConversion.IsNumeric(text))
 										{
 											num = decimal.Add(num, Convert.ToDecimal(text));
 										}
@@ -1553,7 +1553,7 @@ namespace LuoEasyPrint
 										if (dgv.Rows[i].Visible)
 										{
 											text = Convert.ToString(dgv.Rows[i].Cells[array[j]].Value);
-											if (Versioned.IsNumeric(text))
+											if (DataTypeConversion.IsNumeric(text))
 											{
 												num2 = decimal.Add(num2, Convert.ToDecimal(text));
 											}

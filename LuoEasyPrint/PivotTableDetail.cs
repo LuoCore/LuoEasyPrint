@@ -477,7 +477,7 @@ namespace LuoEasyPrint
 						try
 						{
 							string text = Convert.ToString(Operators.ConcatenateObject(mydgv.SelectedCells[i].Value, ""));
-							if (Versioned.IsNumeric(text))
+							if (DataTypeConversion.IsNumeric(text))
 							{
 								num = decimal.Add(num, Convert.ToDecimal(text));
 							}

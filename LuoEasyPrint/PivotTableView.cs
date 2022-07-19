@@ -1233,7 +1233,7 @@ namespace LuoEasyPrint
                         try
                         {
                             string text = Convert.ToString(Operators.ConcatenateObject(mydgv.SelectedCells[i].Value, ""));
-                            if (Versioned.IsNumeric(text))
+                            if (DataTypeConversion.IsNumeric(text))
                             {
                                 num = decimal.Add(num, Convert.ToDecimal(text));
                             }
@@ -1990,7 +1990,7 @@ namespace LuoEasyPrint
                             if (flag3)
                             {
                                 num2++;
-                                if (!Information.IsDBNull(RuntimeHelpers.GetObjectValue(sdgv.Rows[i].Cells[hzl].Value)) && Versioned.IsNumeric(Operators.ConcatenateObject(sdgv.Rows[i].Cells[hzl].Value, "")))
+                                if (!Information.IsDBNull(RuntimeHelpers.GetObjectValue(sdgv.Rows[i].Cells[hzl].Value)) && DataTypeConversion.IsNumeric(Operators.ConcatenateObject(sdgv.Rows[i].Cells[hzl].Value, "")))
                                 {
                                     decimal num7 = Convert.ToDecimal(Operators.ConcatenateObject(sdgv.Rows[i].Cells[hzl].Value, ""));
                                     num = decimal.Add(num, num7);

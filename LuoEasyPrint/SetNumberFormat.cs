@@ -464,7 +464,7 @@ namespace LuoEasyPrint
 						{
 							this.r3.Checked = true;
 						}
-						if (Versioned.IsNumeric(array[1]))
+						if (DataTypeConversion.IsNumeric(array[1]))
 						{
 							this.NumericUpDown1.Value = new decimal(Convert.ToInt32(array[1]));
 						}
@@ -548,7 +548,7 @@ namespace LuoEasyPrint
 		public string GetFormatValue(string value, string valueformat)
 		{
 			string result;
-			if (!Versioned.IsNumeric(value))
+			if (!DataTypeConversion.IsNumeric(value))
 			{
 				result = value;
 			}

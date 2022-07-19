@@ -6283,59 +6283,59 @@ namespace LuoEasyPrint
         // Token: 0x0600038F RID: 911 RVA: 0x000241D0 File Offset: 0x000223D0
         private void Button3_Click(object sender, EventArgs e)
         {
-            if (!Versioned.IsNumeric(this.pagemarginl.Text))
+            if (!DataTypeConversion.IsNumeric(this.pagemarginl.Text))
             {
                 Interaction.MsgBox("页面左边距设置不正确，必须是有效的数字", MsgBoxStyle.OkOnly, "提示信息");
                 this.pagemarginl.Focus();
             }
-            else if (!Versioned.IsNumeric(this.pagemarginr.Text))
+            else if (!DataTypeConversion.IsNumeric(this.pagemarginr.Text))
             {
                 Interaction.MsgBox("页面右边距设置不正确，必须是有效的数字", MsgBoxStyle.OkOnly, "提示信息");
                 this.pagemarginr.Focus();
             }
-            else if (!Versioned.IsNumeric(this.pagemargint.Text))
+            else if (!DataTypeConversion.IsNumeric(this.pagemargint.Text))
             {
                 Interaction.MsgBox("页面上边距设置不正确，必须是有效的数字", MsgBoxStyle.OkOnly, "提示信息");
                 this.pagemargint.Focus();
             }
-            else if (!Versioned.IsNumeric(this.pagemarginb.Text))
+            else if (!DataTypeConversion.IsNumeric(this.pagemarginb.Text))
             {
                 Interaction.MsgBox("页面下边距设置不正确，必须是有效的数字", MsgBoxStyle.OkOnly, "提示信息");
                 this.pagemarginb.Focus();
             }
-            else if (!Versioned.IsNumeric(this.cleft.Text))
+            else if (!DataTypeConversion.IsNumeric(this.cleft.Text))
             {
                 Interaction.MsgBox("单元格默认边距中的左边距设置不正确，必须是有效的数字", MsgBoxStyle.OkOnly, "提示信息");
                 this.cleft.Focus();
             }
-            else if (!Versioned.IsNumeric(this.cright.Text))
+            else if (!DataTypeConversion.IsNumeric(this.cright.Text))
             {
                 Interaction.MsgBox("单元格默认边距中的右边距设置不正确，必须是有效的数字", MsgBoxStyle.OkOnly, "提示信息");
                 this.cright.Focus();
             }
-            else if (!Versioned.IsNumeric(this.ctop.Text))
+            else if (!DataTypeConversion.IsNumeric(this.ctop.Text))
             {
                 Interaction.MsgBox("单元格默认边距中的上边距设置不正确，必须是有效的数字", MsgBoxStyle.OkOnly, "提示信息");
                 this.ctop.Focus();
             }
-            else if (!Versioned.IsNumeric(this.cbottom.Text))
+            else if (!DataTypeConversion.IsNumeric(this.cbottom.Text))
             {
                 Interaction.MsgBox("单元格默认边距中的下边距设置不正确，必须是有效的数字", MsgBoxStyle.OkOnly, "提示信息");
                 this.cbottom.Focus();
             }
-            else if (!Versioned.IsNumeric(this.zdxposition.Text))
+            else if (!DataTypeConversion.IsNumeric(this.zdxposition.Text))
             {
                 Interaction.MsgBox("装订线打印位置设置不正确，必须是有效的数字", MsgBoxStyle.OkOnly, "提示信息");
                 this.TabControl1.SelectedTab = this.TabControl1.TabPages[5];
                 this.zdxposition.Focus();
             }
-            else if (!Versioned.IsNumeric(this.gwxdoublinespace.Text))
+            else if (!DataTypeConversion.IsNumeric(this.gwxdoublinespace.Text))
             {
                 Interaction.MsgBox("双线间距设置不正确，必须是有效的数字", MsgBoxStyle.OkOnly, "提示信息");
                 this.TabControl1.SelectedTab = this.TabControl1.TabPages[0];
                 this.gwxdoublinespace.Focus();
             }
-            else if (!Versioned.IsNumeric(this.gwxouterborderwidth.Text))
+            else if (!DataTypeConversion.IsNumeric(this.gwxouterborderwidth.Text))
             {
                 Interaction.MsgBox("表格线外边框线宽设置不正确，必须是有效的数字", MsgBoxStyle.OkOnly, "提示信息");
                 this.TabControl1.SelectedTab = this.TabControl1.TabPages[0];
@@ -6474,7 +6474,7 @@ namespace LuoEasyPrint
                 }
                 else
                 {
-                    if (Strings.Len(this.bk.Text) != 4 | !Versioned.IsNumeric(this.bk.Text))
+                    if (Strings.Len(this.bk.Text) != 4 | !DataTypeConversion.IsNumeric(this.bk.Text))
                     {
                         this.myborder = "1111";
                     }
@@ -7878,7 +7878,7 @@ namespace LuoEasyPrint
                         this.myZDXtype = DataGridViewPrintSet.TheZDXTYPE.LEFT;
                     }
                     text = Module1.GetINI(section, "装订线边距(1/100厘米)", "0", myfile);
-                    if (!Versioned.IsNumeric(text))
+                    if (!DataTypeConversion.IsNumeric(text))
                     {
                         text = "0";
                     }
@@ -7997,7 +7997,7 @@ namespace LuoEasyPrint
                     {
                         this.myborder = "0000";
                     }
-                    else if (Strings.Len(text) != 4 | !Versioned.IsNumeric(text))
+                    else if (Strings.Len(text) != 4 | !DataTypeConversion.IsNumeric(text))
                     {
                         this.myborder = "1111";
                         text = "表格线";
@@ -8307,7 +8307,7 @@ namespace LuoEasyPrint
                         this.mytablel = text;
                     }
                     text = Module1.GetINI(section, "左边对齐[0-2]", "0", myfile);
-                    if (!Versioned.IsNumeric(text))
+                    if (!DataTypeConversion.IsNumeric(text))
                     {
                         text = "0";
                     }
@@ -8319,7 +8319,7 @@ namespace LuoEasyPrint
                         this.mytablem = text;
                     }
                     text = Module1.GetINI(section, "中间对齐[0-2]", "1", myfile);
-                    if (!Versioned.IsNumeric(text))
+                    if (!DataTypeConversion.IsNumeric(text))
                     {
                         text = "1";
                     }
@@ -8331,7 +8331,7 @@ namespace LuoEasyPrint
                         this.mytabler = text;
                     }
                     text = Module1.GetINI(section, "右边对齐[0-2]", "2", myfile);
-                    if (!Versioned.IsNumeric(text))
+                    if (!DataTypeConversion.IsNumeric(text))
                     {
                         text = "2";
                     }
@@ -8364,7 +8364,7 @@ namespace LuoEasyPrint
                         this.mytableleft = text;
                     }
                     text = Module1.GetINI(section, "左边对齐[0-2]", "0", myfile);
-                    if (!Versioned.IsNumeric(text))
+                    if (!DataTypeConversion.IsNumeric(text))
                     {
                         text = "0";
                     }
@@ -8376,7 +8376,7 @@ namespace LuoEasyPrint
                         this.mytablemiddle = text;
                     }
                     text = Module1.GetINI(section, "中间对齐[0-2]", "1", myfile);
-                    if (!Versioned.IsNumeric(text))
+                    if (!DataTypeConversion.IsNumeric(text))
                     {
                         text = "1";
                     }
@@ -8388,7 +8388,7 @@ namespace LuoEasyPrint
                         this.mytableright = text;
                     }
                     text = Module1.GetINI(section, "右边对齐[0-2]", "2", myfile);
-                    if (!Versioned.IsNumeric(text))
+                    if (!DataTypeConversion.IsNumeric(text))
                     {
                         text = "2";
                     }
@@ -8832,7 +8832,7 @@ namespace LuoEasyPrint
                                         }
                                     IL_263F:
                                         text = Module1.GetINI(section, "列宽(毫米)", "", myfile);
-                                        if (Versioned.IsNumeric(text))
+                                        if (DataTypeConversion.IsNumeric(text))
                                         {
                                             try
                                             {
@@ -8870,7 +8870,7 @@ namespace LuoEasyPrint
                                     this.hzfontshow.ForeColor = this.myhzforecolor;
                                     this.hzfontshow.BackColor = this.myhzbackcolor;
                                     text = Module1.GetINI(section, "汇总行数字对齐方式[0-2]", "1", myfile);
-                                    if (!Versioned.IsNumeric(text))
+                                    if (!DataTypeConversion.IsNumeric(text))
                                     {
                                         text = "1";
                                     }
@@ -9588,7 +9588,7 @@ namespace LuoEasyPrint
                 {
                     return;
                 }
-                if (dataGridViewColumn != null && Versioned.IsNumeric(this.NumericUpDown1.Value) && decimal.Compare(this.NumericUpDown1.Value, 0m) >= 0)
+                if (dataGridViewColumn != null && DataTypeConversion.IsNumeric(this.NumericUpDown1.Value) && decimal.Compare(this.NumericUpDown1.Value, 0m) >= 0)
                 {
                     try
                     {

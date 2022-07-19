@@ -419,7 +419,7 @@ namespace LuoEasyPrint
 		private static string GetFormatNumeric(string value, string valueformat)
 		{
 			string result;
-			if (!Versioned.IsNumeric(value))
+			if (!DataTypeConversion.IsNumeric(value))
 			{
 				result = value;
 			}

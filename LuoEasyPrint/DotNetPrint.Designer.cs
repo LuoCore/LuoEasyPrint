@@ -45,12 +45,12 @@ namespace LuoEasyPrint
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle50 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle51 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle52 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle53 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle54 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Pd = new System.Drawing.Printing.PrintDocument();
             this.PageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.PrintDialog1 = new System.Windows.Forms.PrintDialog();
@@ -135,7 +135,6 @@ namespace LuoEasyPrint
             this.ToolStripMenuItem_18 = new System.Windows.Forms.ToolStripMenuItem();
             this.ZDYButton2 = new System.Windows.Forms.ToolStripButton();
             this.ToolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.PrintPreviewControl1 = new LuoEasyPrint.PrintPreviewControl();
             this.ContextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.myms)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mydgv2)).BeginInit();
@@ -181,7 +180,8 @@ namespace LuoEasyPrint
             this.ToolStripMenuItem12,
             this.ToolStripMenuItem_6});
             this.ContextMenuStrip1.Name = "ContextMenuStrip1";
-            this.ContextMenuStrip1.Size = new System.Drawing.Size(161, 176);
+            this.ContextMenuStrip1.Size = new System.Drawing.Size(181, 198);
+            this.ContextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStrip1_Opening);
             // 
             // ToolStripMenuItem_0
             // 
@@ -251,25 +251,25 @@ namespace LuoEasyPrint
             // myms
             // 
             this.myms.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.myms.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle49.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle49.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle49.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle49.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle49.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle49.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.myms.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle49;
             this.myms.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.myms.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle50.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle50.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle50.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle50.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle50.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle50.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.myms.DefaultCellStyle = dataGridViewCellStyle50;
             this.myms.Location = new System.Drawing.Point(120, 132);
-            this.myms.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.myms.Margin = new System.Windows.Forms.Padding(4);
             this.myms.Name = "myms";
             this.myms.Size = new System.Drawing.Size(280, 212);
             this.myms.TabIndex = 3;
@@ -277,25 +277,25 @@ namespace LuoEasyPrint
             // mydgv2
             // 
             this.mydgv2.AllowUserToAddRows = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.mydgv2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle51.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle51.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle51.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle51.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle51.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle51.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mydgv2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle51;
             this.mydgv2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.mydgv2.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle52.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle52.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle52.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle52.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle52.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle52.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.mydgv2.DefaultCellStyle = dataGridViewCellStyle52;
             this.mydgv2.Location = new System.Drawing.Point(625, 104);
-            this.mydgv2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.mydgv2.Margin = new System.Windows.Forms.Padding(4);
             this.mydgv2.Name = "mydgv2";
             this.mydgv2.Size = new System.Drawing.Size(188, 249);
             this.mydgv2.TabIndex = 4;
@@ -303,28 +303,33 @@ namespace LuoEasyPrint
             // tempdgv
             // 
             this.tempdgv.AllowUserToAddRows = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tempdgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle53.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle53.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle53.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle53.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle53.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle53.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tempdgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle53;
             this.tempdgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tempdgv.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle54.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle54.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle54.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle54.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle54.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle54.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tempdgv.DefaultCellStyle = dataGridViewCellStyle54;
             this.tempdgv.Location = new System.Drawing.Point(120, 132);
-            this.tempdgv.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tempdgv.Margin = new System.Windows.Forms.Padding(4);
             this.tempdgv.Name = "tempdgv";
             this.tempdgv.Size = new System.Drawing.Size(280, 212);
             this.tempdgv.TabIndex = 5;
+            // 
+            // BeforePreviewD
+            // 
+            this.BeforePreviewD.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.BeforePreviewD_BeginPrint);
+            this.BeforePreviewD.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.BeforePreviewD_PrintPage);
             // 
             // pagesetup
             // 
@@ -399,28 +404,32 @@ namespace LuoEasyPrint
             // 
             this.ToolStripMenuItem1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.ToolStripMenuItem1.Name = "ToolStripMenuItem1";
-            this.ToolStripMenuItem1.Size = new System.Drawing.Size(172, 22);
+            this.ToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItem1.Text = "75%";
+            this.ToolStripMenuItem1.Click += new System.EventHandler(this.ToolStripMenuItem_1_Click);
             // 
             // ToolStripMenuItem2
             // 
             this.ToolStripMenuItem2.Checked = true;
             this.ToolStripMenuItem2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ToolStripMenuItem2.Name = "ToolStripMenuItem2";
-            this.ToolStripMenuItem2.Size = new System.Drawing.Size(172, 22);
+            this.ToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItem2.Text = "100%";
+            this.ToolStripMenuItem2.Click += new System.EventHandler(this.ToolStripMenuItem_2_Click);
             // 
             // ToolStripMenuItem3
             // 
             this.ToolStripMenuItem3.Name = "ToolStripMenuItem3";
-            this.ToolStripMenuItem3.Size = new System.Drawing.Size(172, 22);
+            this.ToolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItem3.Text = "125%";
+            this.ToolStripMenuItem3.Click += new System.EventHandler(this.ToolStripMenuItem_3_Click);
             // 
             // ToolStripMenuItem4
             // 
             this.ToolStripMenuItem4.Name = "ToolStripMenuItem4";
-            this.ToolStripMenuItem4.Size = new System.Drawing.Size(172, 22);
+            this.ToolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItem4.Text = "150%";
+            this.ToolStripMenuItem4.Click += new System.EventHandler(this.ToolStripMenuItem_4_Click);
             // 
             // ToolStripMenuItem5
             // 
@@ -431,8 +440,9 @@ namespace LuoEasyPrint
             // ToolStripMenuItem6
             // 
             this.ToolStripMenuItem6.Name = "ToolStripMenuItem6";
-            this.ToolStripMenuItem6.Size = new System.Drawing.Size(172, 22);
+            this.ToolStripMenuItem6.Size = new System.Drawing.Size(180, 22);
             this.ToolStripMenuItem6.Text = "250%";
+            this.ToolStripMenuItem6.Click += new System.EventHandler(this.ToolStripMenuItem_6_Click);
             // 
             // ToolStripMenuItem7
             // 
@@ -574,6 +584,7 @@ namespace LuoEasyPrint
             this.cpage.Name = "cpage";
             this.cpage.Size = new System.Drawing.Size(161, 25);
             this.cpage.ToolTipText = "选择要在当前页面中显示的页码(在显示方式为<连续显示>下不可用";
+            this.cpage.SelectedIndexChanged += new System.EventHandler(this.cpage_SelectedIndexChanged);
             // 
             // ToolStripSeparator1
             // 
@@ -644,8 +655,9 @@ namespace LuoEasyPrint
             this.zdybutton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.zdybutton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.zdybutton.Name = "zdybutton";
-            this.zdybutton.Size = new System.Drawing.Size(23, 4);
+            this.zdybutton.Size = new System.Drawing.Size(23, 22);
             this.zdybutton.Visible = false;
+            this.zdybutton.Click += new System.EventHandler(this.zdybutton_Click);
             // 
             // ToolStrip1
             // 
@@ -708,6 +720,7 @@ namespace LuoEasyPrint
             this.dy2.Name = "dy2";
             this.dy2.Size = new System.Drawing.Size(184, 22);
             this.dy2.Text = "快速打印全部页";
+            this.dy2.Click += new System.EventHandler(this.dy2_Click);
             // 
             // dy3
             // 
@@ -715,6 +728,7 @@ namespace LuoEasyPrint
             this.dy3.Name = "dy3";
             this.dy3.Size = new System.Drawing.Size(184, 22);
             this.dy3.Text = "快速打印当前页";
+            this.dy3.Click += new System.EventHandler(this.dy3_Click);
             // 
             // ToolStripMenuItem17
             // 
@@ -816,29 +830,9 @@ namespace LuoEasyPrint
             this.ZDYButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.ZDYButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ZDYButton2.Name = "ZDYButton2";
-            this.ZDYButton2.Size = new System.Drawing.Size(23, 4);
+            this.ZDYButton2.Size = new System.Drawing.Size(23, 22);
             this.ZDYButton2.Visible = false;
-            // 
-            // PrintPreviewControl1
-            // 
-            this.PrintPreviewControl1.AutoZoom = false;
-            this.PrintPreviewControl1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.PrintPreviewControl1.Columns = 1;
-            this.PrintPreviewControl1.ContextMenuStrip = this.ContextMenuStrip1;
-            this.PrintPreviewControl1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.PrintPreviewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PrintPreviewControl1.Document = this.Pd;
-            this.PrintPreviewControl1.ForeColor = System.Drawing.Color.White;
-            this.PrintPreviewControl1.IsShowprocessDialog = true;
-            this.PrintPreviewControl1.Location = new System.Drawing.Point(0, 25);
-            this.PrintPreviewControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.PrintPreviewControl1.Name = "PrintPreviewControl1";
-            this.PrintPreviewControl1.Rows = 1;
-            this.PrintPreviewControl1.Size = new System.Drawing.Size(986, 455);
-            this.PrintPreviewControl1.StartPage = 0;
-            this.PrintPreviewControl1.TabIndex = 2;
-            this.PrintPreviewControl1.UseAntiAlias = true;
-            this.PrintPreviewControl1.Zoom = 1D;
+            this.ZDYButton2.Click += new System.EventHandler(this.ZDYButton2_Click);
             // 
             // DotNetPrint
             // 
@@ -847,10 +841,9 @@ namespace LuoEasyPrint
             this.Controls.Add(this.tempdgv);
             this.Controls.Add(this.mydgv2);
             this.Controls.Add(this.myms);
-            this.Controls.Add(this.PrintPreviewControl1);
             this.Controls.Add(this.ToolStrip1);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "DotNetPrint";
             this.Size = new System.Drawing.Size(986, 480);
             this.ContextMenuStrip1.ResumeLayout(false);
@@ -865,9 +858,9 @@ namespace LuoEasyPrint
 		}
 
 		#endregion
-		private Font myZDXfont;
+		
 	
-		private Font myfont;
+		
 		private PrintDocument Pd;
 		private PageSetupDialog PageSetupDialog1;
 		private PrintDialog PrintDialog1;

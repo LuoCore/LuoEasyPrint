@@ -1715,7 +1715,7 @@ namespace LuoEasyPrint
                         {
                             try
                             {
-                                if (Versioned.IsNumeric(text8))
+                                if (DataTypeConversion.IsNumeric(text8))
                                 {
                                     text8 = Strings.Format(Conversions.ToDecimal(text8), myline.Format);
                                     text = text8;
@@ -1745,7 +1745,7 @@ namespace LuoEasyPrint
                         }
                         try
                         {
-                            if (Versioned.IsNumeric(text8))
+                            if (DataTypeConversion.IsNumeric(text8))
                             {
                                 text8 = Strings.Format(Conversions.ToDecimal(text8), myline.Format);
                                 text = text8;
@@ -2516,7 +2516,7 @@ namespace LuoEasyPrint
                             {
                                 try
                                 {
-                                    if (Versioned.IsNumeric(RuntimeHelpers.GetObjectValue(obj)))
+                                    if (DataTypeConversion.IsNumeric(RuntimeHelpers.GetObjectValue(obj)))
                                     {
                                         obj = Strings.Format(Conversions.ToDecimal(obj), cc.Format);
                                     }
@@ -2544,7 +2544,7 @@ namespace LuoEasyPrint
                             }
                             try
                             {
-                                if (Versioned.IsNumeric(RuntimeHelpers.GetObjectValue(obj)))
+                                if (DataTypeConversion.IsNumeric(RuntimeHelpers.GetObjectValue(obj)))
                                 {
                                     obj = Strings.Format(Conversions.ToDecimal(obj), cc.Format);
                                 }
@@ -2688,7 +2688,7 @@ namespace LuoEasyPrint
                         try
                         {
                             string text = Conversions.ToString(dgv.Rows[i].Cells[colname].Value);
-                            if (Versioned.IsNumeric(text))
+                            if (DataTypeConversion.IsNumeric(text))
                             {
                                 num = decimal.Add(num, Conversions.ToDecimal(text));
                             }
@@ -2732,7 +2732,7 @@ namespace LuoEasyPrint
                         try
                         {
                             string text = Conversions.ToString(dgv.Rows[i].Cells[colname].Value);
-                            if (Versioned.IsNumeric(text))
+                            if (DataTypeConversion.IsNumeric(text))
                             {
                                 decimal num2 = Conversions.ToDecimal(text);
                                 if (decimal.Compare(num2, num) > 0)
@@ -2780,7 +2780,7 @@ namespace LuoEasyPrint
                         try
                         {
                             string text = Conversions.ToString(dgv.Rows[i].Cells[colname].Value);
-                            if (Versioned.IsNumeric(text))
+                            if (DataTypeConversion.IsNumeric(text))
                             {
                                 decimal num2 = Conversions.ToDecimal(text);
                                 if (decimal.Compare(num2, num) < 0)

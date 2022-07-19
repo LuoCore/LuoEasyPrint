@@ -289,13 +289,13 @@ namespace LuoEasyPrint
 										else
 										{
 											string text = Convert.ToString(mydgv.Rows[i].Cells[array3[j]].FormattedValue) + "";
-											if (Versioned.IsNumeric(text) && Convert.ToDouble(text) > 99999999999.0)
+											if (DataTypeConversion.IsNumeric(text) && Convert.ToDouble(text) > 99999999999.0)
 											{
 												valueTypes2 = newDGVtoExcel.ValueTypes.xlsText;
 											}
 											if (valueTypes2 != newDGVtoExcel.ValueTypes.xlsText)
 											{
-												if (!Versioned.IsNumeric(text))
+												if (!DataTypeConversion.IsNumeric(text))
 												{
 													valueTypes2 = newDGVtoExcel.ValueTypes.xlsText;
 												}

@@ -1905,7 +1905,7 @@ namespace LuoEasyPrint
                 {
                     return;
                 }
-                if (dataGridViewColumn != null && Versioned.IsNumeric(this.NumericUpDown1.Value) && decimal.Compare(this.NumericUpDown1.Value, 0m) >= 0)
+                if (dataGridViewColumn != null && DataTypeConversion.IsNumeric(this.NumericUpDown1.Value) && decimal.Compare(this.NumericUpDown1.Value, 0m) >= 0)
                 {
                     try
                     {

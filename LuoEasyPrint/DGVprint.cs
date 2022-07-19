@@ -2306,7 +2306,7 @@ namespace LuoEasyPrint
 				{
 					this.myborder = "1111";
 				}
-				else if (!Versioned.IsNumeric(value))
+				else if (!DataTypeConversion.IsNumeric(value))
 				{
 					this.myborder = "1111";
 				}

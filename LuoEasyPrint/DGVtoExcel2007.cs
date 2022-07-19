@@ -588,7 +588,7 @@ namespace LuoEasyPrint
                                             switch (num34)
                                             {
                                                 case -1:
-                                                    if (numericmode && Versioned.IsNumeric(text) && Convert.ToDouble(text) <= 99999999999.0)
+                                                    if (numericmode && DataTypeConversion.IsNumeric(text) && Convert.ToDouble(text) <= 99999999999.0)
                                                     {
                                                         DGVtoExcel2007.SetCellValue(xssfsheet, num6 + i, j, Convert.ToDouble(text), Convert.ToString(mydgv.Rows[i].Cells[array3[j]].Tag));
                                                         goto IL_10D6;
@@ -596,7 +596,7 @@ namespace LuoEasyPrint
                                                     DGVtoExcel2007.SetCellValue(xssfsheet, num6 + i, j, text, Convert.ToString(mydgv.Rows[i].Cells[array3[j]].Tag));
                                                     goto IL_10D6;
                                                 case 1:
-                                                    if (Versioned.IsNumeric(text))
+                                                    if (DataTypeConversion.IsNumeric(text))
                                                     {
                                                         DGVtoExcel2007.SetCellValue(xssfsheet, num6 + i, j, Convert.ToDouble(text), Convert.ToString(mydgv.Rows[i].Cells[array3[j]].Tag));
                                                         goto IL_10D6;
