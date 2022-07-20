@@ -3457,5 +3457,98 @@ namespace LuoEasyPrint
 			80,
 			32
 		};
+
+
+
+		public static DataGridView ConvertDataGridToDGV(DataGridView myd, bool autoresizewidth, bool autoresizeheight)
+		{
+			DataGridView dataGridView = new DataGridView();
+			int count = myd.BindingContext[RuntimeHelpers.GetObjectValue(myd.DataSource), myd.DataMember].Count;
+			checked
+			{
+				DataGridView result;
+				if (count <= 0)
+				{
+					result = null;
+				}
+				else
+				{
+					int num = 0;
+					for (; ; )
+					{
+						try
+						{
+							Conversions.ToString(myd[0, num]);
+							num++;
+						}
+						catch (Exception ex)
+						{
+							break;
+						}
+					}
+					int num2 = 0;
+					int num3 = count - 1;
+					for (int i = num2; i <= num3; i++)
+					{
+						int num4 = 0;
+						int num5 = num - 1;
+						for (int j = num4; j <= num5; j++)
+						{
+						}
+					}
+					if (num <= 0)
+					{
+						result = null;
+					}
+					else
+					{
+						dataGridView.RowCount = count;
+						dataGridView.ColumnCount = num;
+						
+						int num6 = 0;
+						int num7 = num - 1;
+						for (int i = num6; i <= num7; i++)
+						{
+						
+							
+							
+						}
+					
+						int num8 = 0;
+						int num9 = count - 1;
+						for (int i = num8; i <= num9; i++)
+						{
+							int num10 = 0;
+							int num11 = num - 1;
+							for (int j = num10; j <= num11; j++)
+							{
+								dataGridView.Rows[i].Cells[j].Value = Operators.ConcatenateObject(myd[i, j], "");
+							}
+						}
+					
+						dataGridView.DefaultCellStyle.BackColor = myd.BackColor;
+						dataGridView.DefaultCellStyle.Font = myd.Font;
+						dataGridView.DefaultCellStyle.ForeColor = myd.ForeColor;
+					
+						int num12 = 0;
+						int num13 = num - 1;
+						for (int i = num12; i <= num13; i++)
+						{
+							dataGridView.Columns[i].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+						}
+						if (autoresizewidth)
+						{
+							dataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+						}
+						if (autoresizeheight)
+						{
+							dataGridView.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
+						}
+						result = dataGridView;
+					}
+				}
+				return result;
+			}
+		}
 	}
 }

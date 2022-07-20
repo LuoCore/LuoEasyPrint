@@ -17,15 +17,18 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
-
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using LuoEasyPrint.Properties;
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
 using Microsoft.VisualBasic.FileIO;
 
-
 using ZXing;
 using ZXing.Common;
-using iText.Layout;
+using Font = System.Drawing.Font;
+using Image = System.Drawing.Image;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace LuoEasyPrint
 {
@@ -37,12 +40,13 @@ namespace LuoEasyPrint
 	[Description("可混合打印窗口中的一个或多个DataGridView表格及文本和图片等的可视化打印控件。注意请不要被名称误解了，控件在.NET环境下的C#等语言中也是可以使用的(6.01版，net2.0)")]
 	public class VB2008Print : UserControl, objsafe.IObjectSafety
 	{
-		// Token: 0x06001247 RID: 4679 RVA: 0x00090608 File Offset: 0x0008E808QueryDefaultPageSettingsEventHandler
+		// Token: 0x06001247 RID: 4679 RVA: 0x00090608 File Offset: 0x0008E808
 		[DebuggerNonUserCode]
 		protected override void Dispose(bool disposing)
 		{
 			try
 			{
+				Operators.CompareString
 				if (disposing && this.components != null)
 				{
 					this.components.Dispose();
@@ -70,18 +74,760 @@ namespace LuoEasyPrint
 		[DebuggerStepThrough]
 		private void InitializeComponent()
 		{
-            this.SuspendLayout();
-            // 
-            // VB2008Print
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "VB2008Print";
-            this.Size = new System.Drawing.Size(842, 418);
-            this.ResumeLayout(false);
-
+			this.components = new Container();
+			DataGridViewCellStyle dataGridViewCellStyle = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+			ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof(VB2008Print));
+			this.Pd = new PrintDocument();
+			this.PageSetupDialog1 = new PageSetupDialog();
+			this.PrintDialog1 = new PrintDialog();
+			this.SaveFileDialog1 = new SaveFileDialog();
+			this.OpenFileDialog1 = new OpenFileDialog();
+			this.ContextMenuStrip1 = new ContextMenuStrip(this.components);
+			this.ToolStripMenuItem_0 = new ToolStripMenuItem();
+			this.ToolStripMenuItem_5 = new ToolStripMenuItem();
+			this.ToolStripMenuItem_1 = new ToolStripMenuItem();
+			this.ToolStripMenuItem13 = new ToolStripSeparator();
+			this.ToolStripMenuItem_2 = new ToolStripMenuItem();
+			this.ToolStripMenuItem14 = new ToolStripSeparator();
+			this.ToolStripMenuItem_3 = new ToolStripMenuItem();
+			this.ToolStripMenuItem_4 = new ToolStripMenuItem();
+			this.ToolStripMenuItem12 = new ToolStripSeparator();
+			this.ToolStripMenuItem_6 = new ToolStripMenuItem();
+			this.ColorDialog1 = new ColorDialog();
+			this.myms = new DataGridView();
+			this.mydgv2 = new DataGridView();
+			this.tempdgv = new DataGridView();
+			this.BeforePreviewD = new PrintDocument();
+			this.pagesetup = new ToolStripButton();
+			this.ToolStripSeparator2 = new ToolStripSeparator();
+			this.myopen = new ToolStripButton();
+			this.ToolStripSeparator3 = new ToolStripSeparator();
+			this.mybl = new ToolStripDropDownButton();
+			this.ToolStripMenuItem11 = new ToolStripMenuItem();
+			this.ToolStripMenuItem = new ToolStripMenuItem();
+			this.ToolStripMenuItem0 = new ToolStripMenuItem();
+			this.ToolStripMenuItem1 = new ToolStripMenuItem();
+			this.ToolStripMenuItem2 = new ToolStripMenuItem();
+			this.ToolStripMenuItem3 = new ToolStripMenuItem();
+			this.ToolStripMenuItem4 = new ToolStripMenuItem();
+			this.ToolStripMenuItem5 = new ToolStripMenuItem();
+			this.ToolStripMenuItem6 = new ToolStripMenuItem();
+			this.ToolStripMenuItem7 = new ToolStripMenuItem();
+			this.ToolStripMenuItem8 = new ToolStripMenuItem();
+			this.ToolStripMenuItem9 = new ToolStripMenuItem();
+			this.ToolStripMenuItem10 = new ToolStripMenuItem();
+			this.ToolStripSeparator4 = new ToolStripSeparator();
+			this.ToolStripMenuItem_16 = new ToolStripMenuItem();
+			this.mycolsperpage = new ToolStripDropDownButton();
+			this.ToolStripMenuItem_7 = new ToolStripMenuItem();
+			this.ToolStripMenuItem_8 = new ToolStripMenuItem();
+			this.ToolStripMenuItem_9 = new ToolStripMenuItem();
+			this.ToolStripMenuItem_10 = new ToolStripMenuItem();
+			this.ToolStripMenuItem_11 = new ToolStripMenuItem();
+			this.ToolStripMenuItem_12 = new ToolStripMenuItem();
+			this.ToolStripMenuItem_13 = new ToolStripMenuItem();
+			this.ToolStripMenuItem_14 = new ToolStripMenuItem();
+			this.myshowtype = new ToolStripDropDownButton();
+			this.mytype1 = new ToolStripMenuItem();
+			this.mytype2 = new ToolStripMenuItem();
+			this.cpage = new ToolStripComboBox();
+			this.ToolStripSeparator1 = new ToolStripSeparator();
+			this.mystatus = new ToolStripLabel();
+			this.ToolStripSeparator6 = new ToolStripSeparator();
+			this.fpage = new ToolStripButton();
+			this.ppage = new ToolStripButton();
+			this.npage = new ToolStripButton();
+			this.lpage = new ToolStripButton();
+			this.ToolStripSeparator5 = new ToolStripSeparator();
+			this.zdybutton = new ToolStripButton();
+			this.ToolStrip1 = new ToolStrip();
+			this.printd = new ToolStripSplitButton();
+			this.dy1 = new ToolStripMenuItem();
+			this.dy2 = new ToolStripMenuItem();
+			this.dy3 = new ToolStripMenuItem();
+			this.ToolStripMenuItem17 = new ToolStripSeparator();
+			this.dy4 = new ToolStripMenuItem();
+			this.dy5 = new ToolStripMenuItem();
+			this.ToolStripMenuItem16 = new ToolStripSeparator();
+			this.cgprint = new ToolStripMenuItem();
+			this.mysave = new ToolStripSplitButton();
+			this.ToolStripMenuItem15 = new ToolStripMenuItem();
+			this.ToolStripMenuItem_15 = new ToolStripMenuItem();
+			this.savepdf = new ToolStripSeparator();
+			this.saveaspdfcur = new ToolStripMenuItem();
+			this.saveaspdfall = new ToolStripMenuItem();
+			this.ToolStripSeparator7 = new ToolStripSeparator();
+			this.ToolStripMenuItem_17 = new ToolStripMenuItem();
+			this.ToolStripMenuItem_18 = new ToolStripMenuItem();
+			this.ZDYButton2 = new ToolStripButton();
+			this.ToolTip1 = new ToolTip(this.components);
+			this.PrintPreviewControl1 = new PrintPreviewControl();
+			this.ContextMenuStrip1.SuspendLayout();
+			((ISupportInitialize)this.myms).BeginInit();
+			((ISupportInitialize)this.mydgv2).BeginInit();
+			((ISupportInitialize)this.tempdgv).BeginInit();
+			this.ToolStrip1.SuspendLayout();
+			this.SuspendLayout();
+			this.Pd.DocumentName = "VB2008打印控件";
+			this.PageSetupDialog1.Document = this.Pd;
+			this.PageSetupDialog1.EnableMetric = true;
+			this.PrintDialog1.AllowSomePages = true;
+			this.PrintDialog1.Document = this.Pd;
+			this.PrintDialog1.ShowNetwork = false;
+			this.PrintDialog1.UseEXDialog = true;
+			this.SaveFileDialog1.Filter = "报表文件(*.you)|*.you";
+			this.OpenFileDialog1.Filter = "报表文件(*.you)|*.you";
+			this.ContextMenuStrip1.Items.AddRange(new ToolStripItem[]
+			{
+				this.ToolStripMenuItem_0,
+				this.ToolStripMenuItem_5,
+				this.ToolStripMenuItem_1,
+				this.ToolStripMenuItem13,
+				this.ToolStripMenuItem_2,
+				this.ToolStripMenuItem14,
+				this.ToolStripMenuItem_3,
+				this.ToolStripMenuItem_4,
+				this.ToolStripMenuItem12,
+				this.ToolStripMenuItem_6
+			});
+			this.ContextMenuStrip1.Name = "ContextMenuStrip1";
+			Control contextMenuStrip = this.ContextMenuStrip1;
+			Size size = new Size(161, 176);
+			contextMenuStrip.Size = size;
+			this.ToolStripMenuItem_0.Image = Resources.printer1;
+			this.ToolStripMenuItem_0.Name = "打印全部";
+			ToolStripItem toolStripItem = this.ToolStripMenuItem_0;
+			size = new Size(160, 22);
+			toolStripItem.Size = size;
+			this.ToolStripMenuItem_0.Text = "打印全部页";
+			this.ToolStripMenuItem_5.Image = Resources.printer1;
+			this.ToolStripMenuItem_5.Name = "打印当前页";
+			ToolStripItem toolStripItem2 = this.ToolStripMenuItem_5;
+			size = new Size(160, 22);
+			toolStripItem2.Size = size;
+			this.ToolStripMenuItem_5.Text = "打印当前页";
+			this.ToolStripMenuItem_1.Image = Resources.printer1;
+			this.ToolStripMenuItem_1.Name = "打印";
+			ToolStripItem toolStripItem3 = this.ToolStripMenuItem_1;
+			size = new Size(160, 22);
+			toolStripItem3.Size = size;
+			this.ToolStripMenuItem_1.Text = "打印……";
+			this.ToolStripMenuItem_1.ToolTipText = "选择打印机和打印范围打印";
+			this.ToolStripMenuItem13.Name = "ToolStripMenuItem13";
+			ToolStripItem toolStripMenuItem = this.ToolStripMenuItem13;
+			size = new Size(157, 6);
+			toolStripMenuItem.Size = size;
+			this.ToolStripMenuItem_2.Image = Resources.page1;
+			this.ToolStripMenuItem_2.Name = "页面设置";
+			ToolStripItem toolStripItem4 = this.ToolStripMenuItem_2;
+			size = new Size(160, 22);
+			toolStripItem4.Size = size;
+			this.ToolStripMenuItem_2.Text = "页面设置";
+			this.ToolStripMenuItem14.Name = "ToolStripMenuItem14";
+			ToolStripItem toolStripMenuItem2 = this.ToolStripMenuItem14;
+			size = new Size(157, 6);
+			toolStripMenuItem2.Size = size;
+			this.ToolStripMenuItem_3.Image = Resources.save;
+			this.ToolStripMenuItem_3.Name = "保存为报表文件";
+			ToolStripItem toolStripItem5 = this.ToolStripMenuItem_3;
+			size = new Size(160, 22);
+			toolStripItem5.Size = size;
+			this.ToolStripMenuItem_3.Text = "保存为报表文件";
+			this.ToolStripMenuItem_4.Image = Resources.foldopen;
+			this.ToolStripMenuItem_4.Name = "打开报表文件";
+			ToolStripItem toolStripItem6 = this.ToolStripMenuItem_4;
+			size = new Size(160, 22);
+			toolStripItem6.Size = size;
+			this.ToolStripMenuItem_4.Text = "打开报表文件";
+			this.ToolStripMenuItem12.Name = "ToolStripMenuItem12";
+			ToolStripItem toolStripMenuItem3 = this.ToolStripMenuItem12;
+			size = new Size(157, 6);
+			toolStripMenuItem3.Size = size;
+			this.ToolStripMenuItem_6.Name = "关于";
+			ToolStripItem toolStripItem7 = this.ToolStripMenuItem_6;
+			size = new Size(160, 22);
+			toolStripItem7.Size = size;
+			this.ToolStripMenuItem_6.Text = "关于";
+			this.ToolStripMenuItem_6.Visible = false;
+			this.myms.AllowUserToAddRows = false;
+			dataGridViewCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle.BackColor = SystemColors.Control;
+			dataGridViewCellStyle.Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 134);
+			dataGridViewCellStyle.ForeColor = SystemColors.WindowText;
+			dataGridViewCellStyle.SelectionBackColor = SystemColors.Highlight;
+			dataGridViewCellStyle.SelectionForeColor = SystemColors.HighlightText;
+			dataGridViewCellStyle.WrapMode = DataGridViewTriState.True;
+			this.myms.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle;
+			this.myms.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = SystemColors.Window;
+			dataGridViewCellStyle2.Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 134);
+			dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+			dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+			dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+			dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+			this.myms.DefaultCellStyle = dataGridViewCellStyle2;
+			Control myms = this.myms;
+			Point location = new Point(103, 93);
+			myms.Location = location;
+			this.myms.Name = "myms";
+			this.myms.RowTemplate.Height = 23;
+			Control myms2 = this.myms;
+			size = new Size(10, 0);
+			myms2.Size = size;
+			this.myms.TabIndex = 3;
+			this.mydgv2.AllowUserToAddRows = false;
+			dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = SystemColors.Control;
+			dataGridViewCellStyle3.Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 134);
+			dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+			dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+			dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+			dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+			this.mydgv2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+			this.mydgv2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle4.BackColor = SystemColors.Window;
+			dataGridViewCellStyle4.Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 134);
+			dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+			dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+			dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+			dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+			this.mydgv2.DefaultCellStyle = dataGridViewCellStyle4;
+			Control mydgv = this.mydgv2;
+			location = new Point(330, 199);
+			mydgv.Location = location;
+			this.mydgv2.Name = "mydgv2";
+			this.mydgv2.RowTemplate.Height = 23;
+			Control mydgv2 = this.mydgv2;
+			size = new Size(10, 0);
+			mydgv2.Size = size;
+			this.mydgv2.TabIndex = 4;
+			this.tempdgv.AllowUserToAddRows = false;
+			dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle5.BackColor = SystemColors.Control;
+			dataGridViewCellStyle5.Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 134);
+			dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+			dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+			dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+			dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+			this.tempdgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+			this.tempdgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle6.BackColor = SystemColors.Window;
+			dataGridViewCellStyle6.Font = new Font("宋体", 9f, FontStyle.Regular, GraphicsUnit.Point, 134);
+			dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+			dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+			dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+			dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+			this.tempdgv.DefaultCellStyle = dataGridViewCellStyle6;
+			Control tempdgv = this.tempdgv;
+			location = new Point(338, 207);
+			tempdgv.Location = location;
+			this.tempdgv.Name = "tempdgv";
+			this.tempdgv.RowTemplate.Height = 23;
+			Control tempdgv2 = this.tempdgv;
+			size = new Size(10, 0);
+			tempdgv2.Size = size;
+			this.tempdgv.TabIndex = 5;
+			this.pagesetup.Image = (Image)componentResourceManager.GetObject("pagesetup.Image");
+			this.pagesetup.ImageTransparentColor = Color.Magenta;
+			this.pagesetup.Name = "pagesetup";
+			ToolStripItem pagesetup = this.pagesetup;
+			size = new Size(69, 25);
+			pagesetup.Size = size;
+			this.pagesetup.Text = "页面(&U)";
+			this.pagesetup.ToolTipText = "显示页面设置对话框";
+			this.ToolStripSeparator2.Name = "ToolStripSeparator2";
+			ToolStripItem toolStripSeparator = this.ToolStripSeparator2;
+			size = new Size(6, 28);
+			toolStripSeparator.Size = size;
+			this.myopen.Image = (Image)componentResourceManager.GetObject("myopen.Image");
+			this.myopen.ImageTransparentColor = Color.Magenta;
+			this.myopen.Name = "myopen";
+			ToolStripItem myopen = this.myopen;
+			size = new Size(70, 25);
+			myopen.Size = size;
+			this.myopen.Text = "打开(&O)";
+			this.myopen.ToolTipText = "打开报表文件";
+			this.ToolStripSeparator3.Name = "ToolStripSeparator3";
+			ToolStripItem toolStripSeparator2 = this.ToolStripSeparator3;
+			size = new Size(6, 28);
+			toolStripSeparator2.Size = size;
+			this.mybl.DisplayStyle = ToolStripItemDisplayStyle.Text;
+			this.mybl.DropDownItems.AddRange(new ToolStripItem[]
+			{
+				this.ToolStripMenuItem11,
+				this.ToolStripMenuItem,
+				this.ToolStripMenuItem0,
+				this.ToolStripMenuItem1,
+				this.ToolStripMenuItem2,
+				this.ToolStripMenuItem3,
+				this.ToolStripMenuItem4,
+				this.ToolStripMenuItem5,
+				this.ToolStripMenuItem6,
+				this.ToolStripMenuItem7,
+				this.ToolStripMenuItem8,
+				this.ToolStripMenuItem9,
+				this.ToolStripMenuItem10,
+				this.ToolStripSeparator4,
+				this.ToolStripMenuItem_16
+			});
+			this.mybl.Image = (Image)componentResourceManager.GetObject("mybl.Image");
+			this.mybl.ImageTransparentColor = Color.Magenta;
+			this.mybl.Name = "mybl";
+			ToolStripItem mybl = this.mybl;
+			size = new Size(45, 25);
+			mybl.Size = size;
+			this.mybl.Text = "比例";
+			this.mybl.ToolTipText = "设置打印预览显示比例";
+			this.ToolStripMenuItem11.Name = "ToolStripMenuItem11";
+			ToolStripItem toolStripMenuItem4 = this.ToolStripMenuItem11;
+			size = new Size(172, 22);
+			toolStripMenuItem4.Size = size;
+			this.ToolStripMenuItem11.Text = "10%";
+			this.ToolStripMenuItem.Name = "ToolStripMenuItem";
+			ToolStripItem toolStripMenuItem5 = this.ToolStripMenuItem;
+			size = new Size(172, 22);
+			toolStripMenuItem5.Size = size;
+			this.ToolStripMenuItem.Text = "25%";
+			this.ToolStripMenuItem0.Name = "ToolStripMenuItem0";
+			ToolStripItem toolStripMenuItem6 = this.ToolStripMenuItem0;
+			size = new Size(172, 22);
+			toolStripMenuItem6.Size = size;
+			this.ToolStripMenuItem0.Text = "50%";
+			this.ToolStripMenuItem1.DisplayStyle = ToolStripItemDisplayStyle.Text;
+			this.ToolStripMenuItem1.Name = "ToolStripMenuItem1";
+			ToolStripItem toolStripMenuItem7 = this.ToolStripMenuItem1;
+			size = new Size(172, 22);
+			toolStripMenuItem7.Size = size;
+			this.ToolStripMenuItem1.Text = "75%";
+			this.ToolStripMenuItem2.Checked = true;
+			this.ToolStripMenuItem2.CheckState = CheckState.Checked;
+			this.ToolStripMenuItem2.Name = "ToolStripMenuItem2";
+			ToolStripItem toolStripMenuItem8 = this.ToolStripMenuItem2;
+			size = new Size(172, 22);
+			toolStripMenuItem8.Size = size;
+			this.ToolStripMenuItem2.Text = "100%";
+			this.ToolStripMenuItem3.Name = "ToolStripMenuItem3";
+			ToolStripItem toolStripMenuItem9 = this.ToolStripMenuItem3;
+			size = new Size(172, 22);
+			toolStripMenuItem9.Size = size;
+			this.ToolStripMenuItem3.Text = "125%";
+			this.ToolStripMenuItem4.Name = "ToolStripMenuItem4";
+			ToolStripItem toolStripMenuItem10 = this.ToolStripMenuItem4;
+			size = new Size(172, 22);
+			toolStripMenuItem10.Size = size;
+			this.ToolStripMenuItem4.Text = "150%";
+			this.ToolStripMenuItem5.Name = "ToolStripMenuItem5";
+			ToolStripItem toolStripMenuItem11 = this.ToolStripMenuItem5;
+			size = new Size(172, 22);
+			toolStripMenuItem11.Size = size;
+			this.ToolStripMenuItem5.Text = "200%";
+			this.ToolStripMenuItem6.Name = "ToolStripMenuItem6";
+			ToolStripItem toolStripMenuItem12 = this.ToolStripMenuItem6;
+			size = new Size(172, 22);
+			toolStripMenuItem12.Size = size;
+			this.ToolStripMenuItem6.Text = "250%";
+			this.ToolStripMenuItem7.Name = "ToolStripMenuItem7";
+			ToolStripItem toolStripMenuItem13 = this.ToolStripMenuItem7;
+			size = new Size(172, 22);
+			toolStripMenuItem13.Size = size;
+			this.ToolStripMenuItem7.Text = "300%";
+			this.ToolStripMenuItem8.Name = "ToolStripMenuItem8";
+			ToolStripItem toolStripMenuItem14 = this.ToolStripMenuItem8;
+			size = new Size(172, 22);
+			toolStripMenuItem14.Size = size;
+			this.ToolStripMenuItem8.Text = "400%";
+			this.ToolStripMenuItem9.Name = "ToolStripMenuItem9";
+			ToolStripItem toolStripMenuItem15 = this.ToolStripMenuItem9;
+			size = new Size(172, 22);
+			toolStripMenuItem15.Size = size;
+			this.ToolStripMenuItem9.Text = "500%";
+			this.ToolStripMenuItem10.Name = "ToolStripMenuItem10";
+			ToolStripItem toolStripMenuItem16 = this.ToolStripMenuItem10;
+			size = new Size(172, 22);
+			toolStripMenuItem16.Size = size;
+			this.ToolStripMenuItem10.Text = "自适应";
+			this.ToolStripSeparator4.Name = "ToolStripSeparator4";
+			ToolStripItem toolStripSeparator3 = this.ToolStripSeparator4;
+			size = new Size(169, 6);
+			toolStripSeparator3.Size = size;
+			this.ToolStripMenuItem_16.Name = "测试ToolStripMenuItem";
+			ToolStripItem toolStripItem8 = this.ToolStripMenuItem_16;
+			size = new Size(172, 22);
+			toolStripItem8.Size = size;
+			this.ToolStripMenuItem_16.Text = "设置打印缩放比例";
+			this.mycolsperpage.DisplayStyle = ToolStripItemDisplayStyle.Text;
+			this.mycolsperpage.DropDownItems.AddRange(new ToolStripItem[]
+			{
+				this.ToolStripMenuItem_7,
+				this.ToolStripMenuItem_8,
+				this.ToolStripMenuItem_9,
+				this.ToolStripMenuItem_10,
+				this.ToolStripMenuItem_11,
+				this.ToolStripMenuItem_12,
+				this.ToolStripMenuItem_13,
+				this.ToolStripMenuItem_14
+			});
+			this.mycolsperpage.Image = (Image)componentResourceManager.GetObject("mycolsperpage.Image");
+			this.mycolsperpage.ImageTransparentColor = Color.Magenta;
+			this.mycolsperpage.Name = "mycolsperpage";
+			ToolStripItem mycolsperpage = this.mycolsperpage;
+			size = new Size(69, 21);
+			mycolsperpage.Size = size;
+			this.mycolsperpage.Text = "横向页数";
+			this.mycolsperpage.ToolTipText = "横向显示的页数";
+			this.ToolStripMenuItem_7.Checked = true;
+			this.ToolStripMenuItem_7.CheckState = CheckState.Checked;
+			this.ToolStripMenuItem_7.Name = "页ToolStripMenuItem";
+			ToolStripItem toolStripItem9 = this.ToolStripMenuItem_7;
+			size = new Size(102, 22);
+			toolStripItem9.Size = size;
+			this.ToolStripMenuItem_7.Text = "1页";
+			this.ToolStripMenuItem_8.Name = "页ToolStripMenuItem1";
+			ToolStripItem toolStripItem10 = this.ToolStripMenuItem_8;
+			size = new Size(102, 22);
+			toolStripItem10.Size = size;
+			this.ToolStripMenuItem_8.Text = "2页";
+			this.ToolStripMenuItem_9.Name = "页ToolStripMenuItem2";
+			ToolStripItem toolStripItem11 = this.ToolStripMenuItem_9;
+			size = new Size(102, 22);
+			toolStripItem11.Size = size;
+			this.ToolStripMenuItem_9.Text = "3页";
+			this.ToolStripMenuItem_10.Name = "页ToolStripMenuItem3";
+			ToolStripItem toolStripItem12 = this.ToolStripMenuItem_10;
+			size = new Size(102, 22);
+			toolStripItem12.Size = size;
+			this.ToolStripMenuItem_10.Text = "4页";
+			this.ToolStripMenuItem_11.Name = "页ToolStripMenuItem4";
+			ToolStripItem toolStripItem13 = this.ToolStripMenuItem_11;
+			size = new Size(102, 22);
+			toolStripItem13.Size = size;
+			this.ToolStripMenuItem_11.Text = "5页";
+			this.ToolStripMenuItem_12.Name = "页ToolStripMenuItem5";
+			ToolStripItem toolStripItem14 = this.ToolStripMenuItem_12;
+			size = new Size(102, 22);
+			toolStripItem14.Size = size;
+			this.ToolStripMenuItem_12.Text = "6页";
+			this.ToolStripMenuItem_13.Name = "页ToolStripMenuItem6";
+			ToolStripItem toolStripItem15 = this.ToolStripMenuItem_13;
+			size = new Size(102, 22);
+			toolStripItem15.Size = size;
+			this.ToolStripMenuItem_13.Text = "8页";
+			this.ToolStripMenuItem_14.Name = "页ToolStripMenuItem7";
+			ToolStripItem toolStripItem16 = this.ToolStripMenuItem_14;
+			size = new Size(102, 22);
+			toolStripItem16.Size = size;
+			this.ToolStripMenuItem_14.Text = "10页";
+			this.myshowtype.DisplayStyle = ToolStripItemDisplayStyle.Text;
+			this.myshowtype.DropDownItems.AddRange(new ToolStripItem[]
+			{
+				this.mytype1,
+				this.mytype2
+			});
+			this.myshowtype.Image = (Image)componentResourceManager.GetObject("myshowtype.Image");
+			this.myshowtype.ImageTransparentColor = Color.Magenta;
+			this.myshowtype.Name = "myshowtype";
+			ToolStripItem myshowtype = this.myshowtype;
+			size = new Size(45, 21);
+			myshowtype.Size = size;
+			this.myshowtype.Text = "显示";
+			this.myshowtype.ToolTipText = "打印预览显示方式";
+			this.mytype1.Name = "mytype1";
+			ToolStripItem mytype = this.mytype1;
+			size = new Size(124, 22);
+			mytype.Size = size;
+			this.mytype1.Text = "连续显示";
+			this.mytype2.Checked = true;
+			this.mytype2.CheckState = CheckState.Checked;
+			this.mytype2.Name = "mytype2";
+			ToolStripItem mytype2 = this.mytype2;
+			size = new Size(124, 22);
+			mytype2.Size = size;
+			this.mytype2.Text = "单页显示";
+			this.cpage.DropDownHeight = 180;
+			this.cpage.DropDownStyle = ComboBoxStyle.DropDownList;
+			this.cpage.DropDownWidth = 75;
+			this.cpage.Enabled = false;
+			this.cpage.Font = new Font("宋体", 12f, FontStyle.Regular, GraphicsUnit.Point, 134);
+			this.cpage.IntegralHeight = false;
+			this.cpage.Name = "cpage";
+			ToolStripControlHost cpage = this.cpage;
+			size = new Size(75, 24);
+			cpage.Size = size;
+			this.cpage.ToolTipText = "选择要在当前页面中显示的页码(在显示方式为<连续显示>下不可用";
+			this.ToolStripSeparator1.Name = "ToolStripSeparator1";
+			ToolStripItem toolStripSeparator4 = this.ToolStripSeparator1;
+			size = new Size(6, 25);
+			toolStripSeparator4.Size = size;
+			this.mystatus.BackColor = Color.Blue;
+			this.mystatus.DisplayStyle = ToolStripItemDisplayStyle.Text;
+			this.mystatus.ForeColor = Color.Red;
+			this.mystatus.Name = "mystatus";
+			ToolStripItem mystatus = this.mystatus;
+			size = new Size(63, 17);
+			mystatus.Size = size;
+			this.mystatus.Text = "共【0】页";
+			this.ToolStripSeparator6.Name = "ToolStripSeparator6";
+			ToolStripItem toolStripSeparator5 = this.ToolStripSeparator6;
+			size = new Size(6, 25);
+			toolStripSeparator5.Size = size;
+			this.fpage.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			this.fpage.Enabled = false;
+			this.fpage.Image = Resources.fFirst;
+			this.fpage.ImageTransparentColor = Color.Magenta;
+			this.fpage.Name = "fpage";
+			ToolStripItem fpage = this.fpage;
+			size = new Size(23, 20);
+			fpage.Size = size;
+			this.fpage.Text = "第一页";
+			this.ppage.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			this.ppage.Enabled = false;
+			this.ppage.Image = Resources.pPrev;
+			this.ppage.ImageTransparentColor = Color.Magenta;
+			this.ppage.Name = "ppage";
+			ToolStripItem ppage = this.ppage;
+			size = new Size(23, 20);
+			ppage.Size = size;
+			this.ppage.Text = "上一页";
+			this.npage.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			this.npage.Enabled = false;
+			this.npage.Image = Resources.pnNext;
+			this.npage.ImageTransparentColor = Color.Magenta;
+			this.npage.Name = "npage";
+			ToolStripItem npage = this.npage;
+			size = new Size(23, 20);
+			npage.Size = size;
+			this.npage.Text = "下一页";
+			this.lpage.DisplayStyle = ToolStripItemDisplayStyle.Image;
+			this.lpage.Enabled = false;
+			this.lpage.Image = Resources.lLast;
+			this.lpage.ImageTransparentColor = Color.Magenta;
+			this.lpage.Name = "lpage";
+			ToolStripItem lpage = this.lpage;
+			size = new Size(23, 20);
+			lpage.Size = size;
+			this.lpage.Text = "最后一页";
+			this.ToolStripSeparator5.Name = "ToolStripSeparator5";
+			ToolStripItem toolStripSeparator6 = this.ToolStripSeparator5;
+			size = new Size(6, 25);
+			toolStripSeparator6.Size = size;
+			this.zdybutton.DisplayStyle = ToolStripItemDisplayStyle.Text;
+			this.zdybutton.Image = (Image)componentResourceManager.GetObject("zdybutton.Image");
+			this.zdybutton.ImageTransparentColor = Color.Magenta;
+			this.zdybutton.Name = "zdybutton";
+			ToolStripItem zdybutton = this.zdybutton;
+			size = new Size(23, 4);
+			zdybutton.Size = size;
+			this.zdybutton.Visible = false;
+			this.ToolStrip1.Items.AddRange(new ToolStripItem[]
+			{
+				this.pagesetup,
+				this.printd,
+				this.ToolStripSeparator2,
+				this.mysave,
+				this.myopen,
+				this.ToolStripSeparator3,
+				this.mybl,
+				this.mycolsperpage,
+				this.myshowtype,
+				this.cpage,
+				this.ToolStripSeparator1,
+				this.mystatus,
+				this.ToolStripSeparator6,
+				this.fpage,
+				this.ppage,
+				this.npage,
+				this.lpage,
+				this.ToolStripSeparator5,
+				this.zdybutton,
+				this.ZDYButton2
+			});
+			Control toolStrip = this.ToolStrip1;
+			location = new Point(0, 0);
+			toolStrip.Location = location;
+			this.ToolStrip1.Name = "ToolStrip1";
+			Control toolStrip2 = this.ToolStrip1;
+			size = new Size(410, 28);
+			toolStrip2.Size = size;
+			this.ToolStrip1.TabIndex = 1;
+			this.ToolStrip1.Text = "ToolStrip1";
+			this.printd.DropDownItems.AddRange(new ToolStripItem[]
+			{
+				this.dy1,
+				this.dy2,
+				this.dy3,
+				this.ToolStripMenuItem17,
+				this.dy4,
+				this.dy5,
+				this.ToolStripMenuItem16,
+				this.cgprint
+			});
+			this.printd.Image = Resources.printer1;
+			this.printd.ImageTransparentColor = Color.Magenta;
+			this.printd.Name = "printd";
+			ToolStripItem printd = this.printd;
+			size = new Size(79, 25);
+			printd.Size = size;
+			this.printd.Text = "打印(&P)";
+			this.printd.ToolTipText = "显示打印对话框，选择打印机进行打印输出。";
+			this.dy1.Image = Resources.printer1;
+			this.dy1.Name = "dy1";
+			ToolStripItem dy = this.dy1;
+			size = new Size(184, 22);
+			dy.Size = size;
+			this.dy1.Text = "打印……";
+			this.dy1.ToolTipText = "打印前选择打印机、打印范围、打印份数等选项";
+			this.dy2.Image = Resources.printer1;
+			this.dy2.Name = "dy2";
+			ToolStripItem dy2 = this.dy2;
+			size = new Size(184, 22);
+			dy2.Size = size;
+			this.dy2.Text = "快速打印全部页";
+			this.dy3.Image = Resources.printer1;
+			this.dy3.Name = "dy3";
+			ToolStripItem dy3 = this.dy3;
+			size = new Size(184, 22);
+			dy3.Size = size;
+			this.dy3.Text = "快速打印当前页";
+			this.ToolStripMenuItem17.Name = "ToolStripMenuItem17";
+			ToolStripItem toolStripMenuItem17 = this.ToolStripMenuItem17;
+			size = new Size(181, 6);
+			toolStripMenuItem17.Size = size;
+			this.dy4.Name = "dy4";
+			ToolStripItem dy4 = this.dy4;
+			size = new Size(184, 22);
+			dy4.Size = size;
+			this.dy4.Text = "手动双面打印……";
+			this.dy5.Name = "dy5";
+			ToolStripItem dy5 = this.dy5;
+			size = new Size(184, 22);
+			dy5.Size = size;
+			this.dy5.Text = "手动双面打印全部页";
+			this.ToolStripMenuItem16.Name = "ToolStripMenuItem16";
+			ToolStripItem toolStripMenuItem18 = this.ToolStripMenuItem16;
+			size = new Size(181, 6);
+			toolStripMenuItem18.Size = size;
+			this.cgprint.Name = "cgprint";
+			ToolStripItem cgprint = this.cgprint;
+			size = new Size(184, 22);
+			cgprint.Size = size;
+			this.cgprint.Text = "草稿打印……";
+			this.mysave.DropDownItems.AddRange(new ToolStripItem[]
+			{
+				this.ToolStripMenuItem15,
+				this.ToolStripMenuItem_15,
+				this.savepdf,
+				this.saveaspdfcur,
+				this.saveaspdfall,
+				this.ToolStripSeparator7,
+				this.ToolStripMenuItem_17,
+				this.ToolStripMenuItem_18
+			});
+			this.mysave.Image = (Image)componentResourceManager.GetObject("mysave.Image");
+			this.mysave.ImageTransparentColor = Color.Magenta;
+			this.mysave.Name = "mysave";
+			ToolStripItem mysave = this.mysave;
+			size = new Size(79, 25);
+			mysave.Size = size;
+			this.mysave.Text = "保存(&S)";
+			this.mysave.ToolTipText = "保存为文件";
+			this.ToolStripMenuItem15.Name = "ToolStripMenuItem15";
+			ToolStripItem toolStripMenuItem19 = this.ToolStripMenuItem15;
+			size = new Size(230, 22);
+			toolStripMenuItem19.Size = size;
+			this.ToolStripMenuItem15.Text = "保存";
+			this.ToolStripMenuItem15.ToolTipText = "保存为报表文件";
+			this.ToolStripMenuItem_15.Name = "加密保存ToolStripMenuItem";
+			ToolStripItem toolStripItem17 = this.ToolStripMenuItem_15;
+			size = new Size(230, 22);
+			toolStripItem17.Size = size;
+			this.ToolStripMenuItem_15.Text = "加密保存";
+			this.ToolStripMenuItem_15.ToolTipText = "保存为报表文件并设置密码";
+			this.savepdf.Name = "savepdf";
+			ToolStripItem savepdf = this.savepdf;
+			size = new Size(227, 6);
+			savepdf.Size = size;
+			this.saveaspdfcur.Name = "saveaspdfcur";
+			ToolStripItem saveaspdfcur = this.saveaspdfcur;
+			size = new Size(230, 22);
+			saveaspdfcur.Size = size;
+			this.saveaspdfcur.Text = "保存为PDF文件（仅当前页）";
+			this.saveaspdfall.Name = "saveaspdfall";
+			ToolStripItem saveaspdfall = this.saveaspdfall;
+			size = new Size(230, 22);
+			saveaspdfall.Size = size;
+			this.saveaspdfall.Text = "保存为PDF文件（全部页）";
+			this.ToolStripSeparator7.Name = "ToolStripSeparator7";
+			ToolStripItem toolStripSeparator7 = this.ToolStripSeparator7;
+			size = new Size(227, 6);
+			toolStripSeparator7.Size = size;
+			this.ToolStripMenuItem_17.Name = "保存为图像仅当前页ToolStripMenuItem";
+			ToolStripItem toolStripItem18 = this.ToolStripMenuItem_17;
+			size = new Size(230, 22);
+			toolStripItem18.Size = size;
+			this.ToolStripMenuItem_17.Text = "保存为图像（仅当前页）";
+			this.ToolStripMenuItem_17.ToolTipText = "将当前页保存为图像文件";
+			this.ToolStripMenuItem_18.Name = "保存为图像全部页ToolStripMenuItem";
+			ToolStripItem toolStripItem19 = this.ToolStripMenuItem_18;
+			size = new Size(230, 22);
+			toolStripItem19.Size = size;
+			this.ToolStripMenuItem_18.Text = "保存为图像（全部页）";
+			this.ToolStripMenuItem_18.ToolTipText = "将整个打印预览结果保存为图像";
+			this.ZDYButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
+			this.ZDYButton2.ImageTransparentColor = Color.Magenta;
+			this.ZDYButton2.Name = "ZDYButton2";
+			ToolStripItem zdybutton2 = this.ZDYButton2;
+			size = new Size(23, 4);
+			zdybutton2.Size = size;
+			this.ZDYButton2.Visible = false;
+			this.PrintPreviewControl1.AutoZoom = false;
+			this.PrintPreviewControl1.BackColor = SystemColors.AppWorkspace;
+			this.PrintPreviewControl1.Columns = 1;
+			this.PrintPreviewControl1.ContextMenuStrip = this.ContextMenuStrip1;
+			this.PrintPreviewControl1.Cursor = Cursors.Hand;
+			this.PrintPreviewControl1.Dock = DockStyle.Fill;
+			this.PrintPreviewControl1.Document = this.Pd;
+			this.PrintPreviewControl1.ForeColor = Color.White;
+			this.PrintPreviewControl1.IsShowprocessDialog = true;
+			Control printPreviewControl = this.PrintPreviewControl1;
+			location = new Point(0, 28);
+			printPreviewControl.Location = location;
+			this.PrintPreviewControl1.Name = "PrintPreviewControl1";
+			this.PrintPreviewControl1.Rows = 1;
+			Control printPreviewControl2 = this.PrintPreviewControl1;
+			size = new Size(410, 171);
+			printPreviewControl2.Size = size;
+			this.PrintPreviewControl1.StartPage = 0;
+			this.PrintPreviewControl1.TabIndex = 2;
+			this.PrintPreviewControl1.UseAntiAlias = true;
+			this.PrintPreviewControl1.Zoom = 1.0;
+			SizeF autoScaleDimensions = new SizeF(6f, 12f);
+			this.AutoScaleDimensions = autoScaleDimensions;
+			this.AutoScaleMode = AutoScaleMode.Font;
+			this.Controls.Add(this.tempdgv);
+			this.Controls.Add(this.mydgv2);
+			this.Controls.Add(this.myms);
+			this.Controls.Add(this.PrintPreviewControl1);
+			this.Controls.Add(this.ToolStrip1);
+			this.DoubleBuffered = true;
+			this.Name = "VB2008Print";
+			size = new Size(410, 199);
+			this.Size = size;
+			this.ContextMenuStrip1.ResumeLayout(false);
+			((ISupportInitialize)this.myms).EndInit();
+			((ISupportInitialize)this.mydgv2).EndInit();
+			((ISupportInitialize)this.tempdgv).EndInit();
+			this.ToolStrip1.ResumeLayout(false);
+			this.ToolStrip1.PerformLayout();
+			this.ResumeLayout(false);
+			this.PerformLayout();
 		}
 
 		// Token: 0x17000641 RID: 1601
@@ -2654,7 +3400,7 @@ namespace LuoEasyPrint
 					{
 						try
 						{
-							if (String.Compare(value.PaperName, "", false) == 0)
+							if (Operators.CompareString(value.PaperName, "", false) == 0)
 							{
 								value.PaperName = "用户自定义(空名称)";
 							}
@@ -3322,7 +4068,11 @@ namespace LuoEasyPrint
 					}
 					finally
 					{
-						
+						IEnumerator enumerator;
+						if (enumerator is IDisposable)
+						{
+							(enumerator as IDisposable).Dispose();
+						}
 					}
 					this.Pd.DefaultPageSettings = this.mypagesetting;
 				}
@@ -3766,90 +4516,90 @@ namespace LuoEasyPrint
 				pen.DashStyle = this.ZDXLineStyle;
 				switch (this.ZDXType)
 				{
-				case VB2008Print.TheZDXTYPE.TOP:
-				{
-					float num;
-					if (this.ZDXPosition <= 0f)
-					{
-						num = (float)((double)this.PaperMargins.Top / 2.0 - (double)this.PaperMargins.Top);
-					}
-					else
-					{
-						num = this.ZDXPosition - (float)this.PaperMargins.Top;
-					}
-					float num2 = 0f;
-					float x = this.PaperPrintWidth;
-					float y = num;
-					this.DrawLine(pen, num2, num, x, y);
-					float num3 = this.MeasureText("测", this.ZDXFont).Height;
-					this.Currentx = num2;
-					this.Currenty = num - num3 / 2f;
-					this.DrawMultiCell(this.ZDXText, (long)this.ZDXText.Length, true, true, this.PaperPrintWidth, num3, this.ZDXFont, this.ZDXTextColor, "", Color.Black, 6f, 0);
-					break;
-				}
-				case VB2008Print.TheZDXTYPE.RIGHT:
-				{
-					float num2;
-					if (this.ZDXPosition <= 0f)
-					{
-						num2 = (float)((double)this.PaperPrintWidth + (double)this.PaperMargins.Right / 2.0);
-					}
-					else
-					{
-						num2 = this.PaperPrintWidth + ((float)this.PaperMargins.Right - this.ZDXPosition);
-					}
-					float num = 0f;
-					float x = num2;
-					float y = this.PaperPrintHeight;
-					this.DrawLine(pen, num2, num, x, y);
-					float num3 = this.MeasureText("测", this.ZDXFont).Width;
-					this.Currentx = num2 - num3 / 2f;
-					this.Currenty = num;
-					this.DrawMultiCell(this.ZDXText, (long)this.ZDXText.Length, false, true, num3, this.PaperPrintHeight, this.ZDXFont, this.ZDXTextColor, "", Color.Black, 6f, 0);
-					break;
-				}
-				case VB2008Print.TheZDXTYPE.BOTTOM:
-				{
-					float num;
-					if (this.ZDXPosition <= 0f)
-					{
-						num = (float)((double)this.PaperHeight - (double)this.PaperMargins.Bottom / 2.0 - (double)this.PaperMargins.Top);
-					}
-					else
-					{
-						num = this.PaperHeight - this.ZDXPosition - (float)this.PaperMargins.Top;
-					}
-					float num2 = 0f;
-					float x = this.PaperPrintWidth;
-					float y = num;
-					this.DrawLine(pen, num2, num, x, y);
-					float num3 = this.MeasureText("测", this.ZDXFont).Height;
-					this.Currentx = num2;
-					this.Currenty = num - num3 / 2f;
-					this.DrawMultiCell(this.ZDXText, (long)this.ZDXText.Length, true, true, this.PaperPrintWidth, num3, this.ZDXFont, this.ZDXTextColor, "", Color.Black, 6f, 0);
-					break;
-				}
-				default:
-				{
-					float num2;
-					if (this.ZDXPosition <= 0f)
-					{
-						num2 = (float)((double)this.PaperMargins.Left / 2.0 - (double)this.PaperMargins.Left);
-					}
-					else
-					{
-						num2 = this.ZDXPosition - (float)this.PaperMargins.Left;
-					}
-					float num = 0f;
-					float x = num2;
-					float y = this.PaperPrintHeight;
-					this.DrawLine(pen, num2, num, x, y);
-					float num3 = this.MeasureText("测", this.ZDXFont).Width;
-					this.Currentx = num2 - num3 / 2f;
-					this.Currenty = num;
-					this.DrawMultiCell(this.ZDXText, (long)this.ZDXText.Length, false, true, num3, this.PaperPrintHeight, this.ZDXFont, this.ZDXTextColor, "", Color.Black, 6f, 0);
-					break;
-				}
+					case VB2008Print.TheZDXTYPE.TOP:
+						{
+							float num;
+							if (this.ZDXPosition <= 0f)
+							{
+								num = (float)((double)this.PaperMargins.Top / 2.0 - (double)this.PaperMargins.Top);
+							}
+							else
+							{
+								num = this.ZDXPosition - (float)this.PaperMargins.Top;
+							}
+							float num2 = 0f;
+							float x = this.PaperPrintWidth;
+							float y = num;
+							this.DrawLine(pen, num2, num, x, y);
+							float num3 = this.MeasureText("测", this.ZDXFont).Height;
+							this.Currentx = num2;
+							this.Currenty = num - num3 / 2f;
+							this.DrawMultiCell(this.ZDXText, (long)this.ZDXText.Length, true, true, this.PaperPrintWidth, num3, this.ZDXFont, this.ZDXTextColor, "", Color.Black, 6f, 0);
+							break;
+						}
+					case VB2008Print.TheZDXTYPE.RIGHT:
+						{
+							float num2;
+							if (this.ZDXPosition <= 0f)
+							{
+								num2 = (float)((double)this.PaperPrintWidth + (double)this.PaperMargins.Right / 2.0);
+							}
+							else
+							{
+								num2 = this.PaperPrintWidth + ((float)this.PaperMargins.Right - this.ZDXPosition);
+							}
+							float num = 0f;
+							float x = num2;
+							float y = this.PaperPrintHeight;
+							this.DrawLine(pen, num2, num, x, y);
+							float num3 = this.MeasureText("测", this.ZDXFont).Width;
+							this.Currentx = num2 - num3 / 2f;
+							this.Currenty = num;
+							this.DrawMultiCell(this.ZDXText, (long)this.ZDXText.Length, false, true, num3, this.PaperPrintHeight, this.ZDXFont, this.ZDXTextColor, "", Color.Black, 6f, 0);
+							break;
+						}
+					case VB2008Print.TheZDXTYPE.BOTTOM:
+						{
+							float num;
+							if (this.ZDXPosition <= 0f)
+							{
+								num = (float)((double)this.PaperHeight - (double)this.PaperMargins.Bottom / 2.0 - (double)this.PaperMargins.Top);
+							}
+							else
+							{
+								num = this.PaperHeight - this.ZDXPosition - (float)this.PaperMargins.Top;
+							}
+							float num2 = 0f;
+							float x = this.PaperPrintWidth;
+							float y = num;
+							this.DrawLine(pen, num2, num, x, y);
+							float num3 = this.MeasureText("测", this.ZDXFont).Height;
+							this.Currentx = num2;
+							this.Currenty = num - num3 / 2f;
+							this.DrawMultiCell(this.ZDXText, (long)this.ZDXText.Length, true, true, this.PaperPrintWidth, num3, this.ZDXFont, this.ZDXTextColor, "", Color.Black, 6f, 0);
+							break;
+						}
+					default:
+						{
+							float num2;
+							if (this.ZDXPosition <= 0f)
+							{
+								num2 = (float)((double)this.PaperMargins.Left / 2.0 - (double)this.PaperMargins.Left);
+							}
+							else
+							{
+								num2 = this.ZDXPosition - (float)this.PaperMargins.Left;
+							}
+							float num = 0f;
+							float x = num2;
+							float y = this.PaperPrintHeight;
+							this.DrawLine(pen, num2, num, x, y);
+							float num3 = this.MeasureText("测", this.ZDXFont).Width;
+							this.Currentx = num2 - num3 / 2f;
+							this.Currenty = num;
+							this.DrawMultiCell(this.ZDXText, (long)this.ZDXText.Length, false, true, num3, this.PaperPrintHeight, this.ZDXFont, this.ZDXTextColor, "", Color.Black, 6f, 0);
+							break;
+						}
 				}
 				this.IsNeedCheckNewPage = isNeedCheckNewPage;
 				pen.Dispose();
@@ -4034,8 +4784,8 @@ namespace LuoEasyPrint
 						Color dgvcellBackColor = Module1.GetDGVCellBackColor(dgvcell);
 						bool dgvcellMulline = Module1.GetDGVCellMulline(dgvcell);
 						bool flag = false;
-						int num=0;
-						if (String.Compare(Versioned.TypeName(dataGridViewColumn), "DataGridViewCheckBoxColumn", false) == 0)
+						int num;
+						if (Operators.CompareString(Versioned.TypeName(dataGridViewColumn), "DataGridViewCheckBoxColumn", false) == 0)
 						{
 							CheckBox checkBox = new CheckBox();
 							Control control = checkBox;
@@ -4049,9 +4799,9 @@ namespace LuoEasyPrint
 							{
 								checkBox.BackColor = Color.Transparent;
 							}
-							if (String.Compare(Versioned.TypeName(RuntimeHelpers.GetObjectValue(dgvcell.FormattedValue)), "Boolean", false) == 0)
+							if (Operators.CompareString(Versioned.TypeName(RuntimeHelpers.GetObjectValue(dgvcell.FormattedValue)), "Boolean", false) == 0)
 							{
-								if (DataTypeConversion.ToBoolean(dgvcell.FormattedValue))
+								if (Conversions.ToBoolean(dgvcell.FormattedValue))
 								{
 									checkBox.Checked = true;
 								}
@@ -4062,17 +4812,17 @@ namespace LuoEasyPrint
 							}
 							else
 							{
-								switch (Convert.ToInt32(dgvcell.FormattedValue))
+								switch (Conversions.ToInteger(dgvcell.FormattedValue))
 								{
-								case 0:
-									checkBox.Checked = false;
-									break;
-								case 1:
-									checkBox.Checked = true;
-									break;
-								default:
-									checkBox.CheckState = CheckState.Indeterminate;
-									break;
+									case 0:
+										checkBox.Checked = false;
+										break;
+									case 1:
+										checkBox.Checked = true;
+										break;
+									default:
+										checkBox.CheckState = CheckState.Indeterminate;
+										break;
 								}
 							}
 							if (bitmap != null)
@@ -4125,7 +4875,7 @@ namespace LuoEasyPrint
 							flag = true;
 							num = 2;
 						}
-						else if (String.Compare(Versioned.TypeName(dataGridViewColumn), "DataGridViewButtonColumn", false) == 0)
+						else if (Operators.CompareString(Versioned.TypeName(dataGridViewColumn), "DataGridViewButtonColumn", false) == 0)
 						{
 							Button button = new Button();
 							button.AutoSize = false;
@@ -4163,14 +4913,14 @@ namespace LuoEasyPrint
 							flag = true;
 							num = 3;
 						}
-						else if (String.Compare(Versioned.TypeName(dataGridViewColumn), "DataGridViewImageColumn", false) == 0)
+						else if (Operators.CompareString(Versioned.TypeName(dataGridViewColumn), "DataGridViewImageColumn", false) == 0)
 						{
 							flag = true;
 							num = 1;
 						}
 						else
 						{
-							s = Convert.ToString(dgvcell.FormattedValue) + "";
+							s = Conversions.ToString(dgvcell.FormattedValue) + "";
 						}
 						if (!flag)
 						{
@@ -4194,7 +4944,7 @@ namespace LuoEasyPrint
 						}
 						else if (num == 3)
 						{
-							s = Convert.ToString(dgvcell.FormattedValue) + "";
+							s = Conversions.ToString(dgvcell.FormattedValue) + "";
 							this.DrawCell(s, mycellwidth, mycellheight, myf, dgvcellForeColor, myborder, Module1.GetHAlignment(dataGridViewCellStyle.Alignment), Module1.GetVAlignment(dataGridViewCellStyle.Alignment, this.IsDGVCellValignmentCenter), dgvcellMulline, true, false, false, minfontsize, Color.White, dataGridView.GridColor, 0);
 						}
 						if (this.IsUseDGVPadding)
@@ -4534,17 +5284,17 @@ namespace LuoEasyPrint
 					{
 						t1,
 						"\0",
-						Convert.ToString(t2),
+						Conversions.ToString(t2),
 						"\0",
-						Convert.ToString(t3),
+						Conversions.ToString(t3),
 						"\0",
-						Convert.ToString(t4),
+						Conversions.ToString(t4),
 						"\0"
 					});
 					text = string.Concat(new string[]
 					{
 						text,
-						Convert.ToString(t5),
+						Conversions.ToString(t5),
 						"\0",
 						t6,
 						"\0",
@@ -4562,12 +5312,12 @@ namespace LuoEasyPrint
 					text = string.Concat(new string[]
 					{
 						text,
-						Convert.ToString(Interaction.IIf(t10, "1", "0")),
+						Conversions.ToString(Interaction.IIf(t10, "1", "0")),
 						"\0",
-						Convert.ToString(Interaction.IIf(t11, "1", "0")),
+						Conversions.ToString(Interaction.IIf(t11, "1", "0")),
 						"\0"
 					});
-					text = text + Convert.ToString(Interaction.IIf(t12, "1", "0")) + "\0" + Convert.ToString(Interaction.IIf(t13, "1", "0"));
+					text = text + Conversions.ToString(Interaction.IIf(t12, "1", "0")) + "\0" + Conversions.ToString(Interaction.IIf(t13, "1", "0"));
 					this.mypages[this.currentpage].Append("\u0001\u0003" + text);
 				}
 			}
@@ -4588,17 +5338,17 @@ namespace LuoEasyPrint
 					{
 						t1,
 						"\0",
-						Convert.ToString(t2),
+						Conversions.ToString(t2),
 						"\0",
-						Convert.ToString(t3),
+						Conversions.ToString(t3),
 						"\0",
-						Convert.ToString(t4),
+						Conversions.ToString(t4),
 						"\0"
 					});
 					text = string.Concat(new string[]
 					{
 						text,
-						Convert.ToString(t5),
+						Conversions.ToString(t5),
 						"\0",
 						t6,
 						"\0",
@@ -4613,7 +5363,7 @@ namespace LuoEasyPrint
 						t9,
 						"\0"
 					});
-					text += Convert.ToString((int)t10);
+					text += Conversions.ToString((int)t10);
 					this.mypages[this.currentpage].Append("\u0001\u0003" + text);
 				}
 			}
@@ -4635,17 +5385,17 @@ namespace LuoEasyPrint
 					{
 						t1,
 						"\0",
-						Convert.ToString(t2),
+						Conversions.ToString(t2),
 						"\0",
-						Convert.ToString(t3),
+						Conversions.ToString(t3),
 						"\0",
-						Convert.ToString(t4),
+						Conversions.ToString(t4),
 						"\0"
 					});
 					text = string.Concat(new string[]
 					{
 						text,
-						Convert.ToString(t5),
+						Conversions.ToString(t5),
 						"\0",
 						t6,
 						"\0",
@@ -4660,7 +5410,7 @@ namespace LuoEasyPrint
 						t9,
 						"\0"
 					});
-					text += Convert.ToString((int)t10);
+					text += Conversions.ToString((int)t10);
 					this.mypages[this.currentpage].Append("\u0001\u0003" + text);
 				}
 			}
@@ -4682,17 +5432,17 @@ namespace LuoEasyPrint
 					{
 						t1,
 						"\0",
-						Convert.ToString(t2),
+						Conversions.ToString(t2),
 						"\0",
-						Convert.ToString(t3),
+						Conversions.ToString(t3),
 						"\0",
-						Convert.ToString(t4),
+						Conversions.ToString(t4),
 						"\0"
 					});
 					text = string.Concat(new string[]
 					{
 						text,
-						Convert.ToString(t5),
+						Conversions.ToString(t5),
 						"\0",
 						t6,
 						"\0",
@@ -4710,12 +5460,12 @@ namespace LuoEasyPrint
 					text = string.Concat(new string[]
 					{
 						text,
-						Convert.ToString(Interaction.IIf(t10, "1", "0")),
+						Conversions.ToString(Interaction.IIf(t10, "1", "0")),
 						"\0",
-						Convert.ToString(Interaction.IIf(t11, "1", "0")),
+						Conversions.ToString(Interaction.IIf(t11, "1", "0")),
 						"\0"
 					});
-					text = text + Convert.ToString(Interaction.IIf(t12, "1", "0")) + "\0" + Convert.ToString(Interaction.IIf(t13, "1", "0"));
+					text = text + Conversions.ToString(Interaction.IIf(t12, "1", "0")) + "\0" + Conversions.ToString(Interaction.IIf(t13, "1", "0"));
 					this.mypages[this.currentpage].Append("\u0001\u0003" + text);
 				}
 			}
@@ -4737,17 +5487,17 @@ namespace LuoEasyPrint
 					{
 						t1,
 						"\0",
-						Convert.ToString(t2),
+						Conversions.ToString(t2),
 						"\0",
-						Convert.ToString(t3),
+						Conversions.ToString(t3),
 						"\0",
-						Convert.ToString(t4),
+						Conversions.ToString(t4),
 						"\0"
 					});
 					text = string.Concat(new string[]
 					{
 						text,
-						Convert.ToString(t5),
+						Conversions.ToString(t5),
 						"\0",
 						t6,
 						"\0",
@@ -4765,17 +5515,17 @@ namespace LuoEasyPrint
 					text = string.Concat(new string[]
 					{
 						text,
-						Convert.ToString(Interaction.IIf(t10, "1", "0")),
+						Conversions.ToString(Interaction.IIf(t10, "1", "0")),
 						"\0",
-						Convert.ToString(Interaction.IIf(t11, "1", "0")),
+						Conversions.ToString(Interaction.IIf(t11, "1", "0")),
 						"\0"
 					});
 					text = string.Concat(new string[]
 					{
 						text,
-						Convert.ToString(Interaction.IIf(t12, "1", "0")),
+						Conversions.ToString(Interaction.IIf(t12, "1", "0")),
 						"\0",
-						Convert.ToString(Interaction.IIf(t13, "1", "0")),
+						Conversions.ToString(Interaction.IIf(t13, "1", "0")),
 						"\0"
 					});
 					text += t14;
@@ -4800,17 +5550,17 @@ namespace LuoEasyPrint
 					{
 						t1,
 						"\0",
-						Convert.ToString(t2),
+						Conversions.ToString(t2),
 						"\0",
-						Convert.ToString(t3),
+						Conversions.ToString(t3),
 						"\0",
-						Convert.ToString(t4),
+						Conversions.ToString(t4),
 						"\0"
 					});
 					text = string.Concat(new string[]
 					{
 						text,
-						Convert.ToString(t5),
+						Conversions.ToString(t5),
 						"\0",
 						t6,
 						"\0",
@@ -4825,7 +5575,7 @@ namespace LuoEasyPrint
 						t9,
 						"\0"
 					});
-					text = text + Convert.ToString((int)t10) + "\0";
+					text = text + Conversions.ToString((int)t10) + "\0";
 					text += t11;
 					this.mypages[this.currentpage].Append("\u0001\u0003" + text);
 				}
@@ -4857,7 +5607,7 @@ namespace LuoEasyPrint
 			{
 				string right = fontConverter.ConvertToString(sourcefont);
 				string text = fontConverter.ConvertToString(newfont);
-				if (String.Compare(text, right, false) != 0)
+				if (Operators.CompareString(text, right, false) != 0)
 				{
 					this.MyWrite("f", text);
 					result = true;
@@ -4973,10 +5723,10 @@ namespace LuoEasyPrint
 		{
 			switch (this.mypageunits)
 			{
-			case VB2008Print.PageExportUnit.CentiMeter:
-				return (float)((double)oldvalue / 2.54);
-			case VB2008Print.PageExportUnit.Inch:
-				return oldvalue;
+				case VB2008Print.PageExportUnit.CentiMeter:
+					return (float)((double)oldvalue / 2.54);
+				case VB2008Print.PageExportUnit.Inch:
+					return oldvalue;
 			}
 			return oldvalue;
 		}
@@ -4986,10 +5736,10 @@ namespace LuoEasyPrint
 		{
 			switch (this.mypageunits)
 			{
-			case VB2008Print.PageExportUnit.CentiMeter:
-				return (float)((double)oldvalue * 2.54);
-			case VB2008Print.PageExportUnit.Inch:
-				return oldvalue;
+				case VB2008Print.PageExportUnit.CentiMeter:
+					return (float)((double)oldvalue * 2.54);
+				case VB2008Print.PageExportUnit.Inch:
+					return oldvalue;
 			}
 			return oldvalue;
 		}
@@ -5017,19 +5767,19 @@ namespace LuoEasyPrint
 			StringAlignment stringAlignment = StringAlignment.Near;
 			checked
 			{
-				if (String.Compare(myleft, "", false) != 0)
+				if (Operators.CompareString(myleft, "", false) != 0)
 				{
 					num++;
 					stringAlignment = StringAlignment.Near;
 					mys = myleft;
 				}
-				if (String.Compare(mymiddle, "", false) != 0)
+				if (Operators.CompareString(mymiddle, "", false) != 0)
 				{
 					num++;
 					stringAlignment = StringAlignment.Center;
 					mys = mymiddle;
 				}
-				if (String.Compare(myright, "", false) != 0)
+				if (Operators.CompareString(myright, "", false) != 0)
 				{
 					num++;
 					stringAlignment = StringAlignment.Far;
@@ -5047,16 +5797,16 @@ namespace LuoEasyPrint
 			PaperSize paperSize = this.mypagesetting.PaperSize;
 			this.SavePaperHeightAndWidth(paperSize);
 			this.mypages[0].Append("\u0002\u0004");
-			this.TheWrite(0, "papersize", Convert.ToString((int)paperSize.Kind));
+			this.TheWrite(0, "papersize", Conversions.ToString((int)paperSize.Kind));
 			if (paperSize.Kind == PaperKind.Custom)
 			{
 				this.TheWrite(0, "paperzdy", string.Concat(new string[]
 				{
 					paperSize.PaperName,
 					"\u0006",
-					Convert.ToString(paperSize.Width),
+					Conversions.ToString(paperSize.Width),
 					"\u0006",
-					Convert.ToString(paperSize.Height)
+					Conversions.ToString(paperSize.Height)
 				}));
 			}
 			else
@@ -5066,16 +5816,16 @@ namespace LuoEasyPrint
 					"[",
 					paperSize.PaperName,
 					"]\u0006",
-					Convert.ToString(paperSize.Width),
+					Conversions.ToString(paperSize.Width),
 					"\u0006",
-					Convert.ToString(paperSize.Height)
+					Conversions.ToString(paperSize.Height)
 				}));
 			}
-			this.TheWrite(0, "orientation", Convert.ToString(Interaction.IIf(this.mypagesetting.Landscape, "1", "0")));
-			this.TheWrite(0, "leftmargin", Convert.ToString(this.mypagesetting.Margins.Left));
-			this.TheWrite(0, "topmargin", Convert.ToString(this.mypagesetting.Margins.Top));
-			this.TheWrite(0, "bottommargin", Convert.ToString(this.mypagesetting.Margins.Bottom));
-			this.TheWrite(0, "rightmargin", Convert.ToString(this.mypagesetting.Margins.Right));
+			this.TheWrite(0, "orientation", Conversions.ToString(Interaction.IIf(this.mypagesetting.Landscape, "1", "0")));
+			this.TheWrite(0, "leftmargin", Conversions.ToString(this.mypagesetting.Margins.Left));
+			this.TheWrite(0, "topmargin", Conversions.ToString(this.mypagesetting.Margins.Top));
+			this.TheWrite(0, "bottommargin", Conversions.ToString(this.mypagesetting.Margins.Bottom));
+			this.TheWrite(0, "rightmargin", Conversions.ToString(this.mypagesetting.Margins.Right));
 		}
 
 		// Token: 0x060013C7 RID: 5063 RVA: 0x00097918 File Offset: 0x00095B18
@@ -5130,7 +5880,7 @@ namespace LuoEasyPrint
 					"共[",
 					this.GetPages().ToString(),
 					"]页,生成页眉页脚〖",
-					Convert.ToString(this.currentpage),
+					Conversions.ToString(this.currentpage),
 					"〗"
 				});
 			}
@@ -5193,23 +5943,27 @@ namespace LuoEasyPrint
 				}
 				finally
 				{
-					
+					IEnumerator enumerator;
+					if (enumerator is IDisposable)
+					{
+						(enumerator as IDisposable).Dispose();
+					}
 				}
 			}
-			this.TheWrite(0, "papersize", Convert.ToString((int)this.mypagesetting.PaperSize.Kind));
-			this.TheWrite(0, "paperzdy", Convert.ToString(Interaction.IIf(this.PaperKind == PaperKind.Custom, string.Concat(new string[]
+			this.TheWrite(0, "papersize", Conversions.ToString((int)this.mypagesetting.PaperSize.Kind));
+			this.TheWrite(0, "paperzdy", Conversions.ToString(Interaction.IIf(this.PaperKind == PaperKind.Custom, string.Concat(new string[]
 			{
 				this.mypagesetting.PaperSize.PaperName,
 				"\u0006",
-				Convert.ToString(this.mypagesetting.PaperSize.Width),
+				Conversions.ToString(this.mypagesetting.PaperSize.Width),
 				"\u0006",
-				Convert.ToString(this.mypagesetting.PaperSize.Height)
+				Conversions.ToString(this.mypagesetting.PaperSize.Height)
 			}), "")));
-			this.TheWrite(0, "orientation", Convert.ToString(Interaction.IIf(this.mypagesetting.Landscape, "1", "0")));
-			this.TheWrite(0, "leftmargin", Convert.ToString(this.mypagesetting.Margins.Left));
-			this.TheWrite(0, "topmargin", Convert.ToString(this.mypagesetting.Margins.Top));
-			this.TheWrite(0, "bottommargin", Convert.ToString(this.mypagesetting.Margins.Bottom));
-			this.TheWrite(0, "rightmargin", Convert.ToString(this.mypagesetting.Margins.Right));
+			this.TheWrite(0, "orientation", Conversions.ToString(Interaction.IIf(this.mypagesetting.Landscape, "1", "0")));
+			this.TheWrite(0, "leftmargin", Conversions.ToString(this.mypagesetting.Margins.Left));
+			this.TheWrite(0, "topmargin", Conversions.ToString(this.mypagesetting.Margins.Top));
+			this.TheWrite(0, "bottommargin", Conversions.ToString(this.mypagesetting.Margins.Bottom));
+			this.TheWrite(0, "rightmargin", Conversions.ToString(this.mypagesetting.Margins.Right));
 			PaperSize paperSize2 = this.mypagesetting.PaperSize;
 			this.SavePaperHeightAndWidth(paperSize2);
 			if (this.tempfont != null)
@@ -5261,13 +6015,13 @@ namespace LuoEasyPrint
 					this.SetStatus(string.Concat(new string[]
 					{
 						"预处理，正在处理第【",
-						Convert.ToString(this.currentpage),
+						Conversions.ToString(this.currentpage),
 						"】页的页眉、页脚和水印（共 ",
-						Convert.ToString(this.GetPages()),
+						Conversions.ToString(this.GetPages()),
 						" 页需要处理）"
 					}));
 					this.myheaderlineposition = 0f;
-					VB2008Print.HeaderFooterOutEventHandler headerFooterOutEvent = this.HeaderFooterOut;
+					VB2008Print.HeaderFooterOutEventHandler headerFooterOutEvent = this.HeaderFooterOutEvent;
 					if (headerFooterOutEvent != null)
 					{
 						headerFooterOutEvent(this.GetPages(), num3);
@@ -5322,7 +6076,7 @@ namespace LuoEasyPrint
 					int num7 = this.GetPages();
 					for (int i = num6; i <= num7; i++)
 					{
-						this.cpage.Items.Add("第" + Convert.ToString(i) + "页");
+						this.cpage.Items.Add("第" + Conversions.ToString(i) + "页");
 					}
 					this.MyShow();
 					this.Enabled = true;
@@ -5339,7 +6093,7 @@ namespace LuoEasyPrint
 			this.currentpage = 1;
 			this.myisendpreview = false;
 			this.isstarting = false;
-			this.Pd.DocumentName = Convert.ToString(this.GetPages());
+			this.Pd.DocumentName = Conversions.ToString(this.GetPages());
 			if (this.myisimmediateprintnotpreview)
 			{
 				this.myisendpreview = true;
@@ -5351,7 +6105,7 @@ namespace LuoEasyPrint
 			}
 			try
 			{
-				this.mystatus.Text = "共【" + Convert.ToString(this.GetPages()) + "】页";
+				this.mystatus.Text = "共【" + Conversions.ToString(this.GetPages()) + "】页";
 				if (this.GetPages() >= 1)
 				{
 					this.cpage.SelectedIndex = 0;
@@ -5377,7 +6131,7 @@ namespace LuoEasyPrint
 			}
 			else if (this.GetPages() > 0)
 			{
-				VB2008Print.EndPreViewEventHandler endPreViewEvent = this.EndPreView;
+				VB2008Print.EndPreViewEventHandler endPreViewEvent = this.EndPreViewEvent;
 				if (endPreViewEvent != null)
 				{
 					endPreViewEvent();
@@ -5545,8 +6299,8 @@ namespace LuoEasyPrint
 			while (mysize.Height > num)
 			{
 				mysize.Height = num;
-				int num2=0;
-				int num3=0;
+				int num2;
+				int num3;
 				sizeF = this.MeasureString(text, myf, mysize, myformat, ref num2, ref num3, includemargins);
 				string text2 = Strings.Mid(text, 1, num2);
 				this.Currentx = currentx;
@@ -5558,7 +6312,7 @@ namespace LuoEasyPrint
 				mysize = this.MeasureString(text, myf, myformat, includemargins);
 				num = this.PaperPrintHeight - this.Currenty;
 			}
-			if (String.Compare(text, "", false) != 0)
+			if (Operators.CompareString(text, "", false) != 0)
 			{
 				this.Currentx = currentx;
 				string text4 = text;
@@ -5579,15 +6333,15 @@ namespace LuoEasyPrint
 			{
 				mysize.Height = num;
 				mysize.Width = mywidth;
-				int num2=0;
-				int num3=0;
+				int num2;
+				int num3;
 				sizeF = this.MeasureString(text, myf, mysize, myformat, ref num2, ref num3, includemargins);
 				string text2 = Strings.Mid(text, 1, num2);
 				string text3 = text2;
 				RectangleF myrect = new RectangleF(currentx, this.Currenty, mywidth, sizeF.Height);
 				this.DrawString(text3, myrect, myf, textforecolor, myformat, myborder, 0f, includemargins, backcolor, linecolor, textoutstyle);
 				text = Strings.Mid(text, checked(num2 + 1));
-				if (String.Compare(text, "", false) == 0)
+				if (Operators.CompareString(text, "", false) == 0)
 				{
 					break;
 				}
@@ -5595,7 +6349,7 @@ namespace LuoEasyPrint
 				mysize = this.MeasureString(text, myf, mywidth, myformat, includemargins);
 				num = this.PaperPrintHeight - this.Currenty;
 			}
-			if (String.Compare(text, "", false) != 0)
+			if (Operators.CompareString(text, "", false) != 0)
 			{
 				string text4 = text;
 				RectangleF myrect = new RectangleF(currentx, this.Currenty, mywidth, mysize.Height);
@@ -5664,8 +6418,8 @@ namespace LuoEasyPrint
 				SizeF mysize = new SizeF(mywidth, myheight);
 				if (flag)
 				{
-					int num2=0;
-					int num3=0;
+					int num2;
+					int num3;
 					sizeF = this.MeasureString(s, myf, mysize, myformat, ref num2, ref num3, includemargins);
 					while (num2 < Strings.Len(s) & num > minfontsize)
 					{
@@ -5769,8 +6523,8 @@ namespace LuoEasyPrint
 				SizeF mysize = new SizeF(mywidth, myheight);
 				if (flag)
 				{
-					int num2=0;
-					int num3=0;
+					int num2;
+					int num3;
 					sizeF = this.MeasureString(s, myf, mysize, myformat, ref num2, ref num3, includemargins);
 					while (num2 < Strings.Len(s) & num > minfontsize)
 					{
@@ -5808,9 +6562,9 @@ namespace LuoEasyPrint
 			{
 				do
 				{
-					if (Strings.InStr(text, Convert.ToString(Strings.Chr(num)), CompareMethod.Binary) > 0)
+					if (Strings.InStr(text, Conversions.ToString(Strings.Chr(num)), CompareMethod.Binary) > 0)
 					{
-						text = Strings.Replace(text, Convert.ToString(Strings.Chr(num)), "", 1, -1, CompareMethod.Binary);
+						text = Strings.Replace(text, Conversions.ToString(Strings.Chr(num)), "", 1, -1, CompareMethod.Binary);
 					}
 					num++;
 				}
@@ -5848,150 +6602,150 @@ namespace LuoEasyPrint
 					this.DrawFillRect(myrect, backcolor);
 				}
 			}
-			if (String.Compare(text, "", false) != 0)
+			if (Operators.CompareString(text, "", false) != 0)
 			{
 				switch (mytextstyle)
 				{
-				case 0:
-					if (includemargins)
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, textforecolor, t2, t, myformat.FormatFlags);
-					}
-					else
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, textforecolor, t2, t, myformat.FormatFlags);
-					}
-					break;
-				case 1:
-					if (includemargins)
-					{
-						this.MyWrite("th", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, textforecolor, t2, t, myformat.FormatFlags, Convert.ToString(angle));
-					}
-					else
-					{
-						this.MyWrite("th", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, textforecolor, t2, t, myformat.FormatFlags, Convert.ToString(angle));
-					}
-					break;
-				case 2:
-					if (includemargins)
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left + (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top + (float)this.ShapeDepth), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.Gray, t2, t, myformat.FormatFlags);
-					}
-					else
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.ShapeDepth), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.Gray, t2, t, myformat.FormatFlags);
-					}
-					if (includemargins)
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, textforecolor, t2, t, myformat.FormatFlags);
-					}
-					else
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, textforecolor, t2, t, myformat.FormatFlags);
-					}
-					break;
-				case 3:
-					if (includemargins)
-					{
-						this.MyWrite("th", this.MyConvTo(myrect.X + (float)this.CellMargin.Left + (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top + (float)this.ShapeDepth), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.Gray, t2, t, myformat.FormatFlags, Convert.ToString(angle));
-					}
-					else
-					{
-						this.MyWrite("th", this.MyConvTo(myrect.X + (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.ShapeDepth), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.Gray, t2, t, myformat.FormatFlags, Convert.ToString(angle));
-					}
-					if (includemargins)
-					{
-						this.MyWrite("th", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, textforecolor, t2, t, myformat.FormatFlags, Convert.ToString(angle));
-					}
-					else
-					{
-						this.MyWrite("th", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, textforecolor, t2, t, myformat.FormatFlags, Convert.ToString(angle));
-					}
-					break;
-				case 4:
-					if (includemargins)
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left + (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top + (float)this.ShapeDepth), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.Black, t2, t, myformat.FormatFlags);
-					}
-					else
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.ShapeDepth), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.Black, t2, t, myformat.FormatFlags);
-					}
-					if (includemargins)
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.White, t2, t, myformat.FormatFlags);
-					}
-					else
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.White, t2, t, myformat.FormatFlags);
-					}
-					break;
-				case 5:
-					if (includemargins)
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left - (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top - (float)this.ShapeDepth), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.Black, t2, t, myformat.FormatFlags);
-					}
-					else
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X - (float)this.ShapeDepth), this.MyConvTo(myrect.Y - (float)this.ShapeDepth), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.Black, t2, t, myformat.FormatFlags);
-					}
-					if (includemargins)
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.White, t2, t, myformat.FormatFlags);
-					}
-					else
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.White, t2, t, myformat.FormatFlags);
-					}
-					break;
-				case 6:
-				{
-					for (int i = this.ShapeDepth; i >= 0; i = checked(i + -1))
-					{
+					case 0:
 						if (includemargins)
 						{
-							this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left - this.MyConvFrom((float)i)), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top + this.MyConvFrom((float)i)), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.Black, t2, t, myformat.FormatFlags);
+							this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, textforecolor, t2, t, myformat.FormatFlags);
 						}
 						else
 						{
-							this.MyWrite("t", this.MyConvTo(myrect.X - this.MyConvFrom((float)i)), this.MyConvTo(myrect.Y + this.MyConvFrom((float)i)), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.Black, t2, t, myformat.FormatFlags);
+							this.MyWrite("t", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, textforecolor, t2, t, myformat.FormatFlags);
 						}
-					}
-					Color t3;
-					if (textforecolor == Color.Black)
-					{
-						t3 = Color.Red;
-					}
-					else
-					{
-						t3 = textforecolor;
-					}
-					if (includemargins)
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, t3, t2, t, myformat.FormatFlags);
-					}
-					else
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, t3, t2, t, myformat.FormatFlags);
-					}
-					break;
-				}
-				default:
-					if (includemargins)
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, textforecolor, t2, t, myformat.FormatFlags);
-					}
-					else
-					{
-						this.MyWrite("t", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, textforecolor, t2, t, myformat.FormatFlags);
-					}
-					break;
+						break;
+					case 1:
+						if (includemargins)
+						{
+							this.MyWrite("th", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, textforecolor, t2, t, myformat.FormatFlags, Conversions.ToString(angle));
+						}
+						else
+						{
+							this.MyWrite("th", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, textforecolor, t2, t, myformat.FormatFlags, Conversions.ToString(angle));
+						}
+						break;
+					case 2:
+						if (includemargins)
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left + (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top + (float)this.ShapeDepth), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.Gray, t2, t, myformat.FormatFlags);
+						}
+						else
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.ShapeDepth), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.Gray, t2, t, myformat.FormatFlags);
+						}
+						if (includemargins)
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, textforecolor, t2, t, myformat.FormatFlags);
+						}
+						else
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, textforecolor, t2, t, myformat.FormatFlags);
+						}
+						break;
+					case 3:
+						if (includemargins)
+						{
+							this.MyWrite("th", this.MyConvTo(myrect.X + (float)this.CellMargin.Left + (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top + (float)this.ShapeDepth), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.Gray, t2, t, myformat.FormatFlags, Conversions.ToString(angle));
+						}
+						else
+						{
+							this.MyWrite("th", this.MyConvTo(myrect.X + (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.ShapeDepth), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.Gray, t2, t, myformat.FormatFlags, Conversions.ToString(angle));
+						}
+						if (includemargins)
+						{
+							this.MyWrite("th", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, textforecolor, t2, t, myformat.FormatFlags, Conversions.ToString(angle));
+						}
+						else
+						{
+							this.MyWrite("th", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, textforecolor, t2, t, myformat.FormatFlags, Conversions.ToString(angle));
+						}
+						break;
+					case 4:
+						if (includemargins)
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left + (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top + (float)this.ShapeDepth), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.Black, t2, t, myformat.FormatFlags);
+						}
+						else
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.ShapeDepth), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.Black, t2, t, myformat.FormatFlags);
+						}
+						if (includemargins)
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.White, t2, t, myformat.FormatFlags);
+						}
+						else
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.White, t2, t, myformat.FormatFlags);
+						}
+						break;
+					case 5:
+						if (includemargins)
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left - (float)this.ShapeDepth), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top - (float)this.ShapeDepth), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.Black, t2, t, myformat.FormatFlags);
+						}
+						else
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X - (float)this.ShapeDepth), this.MyConvTo(myrect.Y - (float)this.ShapeDepth), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.Black, t2, t, myformat.FormatFlags);
+						}
+						if (includemargins)
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.White, t2, t, myformat.FormatFlags);
+						}
+						else
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.White, t2, t, myformat.FormatFlags);
+						}
+						break;
+					case 6:
+						{
+							for (int i = this.ShapeDepth; i >= 0; i = checked(i + -1))
+							{
+								if (includemargins)
+								{
+									this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left - this.MyConvFrom((float)i)), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top + this.MyConvFrom((float)i)), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, Color.Black, t2, t, myformat.FormatFlags);
+								}
+								else
+								{
+									this.MyWrite("t", this.MyConvTo(myrect.X - this.MyConvFrom((float)i)), this.MyConvTo(myrect.Y + this.MyConvFrom((float)i)), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, Color.Black, t2, t, myformat.FormatFlags);
+								}
+							}
+							Color t3;
+							if (textforecolor == Color.Black)
+							{
+								t3 = Color.Red;
+							}
+							else
+							{
+								t3 = textforecolor;
+							}
+							if (includemargins)
+							{
+								this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, t3, t2, t, myformat.FormatFlags);
+							}
+							else
+							{
+								this.MyWrite("t", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, t3, t2, t, myformat.FormatFlags);
+							}
+							break;
+						}
+					default:
+						if (includemargins)
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X + (float)this.CellMargin.Left), this.MyConvTo(myrect.Y + (float)this.CellMargin.Top), this.MyConvTo(myrect.Width - (float)this.CellMargin.Left - (float)this.CellMargin.Right), this.MyConvTo(myrect.Height - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom), text, textforecolor, t2, t, myformat.FormatFlags);
+						}
+						else
+						{
+							this.MyWrite("t", this.MyConvTo(myrect.X), this.MyConvTo(myrect.Y), this.MyConvTo(myrect.Width), this.MyConvTo(myrect.Height), text, textforecolor, t2, t, myformat.FormatFlags);
+						}
+						break;
 				}
 			}
 			this.Currentx = myrect.X + myrect.Width;
 			this.mylastdrawtextheight = this.MyConvTo(myrect.Height);
 			this.mylastdrawtextwidth = this.MyConvTo(myrect.Width);
-			if (String.Compare(myborder, "", false) != 0)
+			if (Operators.CompareString(myborder, "", false) != 0)
 			{
 				float[] array = new float[4];
 				array = VB2008Print.ParaseBorder(myborder);
@@ -6035,9 +6789,9 @@ namespace LuoEasyPrint
 			{
 				do
 				{
-					if (Strings.InStr(text, Convert.ToString(Strings.Chr(num)), CompareMethod.Binary) > 0)
+					if (Strings.InStr(text, Conversions.ToString(Strings.Chr(num)), CompareMethod.Binary) > 0)
 					{
-						text = Strings.Replace(text, Convert.ToString(Strings.Chr(num)), "", 1, -1, CompareMethod.Binary);
+						text = Strings.Replace(text, Conversions.ToString(Strings.Chr(num)), "", 1, -1, CompareMethod.Binary);
 					}
 					num++;
 				}
@@ -6075,7 +6829,7 @@ namespace LuoEasyPrint
 					this.DrawFillRect(myrect, backcolor);
 				}
 			}
-			if (String.Compare(text, "", false) != 0)
+			if (Operators.CompareString(text, "", false) != 0)
 			{
 				if (includemargins)
 				{
@@ -6089,7 +6843,7 @@ namespace LuoEasyPrint
 			this.Currentx = myrect.X + myrect.Width;
 			this.mylastdrawtextheight = this.MyConvTo(myrect.Height);
 			this.mylastdrawtextwidth = this.MyConvTo(myrect.Width);
-			if (String.Compare(myborder, "", false) != 0)
+			if (Operators.CompareString(myborder, "", false) != 0)
 			{
 				float[] array = new float[4];
 				array = VB2008Print.ParaseBorder(myborder);
@@ -6230,7 +6984,7 @@ namespace LuoEasyPrint
 		}
 
 		// Token: 0x060013EB RID: 5099 RVA: 0x0009A7D8 File Offset: 0x000989D8
-		private void GetPageAndPaperSettings(int thepage)
+		public void GetPageAndPaperSettings(int thepage)
 		{
 			checked
 			{
@@ -6264,18 +7018,18 @@ namespace LuoEasyPrint
 								goto IL_331;
 							}
 							goto Block_4;
-							IL_328:
+						IL_328:
 							i++;
 							continue;
-							Block_4:
+						Block_4:
 							string[] array3;
 							try
 							{
-								IL_83:
+							IL_83:
 								foreach (object obj in this.Pd.PrinterSettings.PaperSizes)
 								{
 									PaperSize paperSize = (PaperSize)obj;
-									if (paperSize.Kind == (PaperKind)Convert.ToInt32(array3[1]) & paperSize.Kind != PaperKind.Custom)
+									if (paperSize.Kind == (PaperKind)Conversions.ToInteger(array3[1]) & paperSize.Kind != PaperKind.Custom)
 									{
 										this.mypagesetting.PaperSize = paperSize;
 										if (this.mypagesetting.PaperSize.Width == 0)
@@ -6307,11 +7061,11 @@ namespace LuoEasyPrint
 											}
 										}
 										flag = false;
-										IL_17A:
+									IL_17A:
 										goto IL_328;
 									}
 								}
-								
+								goto IL_17A;
 							}
 							finally
 							{
@@ -6321,11 +7075,11 @@ namespace LuoEasyPrint
 									(enumerator as IDisposable).Dispose();
 								}
 							}
-							IL_195:
+						IL_195:
 							string left;
-							if (String.Compare(left, "orientation", false) == 0)
+							if (Operators.CompareString(left, "orientation", false) == 0)
 							{
-								if (String.Compare(array3[1], "1", false) == 0)
+								if (Operators.CompareString(array3[1], "1", false) == 0)
 								{
 									this.mypagesetting.Landscape = true;
 									goto IL_328;
@@ -6335,31 +7089,31 @@ namespace LuoEasyPrint
 							}
 							else
 							{
-								if (String.Compare(left, "leftmargin", false) == 0)
+								if (Operators.CompareString(left, "leftmargin", false) == 0)
 								{
-									this.mypagesetting.Margins.Left = Convert.ToInt32(array3[1]);
+									this.mypagesetting.Margins.Left = Conversions.ToInteger(array3[1]);
 									goto IL_328;
 								}
-								if (String.Compare(left, "topmargin", false) == 0)
+								if (Operators.CompareString(left, "topmargin", false) == 0)
 								{
-									this.mypagesetting.Margins.Top = Convert.ToInt32(array3[1]);
+									this.mypagesetting.Margins.Top = Conversions.ToInteger(array3[1]);
 									goto IL_328;
 								}
-								if (String.Compare(left, "bottommargin", false) == 0)
+								if (Operators.CompareString(left, "bottommargin", false) == 0)
 								{
-									this.mypagesetting.Margins.Bottom = Convert.ToInt32(array3[1]);
+									this.mypagesetting.Margins.Bottom = Conversions.ToInteger(array3[1]);
 									goto IL_328;
 								}
-								if (String.Compare(left, "rightmargin", false) == 0)
+								if (Operators.CompareString(left, "rightmargin", false) == 0)
 								{
-									this.mypagesetting.Margins.Right = Convert.ToInt32(array3[1]);
+									this.mypagesetting.Margins.Right = Conversions.ToInteger(array3[1]);
 									goto IL_328;
 								}
-								if (String.Compare(left, "paperzdy", false) != 0)
+								if (Operators.CompareString(left, "paperzdy", false) != 0)
 								{
 									goto IL_328;
 								}
-								if (String.Compare(Strings.Trim(array3[1] + ""), "", false) == 0)
+								if (Operators.CompareString(Strings.Trim(array3[1] + ""), "", false) == 0)
 								{
 									goto IL_328;
 								}
@@ -6367,8 +7121,8 @@ namespace LuoEasyPrint
 								{
 									string[] array4 = Strings.Split(array3[1], "\u0006", -1, CompareMethod.Binary);
 									string name = Strings.Trim(array4[0] + "");
-									int width = Convert.ToInt32(array4[1]);
-									int height = Convert.ToInt32(array4[2]);
+									int width = Conversions.ToInteger(array4[1]);
+									int height = Conversions.ToInteger(array4[2]);
 									bool flag2 = this.isstarting;
 									this.isstarting = false;
 									this.PaperSize = new PaperSize(name, width, height);
@@ -6377,12 +7131,12 @@ namespace LuoEasyPrint
 								}
 								goto IL_328;
 							}
-							IL_331:
+						IL_331:
 							array3 = Strings.Split(array2[i], "\0", -1, CompareMethod.Binary);
 							left = array3[0];
-							if (String.Compare(left, "papersize", false) == 0)
+							if (Operators.CompareString(left, "papersize", false) == 0)
 							{
-								
+								goto IL_83;
 							}
 							goto IL_195;
 						}
@@ -6402,7 +7156,7 @@ namespace LuoEasyPrint
 		// Token: 0x060013EC RID: 5100 RVA: 0x0009AB9C File Offset: 0x00098D9C
 		private void PrintWaterMark()
 		{
-			if (String.Compare(Strings.Trim(this.mywatermarktext), "", false) != 0)
+			if (Operators.CompareString(Strings.Trim(this.mywatermarktext), "", false) != 0)
 			{
 				StringFormat stringFormat = new StringFormat(StringFormat.GenericTypographic);
 				stringFormat.FormatFlags &= ~StringFormatFlags.LineLimit;
@@ -6446,14 +7200,14 @@ namespace LuoEasyPrint
 						}
 						string[] array2 = Strings.Split(array[i], "\0", -1, CompareMethod.Binary);
 						string left = array2[0];
-						if (String.Compare(left, "papersize", false) == 0)
+						if (Operators.CompareString(left, "papersize", false) == 0)
 						{
 							try
 							{
 								foreach (object obj in this.Pd.PrinterSettings.PaperSizes)
 								{
 									PaperSize paperSize = (PaperSize)obj;
-									if (paperSize.Kind == (PaperKind)Convert.ToInt32(array2[1]))
+									if (paperSize.Kind == (PaperKind)Conversions.ToInteger(array2[1]))
 									{
 										this.mypagesetting.PaperSize = paperSize;
 									}
@@ -6462,18 +7216,22 @@ namespace LuoEasyPrint
 							}
 							finally
 							{
-								
+								IEnumerator enumerator;
+								if (enumerator is IDisposable)
+								{
+									(enumerator as IDisposable).Dispose();
+								}
 							}
 							goto IL_E7;
 						}
 						goto IL_E7;
-						IL_13C2:
+					IL_13C2:
 						i++;
 						continue;
-						IL_E7:
-						if (String.Compare(left, "orientation", false) == 0)
+					IL_E7:
+						if (Operators.CompareString(left, "orientation", false) == 0)
 						{
-							if (String.Compare(array2[1], "1", false) == 0)
+							if (Operators.CompareString(array2[1], "1", false) == 0)
 							{
 								this.mypagesetting.Landscape = true;
 								goto IL_13C2;
@@ -6483,33 +7241,33 @@ namespace LuoEasyPrint
 						}
 						else
 						{
-							if (String.Compare(left, "leftmargin", false) == 0)
+							if (Operators.CompareString(left, "leftmargin", false) == 0)
 							{
-								this.mypagesetting.Margins.Left = Convert.ToInt32(array2[1]);
+								this.mypagesetting.Margins.Left = Conversions.ToInteger(array2[1]);
 								goto IL_13C2;
 							}
-							if (String.Compare(left, "topmargin", false) == 0)
+							if (Operators.CompareString(left, "topmargin", false) == 0)
 							{
-								this.mypagesetting.Margins.Top = Convert.ToInt32(array2[1]);
+								this.mypagesetting.Margins.Top = Conversions.ToInteger(array2[1]);
 								goto IL_13C2;
 							}
-							if (String.Compare(left, "bottommargin", false) == 0)
+							if (Operators.CompareString(left, "bottommargin", false) == 0)
 							{
-								this.mypagesetting.Margins.Bottom = Convert.ToInt32(array2[1]);
+								this.mypagesetting.Margins.Bottom = Conversions.ToInteger(array2[1]);
 								goto IL_13C2;
 							}
-							if (String.Compare(left, "rightmargin", false) == 0)
+							if (Operators.CompareString(left, "rightmargin", false) == 0)
 							{
-								this.mypagesetting.Margins.Right = Convert.ToInt32(array2[1]);
+								this.mypagesetting.Margins.Right = Conversions.ToInteger(array2[1]);
 								goto IL_13C2;
 							}
-							if (String.Compare(left, "setpage", false) == 0)
+							if (Operators.CompareString(left, "setpage", false) == 0)
 							{
 								this.mypagesetting.PrinterSettings.PrinterName = this.GetCurrentPrinterName();
 								this.Pd.DefaultPageSettings = this.mypagesetting;
 								goto IL_13C2;
 							}
-							if (String.Compare(left, "f", false) == 0)
+							if (Operators.CompareString(left, "f", false) == 0)
 							{
 								this.TextFont = (Font)fontConverter.ConvertFromString(array2[1]);
 								if (this.PageScale != 1f & this.isprinttoprinter)
@@ -6521,43 +7279,43 @@ namespace LuoEasyPrint
 							}
 							else
 							{
-								Color color = new Color();
-								if (String.Compare(left, "l", false) == 0)
+								Color color;
+								if (Operators.CompareString(left, "l", false) == 0)
 								{
-									float x = Convert.ToSingle(array2[1]);
-									float y = Convert.ToSingle(array2[2]);
-									float x2 = Convert.ToSingle(array2[3]);
-									float y2 = Convert.ToSingle(array2[4]);
+									float x = Conversions.ToSingle(array2[1]);
+									float y = Conversions.ToSingle(array2[2]);
+									float x2 = Conversions.ToSingle(array2[3]);
+									float y2 = Conversions.ToSingle(array2[4]);
 									object obj2 = colorConverter.ConvertFromString(array2[5]);
-									this.MyDrawline(x, y, x2, y2, (obj2 != null) ? ((Color)obj2) : color, Convert.ToSingle(array2[6]));
+									this.MyDrawline(x, y, x2, y2, (obj2 != null) ? ((Color)obj2) : color, Conversions.ToSingle(array2[6]));
 									goto IL_13C2;
 								}
-								if (String.Compare(left, "lines", false) == 0)
+								if (Operators.CompareString(left, "lines", false) == 0)
 								{
 									this.MyDrawLines(array2[1], array2[2]);
 									goto IL_13C2;
 								}
-								if (String.Compare(left, "curve", false) == 0)
+								if (Operators.CompareString(left, "curve", false) == 0)
 								{
 									switch (array2.Length)
 									{
-									case 3:
-										this.MyDrawCurve(array2[1], array2[2]);
-										goto IL_13C2;
-									case 4:
-										this.MyDrawCurve(array2[1], array2[2], array2[3]);
-										goto IL_13C2;
-									case 5:
-										this.MyDrawCurve(array2[1], array2[2], array2[3], array2[4]);
-										goto IL_13C2;
-									case 6:
-										this.MyDrawCurve(array2[1], array2[2], array2[3], array2[4], array2[5]);
-										goto IL_13C2;
-									default:
-										goto IL_13C2;
+										case 3:
+											this.MyDrawCurve(array2[1], array2[2]);
+											goto IL_13C2;
+										case 4:
+											this.MyDrawCurve(array2[1], array2[2], array2[3]);
+											goto IL_13C2;
+										case 5:
+											this.MyDrawCurve(array2[1], array2[2], array2[3], array2[4]);
+											goto IL_13C2;
+										case 6:
+											this.MyDrawCurve(array2[1], array2[2], array2[3], array2[4], array2[5]);
+											goto IL_13C2;
+										default:
+											goto IL_13C2;
 									}
 								}
-								else if (String.Compare(left, "closedcurve", false) == 0)
+								else if (Operators.CompareString(left, "closedcurve", false) == 0)
 								{
 									if (array2.Length == 5)
 									{
@@ -6567,7 +7325,7 @@ namespace LuoEasyPrint
 									this.MyDrawClosedCurve(array2[1], array2[2]);
 									goto IL_13C2;
 								}
-								else if (String.Compare(left, "fclosedcurve", false) == 0)
+								else if (Operators.CompareString(left, "fclosedcurve", false) == 0)
 								{
 									if (array2.Length == 5)
 									{
@@ -6584,52 +7342,52 @@ namespace LuoEasyPrint
 								}
 								else
 								{
-									if (String.Compare(left, "dl", false) == 0)
+									if (Operators.CompareString(left, "dl", false) == 0)
 									{
-										float x3 = Convert.ToSingle(array2[1]);
-										float y3 = Convert.ToSingle(array2[2]);
-										float x4 = Convert.ToSingle(array2[3]);
-										float y4 = Convert.ToSingle(array2[4]);
+										float x3 = Conversions.ToSingle(array2[1]);
+										float y3 = Conversions.ToSingle(array2[2]);
+										float x4 = Conversions.ToSingle(array2[3]);
+										float y4 = Conversions.ToSingle(array2[4]);
 										object obj3 = colorConverter.ConvertFromString(array2[5]);
-										this.MyDrawDashline(x3, y3, x4, y4, (obj3 != null) ? ((Color)obj3) : color, Convert.ToSingle(array2[6]), (DashStyle)Convert.ToInt32(array2[7]));
+										this.MyDrawDashline(x3, y3, x4, y4, (obj3 != null) ? ((Color)obj3) : color, Conversions.ToSingle(array2[6]), (DashStyle)Conversions.ToInteger(array2[7]));
 										goto IL_13C2;
 									}
-									if (String.Compare(left, "r", false) == 0)
+									if (Operators.CompareString(left, "r", false) == 0)
 									{
-										float x5 = Convert.ToSingle(array2[1]);
-										float y5 = Convert.ToSingle(array2[2]);
-										float mywidth = Convert.ToSingle(array2[3]);
-										float myheight = Convert.ToSingle(array2[4]);
+										float x5 = Conversions.ToSingle(array2[1]);
+										float y5 = Conversions.ToSingle(array2[2]);
+										float mywidth = Conversions.ToSingle(array2[3]);
+										float myheight = Conversions.ToSingle(array2[4]);
 										object obj4 = colorConverter.ConvertFromString(array2[5]);
-										this.MyDrawRect(x5, y5, mywidth, myheight, (obj4 != null) ? ((Color)obj4) : color, Convert.ToSingle(array2[6]));
+										this.MyDrawRect(x5, y5, mywidth, myheight, (obj4 != null) ? ((Color)obj4) : color, Conversions.ToSingle(array2[6]));
 										goto IL_13C2;
 									}
-									if (String.Compare(left, "rect", false) == 0)
+									if (Operators.CompareString(left, "rect", false) == 0)
 									{
 										this.MyDrawRect(array2[1], array2[2]);
 										goto IL_13C2;
 									}
-									if (String.Compare(left, "frect", false) == 0)
+									if (Operators.CompareString(left, "frect", false) == 0)
 									{
 										this.MyDrawFillRect(array2[1], array2[2]);
 										goto IL_13C2;
 									}
-									if (String.Compare(left, "rects", false) == 0)
+									if (Operators.CompareString(left, "rects", false) == 0)
 									{
 										this.MyDrawRectangles(array2[1], array2[2]);
 										goto IL_13C2;
 									}
-									if (String.Compare(left, "frects", false) == 0)
+									if (Operators.CompareString(left, "frects", false) == 0)
 									{
 										this.MyDrawFillRectangles(array2[1], array2[2]);
 										goto IL_13C2;
 									}
-									if (String.Compare(left, "polygon", false) == 0)
+									if (Operators.CompareString(left, "polygon", false) == 0)
 									{
 										this.MyDrawPolygon(array2[1], array2[2]);
 										goto IL_13C2;
 									}
-									if (String.Compare(left, "fpolygon", false) == 0)
+									if (Operators.CompareString(left, "fpolygon", false) == 0)
 									{
 										if (array2.Length == 4)
 										{
@@ -6641,19 +7399,19 @@ namespace LuoEasyPrint
 									}
 									else
 									{
-										if (String.Compare(left, "i", false) == 0)
+										if (Operators.CompareString(left, "i", false) == 0)
 										{
 											Image image;
-											if (DataTypeConversion.IsNumeric(array2[1]))
+											if (Versioned.IsNumeric(array2[1]))
 											{
-												memoryStream = new MemoryStream(this.mypicture[Convert.ToInt32(array2[1])].mypi);
+												memoryStream = new MemoryStream(this.mypicture[Conversions.ToInteger(array2[1])].mypi);
 												image = Image.FromStream(memoryStream, true, true);
 											}
 											else
 											{
 												image = Module1.ConvertStringToImage(array2[1]);
 											}
-											this.MyDrawImage(image, Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), Convert.ToSingle(array2[5]));
+											this.MyDrawImage(image, Conversions.ToSingle(array2[2]), Conversions.ToSingle(array2[3]), Conversions.ToSingle(array2[4]), Conversions.ToSingle(array2[5]));
 											image.Dispose();
 											if (memoryStream != null)
 											{
@@ -6662,26 +7420,26 @@ namespace LuoEasyPrint
 											memoryStream = null;
 											goto IL_13C2;
 										}
-										if (String.Compare(left, "p", false) == 0)
+										if (Operators.CompareString(left, "p", false) == 0)
 										{
 											Image image = Module1.ConvertStringToImage(array2[1]);
-											this.MyDrawImage(image, Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), Convert.ToSingle(array2[5]));
+											this.MyDrawImage(image, Conversions.ToSingle(array2[2]), Conversions.ToSingle(array2[3]), Conversions.ToSingle(array2[4]), Conversions.ToSingle(array2[5]));
 											image.Dispose();
 											goto IL_13C2;
 										}
-										if (String.Compare(left, "i2", false) == 0)
+										if (Operators.CompareString(left, "i2", false) == 0)
 										{
 											Image image;
-											if (DataTypeConversion.IsNumeric(array2[1]))
+											if (Versioned.IsNumeric(array2[1]))
 											{
-												memoryStream = new MemoryStream(this.mypicture[Convert.ToInt32(array2[1])].mypi);
+												memoryStream = new MemoryStream(this.mypicture[Conversions.ToInteger(array2[1])].mypi);
 												image = Image.FromStream(memoryStream, true, true);
 											}
 											else
 											{
 												image = Module1.ConvertStringToImage(array2[1]);
 											}
-											this.MyDrawImage(image, Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), Convert.ToSingle(array2[5]), Convert.ToSingle(array2[6]), Convert.ToSingle(array2[7]));
+											this.MyDrawImage(image, Conversions.ToSingle(array2[2]), Conversions.ToSingle(array2[3]), Conversions.ToSingle(array2[4]), Conversions.ToSingle(array2[5]), Conversions.ToSingle(array2[6]), Conversions.ToSingle(array2[7]));
 											image.Dispose();
 											if (memoryStream != null)
 											{
@@ -6690,12 +7448,12 @@ namespace LuoEasyPrint
 											memoryStream = null;
 											goto IL_13C2;
 										}
-										if (String.Compare(left, "DrawImageUnscaledAndClipped", false) == 0)
+										if (Operators.CompareString(left, "DrawImageUnscaledAndClipped", false) == 0)
 										{
 											Image image;
-											if (DataTypeConversion.IsNumeric(array2[1]))
+											if (Versioned.IsNumeric(array2[1]))
 											{
-												memoryStream = new MemoryStream(this.mypicture[Convert.ToInt32(array2[1])].mypi);
+												memoryStream = new MemoryStream(this.mypicture[Conversions.ToInteger(array2[1])].mypi);
 												image = Image.FromStream(memoryStream, true, true);
 											}
 											else
@@ -6711,12 +7469,12 @@ namespace LuoEasyPrint
 											memoryStream = null;
 											goto IL_13C2;
 										}
-										if (String.Compare(left, "DrawImageUnscaled", false) == 0)
+										if (Operators.CompareString(left, "DrawImageUnscaled", false) == 0)
 										{
 											Image image;
-											if (DataTypeConversion.IsNumeric(array2[1]))
+											if (Versioned.IsNumeric(array2[1]))
 											{
-												memoryStream = new MemoryStream(this.mypicture[Convert.ToInt32(array2[1])].mypi);
+												memoryStream = new MemoryStream(this.mypicture[Conversions.ToInteger(array2[1])].mypi);
 												image = Image.FromStream(memoryStream, true, true);
 											}
 											else
@@ -6734,17 +7492,17 @@ namespace LuoEasyPrint
 										}
 										StringAlignment myHalg;
 										StringAlignment myValg;
-										if (String.Compare(left, "t", false) != 0)
+										if (Operators.CompareString(left, "t", false) != 0)
 										{
-											if (String.Compare(left, "t2", false) != 0)
+											if (Operators.CompareString(left, "t2", false) != 0)
 											{
-												if (String.Compare(left, "th", false) == 0)
+												if (Operators.CompareString(left, "th", false) == 0)
 												{
-													if (String.Compare(array2[7], "2", false) == 0)
+													if (Operators.CompareString(array2[7], "2", false) == 0)
 													{
 														myHalg = StringAlignment.Center;
 													}
-													else if (String.Compare(array2[7], "3", false) == 0)
+													else if (Operators.CompareString(array2[7], "3", false) == 0)
 													{
 														myHalg = StringAlignment.Far;
 													}
@@ -6752,11 +7510,11 @@ namespace LuoEasyPrint
 													{
 														myHalg = StringAlignment.Near;
 													}
-													if (String.Compare(array2[8], "2", false) == 0)
+													if (Operators.CompareString(array2[8], "2", false) == 0)
 													{
 														myValg = StringAlignment.Center;
 													}
-													else if (String.Compare(array2[8], "3", false) == 0)
+													else if (Operators.CompareString(array2[8], "3", false) == 0)
 													{
 														myValg = StringAlignment.Far;
 													}
@@ -6766,117 +7524,117 @@ namespace LuoEasyPrint
 													}
 													if (array2.Length > 11)
 													{
-														float x6 = Convert.ToSingle(array2[1]);
-														float y6 = Convert.ToSingle(array2[2]);
-														float mywidth2 = Convert.ToSingle(array2[3]);
-														float myheight2 = Convert.ToSingle(array2[4]);
+														float x6 = Conversions.ToSingle(array2[1]);
+														float y6 = Conversions.ToSingle(array2[2]);
+														float mywidth2 = Conversions.ToSingle(array2[3]);
+														float myheight2 = Conversions.ToSingle(array2[4]);
 														string s = array2[5];
 														object obj5 = colorConverter.ConvertFromString(array2[6]);
-														this.MydrawtextHollow(x6, y6, mywidth2, myheight2, s, (obj5 != null) ? ((Color)obj5) : color, myHalg, myValg, DataTypeConversion.ToBoolean(array2[9]), DataTypeConversion.ToBoolean(array2[10]), DataTypeConversion.ToBoolean(array2[11]), DataTypeConversion.ToBoolean(array2[12]), Convert.ToSingle(Convert.ToDecimal(array2[13])));
+														this.MydrawtextHollow(x6, y6, mywidth2, myheight2, s, (obj5 != null) ? ((Color)obj5) : color, myHalg, myValg, Conversions.ToBoolean(array2[9]), Conversions.ToBoolean(array2[10]), Conversions.ToBoolean(array2[11]), Conversions.ToBoolean(array2[12]), Convert.ToSingle(Conversions.ToDecimal(array2[13])));
 														goto IL_13C2;
 													}
-													float x7 = Convert.ToSingle(array2[1]);
-													float y7 = Convert.ToSingle(array2[2]);
-													float mywidth3 = Convert.ToSingle(array2[3]);
-													float myheight3 = Convert.ToSingle(array2[4]);
+													float x7 = Conversions.ToSingle(array2[1]);
+													float y7 = Conversions.ToSingle(array2[2]);
+													float mywidth3 = Conversions.ToSingle(array2[3]);
+													float myheight3 = Conversions.ToSingle(array2[4]);
 													string s2 = array2[5];
 													object obj6 = colorConverter.ConvertFromString(array2[6]);
-													this.MydrawtextHollow(x7, y7, mywidth3, myheight3, s2, (obj6 != null) ? ((Color)obj6) : color, myHalg, myValg, (StringFormatFlags)Convert.ToInt32(array2[9]), Convert.ToSingle(Convert.ToDecimal(array2[10])));
+													this.MydrawtextHollow(x7, y7, mywidth3, myheight3, s2, (obj6 != null) ? ((Color)obj6) : color, myHalg, myValg, (StringFormatFlags)Conversions.ToInteger(array2[9]), Convert.ToSingle(Conversions.ToDecimal(array2[10])));
 													goto IL_13C2;
 												}
 												else
 												{
-													if (String.Compare(left, "mydrawmargin", false) == 0)
+													if (Operators.CompareString(left, "mydrawmargin", false) == 0)
 													{
 														this.MyDrawMargin();
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "rf", false) == 0)
+													if (Operators.CompareString(left, "rf", false) == 0)
 													{
-														float x8 = Convert.ToSingle(array2[1]);
-														float y8 = Convert.ToSingle(array2[2]);
-														float mywidth4 = Convert.ToSingle(array2[3]);
-														float myheight4 = Convert.ToSingle(array2[4]);
+														float x8 = Conversions.ToSingle(array2[1]);
+														float y8 = Conversions.ToSingle(array2[2]);
+														float mywidth4 = Conversions.ToSingle(array2[3]);
+														float myheight4 = Conversions.ToSingle(array2[4]);
 														object obj7 = colorConverter.ConvertFromString(array2[5]);
 														this.MyDrawFillRect(x8, y8, mywidth4, myheight4, (obj7 != null) ? ((Color)obj7) : color);
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "arc", false) == 0)
+													if (Operators.CompareString(left, "arc", false) == 0)
 													{
-														float x9 = Convert.ToSingle(array2[1]);
-														float y9 = Convert.ToSingle(array2[2]);
-														float mywidth5 = Convert.ToSingle(array2[3]);
-														float myheight5 = Convert.ToSingle(array2[4]);
+														float x9 = Conversions.ToSingle(array2[1]);
+														float y9 = Conversions.ToSingle(array2[2]);
+														float mywidth5 = Conversions.ToSingle(array2[3]);
+														float myheight5 = Conversions.ToSingle(array2[4]);
 														object obj8 = colorConverter.ConvertFromString(array2[5]);
-														this.MyDrawArc(x9, y9, mywidth5, myheight5, (obj8 != null) ? ((Color)obj8) : color, Convert.ToSingle(array2[6]), Convert.ToSingle(array2[7]), Convert.ToSingle(array2[8]));
+														this.MyDrawArc(x9, y9, mywidth5, myheight5, (obj8 != null) ? ((Color)obj8) : color, Conversions.ToSingle(array2[6]), Conversions.ToSingle(array2[7]), Conversions.ToSingle(array2[8]));
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "arc2", false) == 0)
+													if (Operators.CompareString(left, "arc2", false) == 0)
 													{
-														this.MyDrawArc2(Convert.ToSingle(array2[1]), Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), array2[5], Convert.ToSingle(array2[6]), Convert.ToSingle(array2[7]));
+														this.MyDrawArc2(Conversions.ToSingle(array2[1]), Conversions.ToSingle(array2[2]), Conversions.ToSingle(array2[3]), Conversions.ToSingle(array2[4]), array2[5], Conversions.ToSingle(array2[6]), Conversions.ToSingle(array2[7]));
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "bezier", false) == 0)
+													if (Operators.CompareString(left, "bezier", false) == 0)
 													{
-														this.MyDrawBezier(array2[1], Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), Convert.ToSingle(array2[5]), Convert.ToSingle(array2[6]), Convert.ToSingle(array2[7]), Convert.ToSingle(array2[8]), Convert.ToSingle(array2[9]));
+														this.MyDrawBezier(array2[1], Conversions.ToSingle(array2[2]), Conversions.ToSingle(array2[3]), Conversions.ToSingle(array2[4]), Conversions.ToSingle(array2[5]), Conversions.ToSingle(array2[6]), Conversions.ToSingle(array2[7]), Conversions.ToSingle(array2[8]), Conversions.ToSingle(array2[9]));
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "beziers", false) == 0)
+													if (Operators.CompareString(left, "beziers", false) == 0)
 													{
 														this.MyDrawBeziers(array2[1], array2[2]);
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "de", false) == 0)
+													if (Operators.CompareString(left, "de", false) == 0)
 													{
-														float x10 = Convert.ToSingle(array2[1]);
-														float y10 = Convert.ToSingle(array2[2]);
-														float mywidth6 = Convert.ToSingle(array2[3]);
-														float myheight6 = Convert.ToSingle(array2[4]);
+														float x10 = Conversions.ToSingle(array2[1]);
+														float y10 = Conversions.ToSingle(array2[2]);
+														float mywidth6 = Conversions.ToSingle(array2[3]);
+														float myheight6 = Conversions.ToSingle(array2[4]);
 														object obj9 = colorConverter.ConvertFromString(array2[5]);
-														this.MyDrawEllipse(x10, y10, mywidth6, myheight6, (obj9 != null) ? ((Color)obj9) : color, Convert.ToSingle(array2[6]));
+														this.MyDrawEllipse(x10, y10, mywidth6, myheight6, (obj9 != null) ? ((Color)obj9) : color, Conversions.ToSingle(array2[6]));
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "ellipse", false) == 0)
+													if (Operators.CompareString(left, "ellipse", false) == 0)
 													{
 														this.MyDrawEllipse(array2[1], array2[2]);
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "dfe", false) == 0)
+													if (Operators.CompareString(left, "dfe", false) == 0)
 													{
-														float x11 = Convert.ToSingle(array2[1]);
-														float y11 = Convert.ToSingle(array2[2]);
-														float mywidth7 = Convert.ToSingle(array2[3]);
-														float myheight7 = Convert.ToSingle(array2[4]);
+														float x11 = Conversions.ToSingle(array2[1]);
+														float y11 = Conversions.ToSingle(array2[2]);
+														float mywidth7 = Conversions.ToSingle(array2[3]);
+														float myheight7 = Conversions.ToSingle(array2[4]);
 														object obj10 = colorConverter.ConvertFromString(array2[5]);
 														this.MyDrawFillEllipse(x11, y11, mywidth7, myheight7, (obj10 != null) ? ((Color)obj10) : color);
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "fellipse", false) == 0)
+													if (Operators.CompareString(left, "fellipse", false) == 0)
 													{
 														this.MyDrawFillEllipse(array2[1], array2[2]);
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "rtf", false) == 0)
+													if (Operators.CompareString(left, "rtf", false) == 0)
 													{
-														this.MyDrawRTF(this.W_myrtfC[Convert.ToInt32(array2[1])].mypi, Convert.ToInt32(array2[2]), Convert.ToInt32(array2[3]), Convert.ToSingle(array2[4]), Convert.ToSingle(array2[5]), Convert.ToSingle(array2[6]), Convert.ToSingle(array2[7]), Convert.ToSingle(array2[8]), Convert.ToSingle(array2[9]));
+														this.MyDrawRTF(this.W_myrtfC[Conversions.ToInteger(array2[1])].mypi, Conversions.ToInteger(array2[2]), Conversions.ToInteger(array2[3]), Conversions.ToSingle(array2[4]), Conversions.ToSingle(array2[5]), Conversions.ToSingle(array2[6]), Conversions.ToSingle(array2[7]), Conversions.ToSingle(array2[8]), Conversions.ToSingle(array2[9]));
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "pie", false) == 0)
+													if (Operators.CompareString(left, "pie", false) == 0)
 													{
 														this.MyDrawPie(array2[1], array2[2], array2[3], array2[4]);
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "fpie", false) == 0)
+													if (Operators.CompareString(left, "fpie", false) == 0)
 													{
 														this.MyDrawFillPie(array2[1], array2[2], array2[3], array2[4]);
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "dp", false) == 0)
+													if (Operators.CompareString(left, "dp", false) == 0)
 													{
 														this.myDrawPath(array2[1], array2[2], array2[3]);
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "fp", false) == 0)
+													if (Operators.CompareString(left, "fp", false) == 0)
 													{
 														try
 														{
@@ -6903,78 +7661,78 @@ namespace LuoEasyPrint
 															goto IL_13C2;
 														}
 													}
-													if (String.Compare(left, "resetrotate", false) == 0)
+													if (Operators.CompareString(left, "resetrotate", false) == 0)
 													{
 														this.MyResetRotate();
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "rotate", false) == 0)
+													if (Operators.CompareString(left, "rotate", false) == 0)
 													{
-														this.MyRotate(Convert.ToDouble(array2[1]), Convert.ToDouble(array2[2]), Convert.ToDouble(array2[3]));
+														this.MyRotate(Conversions.ToDouble(array2[1]), Conversions.ToDouble(array2[2]), Conversions.ToDouble(array2[3]));
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "ttf", false) == 0)
+													if (Operators.CompareString(left, "ttf", false) == 0)
 													{
-														this.myTranslateTransform(Convert.ToSingle(array2[1]), Convert.ToSingle(array2[2]));
+														this.myTranslateTransform(Conversions.ToSingle(array2[1]), Conversions.ToSingle(array2[2]));
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "ttf2", false) == 0)
+													if (Operators.CompareString(left, "ttf2", false) == 0)
 													{
-														this.myTranslateTransform(Convert.ToSingle(array2[1]), Convert.ToSingle(array2[2]), (MatrixOrder)Convert.ToInt32(array2[3]));
+														this.myTranslateTransform(Conversions.ToSingle(array2[1]), Conversions.ToSingle(array2[2]), (MatrixOrder)Conversions.ToInteger(array2[3]));
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "rtff", false) == 0)
+													if (Operators.CompareString(left, "rtff", false) == 0)
 													{
-														this.myRotateTransform(Convert.ToSingle(array2[1]));
+														this.myRotateTransform(Conversions.ToSingle(array2[1]));
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "rtff2", false) == 0)
+													if (Operators.CompareString(left, "rtff2", false) == 0)
 													{
-														this.myRotateTransform(Convert.ToSingle(array2[1]), (MatrixOrder)Convert.ToInt32(array2[2]));
+														this.myRotateTransform(Conversions.ToSingle(array2[1]), (MatrixOrder)Conversions.ToInteger(array2[2]));
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "drawmetaimage", false) == 0)
+													if (Operators.CompareString(left, "drawmetaimage", false) == 0)
 													{
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "drawchartlet", false) == 0)
+													if (Operators.CompareString(left, "drawchartlet", false) == 0)
 													{
-														this.MyDrawChartlet(Convert.ToSingle(array2[1]), Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), array2[5]);
+														this.MyDrawChartlet(Conversions.ToSingle(array2[1]), Conversions.ToSingle(array2[2]), Conversions.ToSingle(array2[3]), Conversions.ToSingle(array2[4]), array2[5]);
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "drawexpress", false) == 0)
+													if (Operators.CompareString(left, "drawexpress", false) == 0)
 													{
-														this.MyDrawExpression(Convert.ToSingle(array2[1]), Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), array2[5]);
+														this.MyDrawExpression(Conversions.ToSingle(array2[1]), Conversions.ToSingle(array2[2]), Conversions.ToSingle(array2[3]), Conversions.ToSingle(array2[4]), array2[5]);
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "setclip", false) == 0)
+													if (Operators.CompareString(left, "setclip", false) == 0)
 													{
-														this.mySetClip(Convert.ToSingle(array2[1]), Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), array2[5]);
+														this.mySetClip(Conversions.ToSingle(array2[1]), Conversions.ToSingle(array2[2]), Conversions.ToSingle(array2[3]), Conversions.ToSingle(array2[4]), array2[5]);
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "setclip2", false) == 0)
+													if (Operators.CompareString(left, "setclip2", false) == 0)
 													{
 														this.mySetClip(array2[1], array2[2], array2[3]);
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "resetclip", false) == 0)
+													if (Operators.CompareString(left, "resetclip", false) == 0)
 													{
 														this.myResetClip();
 														goto IL_13C2;
 													}
-													if (String.Compare(left, "i3", false) == 0)
+													if (Operators.CompareString(left, "i3", false) == 0)
 													{
 														Image image;
-														if (DataTypeConversion.IsNumeric(array2[1]))
+														if (Versioned.IsNumeric(array2[1]))
 														{
-															memoryStream = new MemoryStream(this.mypicture[Convert.ToInt32(array2[1])].mypi);
+															memoryStream = new MemoryStream(this.mypicture[Conversions.ToInteger(array2[1])].mypi);
 															image = Image.FromStream(memoryStream, true, true);
 														}
 														else
 														{
 															image = Module1.ConvertStringToImage(array2[1]);
 														}
-														this.MyDrawImage(image, array2[2], Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), Convert.ToSingle(array2[5]), Convert.ToSingle(array2[6]), Convert.ToInt32(array2[7]));
+														this.MyDrawImage(image, array2[2], Conversions.ToSingle(array2[3]), Conversions.ToSingle(array2[4]), Conversions.ToSingle(array2[5]), Conversions.ToSingle(array2[6]), Conversions.ToInteger(array2[7]));
 														image.Dispose();
 														if (memoryStream != null)
 														{
@@ -6983,19 +7741,19 @@ namespace LuoEasyPrint
 														}
 														goto IL_13C2;
 													}
-													else if (String.Compare(left, "i4", false) == 0)
+													else if (Operators.CompareString(left, "i4", false) == 0)
 													{
 														Image image;
-														if (DataTypeConversion.IsNumeric(array2[1]))
+														if (Versioned.IsNumeric(array2[1]))
 														{
-															memoryStream = new MemoryStream(this.mypicture[Convert.ToInt32(array2[1])].mypi);
+															memoryStream = new MemoryStream(this.mypicture[Conversions.ToInteger(array2[1])].mypi);
 															image = Image.FromStream(memoryStream, true, true);
 														}
 														else
 														{
 															image = Module1.ConvertStringToImage(array2[1]);
 														}
-														this.MyDrawImage(image, Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), Convert.ToSingle(array2[5]), Convert.ToSingle(array2[6]), Convert.ToSingle(array2[7]), Convert.ToInt32(array2[8]));
+														this.MyDrawImage(image, Conversions.ToSingle(array2[2]), Conversions.ToSingle(array2[3]), Conversions.ToSingle(array2[4]), Conversions.ToSingle(array2[5]), Conversions.ToSingle(array2[6]), Conversions.ToSingle(array2[7]), Conversions.ToInteger(array2[8]));
 														image.Dispose();
 														if (memoryStream != null)
 														{
@@ -7004,17 +7762,17 @@ namespace LuoEasyPrint
 														}
 														goto IL_13C2;
 													}
-													else if (String.Compare(left, "drawicon", false) == 0)
+													else if (Operators.CompareString(left, "drawicon", false) == 0)
 													{
 														Icon icon = Module1.ConvertStringToIcon(array2[3]);
 														if (icon != null)
 														{
-															this.myDrawIcon(Convert.ToSingle(array2[1]), Convert.ToSingle(array2[2]), icon);
+															this.myDrawIcon(Conversions.ToSingle(array2[1]), Conversions.ToSingle(array2[2]), icon);
 															goto IL_13C2;
 														}
 														goto IL_13C2;
 													}
-													else if (String.Compare(left, "drawicon2", false) == 0)
+													else if (Operators.CompareString(left, "drawicon2", false) == 0)
 													{
 														Icon icon2 = Module1.ConvertStringToIcon(array2[2]);
 														if (icon2 != null)
@@ -7026,9 +7784,9 @@ namespace LuoEasyPrint
 													}
 													else
 													{
-														if (String.Compare(left, "shape", false) == 0)
+														if (Operators.CompareString(left, "shape", false) == 0)
 														{
-															this.MyDrawShape(array2[1], array2[2], Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]));
+															this.MyDrawShape(array2[1], array2[2], Conversions.ToSingle(array2[3]), Conversions.ToSingle(array2[4]));
 															goto IL_13C2;
 														}
 														goto IL_13C2;
@@ -7036,11 +7794,11 @@ namespace LuoEasyPrint
 												}
 											}
 										}
-										if (String.Compare(array2[7], "2", false) == 0)
+										if (Operators.CompareString(array2[7], "2", false) == 0)
 										{
 											myHalg = StringAlignment.Center;
 										}
-										else if (String.Compare(array2[7], "3", false) == 0)
+										else if (Operators.CompareString(array2[7], "3", false) == 0)
 										{
 											myHalg = StringAlignment.Far;
 										}
@@ -7048,11 +7806,11 @@ namespace LuoEasyPrint
 										{
 											myHalg = StringAlignment.Near;
 										}
-										if (String.Compare(array2[8], "2", false) == 0)
+										if (Operators.CompareString(array2[8], "2", false) == 0)
 										{
 											myValg = StringAlignment.Center;
 										}
-										else if (String.Compare(array2[8], "3", false) == 0)
+										else if (Operators.CompareString(array2[8], "3", false) == 0)
 										{
 											myValg = StringAlignment.Far;
 										}
@@ -7060,36 +7818,36 @@ namespace LuoEasyPrint
 										{
 											myValg = StringAlignment.Near;
 										}
-										if (String.Compare(array2[0], "t2", false) == 0)
+										if (Operators.CompareString(array2[0], "t2", false) == 0)
 										{
 											if (array2.Length > 10)
 											{
-												this.MyDrawText2(Convert.ToSingle(array2[1]), Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), array2[5], array2[6], myHalg, myValg, DataTypeConversion.ToBoolean(array2[9]), DataTypeConversion.ToBoolean(array2[10]), DataTypeConversion.ToBoolean(array2[11]), DataTypeConversion.ToBoolean(array2[12]));
+												this.MyDrawText2(Conversions.ToSingle(array2[1]), Conversions.ToSingle(array2[2]), Conversions.ToSingle(array2[3]), Conversions.ToSingle(array2[4]), array2[5], array2[6], myHalg, myValg, Conversions.ToBoolean(array2[9]), Conversions.ToBoolean(array2[10]), Conversions.ToBoolean(array2[11]), Conversions.ToBoolean(array2[12]));
 												goto IL_13C2;
 											}
-											this.MyDrawText2(Convert.ToSingle(array2[1]), Convert.ToSingle(array2[2]), Convert.ToSingle(array2[3]), Convert.ToSingle(array2[4]), array2[5], array2[6], myHalg, myValg, (StringFormatFlags)Convert.ToInt32(array2[9]));
+											this.MyDrawText2(Conversions.ToSingle(array2[1]), Conversions.ToSingle(array2[2]), Conversions.ToSingle(array2[3]), Conversions.ToSingle(array2[4]), array2[5], array2[6], myHalg, myValg, (StringFormatFlags)Conversions.ToInteger(array2[9]));
 											goto IL_13C2;
 										}
 										else
 										{
 											if (array2.Length > 10)
 											{
-												float x12 = Convert.ToSingle(array2[1]);
-												float y12 = Convert.ToSingle(array2[2]);
-												float mywidth8 = Convert.ToSingle(array2[3]);
-												float myheight8 = Convert.ToSingle(array2[4]);
+												float x12 = Conversions.ToSingle(array2[1]);
+												float y12 = Conversions.ToSingle(array2[2]);
+												float mywidth8 = Conversions.ToSingle(array2[3]);
+												float myheight8 = Conversions.ToSingle(array2[4]);
 												string s3 = array2[5];
 												object obj11 = colorConverter.ConvertFromString(array2[6]);
-												this.MyDrawText(x12, y12, mywidth8, myheight8, s3, (obj11 != null) ? ((Color)obj11) : color, myHalg, myValg, DataTypeConversion.ToBoolean(array2[9]), DataTypeConversion.ToBoolean(array2[10]), DataTypeConversion.ToBoolean(array2[11]), DataTypeConversion.ToBoolean(array2[12]));
+												this.MyDrawText(x12, y12, mywidth8, myheight8, s3, (obj11 != null) ? ((Color)obj11) : color, myHalg, myValg, Conversions.ToBoolean(array2[9]), Conversions.ToBoolean(array2[10]), Conversions.ToBoolean(array2[11]), Conversions.ToBoolean(array2[12]));
 												goto IL_13C2;
 											}
-											float x13 = Convert.ToSingle(array2[1]);
-											float y13 = Convert.ToSingle(array2[2]);
-											float mywidth9 = Convert.ToSingle(array2[3]);
-											float myheight9 = Convert.ToSingle(array2[4]);
+											float x13 = Conversions.ToSingle(array2[1]);
+											float y13 = Conversions.ToSingle(array2[2]);
+											float mywidth9 = Conversions.ToSingle(array2[3]);
+											float myheight9 = Conversions.ToSingle(array2[4]);
 											string s4 = array2[5];
 											object obj12 = colorConverter.ConvertFromString(array2[6]);
-											this.MyDrawText(x13, y13, mywidth9, myheight9, s4, (obj12 != null) ? ((Color)obj12) : color, myHalg, myValg, (StringFormatFlags)Convert.ToInt32(array2[9]));
+											this.MyDrawText(x13, y13, mywidth9, myheight9, s4, (obj12 != null) ? ((Color)obj12) : color, myHalg, myValg, (StringFormatFlags)Conversions.ToInteger(array2[9]));
 											goto IL_13C2;
 										}
 									}
@@ -7131,8 +7889,8 @@ namespace LuoEasyPrint
 					this.cpage.Enabled = true;
 					this.PrintPreviewControl1.Columns = num;
 					this.PrintPreviewControl1.Rows = 1;
-					string left = Convert.ToString(this.cpage.SelectedItem);
-					if (String.Compare(left, "", false) == 0)
+					string left = Conversions.ToString(this.cpage.SelectedItem);
+					if (Operators.CompareString(left, "", false) == 0)
 					{
 						this.cpage.SelectedIndex = 0;
 					}
@@ -7209,13 +7967,13 @@ namespace LuoEasyPrint
 			int[] array3;
 			int[] array4;
 			float[] array5;
-			float num14=0;
-			float num15=0;
-			float num16=0;
-			float num17 = 0;
-			mytree mytree=null;
+			float num14;
+			float num15;
+			float num16;
+			float num17;
+			mytree mytree;
 			float[] array7;
-			float result=0;
+			float result;
 			checked
 			{
 				try
@@ -7228,12 +7986,12 @@ namespace LuoEasyPrint
 						int num4 = this.myms.RowCount - 1;
 						for (int j = num3; j <= num4; j++)
 						{
-							string left = Convert.ToString(this.myms.Rows[j].Cells[i].Tag);
-							if (String.Compare(left, "水平合并", false) != 0 & String.Compare(left, "垂直合并", false) != 0 & String.Compare(left, "合并", false) != 0 & String.Compare(left, "不合并", false) != 0 & String.Compare(left, "上合并", false) != 0 & String.Compare(left, "下合并", false) != 0 & String.Compare(left, "左合并", false) != 0 & String.Compare(left, "右合并", false) != 0 & String.Compare(left, "左上合并", false) != 0 & String.Compare(left, "左下合并", false) != 0 & String.Compare(left, "右上合并", false) != 0 & String.Compare(left, "右下合并", false) != 0 & String.Compare(left, "上边合并", false) != 0 & String.Compare(left, "下边合并", false) != 0 & String.Compare(left, "左边合并", false) != 0 & String.Compare(left, "右边合并", false) != 0)
+							string left = Conversions.ToString(this.myms.Rows[j].Cells[i].Tag);
+							if (Operators.CompareString(left, "水平合并", false) != 0 & Operators.CompareString(left, "垂直合并", false) != 0 & Operators.CompareString(left, "合并", false) != 0 & Operators.CompareString(left, "不合并", false) != 0 & Operators.CompareString(left, "上合并", false) != 0 & Operators.CompareString(left, "下合并", false) != 0 & Operators.CompareString(left, "左合并", false) != 0 & Operators.CompareString(left, "右合并", false) != 0 & Operators.CompareString(left, "左上合并", false) != 0 & Operators.CompareString(left, "左下合并", false) != 0 & Operators.CompareString(left, "右上合并", false) != 0 & Operators.CompareString(left, "右下合并", false) != 0 & Operators.CompareString(left, "上边合并", false) != 0 & Operators.CompareString(left, "下边合并", false) != 0 & Operators.CompareString(left, "左边合并", false) != 0 & Operators.CompareString(left, "右边合并", false) != 0)
 							{
-								if (String.Compare(Convert.ToString(this.myms.Columns[i].Tag), "合并", false) == 0)
+								if (Operators.CompareString(Conversions.ToString(this.myms.Columns[i].Tag), "合并", false) == 0)
 								{
-									if (String.Compare(Convert.ToString(this.myms.Rows[j].Tag), "合并", false) == 0)
+									if (Operators.CompareString(Conversions.ToString(this.myms.Rows[j].Tag), "合并", false) == 0)
 									{
 										this.myms.Rows[j].Cells[i].Tag = "合并";
 									}
@@ -7242,7 +8000,7 @@ namespace LuoEasyPrint
 										this.myms.Rows[j].Cells[i].Tag = "垂直合并";
 									}
 								}
-								else if (String.Compare(Convert.ToString(this.myms.Rows[j].Tag), "合并", false) == 0)
+								else if (Operators.CompareString(Conversions.ToString(this.myms.Rows[j].Tag), "合并", false) == 0)
 								{
 									this.myms.Rows[j].Cells[i].Tag = "水平合并";
 								}
@@ -7322,7 +8080,7 @@ namespace LuoEasyPrint
 				{
 					array3[k] = this.myms.Columns[thecol[k]].Width;
 				}
-				array4[0] = Convert.ToInt32(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0));
+				array4[0] = Conversions.ToInteger(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0));
 				int num12 = fromrow;
 				int num13 = torow;
 				for (int k = num12; k <= num13; k++)
@@ -7432,7 +8190,7 @@ namespace LuoEasyPrint
 			}
 			int currentPage = this.GetCurrentPage();
 			float num29 = 0f;
-			num29 = this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false);
+			num29 = this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false);
 			stringFormat.FormatFlags &= ~StringFormatFlags.NoWrap;
 			StringAlignment myHalg = StringAlignment.Near;
 			string text = "";
@@ -7442,43 +8200,43 @@ namespace LuoEasyPrint
 			bool flag2 = false;
 			if (flag = VB2008Print.CanSpanPrint(lefttitle, middletitle, righttitle, ref text, ref myHalg))
 			{
-				if (String.Compare(lefttitle, "", false) != 0)
+				if (Operators.CompareString(lefttitle, "", false) != 0)
 				{
 					myHalg = TableTopLeftTitleAlign;
 				}
-				else if (String.Compare(middletitle, "", false) != 0)
+				else if (Operators.CompareString(middletitle, "", false) != 0)
 				{
 					myHalg = TableTopMiddleTitleAlign;
 				}
-				else if (String.Compare(righttitle, "", false) != 0)
+				else if (Operators.CompareString(righttitle, "", false) != 0)
 				{
 					myHalg = TableTopRightTitleAlign;
 				}
 			}
 			if (flag2 = VB2008Print.CanSpanPrint(bl, bm, br, ref text2, ref myHalg2))
 			{
-				if (String.Compare(bl, "", false) != 0)
+				if (Operators.CompareString(bl, "", false) != 0)
 				{
 					myHalg2 = TableBottomLeftTitleAlign;
 				}
-				else if (String.Compare(bm, "", false) != 0)
+				else if (Operators.CompareString(bm, "", false) != 0)
 				{
 					myHalg2 = TableBottomMiddleTitleAlign;
 				}
-				else if (String.Compare(br, "", false) != 0)
+				else if (Operators.CompareString(br, "", false) != 0)
 				{
 					myHalg2 = TableBottomRightTitleAlign;
 				}
 			}
-			float num30= 0;
-			float num31= 0;
-			float num32= 0;
-			float num33= 0;
-			float num34= 0;
-			float num35 = 0;
+			float num30;
+			float num31;
+			float num32;
+			float num33;
+			float num34;
+			float num35;
 			if (mytitleheight == 0f)
 			{
-				if (String.Compare(lefttitle, "", false) == 0 & String.Compare(middletitle, "", false) == 0 & String.Compare(righttitle, "", false) == 0)
+				if (Operators.CompareString(lefttitle, "", false) == 0 & Operators.CompareString(middletitle, "", false) == 0 & Operators.CompareString(righttitle, "", false) == 0)
 				{
 					num30 = 0f;
 					flag = false;
@@ -7521,7 +8279,7 @@ namespace LuoEasyPrint
 				{
 					num34 = (float)((double)this.MeasureText("平", subtitlefont, num14, stringFormat).Height / 2.5);
 				}
-				if (String.Compare(bl, "", false) == 0 & String.Compare(br, "", false) == 0 & String.Compare(bm, "", false) == 0)
+				if (Operators.CompareString(bl, "", false) == 0 & Operators.CompareString(br, "", false) == 0 & Operators.CompareString(bm, "", false) == 0)
 				{
 					num35 = 0f;
 					flag2 = false;
@@ -7585,31 +8343,32 @@ namespace LuoEasyPrint
 					else
 					{
 						num36 = k;
+					IL_B68:
 						mytree mytree2;
-						float doubleLineSpace=0;
-						float num42 = 0;
-						bool flag3 = false;
+						float doubleLineSpace;
+						float num42;
+						bool flag3;
 						float[] array8;
-						float currenty = 0;
+						float currenty;
 						Color textforecolor=new Color();
-						bool mulline=false;
+						bool mulline;
 						unchecked
 						{
 							if (num36 == -1)
 							{
-								this.MyIsNewPage(num31 + num32 + num33 + num34 + num30 + Convert.ToSingle(Interaction.IIf(this.IsDrawTableFooterEveryPage, num35, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0)))) + this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false), true);
+								this.MyIsNewPage(num31 + num32 + num33 + num34 + num30 + Conversions.ToSingle(Interaction.IIf(this.IsDrawTableFooterEveryPage, num35, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0)))) + this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false), true);
 							}
 							else
 							{
 								if (this.Currenty > 0f)
 								{
-									this.MyIsNewPage(num31 + num32 + num33 + num34 + num30 + Convert.ToSingle(Interaction.IIf(this.IsDrawTableFooterEveryPage, num35, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0)))) + this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false) + this.ConvFromDisplay((float)this.myms.Rows[num36].Height, false), true);
+									this.MyIsNewPage(num31 + num32 + num33 + num34 + num30 + Conversions.ToSingle(Interaction.IIf(this.IsDrawTableFooterEveryPage, num35, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0)))) + this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false) + this.ConvFromDisplay((float)this.myms.Rows[num36].Height, false), true);
 								}
-								if (num31 + num32 + num33 + num34 + num30 + Convert.ToSingle(Interaction.IIf(this.IsDrawTableFooterEveryPage, num35, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0)))) + this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false) + this.ConvFromDisplay((float)this.myms.Rows[num36].Height, false) > this.PaperPrintHeight)
+								if (num31 + num32 + num33 + num34 + num30 + Conversions.ToSingle(Interaction.IIf(this.IsDrawTableFooterEveryPage, num35, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0)))) + this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false) + this.ConvFromDisplay((float)this.myms.Rows[num36].Height, false) > this.PaperPrintHeight)
 								{
 									try
 									{
-										this.myms.Rows[num36].Height = checked((int)Math.Round((double)this.ConvToDisplay(unchecked(this.PaperPrintHeight - (num31 + num32 + num33 + num34 + num30 + Convert.ToSingle(Interaction.IIf(this.IsDrawTableFooterEveryPage, num35, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0)))) + this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false))), false)));
+										this.myms.Rows[num36].Height = checked((int)Math.Round((double)this.ConvToDisplay(unchecked(this.PaperPrintHeight - (num31 + num32 + num33 + num34 + num30 + Conversions.ToSingle(Interaction.IIf(this.IsDrawTableFooterEveryPage, num35, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0)))) + this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false))), false)));
 									}
 									catch (Exception ex2)
 									{
@@ -7640,19 +8399,19 @@ namespace LuoEasyPrint
 								flag3 = true;
 								if (k == 0 || reppagetitle)
 								{
-									if (String.Compare(title, "", false) != 0)
+									if (Operators.CompareString(title, "", false) != 0)
 									{
 										this.Currentx = num16;
 										this.DrawText(title, num17, num31, titleFont, StringAlignment.Center, StringAlignment.Center, true, false, false, false, 0f, titletextstyle);
 										this.NewRow(num31 + num32);
 									}
 									this.Currentx = num16;
-									if (String.Compare(subtitle, "", false) != 0)
+									if (Operators.CompareString(subtitle, "", false) != 0)
 									{
 										this.DrawText(subtitle, num17, num33, subtitlefont, StringAlignment.Center, StringAlignment.Center, true, false, false, false, 0f, subtitlestyle);
 										this.NewRow(num33 + num34);
 									}
-									if (String.Compare(lefttitle, "", false) == 0 & String.Compare(middletitle, "", false) == 0 & String.Compare(righttitle, "", false) == 0)
+									if (Operators.CompareString(lefttitle, "", false) == 0 & Operators.CompareString(middletitle, "", false) == 0 & Operators.CompareString(righttitle, "", false) == 0)
 									{
 										this.NewRow(num30);
 									}
@@ -7840,16 +8599,16 @@ namespace LuoEasyPrint
 									{
 										goto IL_2085;
 									}
-									
+									goto IL_162A;
 								}
 								goto IL_2085;
-								IL_207A:
+							IL_207A:
 								DataGridViewRow dataGridViewRow;
 								checked
 								{
 									k++;
 									continue;
-									IL_162A:
+								IL_162A:
 									dataGridViewRow = this.myms.Rows[k];
 									bool flag4 = true;
 									currenty = this.Currenty;
@@ -7870,48 +8629,48 @@ namespace LuoEasyPrint
 												num40 = array5[l];
 												num42 += num40;
 												num39 = this.ConvFromDisplay((float)dataGridViewRow.Height, false);
-												string left2 = Convert.ToString(dataGridViewRow.Cells[array[l]].Tag);
-												if (String.Compare(left2, "垂直合并", false) == 0)
+												string left2 = Conversions.ToString(dataGridViewRow.Cells[array[l]].Tag);
+												if (Operators.CompareString(left2, "垂直合并", false) == 0)
 												{
 													goto IL_185F;
 												}
-												if (String.Compare(left2, "上合并", false) == 0)
+												if (Operators.CompareString(left2, "上合并", false) == 0)
 												{
 													goto IL_185F;
 												}
-												if (String.Compare(left2, "下合并", false) == 0)
+												if (Operators.CompareString(left2, "下合并", false) == 0)
 												{
 													goto IL_185F;
 												}
-												if (String.Compare(left2, "水平合并", false) != 0)
+												if (Operators.CompareString(left2, "水平合并", false) != 0)
 												{
-													if (String.Compare(left2, "左合并", false) != 0)
+													if (Operators.CompareString(left2, "左合并", false) != 0)
 													{
-														if (String.Compare(left2, "右合并", false) != 0)
+														if (Operators.CompareString(left2, "右合并", false) != 0)
 														{
-															if (String.Compare(left2, "合并", false) != 0)
+															if (Operators.CompareString(left2, "合并", false) != 0)
 															{
-																if (String.Compare(left2, "左上合并", false) != 0)
+																if (Operators.CompareString(left2, "左上合并", false) != 0)
 																{
-																	if (String.Compare(left2, "左下合并", false) != 0)
+																	if (Operators.CompareString(left2, "左下合并", false) != 0)
 																	{
-																		if (String.Compare(left2, "右上合并", false) != 0)
+																		if (Operators.CompareString(left2, "右上合并", false) != 0)
 																		{
-																			if (String.Compare(left2, "右下合并", false) != 0)
+																			if (Operators.CompareString(left2, "右下合并", false) != 0)
 																			{
-																				if (String.Compare(left2, "上边合并", false) != 0)
+																				if (Operators.CompareString(left2, "上边合并", false) != 0)
 																				{
-																					if (String.Compare(left2, "下边合并", false) != 0)
+																					if (Operators.CompareString(left2, "下边合并", false) != 0)
 																					{
-																						if (String.Compare(left2, "左边合并", false) != 0)
+																						if (Operators.CompareString(left2, "左边合并", false) != 0)
 																						{
-																							if (String.Compare(left2, "右边合并", false) != 0)
+																							if (Operators.CompareString(left2, "右边合并", false) != 0)
 																							{
-																								if (String.Compare(left2, "#*已水平合并*#", false) == 0)
+																								if (Operators.CompareString(left2, "#*已水平合并*#", false) == 0)
 																								{
 																									goto IL_1942;
 																								}
-																								if (String.Compare(left2, "#*已垂直合并*#", false) == 0)
+																								if (Operators.CompareString(left2, "#*已垂直合并*#", false) == 0)
 																								{
 																									this.Currentx += array5[l];
 																									goto IL_1942;
@@ -7933,7 +8692,7 @@ namespace LuoEasyPrint
 												}
 												int num56;
 												num40 = VB2008Print.GetHMergeWidth(this.myms, num5, l, k, array, array5, ref num56, true);
-												IL_1878:
+											IL_1878:
 												if (this.IsUseDoubleLine)
 												{
 													if (flag4)
@@ -7960,11 +8719,11 @@ namespace LuoEasyPrint
 												}
 												flag4 = false;
 												goto IL_1942;
-												IL_185F:
+											IL_185F:
 												num39 = this.GetVMergeHeight(this.myms, l, k, array, torow, ref num56, true);
 												goto IL_1878;
 											}
-											IL_1942:;
+										IL_1942:;
 										}
 									}
 								}
@@ -8010,7 +8769,7 @@ namespace LuoEasyPrint
 								float num57 = this.ConvFromDisplay((float)dataGridViewRow.Height, false);
 								if (this.IsDrawTableFooterEveryPage && this.IsNewPage(num57 + num35))
 								{
-									if (String.Compare(bl, "", false) == 0 & String.Compare(bm, "", false) == 0 & String.Compare(br, "", false) == 0)
+									if (Operators.CompareString(bl, "", false) == 0 & Operators.CompareString(bm, "", false) == 0 & Operators.CompareString(br, "", false) == 0)
 									{
 										this.Currenty += num35;
 									}
@@ -8038,12 +8797,12 @@ namespace LuoEasyPrint
 								}
 								if (!(this.IsUseDoubleLine | this.OuterBorder))
 								{
-									this.MyIsNewPage(num57 + Convert.ToSingle(Interaction.IIf(this.OuterBorder, this.OuterBorderWidth / 2f, 0)), true);
+									this.MyIsNewPage(num57 + Conversions.ToSingle(Interaction.IIf(this.OuterBorder, this.OuterBorderWidth / 2f, 0)), true);
 									goto IL_207A;
 								}
 								if (this.IsUseDoubleLine)
 								{
-									if (this.IsNewPage(num57 + Convert.ToSingle(Interaction.IIf(this.OuterBorder, this.OuterBorderWidth / 2f, 0))))
+									if (this.IsNewPage(num57 + Conversions.ToSingle(Interaction.IIf(this.OuterBorder, this.OuterBorderWidth / 2f, 0))))
 									{
 										this.DrawLine(new Pen(this.myms.GridColor, array8[3]), num15 - doubleLineSpace / 2f, currenty + doubleLineSpace / 2f, num15 + num42 + doubleLineSpace / 2f, currenty + doubleLineSpace / 2f);
 										this.DrawLine(new Pen(this.myms.GridColor, array8[0]), num15 - doubleLineSpace / 2f, currenty, num15 - doubleLineSpace / 2f, currenty + doubleLineSpace / 2f);
@@ -8054,31 +8813,31 @@ namespace LuoEasyPrint
 											this.DrawLine(new Pen(this.OuterBorderColor, this.OuterBorderWidth), num15 - doubleLineSpace, currenty, num15 - doubleLineSpace, currenty + doubleLineSpace);
 											this.DrawLine(new Pen(this.OuterBorderColor, this.OuterBorderWidth), num15 + num42 + doubleLineSpace, currenty, num15 + num42 + doubleLineSpace, currenty + doubleLineSpace);
 										}
-										this.MyIsNewPage(num57 + Convert.ToSingle(Interaction.IIf(this.OuterBorder, this.OuterBorderWidth / 2f, 0)), true);
+										this.MyIsNewPage(num57 + Conversions.ToSingle(Interaction.IIf(this.OuterBorder, this.OuterBorderWidth / 2f, 0)), true);
 										goto IL_207A;
 									}
 									goto IL_207A;
 								}
 								else
 								{
-									if (this.OuterBorder && this.IsNewPage(num57 + Convert.ToSingle(Interaction.IIf(this.OuterBorder, this.OuterBorderWidth / 2f, 0))))
+									if (this.OuterBorder && this.IsNewPage(num57 + Conversions.ToSingle(Interaction.IIf(this.OuterBorder, this.OuterBorderWidth / 2f, 0))))
 									{
 										this.DrawLine(new Pen(this.OuterBorderColor, this.OuterBorderWidth), num15 - doubleLineSpace - this.OuterBorderWidth / 2f, currenty + doubleLineSpace, num15 + num42 + doubleLineSpace + this.OuterBorderWidth / 2f, currenty + doubleLineSpace);
 										this.DrawLine(new Pen(this.OuterBorderColor, this.OuterBorderWidth), num15 - doubleLineSpace, currenty, num15 - doubleLineSpace, currenty + doubleLineSpace);
 										this.DrawLine(new Pen(this.OuterBorderColor, this.OuterBorderWidth), num15 + num42 + doubleLineSpace, currenty, num15 + num42 + doubleLineSpace, currenty + doubleLineSpace);
-										this.MyIsNewPage(num57 + Convert.ToSingle(Interaction.IIf(this.OuterBorder, this.OuterBorderWidth / 2f, 0)), true);
+										this.MyIsNewPage(num57 + Conversions.ToSingle(Interaction.IIf(this.OuterBorder, this.OuterBorderWidth / 2f, 0)), true);
 										goto IL_207A;
 									}
 									goto IL_207A;
 								}
-								IL_278C:
+							IL_278C:
 								return 0f;
-								IL_2085:
+							IL_2085:
 								if (!this.myms.Rows[k].Visible)
 								{
 									goto IL_207A;
 								}
-								
+								goto IL_162A;
 							}
 						}
 						if (this.IsAutoAddEmptyRow && CanAddEmptyRow)
@@ -8175,7 +8934,7 @@ namespace LuoEasyPrint
 								}
 							}
 						}
-						int num63=0;
+						int num63;
 						unchecked
 						{
 							if (this.IsUseDoubleLine)
@@ -8190,7 +8949,7 @@ namespace LuoEasyPrint
 								this.DrawLine(new Pen(this.OuterBorderColor, this.OuterBorderWidth), num15 - doubleLineSpace, currenty, num15 - doubleLineSpace, currenty + doubleLineSpace);
 								this.DrawLine(new Pen(this.OuterBorderColor, this.OuterBorderWidth), num15 + num42 + doubleLineSpace, currenty, num15 + num42 + doubleLineSpace, currenty + doubleLineSpace);
 							}
-							if (String.Compare(bl, "", false) == 0 & String.Compare(bm, "", false) == 0 & String.Compare(br, "", false) == 0)
+							if (Operators.CompareString(bl, "", false) == 0 & Operators.CompareString(bm, "", false) == 0 & Operators.CompareString(br, "", false) == 0)
 							{
 								this.NewRow(num35);
 							}
@@ -8255,23 +9014,18 @@ namespace LuoEasyPrint
 							array4 = null;
 							array5 = null;
 							array7 = null;
-							
+							return result;
 						}
 						catch (Exception ex6)
 						{
 							return result;
 						}
-						
+						goto IL_278C;
 					}
 				}
-			
+				goto IL_B68;
 			}
-			return result;
 		}
-
-
-
-
 
 		// Token: 0x060013F2 RID: 5106 RVA: 0x0009EB6C File Offset: 0x0009CD6C
 		private static float GetHMergeWidth(DataGridView ms, int cols, int curcol, int currow, int[] mycol, float[] cellwidth, ref int colsmerged, bool dobz = true)
@@ -8282,7 +9036,7 @@ namespace LuoEasyPrint
 			{
 				try
 				{
-					if (String.Compare(Convert.ToString(dataGridViewCell.Tag), "水平合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "右合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "右上合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "右下合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "上边合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "下边合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "左边合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "右边合并", false) != 0)
+					if (Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "水平合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "右合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "右上合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "右下合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "上边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "下边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "左边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "右边合并", false) != 0)
 					{
 						colsmerged = 1;
 						return num;
@@ -8299,13 +9053,13 @@ namespace LuoEasyPrint
 						if (ms.Columns[mycol[i]].Visible)
 						{
 							DataGridViewCell dataGridViewCell2 = ms.Rows[currow].Cells[mycol[i]];
-							if (!(String.Compare(Convert.ToString(dataGridViewCell2.Tag), "水平合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "左合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "左上合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "左下合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "左边合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "上边合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "下边合并", false) != 0) && dataGridViewCell.FormattedValue.Equals(RuntimeHelpers.GetObjectValue(dataGridViewCell2.FormattedValue)))
+							if (!(Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "水平合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左上合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左下合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "上边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "下边合并", false) != 0) && dataGridViewCell.FormattedValue.Equals(RuntimeHelpers.GetObjectValue(dataGridViewCell2.FormattedValue)))
 							{
 								unchecked
 								{
 									num += cellwidth[i];
 								}
-								if (!(String.Compare(Convert.ToString(dataGridViewCell2.Tag), "左合并", false) == 0 | String.Compare(Convert.ToString(dataGridViewCell2.Tag), "左上合并", false) == 0 | String.Compare(Convert.ToString(dataGridViewCell2.Tag), "左下合并", false) == 0 | String.Compare(Convert.ToString(dataGridViewCell2.Tag), "左边合并", false) == 0))
+								if (!(Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左合并", false) == 0 | Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左上合并", false) == 0 | Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左下合并", false) == 0 | Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左边合并", false) == 0))
 								{
 									if (dobz)
 									{
@@ -8323,19 +9077,19 @@ namespace LuoEasyPrint
 									i++;
 								}
 							}
-							IL_36B:
+						IL_36B:
 							colsmerged = i - curcol;
 							goto IL_385;
 						}
-						IL_331:;
+					IL_331:;
 					}
-					
+					goto IL_36B;
 				}
 				catch (Exception ex)
 				{
 					colsmerged = 1;
 				}
-				IL_385:
+			IL_385:
 				return num;
 			}
 		}
@@ -8349,7 +9103,7 @@ namespace LuoEasyPrint
 			{
 				try
 				{
-					if (String.Compare(Convert.ToString(dataGridViewCell.Tag), "垂直合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "下合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "左下合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "右下合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "上边合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "下边合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "左边合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell.Tag), "右边合并", false) != 0)
+					if (Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "垂直合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "下合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "左下合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "右下合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "上边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "下边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "左边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "右边合并", false) != 0)
 					{
 						rowsmerged = 1;
 						return num;
@@ -8364,7 +9118,7 @@ namespace LuoEasyPrint
 						if (ms.Rows[i].Visible)
 						{
 							DataGridViewCell dataGridViewCell2 = ms.Rows[i].Cells[mycol[curcol]];
-							if (!(String.Compare(Convert.ToString(dataGridViewCell2.Tag), "垂直合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "上合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "左上合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "右上合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "上边合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "左边合并", false) != 0 & String.Compare(Convert.ToString(dataGridViewCell2.Tag), "右边合并", false) != 0) && dataGridViewCell.FormattedValue.Equals(RuntimeHelpers.GetObjectValue(dataGridViewCell2.FormattedValue)))
+							if (!(Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "垂直合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "上合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左上合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "右上合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "上边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "右边合并", false) != 0) && dataGridViewCell.FormattedValue.Equals(RuntimeHelpers.GetObjectValue(dataGridViewCell2.FormattedValue)))
 							{
 								float num2 = this.ConvFromDisplay((float)ms.Rows[i].Height, false);
 								if (!this.MyIsNewPage(unchecked(num + num2), false))
@@ -8373,7 +9127,7 @@ namespace LuoEasyPrint
 									{
 										num += num2;
 									}
-									if (!(String.Compare(Convert.ToString(dataGridViewCell2.Tag), "上合并", false) == 0 | String.Compare(Convert.ToString(dataGridViewCell2.Tag), "右上合并", false) == 0 | String.Compare(Convert.ToString(dataGridViewCell2.Tag), "左上合并", false) == 0 | String.Compare(Convert.ToString(dataGridViewCell2.Tag), "上边合并", false) == 0))
+									if (!(Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "上合并", false) == 0 | Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "右上合并", false) == 0 | Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左上合并", false) == 0 | Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "上边合并", false) == 0))
 									{
 										if (dobz)
 										{
@@ -8392,19 +9146,19 @@ namespace LuoEasyPrint
 									}
 								}
 							}
-							IL_3A4:
+						IL_3A4:
 							rowsmerged = i - currow;
 							goto IL_3BE;
 						}
-						IL_36A:;
+					IL_36A:;
 					}
-					
+					goto IL_3A4;
 				}
 				catch (Exception ex)
 				{
 					rowsmerged = 1;
 				}
-				IL_3BE:
+			IL_3BE:
 				return num;
 			}
 		}
@@ -8412,18 +9166,18 @@ namespace LuoEasyPrint
 		// Token: 0x060013F4 RID: 5108 RVA: 0x0009F30C File Offset: 0x0009D50C
 		private void GetHVMergeWidthAndHeight(DataGridView ms, int cols, int curcol, int currow, int[] mycol, float[] cellwidth, int torow, ref float mywidth, ref float myheight)
 		{
-			int num=0;
+			int num;
 			myheight = this.GetVMergeHeight(ms, curcol, currow, mycol, torow, ref num, false);
 			checked
 			{
 				if (num == 1)
 				{
-					int num2=0;
+					int num2;
 					mywidth = VB2008Print.GetHMergeWidth(ms, cols, curcol, currow, mycol, cellwidth, ref num2, true);
 				}
 				else
 				{
-					int num2=0;
+					int num2;
 					mywidth = VB2008Print.GetHMergeWidth(ms, cols, curcol, currow, mycol, cellwidth, ref num2, false);
 					if (num2 == 1)
 					{
@@ -8437,7 +9191,7 @@ namespace LuoEasyPrint
 						{
 							if (ms.Rows[i].Visible)
 							{
-								if (String.Compare(Convert.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "合并", false) != 0 & String.Compare(Convert.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "右合并", false) != 0 & String.Compare(Convert.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "右上合并", false) != 0 & String.Compare(Convert.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "右下合并", false) != 0 & String.Compare(Convert.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "右边合并", false) != 0 & String.Compare(Convert.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "上边合并", false) != 0 & String.Compare(Convert.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "下边合并", false) != 0)
+								if (Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "右合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "右上合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "右下合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "右边合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "上边合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "下边合并", false) != 0)
 								{
 									return;
 								}
@@ -8453,15 +9207,15 @@ namespace LuoEasyPrint
 							{
 								if (ms.Columns[mycol[j]].Visible)
 								{
-									int num5=0;
+									int num5;
 									this.GetVMergeHeight(ms, j, currow, mycol, torow, ref num5, false);
-									if (num5 < num | (String.Compare(Convert.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "合并", false) != 0 & String.Compare(Convert.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左合并", false) != 0 & String.Compare(Convert.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左上合并", false) != 0 & String.Compare(Convert.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左下合并", false) != 0 & String.Compare(Convert.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左边合并", false) != 0 & String.Compare(Convert.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "上边合并", false) != 0 & String.Compare(Convert.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "下边合并", false) != 0))
+									if (num5 < num | (Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左上合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左下合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左边合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "上边合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "下边合并", false) != 0))
 									{
 										break;
 									}
 									mywidth += cellwidth[j];
 									this.GetVMergeHeight(ms, j, currow, mycol, torow, ref num5, true);
-									if (String.Compare(Convert.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左合并", false) == 0 | String.Compare(Convert.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左上合并", false) == 0 | String.Compare(Convert.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左下合并", false) == 0 | String.Compare(Convert.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左边合并", false) == 0)
+									if (Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左合并", false) == 0 | Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左上合并", false) == 0 | Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左下合并", false) == 0 | Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左边合并", false) == 0)
 									{
 										ms.Rows[currow].Cells[mycol[j]].Tag = "#*已水平合并*#";
 										break;
@@ -8530,7 +9284,7 @@ namespace LuoEasyPrint
 					bool flag = false;
 					if (this.GetPages() > 0)
 					{
-						VB2008Print.BeginPrintEventHandler beginPrintEvent = this.BeginPrint;
+						VB2008Print.BeginPrintEventHandler beginPrintEvent = this.BeginPrintEvent;
 						if (beginPrintEvent != null)
 						{
 							beginPrintEvent(this.isprinttoprinter, ref flag);
@@ -8634,9 +9388,9 @@ namespace LuoEasyPrint
 								this.SetStatusNew(string.Concat(new string[]
 								{
 									"打印处理中，正在打印第【",
-									Convert.ToString(this.currentpage - this.Pd.PrinterSettings.FromPage + 1),
+									Conversions.ToString(this.currentpage - this.Pd.PrinterSettings.FromPage + 1),
 									"】页，共【",
-									Convert.ToString(this.Pd.PrinterSettings.ToPage - this.Pd.PrinterSettings.FromPage + 1),
+									Conversions.ToString(this.Pd.PrinterSettings.ToPage - this.Pd.PrinterSettings.FromPage + 1),
 									"】页需要打印"
 								}));
 								return;
@@ -8665,9 +9419,9 @@ namespace LuoEasyPrint
 										this.SetStatusNew(string.Concat(new string[]
 										{
 											"打印处理中，正在打印第【",
-											Convert.ToString(this.currentpage - this.w_duplexfrom + 1),
+											Conversions.ToString(this.currentpage - this.w_duplexfrom + 1),
 											"】页，共【",
-											Convert.ToString(this.w_duplexto - this.w_duplexfrom + 1),
+											Conversions.ToString(this.w_duplexto - this.w_duplexfrom + 1),
 											"】页需要打印（本次只打印其中的奇数页)"
 										}));
 										return;
@@ -8694,9 +9448,9 @@ namespace LuoEasyPrint
 									this.SetStatusNew(string.Concat(new string[]
 									{
 										"打印处理中，正在打印第【",
-										Convert.ToString(this.currentpage - this.w_duplexfrom + 1),
+										Conversions.ToString(this.currentpage - this.w_duplexfrom + 1),
 										"】页，共【",
-										Convert.ToString(this.w_duplexto - this.w_duplexfrom + 1),
+										Conversions.ToString(this.w_duplexto - this.w_duplexfrom + 1),
 										"】页需要打印（本次只打印其中的偶数页)"
 									}));
 									return;
@@ -8709,9 +9463,9 @@ namespace LuoEasyPrint
 							this.SetStatusNew(string.Concat(new string[]
 							{
 								"打印处理中，正在打印第【",
-								Convert.ToString(this.currentpage),
+								Conversions.ToString(this.currentpage),
 								"】页，共【",
-								Convert.ToString(this.GetPages()),
+								Conversions.ToString(this.GetPages()),
 								"】页需要打印"
 							}));
 						}
@@ -8752,7 +9506,7 @@ namespace LuoEasyPrint
 						int width = this.PaperSize.Width;
 						try
 						{
-							if (String.Compare(this.PaperSize.PaperName, "", false) == 0)
+							if (Operators.CompareString(this.PaperSize.PaperName, "", false) == 0)
 							{
 								this.PaperSize.PaperName = "用户自定义(空名称)";
 							}
@@ -8793,9 +9547,9 @@ namespace LuoEasyPrint
 													"】不支持 纸张〖",
 													this.PaperSize.PaperName,
 													" 宽：",
-													Convert.ToString((int)Math.Round(unchecked((double)this.PaperSize.Width * 2.54) / 10.0)),
+													Conversions.ToString((int)Math.Round(unchecked((double)this.PaperSize.Width * 2.54) / 10.0)),
 													"毫米，高：",
-													Convert.ToString((int)Math.Round(unchecked((double)this.PaperSize.Height * 2.54) / 10.0)),
+													Conversions.ToString((int)Math.Round(unchecked((double)this.PaperSize.Height * 2.54) / 10.0)),
 													"毫米 〗\r\n为解决该问题，控件自动将纸张的宽度与高度调换，并调整打印方向，请注意进纸方向。\r\n注意：若不想出现此提示窗口，请将控件的IsShowMessageIfPrinterNotSupportPaper属性设置为false"
 												}), MsgBoxStyle.OkOnly, "提示信息");
 											}
@@ -8825,9 +9579,9 @@ namespace LuoEasyPrint
 												"】不支持 纸张 〖",
 												this.PaperSize.PaperName,
 												" 宽：",
-												Convert.ToString((int)Math.Round(unchecked((double)this.PaperSize.Width * 2.54) / 10.0)),
+												Conversions.ToString((int)Math.Round(unchecked((double)this.PaperSize.Width * 2.54) / 10.0)),
 												"毫米，高：",
-												Convert.ToString((int)Math.Round(unchecked((double)this.PaperSize.Height * 2.54) / 10.0)),
+												Conversions.ToString((int)Math.Round(unchecked((double)this.PaperSize.Height * 2.54) / 10.0)),
 												"毫米〗，将使用A4纸进行输出，在此情况下，只要实际纸张大小不小于当前预览所用纸张（且当前预览纸张不大于A4纸），依然可以按当前预览结果的版式进行打印，但如果是使用连续进纸的链式纸张，则可能会有换页进纸不正常现象。\r\n注意：若不想出现此提示窗口，请将控件的IsShowMessageIfPrinterNotSupportPaper属性设置为false"
 											}), MsgBoxStyle.OkOnly, "提示信息");
 										}
@@ -8851,9 +9605,9 @@ namespace LuoEasyPrint
 													"】不支持 纸张 〖",
 													this.PaperSize.PaperName,
 													" 宽：",
-													Convert.ToString((int)Math.Round(unchecked((double)this.PaperSize.Width * 2.54) / 10.0)),
+													Conversions.ToString((int)Math.Round(unchecked((double)this.PaperSize.Width * 2.54) / 10.0)),
 													"毫米，高：",
-													Convert.ToString((int)Math.Round(unchecked((double)this.PaperSize.Height * 2.54) / 10.0)),
+													Conversions.ToString((int)Math.Round(unchecked((double)this.PaperSize.Height * 2.54) / 10.0)),
 													"毫米〗，将使用A4纸进行输出，在此情况下，只要实际纸张大小不小于当前预览所用纸张（且当前预览纸张不大于A4纸），依然可以按当前预览结果的版式进行打印，但如果是使用连续进纸的链式纸张，则可能会有换页进纸不正常现象。"
 												}), MsgBoxStyle.OkOnly, "提示信息");
 											}
@@ -8874,9 +9628,9 @@ namespace LuoEasyPrint
 													"】不支持 纸张 〖",
 													this.PaperSize.PaperName,
 													" 宽：",
-													Convert.ToString((int)Math.Round(unchecked((double)this.PaperSize.Width * 2.54) / 10.0)),
+													Conversions.ToString((int)Math.Round(unchecked((double)this.PaperSize.Width * 2.54) / 10.0)),
 													"毫米，高：",
-													Convert.ToString((int)Math.Round(unchecked((double)this.PaperSize.Height * 2.54) / 10.0)),
+													Conversions.ToString((int)Math.Round(unchecked((double)this.PaperSize.Height * 2.54) / 10.0)),
 													"毫米〗，将使用A3纸进行输出，在此情况下，只要实际纸张大小不小于当前预览所用纸张（且当前预览纸张不大于A3纸），依然可以按当前预览结果的版式进行打印，但如果是使用连续进纸的链式纸张，则可能会有换页进纸不正常现象。"
 												}), MsgBoxStyle.OkOnly, "提示信息");
 											}
@@ -9003,42 +9757,42 @@ namespace LuoEasyPrint
 				{
 					switch (this.ShowDefaultPageSetupDialog())
 					{
-					case -1:
-						switch (this.ShowAPIPageSetupDialog())
-						{
+						case -1:
+							switch (this.ShowAPIPageSetupDialog())
+							{
+								case 1:
+									this.isstarting = true;
+									this.isfrompageset = true;
+									this.StartPrePreview();
+									break;
+							}
+							break;
 						case 1:
 							this.isstarting = true;
 							this.isfrompageset = true;
 							this.StartPrePreview();
 							break;
-						}
-						break;
-					case 1:
-						this.isstarting = true;
-						this.isfrompageset = true;
-						this.StartPrePreview();
-						break;
 					}
 				}
 				else
 				{
 					switch (this.ShowAPIPageSetupDialog())
 					{
-					case -1:
-						switch (this.ShowDefaultPageSetupDialog())
-						{
+						case -1:
+							switch (this.ShowDefaultPageSetupDialog())
+							{
+								case 1:
+									this.isstarting = true;
+									this.isfrompageset = true;
+									this.StartPrePreview();
+									break;
+							}
+							break;
 						case 1:
 							this.isstarting = true;
 							this.isfrompageset = true;
 							this.StartPrePreview();
 							break;
-						}
-						break;
-					case 1:
-						this.isstarting = true;
-						this.isfrompageset = true;
-						this.StartPrePreview();
-						break;
 					}
 				}
 			}
@@ -9601,8 +10355,8 @@ namespace LuoEasyPrint
 			{
 				if (this.GetPages() > 0)
 				{
-					string text = Convert.ToString(this.cpage.SelectedItem);
-					if (String.Compare(text, "", false) == 0)
+					string text = Conversions.ToString(this.cpage.SelectedItem);
+					if (Operators.CompareString(text, "", false) == 0)
 					{
 						text = "第1页";
 						this.cpage.SelectedIndex = 0;
@@ -9734,7 +10488,7 @@ namespace LuoEasyPrint
 					{
 						try
 						{
-							this.cpage.Text = "第" + Convert.ToString(this.GetPages()) + "页";
+							this.cpage.Text = "第" + Conversions.ToString(this.GetPages()) + "页";
 							return;
 						}
 						catch (Exception ex2)
@@ -9752,7 +10506,7 @@ namespace LuoEasyPrint
 						}
 						try
 						{
-							this.cpage.Text = "第" + Convert.ToString(currentPage - 1) + "页";
+							this.cpage.Text = "第" + Conversions.ToString(currentPage - 1) + "页";
 							return;
 						}
 						catch (Exception ex3)
@@ -9771,7 +10525,7 @@ namespace LuoEasyPrint
 					}
 					try
 					{
-						this.cpage.Text = "第" + Convert.ToString(currentPage + 1) + "页";
+						this.cpage.Text = "第" + Conversions.ToString(currentPage + 1) + "页";
 						return;
 					}
 					catch (Exception ex4)
@@ -9788,7 +10542,7 @@ namespace LuoEasyPrint
 					}
 					try
 					{
-						this.cpage.Text = "第" + Convert.ToString(currentPage + 1) + "页";
+						this.cpage.Text = "第" + Conversions.ToString(currentPage + 1) + "页";
 						return;
 					}
 					catch (Exception ex5)
@@ -9803,7 +10557,7 @@ namespace LuoEasyPrint
 					{
 						try
 						{
-							this.cpage.Text = "第" + Convert.ToString(currentPage - 1) + "页";
+							this.cpage.Text = "第" + Conversions.ToString(currentPage - 1) + "页";
 						}
 						catch (Exception ex6)
 						{
@@ -9922,7 +10676,7 @@ namespace LuoEasyPrint
 					else
 					{
 						object value = this.m_Position.GetValue(this.PrintPreviewControl1);
-						Point point2=new Point();
+						Point point2;
 						Point point = (value != null) ? ((Point)value) : point2;
 						MethodBase setPositionMethod = this.m_SetPositionMethod;
 						object printPreviewControl = this.PrintPreviewControl1;
@@ -10026,7 +10780,7 @@ namespace LuoEasyPrint
 			{
 				try
 				{
-					string text = Convert.ToString(this.cpage.SelectedItem);
+					string text = Conversions.ToString(this.cpage.SelectedItem);
 					text = Strings.Mid(text, 2, Strings.Len(text) - 1);
 					text = Strings.Left(text, Strings.Len(text) - 1);
 					this.currentpage = (int)Math.Round(Conversion.Val(text));
@@ -10071,7 +10825,7 @@ namespace LuoEasyPrint
 		// Token: 0x0600142D RID: 5165 RVA: 0x000A2868 File Offset: 0x000A0A68
 		private void zdybutton_Click(object sender, EventArgs e)
 		{
-			VB2008Print.ZDYButtonClickEventHandler zdybuttonClickEvent = this.ZDYButtonClick;
+			VB2008Print.ZDYButtonClickEventHandler zdybuttonClickEvent = this.ZDYButtonClickEvent;
 			if (zdybuttonClickEvent != null)
 			{
 				zdybuttonClickEvent();
@@ -10081,7 +10835,7 @@ namespace LuoEasyPrint
 		// Token: 0x0600142E RID: 5166 RVA: 0x000A2888 File Offset: 0x000A0A88
 		private void zdybutton2_Click(object sender, EventArgs e)
 		{
-			VB2008Print.ZDYButton2ClickEventHandler zdybutton2ClickEvent = this.ZDYButton2Click;
+			VB2008Print.ZDYButton2ClickEventHandler zdybutton2ClickEvent = this.ZDYButton2ClickEvent;
 			if (zdybutton2ClickEvent != null)
 			{
 				zdybutton2ClickEvent();
@@ -10114,7 +10868,7 @@ namespace LuoEasyPrint
 				PaperSize paperSize = this.PaperSize;
 				Margins paperMargins = this.PaperMargins;
 				this.isstarting = true;
-				VB2008Print.QueryDefaultPageSettingsEventHandler queryDefaultPageSettingsEvent = this.QueryDefaultPageSettings;
+				VB2008Print.QueryDefaultPageSettingsEventHandler queryDefaultPageSettingsEvent = this.QueryDefaultPageSettingsEvent;
 				if (queryDefaultPageSettingsEvent != null)
 				{
 					queryDefaultPageSettingsEvent(ref paperSize, ref paperMargins, ref paperLandscape);
@@ -10130,7 +10884,7 @@ namespace LuoEasyPrint
 				this.isstarting = true;
 			}
 			this.myNewDoc();
-			VB2008Print.PrintDocumentEventHandler printDocumentEvent = this.PrintDocument;
+			VB2008Print.PrintDocumentEventHandler printDocumentEvent = this.PrintDocumentEvent;
 			if (printDocumentEvent != null)
 			{
 				printDocumentEvent();
@@ -10277,30 +11031,30 @@ namespace LuoEasyPrint
 				{
 					UnicodeEncoding unicodeEncoding = new UnicodeEncoding();
 					FileStream fileStream = new FileStream(myfilename, FileMode.CreateNew, FileAccess.Write);
-					string text = Convert.ToString(this.mypages.Length);
+					string text = Conversions.ToString(this.mypages.Length);
 					int num = 1;
 					int num2 = this.mypages.Length;
 					byte[] bytes;
 					for (int i = num; i <= num2; i++)
 					{
 						bytes = unicodeEncoding.GetBytes(this.mypages[i - 1].ToString());
-						text = text + "\0" + Convert.ToString(bytes.Length);
+						text = text + "\0" + Conversions.ToString(bytes.Length);
 					}
-					text = text + "\0" + Convert.ToString(this.mypictures);
+					text = text + "\0" + Conversions.ToString(this.mypictures);
 					int num3 = 1;
 					int num4 = this.mypictures;
 					for (int i = num3; i <= num4; i++)
 					{
-						text = text + "\0" + Convert.ToString(this.mypicture[i - 1].mypi.Length);
+						text = text + "\0" + Conversions.ToString(this.mypicture[i - 1].mypi.Length);
 					}
-					text = text + "\0" + Convert.ToString(this.W_myrtfnum);
+					text = text + "\0" + Conversions.ToString(this.W_myrtfnum);
 					int num5 = 1;
 					int w_myrtfnum = this.W_myrtfnum;
 					for (int i = num5; i <= w_myrtfnum; i++)
 					{
-						text = text + "\0" + Convert.ToString(this.W_myrtfC[i - 1].mypi.Length);
+						text = text + "\0" + Conversions.ToString(this.W_myrtfC[i - 1].mypi.Length);
 					}
-					if (String.Compare(mm, "", false) != 0)
+					if (Operators.CompareString(mm, "", false) != 0)
 					{
 						text = text + "\0" + Module1.EncryptionString(mm);
 					}
@@ -10312,21 +11066,21 @@ namespace LuoEasyPrint
 						fileStream.WriteByte(49);
 					}
 					bytes = unicodeEncoding.GetBytes(text);
-					if (Strings.Len(Convert.ToString(bytes.Length)) >= 10)
+					if (Strings.Len(Conversions.ToString(bytes.Length)) >= 10)
 					{
-						fileStream.WriteByte((byte)Strings.Asc(Convert.ToString(Strings.Len(Convert.ToString(bytes.Length))).Substring(0, 1)));
-						fileStream.WriteByte((byte)Strings.Asc(Convert.ToString(Strings.Len(Convert.ToString(bytes.Length))).Substring(1, 1)));
+						fileStream.WriteByte((byte)Strings.Asc(Conversions.ToString(Strings.Len(Conversions.ToString(bytes.Length))).Substring(0, 1)));
+						fileStream.WriteByte((byte)Strings.Asc(Conversions.ToString(Strings.Len(Conversions.ToString(bytes.Length))).Substring(1, 1)));
 					}
 					else
 					{
 						fileStream.WriteByte(48);
-						fileStream.WriteByte((byte)Strings.Asc(Convert.ToString(Strings.Len(Convert.ToString(bytes.Length)))));
+						fileStream.WriteByte((byte)Strings.Asc(Conversions.ToString(Strings.Len(Conversions.ToString(bytes.Length)))));
 					}
 					int num6 = 1;
-					int num7 = Strings.Len(Convert.ToString(bytes.Length));
+					int num7 = Strings.Len(Conversions.ToString(bytes.Length));
 					for (int i = num6; i <= num7; i++)
 					{
-						fileStream.WriteByte((byte)Strings.Asc(Convert.ToString(bytes.Length).Substring(i - 1, 1)));
+						fileStream.WriteByte((byte)Strings.Asc(Conversions.ToString(bytes.Length).Substring(i - 1, 1)));
 					}
 					fileStream.Write(bytes, 0, bytes.Length);
 					int num8 = 1;
@@ -10410,7 +11164,7 @@ namespace LuoEasyPrint
 			else
 			{
 				this.CloseStatus();
-				if (String.Compare(reportstring, "", false) == 0)
+				if (Operators.CompareString(reportstring, "", false) == 0)
 				{
 					result = false;
 				}
@@ -10487,48 +11241,48 @@ namespace LuoEasyPrint
 					UnicodeEncoding unicodeEncoding = new UnicodeEncoding();
 					try
 					{
-						string text = Convert.ToString(Strings.Chr(fileStream.ReadByte())) + Convert.ToString(Strings.Chr(fileStream.ReadByte()));
+						string text = Conversions.ToString(Strings.Chr(fileStream.ReadByte())) + Conversions.ToString(Strings.Chr(fileStream.ReadByte()));
 						int num;
-						if (String.Compare(text, "VS", false) == 0)
+						if (Operators.CompareString(text, "VS", false) == 0)
 						{
-							text = Convert.ToString(Strings.Chr(fileStream.ReadByte())) + Convert.ToString(Strings.Chr(fileStream.ReadByte()));
-							num = Convert.ToInt32(Convert.ToString(Strings.Chr(fileStream.ReadByte())) + Convert.ToString(Strings.Chr(fileStream.ReadByte())));
+							text = Conversions.ToString(Strings.Chr(fileStream.ReadByte())) + Conversions.ToString(Strings.Chr(fileStream.ReadByte()));
+							num = Conversions.ToInteger(Conversions.ToString(Strings.Chr(fileStream.ReadByte())) + Conversions.ToString(Strings.Chr(fileStream.ReadByte())));
 						}
 						else
 						{
-							num = Convert.ToInt32(text);
+							num = Conversions.ToInteger(text);
 						}
 						string text2 = "";
 						int num2 = 1;
 						int num3 = num;
 						for (int i = num2; i <= num3; i++)
 						{
-							text2 += Convert.ToString(Strings.Chr(fileStream.ReadByte()));
+							text2 += Conversions.ToString(Strings.Chr(fileStream.ReadByte()));
 						}
-						num = Convert.ToInt32(text2);
+						num = Conversions.ToInteger(text2);
 						byte[] array = new byte[num - 1 + 1];
 						fileStream.Read(array, 0, num);
 						text2 = unicodeEncoding.GetString(array);
 						string[] array2 = Strings.Split(text2, "\0", -1, CompareMethod.Binary);
-						num = Convert.ToInt32(array2[0]);
+						num = Conversions.ToInteger(array2[0]);
 						int[] array3 = new int[num - 1 + 1];
 						int num4 = 1;
 						int num5 = num;
 						for (int i = num4; i <= num5; i++)
 						{
-							array3[i - 1] = Convert.ToInt32(array2[i]);
+							array3[i - 1] = Conversions.ToInteger(array2[i]);
 						}
-						this.mypictures = Convert.ToInt32(array2[num + 1]);
+						this.mypictures = Conversions.ToInteger(array2[num + 1]);
 						int[] array4 = new int[this.mypictures - 1 + 1];
 						int num6 = 1;
 						int num7 = this.mypictures;
 						for (int i = num6; i <= num7; i++)
 						{
-							array4[i - 1] = Convert.ToInt32(array2[num + 1 + i]);
+							array4[i - 1] = Conversions.ToInteger(array2[num + 1 + i]);
 						}
 						try
 						{
-							this.W_myrtfnum = Convert.ToInt32(array2[num + this.mypictures + 2]);
+							this.W_myrtfnum = Conversions.ToInteger(array2[num + this.mypictures + 2]);
 						}
 						catch (Exception ex)
 						{
@@ -10541,7 +11295,7 @@ namespace LuoEasyPrint
 							int w_myrtfnum = this.W_myrtfnum;
 							for (int i = num8; i <= w_myrtfnum; i++)
 							{
-								array5[i - 1] = Convert.ToInt32(array2[num + this.mypictures + 2 + i]);
+								array5[i - 1] = Conversions.ToInteger(array2[num + this.mypictures + 2 + i]);
 							}
 						}
 						catch (Exception ex2)
@@ -10549,9 +11303,9 @@ namespace LuoEasyPrint
 						}
 						try
 						{
-							if (array2.Length > num + this.mypictures + this.W_myrtfnum + 3 && String.Compare(array2[num + this.mypictures + this.W_myrtfnum + 3], "", false) != 0)
+							if (array2.Length > num + this.mypictures + this.W_myrtfnum + 3 && Operators.CompareString(array2[num + this.mypictures + this.W_myrtfnum + 3], "", false) != 0)
 							{
-								if (String.Compare(mm, "", false) == 0)
+								if (Operators.CompareString(mm, "", false) == 0)
 								{
 									OpenmmDialog openmmDialog = new OpenmmDialog();
 									openmmDialog.Label2.Text = "报表文件【" + MyProject.Computer.FileSystem.GetName(myfilename) + "】是加密的，请输入密码";
@@ -10560,7 +11314,7 @@ namespace LuoEasyPrint
 										openmmDialog.Dispose();
 										return false;
 									}
-									if (String.Compare(Module1.DecryptionString(array2[num + this.mypictures + this.W_myrtfnum + 3]), openmmDialog.TextBox1.Text, false) != 0)
+									if (Operators.CompareString(Module1.DecryptionString(array2[num + this.mypictures + this.W_myrtfnum + 3]), openmmDialog.TextBox1.Text, false) != 0)
 									{
 										Interaction.MsgBox("打开报表文件【" + myfilename + "】失败，密码不正确", MsgBoxStyle.OkOnly, "提示信息");
 										openmmDialog.Dispose();
@@ -10568,7 +11322,7 @@ namespace LuoEasyPrint
 									}
 									openmmDialog.Dispose();
 								}
-								else if (String.Compare(Module1.DecryptionString(array2[num + this.mypictures + this.W_myrtfnum + 3]), mm, false) != 0)
+								else if (Operators.CompareString(Module1.DecryptionString(array2[num + this.mypictures + this.W_myrtfnum + 3]), mm, false) != 0)
 								{
 									Interaction.MsgBox("打开报表文件【" + myfilename + "】失败，密码不正确", MsgBoxStyle.OkOnly, "提示信息");
 									return false;
@@ -10624,7 +11378,7 @@ namespace LuoEasyPrint
 							int num15 = this.GetPages();
 							for (int i = num14; i <= num15; i++)
 							{
-								this.cpage.Items.Add("第" + Convert.ToString(i) + "页");
+								this.cpage.Items.Add("第" + Conversions.ToString(i) + "页");
 							}
 							this.SaveCS();
 							if (IsRaisePrintFooterHeaderEvent)
@@ -10648,7 +11402,7 @@ namespace LuoEasyPrint
 									this.SetCurrentPage(j);
 									PaperSize paperSize = this.mypagesetting.PaperSize;
 									this.SavePaperHeightAndWidth(paperSize);
-									VB2008Print.HeaderFooterOutEventHandler headerFooterOutEvent = this.HeaderFooterOut;
+									VB2008Print.HeaderFooterOutEventHandler headerFooterOutEvent = this.HeaderFooterOutEvent;
 									if (headerFooterOutEvent != null)
 									{
 										headerFooterOutEvent(this.GetPages(), j);
@@ -10730,7 +11484,7 @@ namespace LuoEasyPrint
 		// Token: 0x0600143D RID: 5181 RVA: 0x000A3B1C File Offset: 0x000A1D1C
 		public void AddReportByString(string reportstring)
 		{
-			if (String.Compare(reportstring, "", false) != 0)
+			if (Operators.CompareString(reportstring, "", false) != 0)
 			{
 				string tempFileName = MyProject.Computer.FileSystem.GetTempFileName();
 				byte[] array = Convert.FromBase64String(reportstring);
@@ -10952,10 +11706,10 @@ namespace LuoEasyPrint
 				int num2 = maxpics - 1;
 				for (int i = num; i <= num2; i++)
 				{
-					string text = str + Convert.ToString(i) + "\0";
+					string text = str + Conversions.ToString(i) + "\0";
 					if (Strings.InStr(ss, text, CompareMethod.Binary) > 0)
 					{
-						string replacement = str + Convert.ToString(i + @base) + "\0";
+						string replacement = str + Conversions.ToString(i + @base) + "\0";
 						ss = Strings.Replace(ss, text, replacement, 1, -1, CompareMethod.Binary);
 					}
 				}
@@ -10970,318 +11724,7 @@ namespace LuoEasyPrint
 		}
 
 		// Token: 0x06001442 RID: 5186 RVA: 0x000A42C4 File Offset: 0x000A24C4
-		public bool IsNewPage(float theheight)
-		{
-			return this.IsNewPage(theheight, false, false);
-		}
-
-		// Token: 0x06001443 RID: 5187 RVA: 0x000A42DC File Offset: 0x000A24DC
-		public bool IsNewPage(float theheight, bool autonewpage)
-		{
-			return this.IsNewPage(theheight, autonewpage, true);
-		}
-
-		// Token: 0x06001444 RID: 5188 RVA: 0x000A42F4 File Offset: 0x000A24F4
-		public bool IsNewPage(float theheight, bool autonewpage, bool newpageUsePriorPageset)
-		{
-			bool flag = theheight + this.Currenty > this.PaperPrintHeight;
-			if (flag && autonewpage)
-			{
-				if (newpageUsePriorPageset)
-				{
-					this.MyNewPage();
-				}
-				else
-				{
-					this.NewPage();
-				}
-			}
-			return flag;
-		}
-
-		// Token: 0x06001445 RID: 5189 RVA: 0x000A4334 File Offset: 0x000A2534
-		private bool MyIsNewPage(float theheight, bool autonewpage)
-		{
-			bool flag = theheight + this.Currenty > this.PaperPrintHeight;
-			if (flag && autonewpage)
-			{
-				this.MyNewPage();
-			}
-			return flag;
-		}
-
-		// Token: 0x06001446 RID: 5190 RVA: 0x0000731F File Offset: 0x0000551F
-		public void NewPage()
-		{
-			if (!this.CancelDocument)
-			{
-				this.NewPageBefore();
-				this.NewPageAfter();
-			}
-		}
-
-		// Token: 0x06001447 RID: 5191 RVA: 0x000A4368 File Offset: 0x000A2568
-		public void NewPage(bool isPaperLandscape)
-		{
-			if (!this.CancelDocument)
-			{
-				this.NewPageBefore();
-				bool flag = this.isstarting;
-				this.isstarting = false;
-				this.PaperLandscape = isPaperLandscape;
-				this.isstarting = flag;
-				this.NewPageAfter();
-			}
-		}
-
-		// Token: 0x06001448 RID: 5192 RVA: 0x000A43A8 File Offset: 0x000A25A8
-		public void NewPage(PaperKind mypaperkind, bool isPaperLandscape)
-		{
-			if (!this.CancelDocument)
-			{
-				this.NewPageBefore();
-				bool flag = this.isstarting;
-				this.isstarting = false;
-				this.PaperLandscape = isPaperLandscape;
-				try
-				{
-					foreach (object obj in this.Pd.PrinterSettings.PaperSizes)
-					{
-						PaperSize paperSize = (PaperSize)obj;
-						if (paperSize.Kind == mypaperkind)
-						{
-							this.mypagesetting.PaperSize = paperSize;
-						}
-					}
-				}
-				finally
-				{
-					
-				}
-				this.isstarting = flag;
-				this.NewPageAfter();
-			}
-		}
-
-		// Token: 0x06001449 RID: 5193 RVA: 0x000A444C File Offset: 0x000A264C
-		public void NewPage(PaperKind mypaperkind)
-		{
-			if (!this.CancelDocument)
-			{
-				this.NewPageBefore();
-				bool flag = this.isstarting;
-				this.isstarting = false;
-				try
-				{
-					foreach (object obj in this.Pd.PrinterSettings.PaperSizes)
-					{
-						PaperSize paperSize = (PaperSize)obj;
-						if (paperSize.Kind == mypaperkind)
-						{
-							this.mypagesetting.PaperSize = paperSize;
-						}
-					}
-				}
-				finally
-				{
-					
-				}
-				this.isstarting = flag;
-				this.NewPageAfter();
-			}
-		}
-
-		// Token: 0x0600144A RID: 5194 RVA: 0x000A44EC File Offset: 0x000A26EC
-		public void NewPage(PaperKind mypaperkind, Margins thePaperMargin, bool isPaperLandscape)
-		{
-			if (!this.CancelDocument)
-			{
-				this.NewPageBefore();
-				bool flag = this.isstarting;
-				this.isstarting = false;
-				this.PaperLandscape = isPaperLandscape;
-				try
-				{
-					foreach (object obj in this.Pd.PrinterSettings.PaperSizes)
-					{
-						PaperSize paperSize = (PaperSize)obj;
-						if (paperSize.Kind == mypaperkind)
-						{
-							this.mypagesetting.PaperSize = paperSize;
-						}
-					}
-				}
-				finally
-				{
-					
-				}
-				this.PaperMargins = thePaperMargin;
-				this.isstarting = flag;
-				this.NewPageAfter();
-			}
-		}
-
-		// Token: 0x0600144B RID: 5195 RVA: 0x000A459C File Offset: 0x000A279C
-		public void NewPage(PaperKind mypaperkind, Margins thePaperMargin)
-		{
-			if (!this.CancelDocument)
-			{
-				this.NewPageBefore();
-				bool flag = this.isstarting;
-				this.isstarting = false;
-				try
-				{
-					foreach (object obj in this.Pd.PrinterSettings.PaperSizes)
-					{
-						PaperSize paperSize = (PaperSize)obj;
-						if (paperSize.Kind == mypaperkind)
-						{
-							this.mypagesetting.PaperSize = paperSize;
-						}
-					}
-				}
-				finally
-				{
-				}
-				this.PaperMargins = thePaperMargin;
-				this.isstarting = flag;
-				this.NewPageAfter();
-			}
-		}
-
-		// Token: 0x0600144C RID: 5196 RVA: 0x000A4640 File Offset: 0x000A2840
-		public void NewPage(Margins thePaperMargin, bool isPaperLandscape)
-		{
-			if (!this.CancelDocument)
-			{
-				this.NewPageBefore();
-				bool flag = this.isstarting;
-				this.isstarting = false;
-				this.PaperLandscape = isPaperLandscape;
-				this.PaperMargins = thePaperMargin;
-				this.isstarting = flag;
-				this.NewPageAfter();
-			}
-		}
-
-		// Token: 0x0600144D RID: 5197 RVA: 0x000A4684 File Offset: 0x000A2884
-		public void NewPage(Margins thePaperMargin)
-		{
-			if (!this.CancelDocument)
-			{
-				this.NewPageBefore();
-				bool flag = this.isstarting;
-				this.isstarting = false;
-				this.PaperMargins = thePaperMargin;
-				this.isstarting = flag;
-				this.NewPageAfter();
-			}
-		}
-
-		// Token: 0x0600144E RID: 5198 RVA: 0x000A46C4 File Offset: 0x000A28C4
-		private void NewPageBefore()
-		{
-			checked
-			{
-				if (this.hasprinterinstalled)
-				{
-					this.currentpage = this.GetPages() + 1;
-					this.Currentx = 0f;
-					this.Currenty = 0f;
-					this.mypages = (StringBuilder[])Utils.CopyArray((Array)this.mypages, new StringBuilder[this.currentpage + 1]);
-					this.mypages[this.currentpage] = new StringBuilder("   ");
-					this.GetPageAndPaperSettings(0);
-				}
-			}
-		}
-
-		// Token: 0x0600144F RID: 5199 RVA: 0x000A4744 File Offset: 0x000A2944
-		private void NewPageAfter()
-		{
-			if (this.hasprinterinstalled)
-			{
-				this.SavePageCS();
-				this.SaveFont(this.r_font, null);
-				this.DrawMargin();
-				this.DrawPageBackGroundImage();
-				this.SetStatus("预处理，正在处理第〖" + Convert.ToString(this.currentpage) + "〗页");
-				Application.DoEvents();
-			}
-		}
-
-		// Token: 0x06001450 RID: 5200 RVA: 0x000A47A0 File Offset: 0x000A29A0
-		public void NewPage(PaperSize newpapersize, bool isPaperLandscape)
-		{
-			if (!this.CancelDocument)
-			{
-				this.NewPageBefore();
-				bool flag = this.isstarting;
-				this.isstarting = false;
-				this.PaperLandscape = isPaperLandscape;
-				this.PaperSize = newpapersize;
-				this.isstarting = flag;
-				this.NewPageAfter();
-			}
-		}
-
-		// Token: 0x06001451 RID: 5201 RVA: 0x000A47E4 File Offset: 0x000A29E4
-		public void NewPage(PaperSize newpapersize)
-		{
-			if (!this.CancelDocument)
-			{
-				this.NewPageBefore();
-				bool flag = this.isstarting;
-				this.isstarting = false;
-				this.PaperSize = newpapersize;
-				this.isstarting = flag;
-				this.NewPageAfter();
-			}
-		}
-
-		// Token: 0x06001452 RID: 5202 RVA: 0x000A4824 File Offset: 0x000A2A24
-		public void NewPage(PaperSize newpapersize, Margins thePaperMargin, bool isPaperLandscape)
-		{
-			if (!this.CancelDocument)
-			{
-				this.NewPageBefore();
-				bool flag = this.isstarting;
-				this.isstarting = false;
-				this.PaperLandscape = isPaperLandscape;
-				this.PaperSize = newpapersize;
-				this.PaperMargins = thePaperMargin;
-				this.isstarting = flag;
-				this.NewPageAfter();
-			}
-		}
-
-		// Token: 0x06001453 RID: 5203 RVA: 0x000A4870 File Offset: 0x000A2A70
-		public void NewPage(PaperSize newpapersize, Margins thePaperMargin)
-		{
-			if (!this.CancelDocument)
-			{
-				this.NewPageBefore();
-				bool flag = this.isstarting;
-				this.isstarting = false;
-				this.PaperSize = newpapersize;
-				this.PaperMargins = thePaperMargin;
-				this.isstarting = flag;
-				this.NewPageAfter();
-			}
-		}
-
-		// Token: 0x06001454 RID: 5204 RVA: 0x00007335 File Offset: 0x00005535
-		public void NewRow(float currentrowheight)
-		{
-			if (!Module1.G_CancelDocument)
-			{
-				this.Currentx = 0f;
-				this.Currenty += currentrowheight;
-				if (this.Currenty > this.PaperPrintHeight)
-				{
-					this.MyNewPage();
-				}
-			}
-		}
+		
 
 		// Token: 0x06001455 RID: 5205 RVA: 0x0000736B File Offset: 0x0000556B
 		public void InvalidatePreview()
@@ -11363,7 +11806,7 @@ namespace LuoEasyPrint
 					printView.myp.EnableSaveAsPDF = this.EnableSaveAsPDF;
 					printView.myp.IsAutoAdjustPrinterMargin = this.IsAutoAdjustPrinterMargin;
 					printView.myp.CanOpenReport = this.CanOpenReport;
-					//printView.myp.PageUnits = this.PageUnits;
+					printView.myp.PageUnits = this.PageUnits;
 					printView.myp.OffsetX = this.OffsetX;
 					printView.myp.OffsetY = this.OffsetY;
 					printView.myp.OpenReportByString(this.SaveReportAsString());
@@ -12325,8 +12768,8 @@ namespace LuoEasyPrint
 							int num17 = dgv.ColumnCount - 1;
 							for (int k = num16; k <= num17; k++)
 							{
-								string left = Convert.ToString(dgv.Rows[rowid].Cells[k].Tag);
-								if ((String.Compare(left, "水平合并", false) != 0 & String.Compare(left, "垂直合并", false) != 0 & String.Compare(left, "合并", false) != 0 & String.Compare(left, "不合并", false) != 0 & String.Compare(left, "上合并", false) != 0 & String.Compare(left, "下合并", false) != 0 & String.Compare(left, "左合并", false) != 0 & String.Compare(left, "右合并", false) != 0 & String.Compare(left, "左上合并", false) != 0 & String.Compare(left, "左下合并", false) != 0 & String.Compare(left, "右上合并", false) != 0 & String.Compare(left, "右下合并", false) != 0 & String.Compare(left, "下边合并", false) != 0 & String.Compare(left, "上边合并", false) != 0 & String.Compare(left, "左边合并", false) != 0 & String.Compare(left, "右边合并", false) != 0) && String.Compare(Convert.ToString(dgv.Rows[rowid].Tag), "合并", false) == 0)
+								string left = Conversions.ToString(dgv.Rows[rowid].Cells[k].Tag);
+								if ((Operators.CompareString(left, "水平合并", false) != 0 & Operators.CompareString(left, "垂直合并", false) != 0 & Operators.CompareString(left, "合并", false) != 0 & Operators.CompareString(left, "不合并", false) != 0 & Operators.CompareString(left, "上合并", false) != 0 & Operators.CompareString(left, "下合并", false) != 0 & Operators.CompareString(left, "左合并", false) != 0 & Operators.CompareString(left, "右合并", false) != 0 & Operators.CompareString(left, "左上合并", false) != 0 & Operators.CompareString(left, "左下合并", false) != 0 & Operators.CompareString(left, "右上合并", false) != 0 & Operators.CompareString(left, "右下合并", false) != 0 & Operators.CompareString(left, "下边合并", false) != 0 & Operators.CompareString(left, "上边合并", false) != 0 & Operators.CompareString(left, "左边合并", false) != 0 & Operators.CompareString(left, "右边合并", false) != 0) && Operators.CompareString(Conversions.ToString(dgv.Rows[rowid].Tag), "合并", false) == 0)
 								{
 									dgv.Rows[rowid].Cells[k].Tag = "水平合并";
 								}
@@ -12342,55 +12785,55 @@ namespace LuoEasyPrint
 						{
 							DataGridViewColumn dataGridViewColumn = dgv.Columns[array2[l]];
 							float mycellwidth = array4[l];
-							string left2 = Convert.ToString(dgv.Rows[rowid].Cells[array2[l]].Tag);
-							if (String.Compare(left2, "水平合并", false) == 0)
+							string left2 = Conversions.ToString(dgv.Rows[rowid].Cells[array2[l]].Tag);
+							if (Operators.CompareString(left2, "水平合并", false) == 0)
 							{
 								goto IL_4EF;
 							}
-							if (String.Compare(left2, "右合并", false) == 0)
+							if (Operators.CompareString(left2, "右合并", false) == 0)
 							{
 								goto IL_4EF;
 							}
-							if (String.Compare(left2, "右上合并", false) == 0)
+							if (Operators.CompareString(left2, "右上合并", false) == 0)
 							{
 								goto IL_4EF;
 							}
-							if (String.Compare(left2, "右下合并", false) == 0)
+							if (Operators.CompareString(left2, "右下合并", false) == 0)
 							{
 								goto IL_4EF;
 							}
-							if (String.Compare(left2, "合并", false) == 0)
+							if (Operators.CompareString(left2, "合并", false) == 0)
 							{
 								goto IL_4EF;
 							}
-							if (String.Compare(left2, "上边合并", false) == 0)
+							if (Operators.CompareString(left2, "上边合并", false) == 0)
 							{
 								goto IL_4EF;
 							}
-							if (String.Compare(left2, "下边合并", false) == 0)
+							if (Operators.CompareString(left2, "下边合并", false) == 0)
 							{
 								goto IL_4EF;
 							}
-							if (String.Compare(left2, "左边合并", false) == 0)
+							if (Operators.CompareString(left2, "左边合并", false) == 0)
 							{
 								goto IL_4EF;
 							}
-							if (String.Compare(left2, "右边合并", false) == 0)
+							if (Operators.CompareString(left2, "右边合并", false) == 0)
 							{
 								goto IL_4EF;
 							}
-							if (String.Compare(left2, "#*已水平合并*#", false) != 0)
+							if (Operators.CompareString(left2, "#*已水平合并*#", false) != 0)
 							{
 								goto IL_501;
 							}
-							IL_52D:
+						IL_52D:
 							l++;
 							continue;
-							IL_501:
+						IL_501:
 							this.MyDrawDGVCell(dgv.Rows[rowid].Cells[array2[l]], mycellwidth, mycellheight, myborder, PrintBackColor, (float)minfontsize);
 							goto IL_52D;
-							IL_4EF:
-							int num20=0;
+						IL_4EF:
+							int num20;
 							mycellwidth = VB2008Print.GetHMergeWidth(dgv, columnCount, l, rowid, array2, array4, ref num20, true);
 							goto IL_501;
 						}
@@ -12565,7 +13008,7 @@ namespace LuoEasyPrint
 					this.DrawString(myright, this.PaperPrintWidth / 3f, (float)this.PaperMargins.Top, myf, mycolor, "", StringAlignment.Far, StringAlignment.Center, true, true, false, false, 0f, false, Color.White, Color.Black, textoutstyle);
 					try
 					{
-						if (!(String.Compare(myleft, "", false) == 0 & String.Compare(mymiddle, "", false) == 0 & String.Compare(myright, "", false) == 0))
+						if (!(Operators.CompareString(myleft, "", false) == 0 & Operators.CompareString(mymiddle, "", false) == 0 & Operators.CompareString(myright, "", false) == 0))
 						{
 							float num2 = this.MeasureText(myleft, myf, this.PaperPrintWidth / 3f).Height;
 							if (num2 > (float)this.PaperMargins.Top)
@@ -12834,7 +13277,7 @@ namespace LuoEasyPrint
 			if (!this.CancelDocument)
 			{
 				ColorConverter colorConverter = new ColorConverter();
-				this.MyWrite("l", Convert.ToString(this.MyConvTo(x1)), Convert.ToString(this.MyConvTo(y1)), Convert.ToString(this.MyConvTo(x2)), Convert.ToString(this.MyConvTo(y2)), colorConverter.ConvertToString(mycolor), Convert.ToString(this.MyConvTo(mywidth)));
+				this.MyWrite("l", Conversions.ToString(this.MyConvTo(x1)), Conversions.ToString(this.MyConvTo(y1)), Conversions.ToString(this.MyConvTo(x2)), Conversions.ToString(this.MyConvTo(y2)), colorConverter.ConvertToString(mycolor), Conversions.ToString(this.MyConvTo(mywidth)));
 			}
 		}
 
@@ -12908,7 +13351,7 @@ namespace LuoEasyPrint
 			if (!this.CancelDocument)
 			{
 				ColorConverter colorConverter = new ColorConverter();
-				this.MyWrite("dl", Convert.ToString(this.MyConvTo(x1)), Convert.ToString(this.MyConvTo(y1)), Convert.ToString(this.MyConvTo(x2)), Convert.ToString(this.MyConvTo(y2)), colorConverter.ConvertToString(mycolor), Convert.ToString(this.MyConvTo(mywidth)), Convert.ToString((int)dashstyle), "");
+				this.MyWrite("dl", Conversions.ToString(this.MyConvTo(x1)), Conversions.ToString(this.MyConvTo(y1)), Conversions.ToString(this.MyConvTo(x2)), Conversions.ToString(this.MyConvTo(y2)), colorConverter.ConvertToString(mycolor), Conversions.ToString(this.MyConvTo(mywidth)), Conversions.ToString((int)dashstyle), "");
 			}
 		}
 
@@ -12949,7 +13392,7 @@ namespace LuoEasyPrint
 		{
 			if (!this.CancelDocument && mypen != null)
 			{
-				this.MyWrite("pie", this.SavePenAsString(mypen), this.ConvertRectToString(myrect), Convert.ToString(startAngle), Convert.ToString(sweepAngle));
+				this.MyWrite("pie", this.SavePenAsString(mypen), this.ConvertRectToString(myrect), Conversions.ToString(startAngle), Conversions.ToString(sweepAngle));
 			}
 		}
 
@@ -12962,7 +13405,7 @@ namespace LuoEasyPrint
 			this.PY(this.myg);
 			try
 			{
-				this.myg.DrawPie(pen, rect, Convert.ToSingle(startangle), Convert.ToSingle(sweepangle));
+				this.myg.DrawPie(pen, rect, Conversions.ToSingle(startangle), Conversions.ToSingle(sweepangle));
 			}
 			catch (Exception ex)
 			{
@@ -12984,7 +13427,7 @@ namespace LuoEasyPrint
 		{
 			if (!this.CancelDocument && mybrush != null)
 			{
-				this.MyWrite("fpie", this.SaveBrush(mybrush), this.ConvertRectToString(myrect), Convert.ToString(startAngle), Convert.ToString(sweepAngle));
+				this.MyWrite("fpie", this.SaveBrush(mybrush), this.ConvertRectToString(myrect), Conversions.ToString(startAngle), Conversions.ToString(sweepAngle));
 			}
 		}
 
@@ -12997,7 +13440,7 @@ namespace LuoEasyPrint
 			this.PY(this.myg);
 			try
 			{
-				this.myg.FillPie(brush, rectangleF.X, rectangleF.Y, rectangleF.Width, rectangleF.Height, Convert.ToSingle(startangle), Convert.ToSingle(sweepangle));
+				this.myg.FillPie(brush, rectangleF.X, rectangleF.Y, rectangleF.Width, rectangleF.Height, Conversions.ToSingle(startangle), Conversions.ToSingle(sweepangle));
 			}
 			catch (Exception ex)
 			{
@@ -13040,7 +13483,7 @@ namespace LuoEasyPrint
 		{
 			if (!this.CancelDocument && mybrush != null && points != null && points.Length > 0)
 			{
-				this.MyWrite("fpolygon", this.SaveBrush(mybrush), this.ConvertPointsToString(points), Convert.ToString((int)fillMode));
+				this.MyWrite("fpolygon", this.SaveBrush(mybrush), this.ConvertPointsToString(points), Conversions.ToString((int)fillMode));
 			}
 		}
 
@@ -13062,7 +13505,7 @@ namespace LuoEasyPrint
 			this.PY(this.myg);
 			try
 			{
-				this.myg.FillPolygon(brush, points, (FillMode)Convert.ToInt32(fillMode));
+				this.myg.FillPolygon(brush, points, (FillMode)Conversions.ToInteger(fillMode));
 			}
 			catch (Exception ex)
 			{
@@ -13097,7 +13540,7 @@ namespace LuoEasyPrint
 			if (!this.CancelDocument)
 			{
 				ColorConverter colorConverter = new ColorConverter();
-				this.MyWrite("r", Convert.ToString(this.MyConvTo(x1)), Convert.ToString(this.MyConvTo(y1)), Convert.ToString(this.MyConvTo(mywidth)), Convert.ToString(this.MyConvTo(myheight)), colorConverter.ConvertToString(mycolor), Convert.ToString(this.MyConvTo(linewidth)));
+				this.MyWrite("r", Conversions.ToString(this.MyConvTo(x1)), Conversions.ToString(this.MyConvTo(y1)), Conversions.ToString(this.MyConvTo(mywidth)), Conversions.ToString(this.MyConvTo(myheight)), colorConverter.ConvertToString(mycolor), Conversions.ToString(this.MyConvTo(linewidth)));
 			}
 		}
 
@@ -13248,7 +13691,7 @@ namespace LuoEasyPrint
 			if (!this.CancelDocument)
 			{
 				ColorConverter colorConverter = new ColorConverter();
-				this.MyWrite("rf", Convert.ToString(this.MyConvTo(x1)), Convert.ToString(this.MyConvTo(y1)), Convert.ToString(this.MyConvTo(mywidth)), Convert.ToString(this.MyConvTo(myheight)), colorConverter.ConvertToString(mycolor));
+				this.MyWrite("rf", Conversions.ToString(this.MyConvTo(x1)), Conversions.ToString(this.MyConvTo(y1)), Conversions.ToString(this.MyConvTo(mywidth)), Conversions.ToString(this.MyConvTo(myheight)), colorConverter.ConvertToString(mycolor));
 			}
 		}
 
@@ -13275,7 +13718,7 @@ namespace LuoEasyPrint
 		{
 			if (!this.CancelDocument && mypen != null)
 			{
-				this.MyWrite("arc2", Convert.ToString(this.MyConvTo(myrect.X)), Convert.ToString(this.MyConvTo(myrect.Y)), Convert.ToString(this.MyConvTo(myrect.Width)), Convert.ToString(this.MyConvTo(myrect.Height)), this.SavePenAsString(mypen), Convert.ToString(startangle), Convert.ToString(sweepAngle));
+				this.MyWrite("arc2", Conversions.ToString(this.MyConvTo(myrect.X)), Conversions.ToString(this.MyConvTo(myrect.Y)), Conversions.ToString(this.MyConvTo(myrect.Width)), Conversions.ToString(this.MyConvTo(myrect.Height)), this.SavePenAsString(mypen), Conversions.ToString(startangle), Conversions.ToString(sweepAngle));
 			}
 		}
 
@@ -13285,7 +13728,7 @@ namespace LuoEasyPrint
 			if (!this.CancelDocument)
 			{
 				ColorConverter colorConverter = new ColorConverter();
-				this.MyWrite("arc", Convert.ToString(this.MyConvTo(x1)), Convert.ToString(this.MyConvTo(y1)), Convert.ToString(this.MyConvTo(mywidth)), Convert.ToString(this.MyConvTo(myheight)), colorConverter.ConvertToString(mycolor), Convert.ToString(this.MyConvTo(linewidth)), Convert.ToString(startangle), Convert.ToString(sweepAngle));
+				this.MyWrite("arc", Conversions.ToString(this.MyConvTo(x1)), Conversions.ToString(this.MyConvTo(y1)), Conversions.ToString(this.MyConvTo(mywidth)), Conversions.ToString(this.MyConvTo(myheight)), colorConverter.ConvertToString(mycolor), Conversions.ToString(this.MyConvTo(linewidth)), Conversions.ToString(startangle), Conversions.ToString(sweepAngle));
 			}
 		}
 
@@ -13330,7 +13773,7 @@ namespace LuoEasyPrint
 		{
 			if (!this.CancelDocument && mypen != null)
 			{
-				this.MyWrite("bezier", this.SavePenAsString(mypen), Convert.ToString(this.MyConvTo(mypoint1.X)), Convert.ToString(this.MyConvTo(mypoint1.Y)), Convert.ToString(this.MyConvTo(mypoint2.X)), Convert.ToString(this.MyConvTo(mypoint2.Y)), Convert.ToString(this.MyConvTo(mypoint3.X)), Convert.ToString(this.MyConvTo(mypoint3.Y)), Convert.ToString(this.MyConvTo(mypoint4.X)), Convert.ToString(this.MyConvTo(mypoint4.Y)));
+				this.MyWrite("bezier", this.SavePenAsString(mypen), Conversions.ToString(this.MyConvTo(mypoint1.X)), Conversions.ToString(this.MyConvTo(mypoint1.Y)), Conversions.ToString(this.MyConvTo(mypoint2.X)), Conversions.ToString(this.MyConvTo(mypoint2.Y)), Conversions.ToString(this.MyConvTo(mypoint3.X)), Conversions.ToString(this.MyConvTo(mypoint3.Y)), Conversions.ToString(this.MyConvTo(mypoint4.X)), Conversions.ToString(this.MyConvTo(mypoint4.Y)));
 			}
 		}
 
@@ -13390,200 +13833,7 @@ namespace LuoEasyPrint
 		}
 
 		// Token: 0x060014B7 RID: 5303 RVA: 0x000A80E8 File Offset: 0x000A62E8
-		private string ConvertPointsToString(PointF[] points)
-		{
-			checked
-			{
-				string result;
-				if (points == null)
-				{
-					result = "";
-				}
-				else if (points.Length <= 0)
-				{
-					result = "";
-				}
-				else
-				{
-					string text = Convert.ToString(this.MyConvTo(points[0].X)) + "," + Convert.ToString(this.MyConvTo(points[0].Y));
-					int num = 1;
-					int num2 = points.Length - 1;
-					for (int i = num; i <= num2; i++)
-					{
-						text = string.Concat(new string[]
-						{
-							text,
-							";",
-							Convert.ToString(this.MyConvTo(points[i].X)),
-							",",
-							Convert.ToString(this.MyConvTo(points[i].Y))
-						});
-					}
-					result = text;
-				}
-				return result;
-			}
-		}
-
-		// Token: 0x060014B8 RID: 5304 RVA: 0x000A81C8 File Offset: 0x000A63C8
-		private PointF[] ConvertStringToPoints(string ss)
-		{
-			checked
-			{
-				PointF[] result;
-				if (String.Compare(ss, "", false) == 0)
-				{
-					result = null;
-				}
-				else
-				{
-					string[] array = Strings.Split(ss, ";", -1, CompareMethod.Binary);
-					if (array.Length <= 0)
-					{
-						result = null;
-					}
-					else
-					{
-						PointF[] array2 = new PointF[array.Length - 1 + 1];
-						int num = 0;
-						int num2 = array.Length - 1;
-						for (int i = num; i <= num2; i++)
-						{
-							string[] array3 = Strings.Split(array[i], ",", -1, CompareMethod.Binary);
-							unchecked
-							{
-								array2[i].X = Convert.ToSingle(array3[0]) + (float)this.mypagesetting.Margins.Left;
-								array2[i].Y = Convert.ToSingle(array3[1]) + (float)this.mypagesetting.Margins.Top;
-							}
-						}
-						result = array2;
-					}
-				}
-				return result;
-			}
-		}
-
-		// Token: 0x060014B9 RID: 5305 RVA: 0x000A8290 File Offset: 0x000A6490
-		private string ConvertPointToString(PointF point)
-		{
-			return Convert.ToString(this.MyConvTo(point.X)) + "," + Convert.ToString(this.MyConvTo(point.Y));
-		}
-
-		// Token: 0x060014BA RID: 5306 RVA: 0x000A82D8 File Offset: 0x000A64D8
-		private PointF ConvertStringToPoint(string ss)
-		{
-			PointF result=new PointF();
-			if (String.Compare(ss, "", false) == 0)
-			{
-				PointF pointF=new PointF();
-				result = pointF;
-			}
-			else
-			{
-				string[] array = Strings.Split(ss, ",", -1, CompareMethod.Binary);
-				if (array.Length <= 0)
-				{
-					result = PointF.Empty;
-				}
-				else
-				{
-					PointF pointF2=new PointF();
-					pointF2.X = Convert.ToSingle(array[0]) + (float)this.mypagesetting.Margins.Left;
-					pointF2.Y = Convert.ToSingle(array[1]) + (float)this.mypagesetting.Margins.Top;
-					result = pointF2;
-				}
-			}
-			return result;
-		}
-
-		// Token: 0x060014BB RID: 5307 RVA: 0x000A835C File Offset: 0x000A655C
-		private string ConvertRectToString(RectangleF rec)
-		{
-			return string.Concat(new string[]
-			{
-				Convert.ToString(this.MyConvTo(rec.X)),
-				",",
-				Convert.ToString(this.MyConvTo(rec.Y)),
-				",",
-				Convert.ToString(this.MyConvTo(rec.Width)),
-				",",
-				Convert.ToString(this.MyConvTo(rec.Height))
-			});
-		}
-
-		// Token: 0x060014BC RID: 5308 RVA: 0x000A83EC File Offset: 0x000A65EC
-		private RectangleF ConvertStringToRect(string ss)
-		{
-			string[] array = Strings.Split(ss, ",", -1, CompareMethod.Binary);
-			RectangleF result=new RectangleF();
-			result.X = Convert.ToSingle(array[0]) + (float)this.mypagesetting.Margins.Left;
-			result.Y = Convert.ToSingle(array[1]) + (float)this.mypagesetting.Margins.Top;
-			result.Width = Convert.ToSingle(array[2]);
-			result.Height = Convert.ToSingle(array[3]);
-			return result;
-		}
-
-		// Token: 0x060014BD RID: 5309 RVA: 0x000A846C File Offset: 0x000A666C
-		private string ConvertRectSToString(RectangleF[] rec)
-		{
-			checked
-			{
-				string result;
-				if (rec == null)
-				{
-					result = "";
-				}
-				else if (rec.Length <= 0)
-				{
-					result = "";
-				}
-				else
-				{
-					string text = this.ConvertRectToString(rec[0]);
-					int num = 1;
-					int num2 = rec.Length - 1;
-					for (int i = num; i <= num2; i++)
-					{
-						text = text + ";" + this.ConvertRectToString(rec[i]);
-					}
-					result = text;
-				}
-				return result;
-			}
-		}
-
-		// Token: 0x060014BE RID: 5310 RVA: 0x000A84E0 File Offset: 0x000A66E0
-		private RectangleF[] ConvertStringToRectS(string ss)
-		{
-			checked
-			{
-				RectangleF[] result;
-				if (String.Compare(ss, "", false) == 0)
-				{
-					result = null;
-				}
-				else
-				{
-					try
-					{
-						string[] array = Strings.Split(ss, ";", -1, CompareMethod.Binary);
-						RectangleF[] array2 = new RectangleF[array.Length - 1 + 1];
-						int num = 0;
-						int num2 = array.Length - 1;
-						for (int i = num; i <= num2; i++)
-						{
-							array2[i] = this.ConvertStringToRect(array[i]);
-						}
-						result = array2;
-					}
-					catch (Exception ex)
-					{
-						result = null;
-					}
-				}
-				return result;
-			}
-		}
+		
 
 		// Token: 0x060014BF RID: 5311 RVA: 0x0000767E File Offset: 0x0000587E
 		public void DrawCurve(Pen mypen, PointF[] points)
@@ -13599,7 +13849,7 @@ namespace LuoEasyPrint
 		{
 			if (!this.CancelDocument && mypen != null && points != null)
 			{
-				this.MyWrite("curve", this.SavePenAsString(mypen), this.ConvertPointsToString(points), Convert.ToString(tension));
+				this.MyWrite("curve", this.SavePenAsString(mypen), this.ConvertPointsToString(points), Conversions.ToString(tension));
 			}
 		}
 
@@ -13608,7 +13858,7 @@ namespace LuoEasyPrint
 		{
 			if (!this.CancelDocument && mypen != null && points != null)
 			{
-				this.MyWrite("curve", this.SavePenAsString(mypen), this.ConvertPointsToString(points), Convert.ToString(offset), Convert.ToString(numberOfSegments));
+				this.MyWrite("curve", this.SavePenAsString(mypen), this.ConvertPointsToString(points), Conversions.ToString(offset), Conversions.ToString(numberOfSegments));
 			}
 		}
 
@@ -13617,7 +13867,7 @@ namespace LuoEasyPrint
 		{
 			if (!this.CancelDocument && mypen != null && points != null)
 			{
-				this.MyWrite("curve", this.SavePenAsString(mypen), this.ConvertPointsToString(points), Convert.ToString(offset), Convert.ToString(numberOfSegments), Convert.ToString(tension));
+				this.MyWrite("curve", this.SavePenAsString(mypen), this.ConvertPointsToString(points), Conversions.ToString(offset), Conversions.ToString(numberOfSegments), Conversions.ToString(tension));
 			}
 		}
 
@@ -13649,7 +13899,7 @@ namespace LuoEasyPrint
 			this.PY(this.myg);
 			try
 			{
-				this.myg.DrawCurve(pen, points, Convert.ToSingle(tension));
+				this.myg.DrawCurve(pen, points, Conversions.ToSingle(tension));
 			}
 			catch (Exception ex)
 			{
@@ -13668,7 +13918,7 @@ namespace LuoEasyPrint
 			this.PY(this.myg);
 			try
 			{
-				this.myg.DrawCurve(pen, points, Convert.ToInt32(offset), Convert.ToInt32(numberOfSegments));
+				this.myg.DrawCurve(pen, points, Conversions.ToInteger(offset), Conversions.ToInteger(numberOfSegments));
 			}
 			catch (Exception ex)
 			{
@@ -13687,7 +13937,7 @@ namespace LuoEasyPrint
 			this.PY(this.myg);
 			try
 			{
-				this.myg.DrawCurve(pen, points, Convert.ToInt32(offset), Convert.ToInt32(numberOfSegments), Convert.ToSingle(tension));
+				this.myg.DrawCurve(pen, points, Conversions.ToInteger(offset), Conversions.ToInteger(numberOfSegments), Conversions.ToSingle(tension));
 			}
 			catch (Exception ex)
 			{
@@ -13706,7 +13956,7 @@ namespace LuoEasyPrint
 				{
 					tension = 0f;
 				}
-				this.MyWrite("closedcurve", this.SavePenAsString(mypen), this.ConvertPointsToString(points), Convert.ToString(tension), Convert.ToString((int)fillmode));
+				this.MyWrite("closedcurve", this.SavePenAsString(mypen), this.ConvertPointsToString(points), Conversions.ToString(tension), Conversions.ToString((int)fillmode));
 			}
 		}
 
@@ -13728,7 +13978,7 @@ namespace LuoEasyPrint
 			this.PY(this.myg);
 			try
 			{
-				this.myg.DrawClosedCurve(pen, points, Convert.ToSingle(tension), (FillMode)Convert.ToInt32(fillmode));
+				this.myg.DrawClosedCurve(pen, points, Conversions.ToSingle(tension), (FillMode)Conversions.ToInteger(fillmode));
 			}
 			catch (Exception ex)
 			{
@@ -13762,7 +14012,7 @@ namespace LuoEasyPrint
 		{
 			if (!this.CancelDocument && mybrush != null && mypoints != null)
 			{
-				this.MyWrite("fclosedcurve", this.SaveBrush(mybrush), this.ConvertPointsToString(mypoints), Convert.ToString((int)myfillmode), Convert.ToString(tension));
+				this.MyWrite("fclosedcurve", this.SaveBrush(mybrush), this.ConvertPointsToString(mypoints), Conversions.ToString((int)myfillmode), Conversions.ToString(tension));
 			}
 		}
 
@@ -13771,7 +14021,7 @@ namespace LuoEasyPrint
 		{
 			if (!this.CancelDocument && mybrush != null && mypoints != null)
 			{
-				this.MyWrite("fclosedcurve", this.SaveBrush(mybrush), this.ConvertPointsToString(mypoints), Convert.ToString((int)myfillmode));
+				this.MyWrite("fclosedcurve", this.SaveBrush(mybrush), this.ConvertPointsToString(mypoints), Conversions.ToString((int)myfillmode));
 			}
 		}
 
@@ -13793,7 +14043,7 @@ namespace LuoEasyPrint
 			this.PY(this.myg);
 			try
 			{
-				this.myg.FillClosedCurve(brush, points, (FillMode)Convert.ToInt32(fillmode), Convert.ToSingle(tension));
+				this.myg.FillClosedCurve(brush, points, (FillMode)Conversions.ToInteger(fillmode), Conversions.ToSingle(tension));
 			}
 			catch (Exception ex)
 			{
@@ -13812,7 +14062,7 @@ namespace LuoEasyPrint
 			this.PY(this.myg);
 			try
 			{
-				this.myg.FillClosedCurve(brush, points, (FillMode)Convert.ToInt32(fillmode));
+				this.myg.FillClosedCurve(brush, points, (FillMode)Conversions.ToInteger(fillmode));
 			}
 			catch (Exception ex)
 			{
@@ -13847,7 +14097,7 @@ namespace LuoEasyPrint
 			if (!this.CancelDocument)
 			{
 				ColorConverter colorConverter = new ColorConverter();
-				this.MyWrite("de", Convert.ToString(this.MyConvTo(x1)), Convert.ToString(this.MyConvTo(y1)), Convert.ToString(this.MyConvTo(mywidth)), Convert.ToString(this.MyConvTo(myheight)), colorConverter.ConvertToString(mycolor), Convert.ToString(this.MyConvTo(linewidth)));
+				this.MyWrite("de", Conversions.ToString(this.MyConvTo(x1)), Conversions.ToString(this.MyConvTo(y1)), Conversions.ToString(this.MyConvTo(mywidth)), Conversions.ToString(this.MyConvTo(myheight)), colorConverter.ConvertToString(mycolor), Conversions.ToString(this.MyConvTo(linewidth)));
 			}
 		}
 
@@ -13901,7 +14151,7 @@ namespace LuoEasyPrint
 			if (!this.CancelDocument)
 			{
 				ColorConverter colorConverter = new ColorConverter();
-				this.MyWrite("dfe", Convert.ToString(this.MyConvTo(x1)), Convert.ToString(this.MyConvTo(y1)), Convert.ToString(this.MyConvTo(mywidth)), Convert.ToString(this.MyConvTo(myheight)), colorConverter.ConvertToString(mycolor));
+				this.MyWrite("dfe", Conversions.ToString(this.MyConvTo(x1)), Conversions.ToString(this.MyConvTo(y1)), Conversions.ToString(this.MyConvTo(mywidth)), Conversions.ToString(this.MyConvTo(myheight)), colorConverter.ConvertToString(mycolor));
 			}
 		}
 
@@ -13958,7 +14208,7 @@ namespace LuoEasyPrint
 			PointF[] array = new PointF[10];
 			array[0] = new PointF(center.X, center.Y - radius);
 			array[1] = VB2008Print.RotateTheta(array[0], center, 36.0);
-			double num = (double)radius * Math.Sin(0.31415926535897931) / Math.Sin(2.1991148575128552);
+			double num = (double)radius * Math.Sin(0.3141592653589793) / Math.Sin(2.199114857512855);
 			array[1].X = (float)((double)center.X + num * (double)(array[1].X - center.X) / (double)radius);
 			array[1].Y = (float)((double)center.Y + num * (double)(array[1].Y - center.Y) / (double)radius);
 			int num2 = 1;
@@ -13981,7 +14231,7 @@ namespace LuoEasyPrint
 			PointF[] array = new PointF[10];
 			array[0] = new PointF(center.X, center.Y - radius);
 			array[1] = VB2008Print.RotateTheta(array[0], center, 36.0);
-			double num = (double)radius * Math.Sin(0.31415926535897931) / Math.Sin(2.1991148575128552);
+			double num = (double)radius * Math.Sin(0.3141592653589793) / Math.Sin(2.199114857512855);
 			array[1].X = (float)((double)center.X + num * (double)(array[1].X - center.X) / (double)radius);
 			array[1].Y = (float)((double)center.Y + num * (double)(array[1].Y - center.Y) / (double)radius);
 			int num2 = 1;
@@ -14001,8 +14251,8 @@ namespace LuoEasyPrint
 		// Token: 0x060014DD RID: 5341 RVA: 0x000A8FD8 File Offset: 0x000A71D8
 		private static PointF RotateTheta(PointF pt, PointF center, double theta)
 		{
-			float x = (float)((double)center.X + (double)(pt.X - center.X) * Math.Cos(theta * 3.1415926535897931 / 180.0) - (double)(pt.Y - center.Y) * Math.Sin(theta * 3.1415926535897931 / 180.0));
-			float y = (float)((double)center.Y + (double)(pt.X - center.X) * Math.Sin(theta * 3.1415926535897931 / 180.0) + (double)(pt.Y - center.Y) * Math.Cos(theta * 3.1415926535897931 / 180.0));
+			float x = (float)((double)center.X + (double)(pt.X - center.X) * Math.Cos(theta * 3.141592653589793 / 180.0) - (double)(pt.Y - center.Y) * Math.Sin(theta * 3.141592653589793 / 180.0));
+			float y = (float)((double)center.Y + (double)(pt.X - center.X) * Math.Sin(theta * 3.141592653589793 / 180.0) + (double)(pt.Y - center.Y) * Math.Cos(theta * 3.141592653589793 / 180.0));
 			PointF result = new PointF(x, y);
 			return result;
 		}
@@ -14503,7 +14753,7 @@ namespace LuoEasyPrint
 		// Token: 0x0600150D RID: 5389 RVA: 0x000A9CF8 File Offset: 0x000A7EF8
 		public void DrawTitleEx(string s, Font myfont, Brush mybrush, float linespace, float charspace)
 		{
-			if (String.Compare(s, "", false) == 0)
+			if (Operators.CompareString(s, "", false) == 0)
 			{
 				this.mylastdrawtextheight = 0f;
 				this.mylastdrawtextwidth = 0f;
@@ -14548,7 +14798,7 @@ namespace LuoEasyPrint
 		// Token: 0x0600150E RID: 5390 RVA: 0x000A9E28 File Offset: 0x000A8028
 		public void DrawTitleEx(string s, RectangleF myrect, Font myfont, Brush mybrush, float linespace, float charspace)
 		{
-			if (String.Compare(s, "", false) == 0)
+			if (Operators.CompareString(s, "", false) == 0)
 			{
 				this.mylastdrawtextheight = 0f;
 				this.mylastdrawtextwidth = 0f;
@@ -14596,7 +14846,7 @@ namespace LuoEasyPrint
 		{
 			s = Strings.Replace(s, "\n", "", 1, -1, CompareMethod.Binary);
 			s = Strings.Replace(s, "\r", "", 1, -1, CompareMethod.Binary);
-			if (String.Compare(s, "", false) == 0)
+			if (Operators.CompareString(s, "", false) == 0)
 			{
 				this.mylastdrawtextheight = 0f;
 				this.mylastdrawtextwidth = 0f;
@@ -14685,13 +14935,12 @@ namespace LuoEasyPrint
 					{
 						float num = sizeF.Width;
 						int num2 = 1;
-						string[] array = null;
-						array=(string[])Utils.CopyArray((Array)array, new string[1]);
+						string[] array = (string[])Utils.CopyArray((Array)array, new string[1]);
 						int num3 = 1;
 						int num4 = s.Length - 1;
 						for (int i = num3; i <= num4; i++)
 						{
-							if (String.Compare(text, "", false) != 0)
+							if (Operators.CompareString(text, "", false) != 0)
 							{
 								array[num2 - 1] = array[num2 - 1] + text;
 							}
@@ -14800,7 +15049,7 @@ namespace LuoEasyPrint
 				{
 					myf = new Font("宋体", 12f, FontStyle.Regular);
 				}
-				if (String.Compare(text, "", false) == 0)
+				if (Operators.CompareString(text, "", false) == 0)
 				{
 					this.mylastdrawtextheight = 0f;
 					this.mylastdrawtextwidth = 0f;
@@ -14836,8 +15085,8 @@ namespace LuoEasyPrint
 						mysize = this.MeasureString("测试", myf, false);
 						mysize.Width = this.PaperPrintWidth - this.Currentx;
 						SizeF sizeF = default(SizeF);
-						int num=0;
-						int num2=0;
+						int num;
+						int num2;
 						sizeF = this.MeasureString(text, myf, mysize, myformat, ref num, ref num2, false);
 						string text2 = Strings.Mid(text, 1, num);
 						if (sizeF.Width > this.PaperPrintWidth - this.Currentx)
@@ -14849,7 +15098,7 @@ namespace LuoEasyPrint
 							this.DrawText(text2, sizeF.Width, myf, textforecolor, myformat, textoutstyle);
 						}
 						text = Strings.Mid(text, checked(num + 1));
-						if (String.Compare(text, "", false) != 0)
+						if (Operators.CompareString(text, "", false) != 0)
 						{
 							this.Currentx = 0f;
 							this.Currenty += sizeF.Height;
@@ -15077,146 +15326,146 @@ namespace LuoEasyPrint
 				{
 					switch (imageCellLayout)
 					{
-					case DataGridViewImageCellLayout.NotSet:
-					case DataGridViewImageCellLayout.Normal:
-					{
-						RectangleF destRect=new RectangleF();
-						destRect.X = x + (float)this.CellMargin.Left;
-						destRect.Y = y + (float)this.CellMargin.Top;
-						destRect.Width = mywidth - (float)this.CellMargin.Left - (float)this.CellMargin.Right;
-						destRect.Height = myheight - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom;
-						RectangleF srcRect=new RectangleF();
-						switch (Halignment)
-						{
-						case StringAlignment.Near:
-							switch (Valignment)
+						case DataGridViewImageCellLayout.NotSet:
+						case DataGridViewImageCellLayout.Normal:
 							{
-							case StringAlignment.Near:
-							{
-								float num = mywidth - (float)this.CellMargin.Left - (float)this.CellMargin.Right;
-								float num2 = myheight - (float)this.CellMargin.Bottom - (float)this.CellMargin.Top;
-								this.DrawImage(myimage, x + (float)this.CellMargin.Left, y + (float)this.CellMargin.Top, num, num2, num, num2);
-								goto IL_50C;
-							}
-							case StringAlignment.Far:
-								srcRect.Y = (float)myimage.Height - this.ConvToDisplay(destRect.Height, false);
+								RectangleF destRect=new RectangleF();
+								destRect.X = x + (float)this.CellMargin.Left;
+								destRect.Y = y + (float)this.CellMargin.Top;
+								destRect.Width = mywidth - (float)this.CellMargin.Left - (float)this.CellMargin.Right;
+								destRect.Height = myheight - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom;
+								RectangleF srcRect=new RectangleF();
+								switch (Halignment)
+								{
+									case StringAlignment.Near:
+										switch (Valignment)
+										{
+											case StringAlignment.Near:
+												{
+													float num = mywidth - (float)this.CellMargin.Left - (float)this.CellMargin.Right;
+													float num2 = myheight - (float)this.CellMargin.Bottom - (float)this.CellMargin.Top;
+													this.DrawImage(myimage, x + (float)this.CellMargin.Left, y + (float)this.CellMargin.Top, num, num2, num, num2);
+													goto IL_50C;
+												}
+											case StringAlignment.Far:
+												srcRect.Y = (float)myimage.Height - this.ConvToDisplay(destRect.Height, false);
+												srcRect.Height = this.ConvToDisplay(destRect.Height, false);
+												srcRect.Width = this.ConvToDisplay(destRect.Width, true);
+												srcRect.X = 0f;
+												this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
+												goto IL_50C;
+										}
+										srcRect.Y = ((float)myimage.Height - this.ConvToDisplay(destRect.Height, false)) / 2f;
+										srcRect.Height = this.ConvToDisplay(destRect.Height, false);
+										srcRect.Width = this.ConvToDisplay(destRect.Width, true);
+										srcRect.X = 0f;
+										this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
+										goto IL_50C;
+									case StringAlignment.Far:
+										switch (Valignment)
+										{
+											case StringAlignment.Near:
+												srcRect.Y = 0f;
+												srcRect.Height = this.ConvToDisplay(destRect.Height, false);
+												srcRect.Width = this.ConvToDisplay(destRect.Width, true);
+												srcRect.X = (float)myimage.Width - this.ConvToDisplay(destRect.Width, true);
+												this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
+												goto IL_50C;
+											case StringAlignment.Far:
+												srcRect.Y = (float)myimage.Height - this.ConvToDisplay(destRect.Height, false);
+												srcRect.Height = this.ConvToDisplay(destRect.Height, false);
+												srcRect.Width = this.ConvToDisplay(destRect.Width, true);
+												srcRect.X = (float)myimage.Width - this.ConvToDisplay(destRect.Width, true);
+												this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
+												goto IL_50C;
+										}
+										srcRect.Y = ((float)myimage.Height - this.ConvToDisplay(destRect.Height, false)) / 2f;
+										srcRect.Height = this.ConvToDisplay(destRect.Height, false);
+										srcRect.Width = this.ConvToDisplay(destRect.Width, true);
+										srcRect.X = (float)myimage.Width - this.ConvToDisplay(destRect.Width, true);
+										this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
+										goto IL_50C;
+								}
+								switch (Valignment)
+								{
+									case StringAlignment.Near:
+										srcRect.Y = 0f;
+										srcRect.Height = this.ConvToDisplay(destRect.Height, false);
+										srcRect.Width = this.ConvToDisplay(destRect.Width, true);
+										srcRect.X = ((float)myimage.Width - this.ConvToDisplay(destRect.Width, true)) / 2f;
+										this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
+										goto IL_50C;
+									case StringAlignment.Far:
+										srcRect.Y = (float)myimage.Height - this.ConvToDisplay(destRect.Height, false);
+										srcRect.Height = this.ConvToDisplay(destRect.Height, false);
+										srcRect.Width = this.ConvToDisplay(destRect.Width, true);
+										srcRect.X = ((float)myimage.Width - this.ConvToDisplay(destRect.Width, true)) / 2f;
+										this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
+										goto IL_50C;
+								}
+								srcRect.Y = ((float)myimage.Height - this.ConvToDisplay(destRect.Height, false)) / 2f;
 								srcRect.Height = this.ConvToDisplay(destRect.Height, false);
 								srcRect.Width = this.ConvToDisplay(destRect.Width, true);
-								srcRect.X = 0f;
+								srcRect.X = ((float)myimage.Width - this.ConvToDisplay(destRect.Width, true)) / 2f;
 								this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
-								goto IL_50C;
+							IL_50C:
+								string text2 = "";
+								RectangleF myrect = new RectangleF(x, y, mywidth, myheight);
+								this.DrawCell(text2, myrect, this.myforecolor, myborder, linecolor, 0f, 0);
+								return;
 							}
-							srcRect.Y = ((float)myimage.Height - this.ConvToDisplay(destRect.Height, false)) / 2f;
-							srcRect.Height = this.ConvToDisplay(destRect.Height, false);
-							srcRect.Width = this.ConvToDisplay(destRect.Width, true);
-							srcRect.X = 0f;
-							this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
-							goto IL_50C;
-						case StringAlignment.Far:
-							switch (Valignment)
+						case DataGridViewImageCellLayout.Zoom:
 							{
-							case StringAlignment.Near:
-								srcRect.Y = 0f;
-								srcRect.Height = this.ConvToDisplay(destRect.Height, false);
-								srcRect.Width = this.ConvToDisplay(destRect.Width, true);
-								srcRect.X = (float)myimage.Width - this.ConvToDisplay(destRect.Width, true);
-								this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
-								goto IL_50C;
-							case StringAlignment.Far:
-								srcRect.Y = (float)myimage.Height - this.ConvToDisplay(destRect.Height, false);
-								srcRect.Height = this.ConvToDisplay(destRect.Height, false);
-								srcRect.Width = this.ConvToDisplay(destRect.Width, true);
-								srcRect.X = (float)myimage.Width - this.ConvToDisplay(destRect.Width, true);
-								this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
-								goto IL_50C;
+								float num3 = this.ConvFromDisplay((float)myimage.Width, true);
+								float num4 = this.ConvFromDisplay((float)myimage.Height, false);
+								float num5 = (mywidth - (float)this.CellMargin.Left - (float)this.CellMargin.Right) / num3;
+								float num6 = (myheight - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom) / num4;
+								float num7;
+								float num8;
+								if (num5 > num6)
+								{
+									num7 = myheight - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom;
+									num8 = num7 * (num3 / num4);
+								}
+								else
+								{
+									num8 = mywidth - (float)this.CellMargin.Left - (float)this.CellMargin.Right;
+									num7 = num8 * (num4 / num3);
+								}
+								float x2=0;
+								switch (Halignment)
+								{
+									case StringAlignment.Near:
+										x2 = x + (float)this.CellMargin.Left;
+										break;
+									case StringAlignment.Center:
+										x2 = x + (float)this.CellMargin.Left + (mywidth - (float)this.CellMargin.Left - (float)this.CellMargin.Right - num8) / 2f;
+										break;
+									case StringAlignment.Far:
+										x2 = x + mywidth - num8 - (float)this.CellMargin.Right;
+										break;
+								}
+								float y2=0;
+								switch (Valignment)
+								{
+									case StringAlignment.Near:
+										y2 = y + (float)this.CellMargin.Top;
+										break;
+									case StringAlignment.Center:
+										y2 = y + (float)this.CellMargin.Top + (myheight - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom - num7) / 2f;
+										break;
+									case StringAlignment.Far:
+										y2 = y + myheight - num7 - (float)this.CellMargin.Bottom;
+										break;
+								}
+								this.DrawImage(myimage, x2, y2, num8, num7, true, Halignment, Valignment);
+								string text3 = "";
+								RectangleF myrect = new RectangleF(x, y, mywidth, myheight);
+								this.DrawCell(text3, myrect, this.myforecolor, myborder, linecolor, 0f, 0);
+								return;
 							}
-							srcRect.Y = ((float)myimage.Height - this.ConvToDisplay(destRect.Height, false)) / 2f;
-							srcRect.Height = this.ConvToDisplay(destRect.Height, false);
-							srcRect.Width = this.ConvToDisplay(destRect.Width, true);
-							srcRect.X = (float)myimage.Width - this.ConvToDisplay(destRect.Width, true);
-							this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
-							goto IL_50C;
-						}
-						switch (Valignment)
-						{
-						case StringAlignment.Near:
-							srcRect.Y = 0f;
-							srcRect.Height = this.ConvToDisplay(destRect.Height, false);
-							srcRect.Width = this.ConvToDisplay(destRect.Width, true);
-							srcRect.X = ((float)myimage.Width - this.ConvToDisplay(destRect.Width, true)) / 2f;
-							this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
-							goto IL_50C;
-						case StringAlignment.Far:
-							srcRect.Y = (float)myimage.Height - this.ConvToDisplay(destRect.Height, false);
-							srcRect.Height = this.ConvToDisplay(destRect.Height, false);
-							srcRect.Width = this.ConvToDisplay(destRect.Width, true);
-							srcRect.X = ((float)myimage.Width - this.ConvToDisplay(destRect.Width, true)) / 2f;
-							this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
-							goto IL_50C;
-						}
-						srcRect.Y = ((float)myimage.Height - this.ConvToDisplay(destRect.Height, false)) / 2f;
-						srcRect.Height = this.ConvToDisplay(destRect.Height, false);
-						srcRect.Width = this.ConvToDisplay(destRect.Width, true);
-						srcRect.X = ((float)myimage.Width - this.ConvToDisplay(destRect.Width, true)) / 2f;
-						this.DrawImage(myimage, destRect, srcRect, GraphicsUnit.Pixel);
-						IL_50C:
-						string text2 = "";
-						RectangleF myrect = new RectangleF(x, y, mywidth, myheight);
-						this.DrawCell(text2, myrect, this.myforecolor, myborder, linecolor, 0f, 0);
-						return;
 					}
-					case DataGridViewImageCellLayout.Zoom:
-					{
-						float num3 = this.ConvFromDisplay((float)myimage.Width, true);
-						float num4 = this.ConvFromDisplay((float)myimage.Height, false);
-						float num5 = (mywidth - (float)this.CellMargin.Left - (float)this.CellMargin.Right) / num3;
-						float num6 = (myheight - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom) / num4;
-						float num7;
-						float num8;
-						if (num5 > num6)
-						{
-							num7 = myheight - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom;
-							num8 = num7 * (num3 / num4);
-						}
-						else
-						{
-							num8 = mywidth - (float)this.CellMargin.Left - (float)this.CellMargin.Right;
-							num7 = num8 * (num4 / num3);
-						}
-						float x2=0;
-						switch (Halignment)
-						{
-						case StringAlignment.Near:
-							x2 = x + (float)this.CellMargin.Left;
-							break;
-						case StringAlignment.Center:
-							x2 = x + (float)this.CellMargin.Left + (mywidth - (float)this.CellMargin.Left - (float)this.CellMargin.Right - num8) / 2f;
-							break;
-						case StringAlignment.Far:
-							x2 = x + mywidth - num8 - (float)this.CellMargin.Right;
-							break;
-						}
-						float y2=0;
-						switch (Valignment)
-						{
-						case StringAlignment.Near:
-							y2 = y + (float)this.CellMargin.Top;
-							break;
-						case StringAlignment.Center:
-							y2 = y + (float)this.CellMargin.Top + (myheight - (float)this.CellMargin.Top - (float)this.CellMargin.Bottom - num7) / 2f;
-							break;
-						case StringAlignment.Far:
-							y2 = y + myheight - num7 - (float)this.CellMargin.Bottom;
-							break;
-						}
-						this.DrawImage(myimage, x2, y2, num8, num7, true, Halignment, Valignment);
-						string text3 = "";
-						RectangleF myrect = new RectangleF(x, y, mywidth, myheight);
-						this.DrawCell(text3, myrect, this.myforecolor, myborder, linecolor, 0f, 0);
-						return;
-					}
-					}
-					this.DrawCellImage(myimage, x, y, mywidth, myheight, linecolor, myborder, DataTypeConversion.ToBoolean(Interaction.IIf(imageCellLayout == DataGridViewImageCellLayout.Stretch, true, false)), StringAlignment.Center, StringAlignment.Center);
+					this.DrawCellImage(myimage, x, y, mywidth, myheight, linecolor, myborder, Conversions.ToBoolean(Interaction.IIf(imageCellLayout == DataGridViewImageCellLayout.Stretch, true, false)), StringAlignment.Center, StringAlignment.Center);
 				}
 			}
 		}
@@ -15240,33 +15489,33 @@ namespace LuoEasyPrint
 					}
 					switch (Halignment)
 					{
-					case StringAlignment.Center:
-						x += (mywidth - num) / 2f;
-						break;
-					case StringAlignment.Far:
-						x = x + mywidth - num;
-						break;
+						case StringAlignment.Center:
+							x += (mywidth - num) / 2f;
+							break;
+						case StringAlignment.Far:
+							x = x + mywidth - num;
+							break;
 					}
 					switch (Valignment)
 					{
-					case StringAlignment.Center:
-						y += (myheight - num2) / 2f;
-						break;
-					case StringAlignment.Far:
-						y = y + myheight - num2;
-						break;
+						case StringAlignment.Center:
+							y += (myheight - num2) / 2f;
+							break;
+						case StringAlignment.Far:
+							y = y + myheight - num2;
+							break;
 					}
 					mywidth = num;
 					myheight = num2;
 				}
 				if (checked(myimage.Height * myimage.Width) <= 16384)
 				{
-					this.MyWrite("i", Module1.ConvertImageToString(myimage), Convert.ToString(this.MyConvTo(x)), Convert.ToString(this.MyConvTo(y)), Convert.ToString(this.MyConvTo(mywidth)), Convert.ToString(this.MyConvTo(myheight)));
+					this.MyWrite("i", Module1.ConvertImageToString(myimage), Conversions.ToString(this.MyConvTo(x)), Conversions.ToString(this.MyConvTo(y)), Conversions.ToString(this.MyConvTo(mywidth)), Conversions.ToString(this.MyConvTo(myheight)));
 				}
 				else
 				{
 					int value = this.MySaveAndGetImageIndex(myimage);
-					this.MyWrite("i", Convert.ToString(value), Convert.ToString(this.MyConvTo(x)), Convert.ToString(this.MyConvTo(y)), Convert.ToString(this.MyConvTo(mywidth)), Convert.ToString(this.MyConvTo(myheight)));
+					this.MyWrite("i", Conversions.ToString(value), Conversions.ToString(this.MyConvTo(x)), Conversions.ToString(this.MyConvTo(y)), Conversions.ToString(this.MyConvTo(mywidth)), Conversions.ToString(this.MyConvTo(myheight)));
 				}
 			}
 		}
@@ -15291,26 +15540,26 @@ namespace LuoEasyPrint
 					}
 					switch (Halignment)
 					{
-					case StringAlignment.Center:
-						x += (mywidth - num) / 2f;
-						break;
-					case StringAlignment.Far:
-						x = x + mywidth - num;
-						break;
+						case StringAlignment.Center:
+							x += (mywidth - num) / 2f;
+							break;
+						case StringAlignment.Far:
+							x = x + mywidth - num;
+							break;
 					}
 					switch (Valignment)
 					{
-					case StringAlignment.Center:
-						y += (myheight - num2) / 2f;
-						break;
-					case StringAlignment.Far:
-						y = y + myheight - num2;
-						break;
+						case StringAlignment.Center:
+							y += (myheight - num2) / 2f;
+							break;
+						case StringAlignment.Far:
+							y = y + myheight - num2;
+							break;
 					}
 					mywidth = num;
 					myheight = num2;
 				}
-				this.MyWrite("p", t, Convert.ToString(this.MyConvTo(x)), Convert.ToString(this.MyConvTo(y)), Convert.ToString(this.MyConvTo(mywidth)), Convert.ToString(this.MyConvTo(myheight)));
+				this.MyWrite("p", t, Conversions.ToString(this.MyConvTo(x)), Conversions.ToString(this.MyConvTo(y)), Conversions.ToString(this.MyConvTo(mywidth)), Conversions.ToString(this.MyConvTo(myheight)));
 			}
 		}
 
@@ -15345,12 +15594,12 @@ namespace LuoEasyPrint
 			{
 				if (checked(myimage.Height * myimage.Width) <= 16384)
 				{
-					this.MyWrite("i2", Module1.ConvertImageToString(myimage), Convert.ToString(this.MyConvTo(x)), Convert.ToString(this.MyConvTo(y)), Convert.ToString(this.MyConvTo(mywidth)), Convert.ToString(this.MyConvTo(myheight)), Convert.ToString(this.MyConvTo(srcwidth)), Convert.ToString(this.MyConvTo(srcheight)), "");
+					this.MyWrite("i2", Module1.ConvertImageToString(myimage), Conversions.ToString(this.MyConvTo(x)), Conversions.ToString(this.MyConvTo(y)), Conversions.ToString(this.MyConvTo(mywidth)), Conversions.ToString(this.MyConvTo(myheight)), Conversions.ToString(this.MyConvTo(srcwidth)), Conversions.ToString(this.MyConvTo(srcheight)), "");
 				}
 				else
 				{
 					int value = this.MySaveAndGetImageIndex(myimage);
-					this.MyWrite("i2", Convert.ToString(value), Convert.ToString(this.MyConvTo(x)), Convert.ToString(this.MyConvTo(y)), Convert.ToString(this.MyConvTo(mywidth)), Convert.ToString(this.MyConvTo(myheight)), Convert.ToString(this.MyConvTo(srcwidth)), Convert.ToString(this.MyConvTo(srcheight)), "");
+					this.MyWrite("i2", Conversions.ToString(value), Conversions.ToString(this.MyConvTo(x)), Conversions.ToString(this.MyConvTo(y)), Conversions.ToString(this.MyConvTo(mywidth)), Conversions.ToString(this.MyConvTo(myheight)), Conversions.ToString(this.MyConvTo(srcwidth)), Conversions.ToString(this.MyConvTo(srcheight)), "");
 				}
 			}
 		}
@@ -15405,7 +15654,7 @@ namespace LuoEasyPrint
 							if (j == array.Length)
 							{
 								flag = true;
-								IL_C1:
+							IL_C1:
 								int result;
 								if (flag)
 								{
@@ -15430,7 +15679,7 @@ namespace LuoEasyPrint
 							}
 						}
 					}
-					
+					goto IL_C1;
 				}
 				return 0;
 			}
@@ -15459,7 +15708,7 @@ namespace LuoEasyPrint
 				else
 				{
 					int value = this.MySaveAndGetImageIndex(myimage);
-					this.MyWrite("DrawImageUnscaledAndClipped", Convert.ToString(value), this.ConvertRectToString(rect));
+					this.MyWrite("DrawImageUnscaledAndClipped", Conversions.ToString(value), this.ConvertRectToString(rect));
 				}
 			}
 		}
@@ -15495,12 +15744,12 @@ namespace LuoEasyPrint
 			{
 				if (checked(myimage.Height * myimage.Width) <= 16384)
 				{
-					this.MyWrite("i3", Module1.ConvertImageToString(myimage), this.ConvertRectToString(destRect), Convert.ToString(srcRect.X), Convert.ToString(srcRect.Y), Convert.ToString(srcRect.Width), Convert.ToString(srcRect.Height), Convert.ToString((int)srcUnit));
+					this.MyWrite("i3", Module1.ConvertImageToString(myimage), this.ConvertRectToString(destRect), Conversions.ToString(srcRect.X), Conversions.ToString(srcRect.Y), Conversions.ToString(srcRect.Width), Conversions.ToString(srcRect.Height), Conversions.ToString((int)srcUnit));
 				}
 				else
 				{
 					int value = this.MySaveAndGetImageIndex(myimage);
-					this.MyWrite("i3", Convert.ToString(value), this.ConvertRectToString(destRect), Convert.ToString(srcRect.X), Convert.ToString(srcRect.Y), Convert.ToString(srcRect.Width), Convert.ToString(srcRect.Height), Convert.ToString((int)srcUnit));
+					this.MyWrite("i3", Conversions.ToString(value), this.ConvertRectToString(destRect), Conversions.ToString(srcRect.X), Conversions.ToString(srcRect.Y), Conversions.ToString(srcRect.Width), Conversions.ToString(srcRect.Height), Conversions.ToString((int)srcUnit));
 				}
 			}
 		}
@@ -15512,12 +15761,12 @@ namespace LuoEasyPrint
 			{
 				if (checked(myimage.Height * myimage.Width) <= 16384)
 				{
-					this.MyWrite("i4", Module1.ConvertImageToString(myimage), Convert.ToString(this.MyConvTo(x)), Convert.ToString(this.MyConvTo(y)), Convert.ToString(srcRect.X), Convert.ToString(srcRect.Y), Convert.ToString(srcRect.Width), Convert.ToString(srcRect.Height), Convert.ToString((int)srcUnit));
+					this.MyWrite("i4", Module1.ConvertImageToString(myimage), Conversions.ToString(this.MyConvTo(x)), Conversions.ToString(this.MyConvTo(y)), Conversions.ToString(srcRect.X), Conversions.ToString(srcRect.Y), Conversions.ToString(srcRect.Width), Conversions.ToString(srcRect.Height), Conversions.ToString((int)srcUnit));
 				}
 				else
 				{
 					int value = this.MySaveAndGetImageIndex(myimage);
-					this.MyWrite("i4", Convert.ToString(value), Convert.ToString(this.MyConvTo(x)), Convert.ToString(this.MyConvTo(y)), Convert.ToString(srcRect.X), Convert.ToString(srcRect.Y), Convert.ToString(srcRect.Width), Convert.ToString(srcRect.Height), Convert.ToString((int)srcUnit));
+					this.MyWrite("i4", Conversions.ToString(value), Conversions.ToString(this.MyConvTo(x)), Conversions.ToString(this.MyConvTo(y)), Conversions.ToString(srcRect.X), Conversions.ToString(srcRect.Y), Conversions.ToString(srcRect.Width), Conversions.ToString(srcRect.Height), Conversions.ToString((int)srcUnit));
 				}
 			}
 		}
@@ -15588,7 +15837,7 @@ namespace LuoEasyPrint
 				{
 					int value = this.MySaveAndGetImageIndex(myimage);
 					string t3 = "DrawImageUnscaled";
-					string t4 = Convert.ToString(value);
+					string t4 = Conversions.ToString(value);
 					PointF point = new PointF(x, y);
 					this.MyWrite(t3, t4, this.ConvertPointToString(point));
 				}
@@ -15697,10 +15946,10 @@ namespace LuoEasyPrint
 									{
 										goto IL_1AA;
 									}
-									IL_1A1:
+								IL_1A1:
 									i++;
 									continue;
-									IL_1AA:
+								IL_1AA:
 									if (Module1.G_CancelPrint)
 									{
 										break;
@@ -15796,10 +16045,10 @@ namespace LuoEasyPrint
 						catch (Exception ex8)
 						{
 						}
-						IL_368:
+					IL_368:
 						Module1.G_CancelPrint = false;
 						this.ClosePrintProgressDialog();
-						VB2008Print.EndPrintToPrinterEventHandler endPrintToPrinterEvent = this.EndPrintToPrinter;
+						VB2008Print.EndPrintToPrinterEventHandler endPrintToPrinterEvent = this.EndPrintToPrinterEvent;
 						if (endPrintToPrinterEvent != null)
 						{
 							endPrintToPrinterEvent();
@@ -15848,21 +16097,29 @@ namespace LuoEasyPrint
 							{
 								switch (this.ShowDefaultPrinterDialog(false, this._printcopys))
 								{
-								case -1:
-									switch (this.ShowDefaultPrinterDialog(true, this._printcopys))
-									{
 									case -1:
-										switch (this.ShowAPIPrinterDialog(this._printcopys))
+										switch (this.ShowDefaultPrinterDialog(true, this._printcopys))
 										{
-										case -1:
-											flag = true;
-											break;
-										case 0:
-											flag = true;
-											break;
-										case 1:
-											flag = false;
-											break;
+											case -1:
+												switch (this.ShowAPIPrinterDialog(this._printcopys))
+												{
+													case -1:
+														flag = true;
+														break;
+													case 0:
+														flag = true;
+														break;
+													case 1:
+														flag = false;
+														break;
+												}
+												break;
+											case 0:
+												flag = true;
+												break;
+											case 1:
+												flag = false;
+												break;
 										}
 										break;
 									case 0:
@@ -15871,35 +16128,35 @@ namespace LuoEasyPrint
 									case 1:
 										flag = false;
 										break;
-									}
-									break;
-								case 0:
-									flag = true;
-									break;
-								case 1:
-									flag = false;
-									break;
 								}
 							}
 							else
 							{
 								switch (this.ShowAPIPrinterDialog(this._printcopys))
 								{
-								case -1:
-									switch (this.ShowDefaultPrinterDialog(false, this._printcopys))
-									{
 									case -1:
-										switch (this.ShowDefaultPrinterDialog(true, this._printcopys))
+										switch (this.ShowDefaultPrinterDialog(false, this._printcopys))
 										{
-										case -1:
-											flag = true;
-											break;
-										case 0:
-											flag = true;
-											break;
-										case 1:
-											flag = false;
-											break;
+											case -1:
+												switch (this.ShowDefaultPrinterDialog(true, this._printcopys))
+												{
+													case -1:
+														flag = true;
+														break;
+													case 0:
+														flag = true;
+														break;
+													case 1:
+														flag = false;
+														break;
+												}
+												break;
+											case 0:
+												flag = true;
+												break;
+											case 1:
+												flag = false;
+												break;
 										}
 										break;
 									case 0:
@@ -15908,14 +16165,6 @@ namespace LuoEasyPrint
 									case 1:
 										flag = false;
 										break;
-									}
-									break;
-								case 0:
-									flag = true;
-									break;
-								case 1:
-									flag = false;
-									break;
 								}
 							}
 							if (!flag)
@@ -16072,7 +16321,7 @@ namespace LuoEasyPrint
 								}
 								Module1.G_CancelPrint = false;
 								this.ClosePrintProgressDialog();
-								VB2008Print.EndPrintToPrinterEventHandler endPrintToPrinterEvent = this.EndPrintToPrinter;
+								VB2008Print.EndPrintToPrinterEventHandler endPrintToPrinterEvent = this.EndPrintToPrinterEvent;
 								if (endPrintToPrinterEvent != null)
 								{
 									endPrintToPrinterEvent();
@@ -16082,7 +16331,7 @@ namespace LuoEasyPrint
 							}
 							else
 							{
-								VB2008Print.EndPrintToPrinterEventHandler endPrintToPrinterEvent = this.EndPrintToPrinter;
+								VB2008Print.EndPrintToPrinterEventHandler endPrintToPrinterEvent = this.EndPrintToPrinterEvent;
 								if (endPrintToPrinterEvent != null)
 								{
 									endPrintToPrinterEvent();
@@ -16154,8 +16403,8 @@ namespace LuoEasyPrint
 			pageSettings.PrinterSettings.PrinterName = this.GetCurrentPrinterName();
 			pageSettings.PrinterSettings.DefaultPageSettings.PrinterSettings.PrinterName = this.GetCurrentPrinterName();
 			pageSettings.PrinterSettings.Copies = copies;
-			bool flag=false;
-			int result=0;
+			bool flag;
+			int result;
 			if (pageset.ShowPrinter(ref pageSettings, this.Handle, (long)this.GetPages(), copies, ref flag))
 			{
 				this.Pd.PrinterSettings.PrinterName = pageSettings.PrinterSettings.PrinterName;
@@ -16295,7 +16544,7 @@ namespace LuoEasyPrint
 				bool zoomtopaperwidth = dgvcs.ZoomToPaperWidth;
 				if (printwidth <= 0f)
 				{
-					if (String.Compare(dgvcs.ReportHeaderText, "", false) != 0)
+					if (Operators.CompareString(dgvcs.ReportHeaderText, "", false) != 0)
 					{
 						stringFormat.Alignment = dgvcs.ReportHeaderAlignment;
 						this.DrawText(dgvcs.ReportHeaderText, dgvcs.ReportHeaderFont, dgvcs.ReportHeaderForeColor, stringFormat, 0);
@@ -16354,7 +16603,7 @@ namespace LuoEasyPrint
 				this.DoubleLineSpace = doubleLineSpace;
 				this.IsAutoAddEmptyRow = isAutoAddEmptyRow;
 				this.IsDrawTableFooterEveryPage = isDrawTableFooterEveryPage;
-				if (printwidth <= 0f && String.Compare(dgvcs.ReportFooterText, "", false) != 0)
+				if (printwidth <= 0f && Operators.CompareString(dgvcs.ReportFooterText, "", false) != 0)
 				{
 					this.Currenty += dgvcs.ReportFooterSpace;
 					stringFormat.Alignment = dgvcs.ReportFooterAlignment;
@@ -16380,7 +16629,7 @@ namespace LuoEasyPrint
 				float currentx = this.Currentx;
 				float mywidth = dgv1printwidth + dgv2printwidth + spacewidth;
 				float height = this.MeasureText(title, titlefont, mywidth).Height;
-				if (String.Compare(title, "", false) != 0)
+				if (Operators.CompareString(title, "", false) != 0)
 				{
 					this.DrawText(title, mywidth, height, titlefont, StringAlignment.Center, StringAlignment.Center, true, false, false, false, 0f, 0);
 					this.NewRow(height + (float)((double)height / 2.5));
@@ -16419,15 +16668,15 @@ namespace LuoEasyPrint
 				string section = "页面设置";
 				Module1.WriteINI(section, "新页[0-1]", "0", myfile);
 				Module1.WriteINI(section, "创建方案[0-1]", "0", myfile);
-				Module1.WriteINI(section, "纸张", Convert.ToString((int)this.PaperKind), myfile);
+				Module1.WriteINI(section, "纸张", Conversions.ToString((int)this.PaperKind), myfile);
 				if (this.PaperKind <= PaperKind.Custom)
 				{
 					PaperSize printForm = definepaper.GetPrintForm(this.GetCurrentPrinterName(), this.PaperSize.PaperName);
 					if (printForm != null)
 					{
 						Module1.WriteINI(section, "纸张名称", printForm.PaperName, myfile);
-						Module1.WriteINI(section, "纸张宽度", Convert.ToString((double)printForm.Width * 2.54 / 10.0), myfile);
-						Module1.WriteINI(section, "纸张高度", Convert.ToString((double)printForm.Height * 2.54 / 10.0), myfile);
+						Module1.WriteINI(section, "纸张宽度", Conversions.ToString((double)printForm.Width * 2.54 / 10.0), myfile);
+						Module1.WriteINI(section, "纸张高度", Conversions.ToString((double)printForm.Height * 2.54 / 10.0), myfile);
 					}
 					else
 					{
@@ -16442,8 +16691,8 @@ namespace LuoEasyPrint
 					if (printForm != null)
 					{
 						Module1.WriteINI(section, "纸张名称", printForm.PaperName, myfile);
-						Module1.WriteINI(section, "纸张宽度", Convert.ToString((double)printForm.Width * 2.54 / 10.0), myfile);
-						Module1.WriteINI(section, "纸张高度", Convert.ToString((double)printForm.Height * 2.54 / 10.0), myfile);
+						Module1.WriteINI(section, "纸张宽度", Conversions.ToString((double)printForm.Width * 2.54 / 10.0), myfile);
+						Module1.WriteINI(section, "纸张高度", Conversions.ToString((double)printForm.Height * 2.54 / 10.0), myfile);
 					}
 					else
 					{
@@ -16452,7 +16701,7 @@ namespace LuoEasyPrint
 						Module1.WriteINI(section, "纸张高度", "0", myfile);
 					}
 				}
-				Module1.WriteINI(section, "方向", Convert.ToString(Interaction.IIf(this.PaperLandscape, "横向", "纵向")), myfile);
+				Module1.WriteINI(section, "方向", Conversions.ToString(Interaction.IIf(this.PaperLandscape, "横向", "纵向")), myfile);
 				decimal num;
 				decimal num2;
 				decimal num3;
@@ -16475,10 +16724,10 @@ namespace LuoEasyPrint
 				num2 = Math.Round(num2, 2);
 				num4 = Math.Round(num4, 2);
 				num3 = Math.Round(num3, 2);
-				Module1.WriteINI(section, "上边距", Convert.ToString(num), myfile);
-				Module1.WriteINI(section, "下边距", Convert.ToString(num2), myfile);
-				Module1.WriteINI(section, "左边距", Convert.ToString(num3), myfile);
-				Module1.WriteINI(section, "右边距", Convert.ToString(num4), myfile);
+				Module1.WriteINI(section, "上边距", Conversions.ToString(num), myfile);
+				Module1.WriteINI(section, "下边距", Conversions.ToString(num2), myfile);
+				Module1.WriteINI(section, "左边距", Conversions.ToString(num3), myfile);
+				Module1.WriteINI(section, "右边距", Conversions.ToString(num4), myfile);
 				section = "水印设置";
 				Module1.WriteINI(section, "内容", "", myfile);
 				Module1.WriteINI(section, "方向", "水平", myfile);
@@ -16514,19 +16763,19 @@ namespace LuoEasyPrint
 				Module1.WriteINI(section, "标题特效时的深度", "18", myfile);
 				section = "表格页眉";
 				Module1.WriteINI(section, "左边", "", myfile);
-				Module1.WriteINI(section, "左边对齐[0-2]", Convert.ToString(0), myfile);
+				Module1.WriteINI(section, "左边对齐[0-2]", Conversions.ToString(0), myfile);
 				Module1.WriteINI(section, "中间", "", myfile);
-				Module1.WriteINI(section, "中间对齐[0-2]", Convert.ToString(1), myfile);
+				Module1.WriteINI(section, "中间对齐[0-2]", Conversions.ToString(1), myfile);
 				Module1.WriteINI(section, "右边", "", myfile);
-				Module1.WriteINI(section, "右边对齐[0-2]", Convert.ToString(2), myfile);
+				Module1.WriteINI(section, "右边对齐[0-2]", Conversions.ToString(2), myfile);
 				Module1.WriteINI(section, "字体", Module1.ConvertFontToString(new Font("宋体", 10f)), myfile);
 				section = "表格页脚";
 				Module1.WriteINI(section, "左边", "", myfile);
-				Module1.WriteINI(section, "左边对齐[0-2]", Convert.ToString(0), myfile);
+				Module1.WriteINI(section, "左边对齐[0-2]", Conversions.ToString(0), myfile);
 				Module1.WriteINI(section, "中间", "", myfile);
-				Module1.WriteINI(section, "中间对齐[0-2]", Convert.ToString(1), myfile);
+				Module1.WriteINI(section, "中间对齐[0-2]", Conversions.ToString(1), myfile);
 				Module1.WriteINI(section, "右边", "", myfile);
-				Module1.WriteINI(section, "右边对齐[0-2]", Convert.ToString(2), myfile);
+				Module1.WriteINI(section, "右边对齐[0-2]", Conversions.ToString(2), myfile);
 				Module1.WriteINI(section, "字体", Module1.ConvertFontToString(new Font("宋体", 10f)), myfile);
 				section = "页面页眉";
 				Module1.WriteINI(section, "左边", "", myfile);
@@ -16553,7 +16802,7 @@ namespace LuoEasyPrint
 				Module1.WriteINI(section, "单元格默认字体", Module1.ConvertFontToString(dgvtoprint.DefaultCellStyle.Font), myfile);
 				Module1.WriteINI(section, "单元格默认前景颜色", Module1.ConvertColorToString(dgvtoprint.DefaultCellStyle.ForeColor), myfile);
 				Module1.WriteINI(section, "单元格默认背景颜色", Module1.ConvertColorToString(dgvtoprint.DefaultCellStyle.BackColor), myfile);
-				Module1.WriteINI(section, "表格总列数", Convert.ToString(dgvtoprint.ColumnCount), myfile);
+				Module1.WriteINI(section, "表格总列数", Conversions.ToString(dgvtoprint.ColumnCount), myfile);
 				Module1.WriteINI(section, "奇数行默认前景颜色", Module1.ConvertColorToString(dgvtoprint.AlternatingRowsDefaultCellStyle.ForeColor), myfile);
 				Module1.WriteINI(section, "奇数行默认背景颜色", Module1.ConvertColorToString(dgvtoprint.AlternatingRowsDefaultCellStyle.BackColor), myfile);
 				section = "分组汇总排序设置";
@@ -16561,7 +16810,7 @@ namespace LuoEasyPrint
 				Module1.WriteINI(section, "汇总行字体", Module1.ConvertFontToString(new Font("黑体", dgvtoprint.DefaultCellStyle.Font.Size, FontStyle.Bold)), myfile);
 				Module1.WriteINI(section, "汇总行前景颜色", Module1.ConvertColorToString(dgvtoprint.DefaultCellStyle.ForeColor), myfile);
 				Module1.WriteINI(section, "汇总行背景颜色", Module1.ConvertColorToString(dgvtoprint.DefaultCellStyle.BackColor), myfile);
-				Module1.WriteINI(section, "汇总行数字对齐方式[0-2]", Convert.ToString(1), myfile);
+				Module1.WriteINI(section, "汇总行数字对齐方式[0-2]", Conversions.ToString(1), myfile);
 				string lpDefault = "";
 				string lpDefault2 = "";
 				Module1.WriteINI(section, "要排序的列", lpDefault, myfile);
@@ -16589,7 +16838,7 @@ namespace LuoEasyPrint
 					i = num7;
 					while (i <= num8)
 					{
-						section = "第" + Convert.ToString(i + 1) + "列";
+						section = "第" + Conversions.ToString(i + 1) + "列";
 						string headerText = dgvtoprint.Columns[array[i]].HeaderText;
 						string name = dgvtoprint.Columns[array[i]].Name;
 						Module1.WriteINI(section, "名称", name, myfile);
@@ -16638,26 +16887,26 @@ namespace LuoEasyPrint
 							}
 						}
 						lpDefault3 = "左对齐";
-						IL_D3B:
+					IL_D3B:
 						Module1.WriteINI(section, "文本对齐方式", lpDefault3, myfile);
 						switch (dgvtoprint.Columns[name].DefaultCellStyle.WrapMode)
 						{
-						case DataGridViewTriState.NotSet:
-							lpDefault3 = "未设置";
-							break;
-						case DataGridViewTriState.True:
-							lpDefault3 = "允许";
-							break;
-						case DataGridViewTriState.False:
-							lpDefault3 = "不允许";
-							break;
+							case DataGridViewTriState.NotSet:
+								lpDefault3 = "未设置";
+								break;
+							case DataGridViewTriState.True:
+								lpDefault3 = "允许";
+								break;
+							case DataGridViewTriState.False:
+								lpDefault3 = "不允许";
+								break;
 						}
 						Module1.WriteINI(section, "文本允许换行", lpDefault3, myfile);
-						lpDefault3 = Convert.ToString(this.ConvFromDisplayToMM((float)dgvtoprint.Columns[name].Width));
+						lpDefault3 = Conversions.ToString(this.ConvFromDisplayToMM((float)dgvtoprint.Columns[name].Width));
 						Module1.WriteINI(section, "列宽(毫米)", lpDefault3, myfile);
 						i++;
 						continue;
-						IL_D34:
+					IL_D34:
 						lpDefault3 = "居中对齐";
 						goto IL_D3B;
 					}
@@ -16769,32 +17018,32 @@ namespace LuoEasyPrint
 			bool isDrawTableFooterEveryPage = false;
 			string section = "页面设置";
 			string text = Module1.GetINI(section, "创建方案[0-1]", "0", schemefilename);
-			if (String.Compare(text, "1", false) == 0)
+			if (Operators.CompareString(text, "1", false) == 0)
 			{
 				this.CreateFa(schemefilename, dataGridView);
 			}
 			text = Module1.GetINI(section, "新页[0-1]", "0", schemefilename);
-			StringAlignment bgalignment= StringAlignment.Near;
-			bool isAutoAddEmptyRow=false;
-			bool isUseDoubleLine=false;
-			float num10=0;
-			bool outerBorder=false;
-			float num11=0;
-			Color outerBorderColor=new Color();
-			bool myaddrowid=false;
-			Color myhzforecolor=new Color();
-			Color myhzbackcolor = new Color();
-			bool mygroupnewpage=false;
-			bool myaddrownew=false;
+			StringAlignment bgalignment;
+			bool isAutoAddEmptyRow;
+			bool isUseDoubleLine;
+			float num10;
+			bool outerBorder;
+			float num11;
+			Color outerBorderColor;
+			bool myaddrowid;
+			Color myhzforecolor;
+			Color myhzbackcolor;
+			bool mygroupnewpage;
+			bool myaddrownew;
 			try
 			{
-				if (String.Compare(text, "1", false) == 0 | String.Compare(text, "是", false) == 0)
+				if (Operators.CompareString(text, "1", false) == 0 | Operators.CompareString(text, "是", false) == 0)
 				{
 					text = Module1.GetINI(section, "纸张", "9", schemefilename);
-					int num7 = Convert.ToInt32(text);
+					int num7 = Conversions.ToInteger(text);
 					string text2 = "";
-					int num8=0;
-					int num9=0;
+					int num8;
+					int num9;
 					if (num7 <= 0)
 					{
 						try
@@ -16804,11 +17053,11 @@ namespace LuoEasyPrint
 							text = Module1.GetINI(section, "纸张宽度", "0", schemefilename);
 							checked
 							{
-								num8 = (int)Math.Round(Convert.ToDouble(decimal.Multiply(Convert.ToDecimal(text), 10m)) / 2.54);
+								num8 = (int)Math.Round(Convert.ToDouble(decimal.Multiply(Conversions.ToDecimal(text), 10m)) / 2.54);
 								text = Module1.GetINI(section, "纸张高度", "0", schemefilename);
-								num9 = (int)Math.Round(Convert.ToDouble(decimal.Multiply(Convert.ToDecimal(text), 10m)) / 2.54);
+								num9 = (int)Math.Round(Convert.ToDouble(decimal.Multiply(Conversions.ToDecimal(text), 10m)) / 2.54);
 							}
-							if (String.Compare(text2, "", false) != 0 & String.Compare(text2, "[自定义纸张]", false) != 0)
+							if (Operators.CompareString(text2, "", false) != 0 & Operators.CompareString(text2, "[自定义纸张]", false) != 0)
 							{
 								PaperSize printForm = definepaper.GetPrintForm(this.GetCurrentPrinterName(), text2);
 								if (printForm != null)
@@ -16832,7 +17081,7 @@ namespace LuoEasyPrint
 						catch (Exception ex2)
 						{
 						}
-						if (String.Compare(text2, "[自定义纸张]", false) == 0)
+						if (Operators.CompareString(text2, "[自定义纸张]", false) == 0)
 						{
 							definepaper.SetPrintForm(this.GetCurrentPrinterName(), text2, (float)((double)num8 * 2.54 / 10.0), (float)((double)num9 * 2.54 / 10.0));
 						}
@@ -16860,7 +17109,7 @@ namespace LuoEasyPrint
 						}
 					}
 					text = Module1.GetINI(section, "方向", "纵向", schemefilename);
-					bool isPaperLandscape = String.Compare(text, "横向", false) == 0;
+					bool isPaperLandscape = Operators.CompareString(text, "横向", false) == 0;
 					Margins margins = new Margins();
 					text = Module1.GetINI(section, "上边距", "25.4", schemefilename);
 					margins.Top = Convert.ToInt32(decimal.Multiply(Convert.ToDecimal(text), 10m));
@@ -16892,22 +17141,22 @@ namespace LuoEasyPrint
 				}
 				section = "表格打印格式";
 				text = Module1.GetINI(section, "表格打印样式[1-4]", "1", schemefilename);
-				num2 = Convert.ToInt32(text);
+				num2 = Conversions.ToInteger(text);
 				if (num2 > 4 | num2 < 1)
 				{
 					num2 = 1;
 				}
 				text = Module1.GetINI(section, "表格对齐", "居中对齐", schemefilename);
 				string left = text;
-				if (String.Compare(left, "居中对齐", false) == 0)
+				if (Operators.CompareString(left, "居中对齐", false) == 0)
 				{
 					bgalignment = StringAlignment.Center;
 				}
-				else if (String.Compare(left, "左对齐", false) == 0)
+				else if (Operators.CompareString(left, "左对齐", false) == 0)
 				{
 					bgalignment = StringAlignment.Near;
 				}
-				else if (String.Compare(left, "右对齐", false) == 0)
+				else if (Operators.CompareString(left, "右对齐", false) == 0)
 				{
 					bgalignment = StringAlignment.Far;
 				}
@@ -16917,23 +17166,23 @@ namespace LuoEasyPrint
 				}
 				text = Module1.GetINI(section, "表格边框", "表格线", schemefilename);
 				string left2 = text;
-				if (String.Compare(left2, "表格线", false) == 0)
+				if (Operators.CompareString(left2, "表格线", false) == 0)
 				{
 					myborder = "1111";
 				}
-				else if (String.Compare(left2, "仅横线", false) == 0)
+				else if (Operators.CompareString(left2, "仅横线", false) == 0)
 				{
 					myborder = "0101";
 				}
-				else if (String.Compare(left2, "仅竖线", false) == 0)
+				else if (Operators.CompareString(left2, "仅竖线", false) == 0)
 				{
 					myborder = "1010";
 				}
-				else if (String.Compare(left2, "无线", false) == 0)
+				else if (Operators.CompareString(left2, "无线", false) == 0)
 				{
 					myborder = "0000";
 				}
-				else if (Strings.Len(text) != 4 | !DataTypeConversion.IsNumeric(text))
+				else if (Strings.Len(text) != 4 | !Versioned.IsNumeric(text))
 				{
 					myborder = "1111";
 				}
@@ -16942,69 +17191,69 @@ namespace LuoEasyPrint
 					myborder = text;
 				}
 				text = Module1.GetINI(section, "适合纸张宽度[0-1]", "1", schemefilename);
-				zoomtopaperwidth = (String.Compare(text, "1", false) == 0);
+				zoomtopaperwidth = (Operators.CompareString(text, "1", false) == 0);
 				text = Module1.GetINI(section, "自动调整行高[0-1]", "1", schemefilename);
-				autoresizerowheight = (String.Compare(text, "1", false) == 0);
+				autoresizerowheight = (Operators.CompareString(text, "1", false) == 0);
 				text = Module1.GetINI(section, "最小字号", "6", schemefilename);
-				minfontsize = Convert.ToSingle(text);
+				minfontsize = Conversions.ToSingle(text);
 				text = Module1.GetINI(section, "标题行重复打印[0-1]", "1", schemefilename);
-				reppagetitle = (String.Compare(text, "1", false) == 0);
+				reppagetitle = (Operators.CompareString(text, "1", false) == 0);
 				text = Module1.GetINI(section, "打印表格背景颜色[0-1]", "1", schemefilename);
-				printbackcolor = (String.Compare(text, "1", false) == 0);
+				printbackcolor = (Operators.CompareString(text, "1", false) == 0);
 				text = Module1.GetINI(section, "自动调整行高与列宽[0-1]", "1", schemefilename);
-				autoformat = (String.Compare(text, "1", false) == 0);
+				autoformat = (Operators.CompareString(text, "1", false) == 0);
 				text = Module1.GetINI(section, "工资条间距", "100", schemefilename);
-				num3 = Convert.ToSingle(text);
+				num3 = Conversions.ToSingle(text);
 				text = Module1.GetINI(section, "工资条打印零值[0-1]", "0", schemefilename);
-				printzero = (String.Compare(text, "1", false) == 0);
+				printzero = (Operators.CompareString(text, "1", false) == 0);
 				text = Module1.GetINI(section, "工资条自动换行打印[0-1]", "0", schemefilename);
-				gzwrap = (String.Compare(text, "1", false) == 0);
+				gzwrap = (Operators.CompareString(text, "1", false) == 0);
 				text = Module1.GetINI(section, "多栏打印的栏数", "2", schemefilename);
-				mycolumns = Convert.ToInt32(text);
+				mycolumns = Conversions.ToInteger(text);
 				text = Module1.GetINI(section, "多栏打印的栏间距", "50", schemefilename);
-				num4 = Convert.ToSingle(text);
+				num4 = Conversions.ToSingle(text);
 				text = Module1.GetINI(section, "多栏打印最后一页风格[0-1]", "1", schemefilename);
-				lastpagemode = (String.Compare(text, "1", false) == 0);
+				lastpagemode = (Operators.CompareString(text, "1", false) == 0);
 				text = Module1.GetINI(section, "跨页打印的固定列数", "2", schemefilename);
-				fixedcols = Convert.ToInt32(text);
+				fixedcols = Conversions.ToInteger(text);
 				text = Module1.GetINI(section, "表格线颜色", "", schemefilename);
 				dataGridView.GridColor = Module1.ConvertStringToColor(text);
 				text = Module1.GetINI(section, "补白打印[0-1]", "0", schemefilename);
-				isAutoAddEmptyRow = (String.Compare(text, "1", false) == 0);
+				isAutoAddEmptyRow = (Operators.CompareString(text, "1", false) == 0);
 				text = Module1.GetINI(section, "表格页脚每页重复打印[0-1]", "0", schemefilename);
-				isDrawTableFooterEveryPage = (String.Compare(text, "1", false) == 0);
+				isDrawTableFooterEveryPage = (Operators.CompareString(text, "1", false) == 0);
 				text = Module1.GetINI(section, "双表格线[0-1]", "0", schemefilename);
-				isUseDoubleLine = (String.Compare(text, "1", false) == 0);
+				isUseDoubleLine = (Operators.CompareString(text, "1", false) == 0);
 				text = Module1.GetINI(section, "双表格线间距(1/100厘米)", "10", schemefilename);
 				num10 = (float)Conversion.Val(text);
 				text = Module1.GetINI(section, "表格外边框[0-1]", "0", schemefilename);
-				outerBorder = (String.Compare(text, "1", false) == 0);
+				outerBorder = (Operators.CompareString(text, "1", false) == 0);
 				text = Module1.GetINI(section, "表格外边框线宽(1/100厘米)", "5", schemefilename);
 				num11 = (float)Conversion.Val(text);
 				text = Module1.GetINI(section, "表格外边框颜色", Module1.ConvertColorToString(Color.Black), schemefilename);
 				outerBorderColor = Module1.ConvertStringToColor(text);
 				section = "单元格默认边距";
 				text = Module1.GetINI(section, "左边距(毫米)", "-1", schemefilename);
-				float num12=0;
-				if (String.Compare(text, "-1", false) != 0)
+				float num12;
+				if (Operators.CompareString(text, "-1", false) != 0)
 				{
 					num12 = (float)Conversion.Val(text);
 				}
 				text = Module1.GetINI(section, "右边距(毫米)", "-1", schemefilename);
-				float num13=0;
-				if (String.Compare(text, "-1", false) != 0)
+				float num13;
+				if (Operators.CompareString(text, "-1", false) != 0)
 				{
 					num13 = (float)Conversion.Val(text);
 				}
 				text = Module1.GetINI(section, "上边距(毫米)", "-1", schemefilename);
-				float num14=0;
-				if (String.Compare(text, "-1", false) != 0)
+				float num14;
+				if (Operators.CompareString(text, "-1", false) != 0)
 				{
 					num14 = (float)Conversion.Val(text);
 				}
 				text = Module1.GetINI(section, "下边距(毫米)", "-1", schemefilename);
-				float num15=0;
-				if (String.Compare(text, "-1", false) != 0)
+				float num15;
+				if (Operators.CompareString(text, "-1", false) != 0)
 				{
 					num15 = (float)Conversion.Val(text);
 				}
@@ -17041,7 +17290,7 @@ namespace LuoEasyPrint
 					color2 = color3;
 					this.myforecolor = color2;
 					text = Module1.GetINI(section, "主标题文字风格[0-6]", "0", schemefilename);
-					num5 = Convert.ToInt32(text);
+					num5 = Conversions.ToInteger(text);
 					if (num5 > 6 | num5 < 0)
 					{
 						num5 = 0;
@@ -17055,7 +17304,7 @@ namespace LuoEasyPrint
 						ftitlefont = font;
 					}
 					text = Module1.GetINI(section, "辅标题文字风格[0-6]", "0", schemefilename);
-					num6 = Convert.ToInt32(text);
+					num6 = Conversions.ToInteger(text);
 					if (num6 > 6 | num6 < 0)
 					{
 						num6 = 0;
@@ -17063,37 +17312,37 @@ namespace LuoEasyPrint
 					text = Module1.GetINI(section, "标题特效时的深度", "8", schemefilename);
 					if (this.PageUnits == VB2008Print.PageExportUnit.Inch)
 					{
-						this.ShapeDepth = (int)Math.Round((double)Convert.ToInt32(text) / 2.54);
+						this.ShapeDepth = (int)Math.Round((double)Conversions.ToInteger(text) / 2.54);
 					}
 					else
 					{
-						this.ShapeDepth = Convert.ToInt32(text);
+						this.ShapeDepth = Conversions.ToInteger(text);
 					}
 					section = "表格页眉";
 					text = Module1.GetINI(section, "左边", "", schemefilename);
 					tablel = text;
 					text = Module1.GetINI(section, "左边对齐[0-2]", "0", schemefilename);
-					if (!DataTypeConversion.IsNumeric(text))
+					if (!Versioned.IsNumeric(text))
 					{
 						text = "0";
 					}
-					tableTopLeftTitleAlign = (StringAlignment)Convert.ToInt32(text);
+					tableTopLeftTitleAlign = (StringAlignment)Conversions.ToInteger(text);
 					text = Module1.GetINI(section, "中间", "", schemefilename);
 					tablem = text;
 					text = Module1.GetINI(section, "中间对齐[0-2]", "1", schemefilename);
-					if (!DataTypeConversion.IsNumeric(text))
+					if (!Versioned.IsNumeric(text))
 					{
 						text = "1";
 					}
-					tableTopMiddleTitleAlign = (StringAlignment)Convert.ToInt32(text);
+					tableTopMiddleTitleAlign = (StringAlignment)Conversions.ToInteger(text);
 					text = Module1.GetINI(section, "右边", "", schemefilename);
 					tabler = text;
 					text = Module1.GetINI(section, "右边对齐[0-2]", "2", schemefilename);
-					if (!DataTypeConversion.IsNumeric(text))
+					if (!Versioned.IsNumeric(text))
 					{
 						text = "2";
 					}
-					tableTopRightTitleAlign = (StringAlignment)Convert.ToInt32(text);
+					tableTopRightTitleAlign = (StringAlignment)Conversions.ToInteger(text);
 					text = Module1.GetINI(section, "字体", "", schemefilename);
 					font = Module1.ConvertStringToFont(text);
 					if (font != null)
@@ -17104,27 +17353,27 @@ namespace LuoEasyPrint
 					text = Module1.GetINI(section, "左边", "", schemefilename);
 					tableleft = text;
 					text = Module1.GetINI(section, "左边对齐[0-2]", "0", schemefilename);
-					if (!DataTypeConversion.IsNumeric(text))
+					if (!Versioned.IsNumeric(text))
 					{
 						text = "0";
 					}
-					tableBottomLeftTitleAlign = (StringAlignment)Convert.ToInt32(text);
+					tableBottomLeftTitleAlign = (StringAlignment)Conversions.ToInteger(text);
 					text = Module1.GetINI(section, "中间", "", schemefilename);
 					tablemiddle = text;
 					text = Module1.GetINI(section, "中间对齐[0-2]", "1", schemefilename);
-					if (!DataTypeConversion.IsNumeric(text))
+					if (!Versioned.IsNumeric(text))
 					{
 						text = "1";
 					}
-					tableBottomMiddleTitleAlign = (StringAlignment)Convert.ToInt32(text);
+					tableBottomMiddleTitleAlign = (StringAlignment)Conversions.ToInteger(text);
 					text = Module1.GetINI(section, "右边", "", schemefilename);
 					tableright = text;
 					text = Module1.GetINI(section, "右边对齐[0-2]", "2", schemefilename);
-					if (!DataTypeConversion.IsNumeric(text))
+					if (!Versioned.IsNumeric(text))
 					{
 						text = "2";
 					}
-					tableBottomRightTitleAlign = (StringAlignment)Convert.ToInt32(text);
+					tableBottomRightTitleAlign = (StringAlignment)Conversions.ToInteger(text);
 					text = Module1.GetINI(section, "字体", "", schemefilename);
 					font = Module1.ConvertStringToFont(text);
 					if (font != null)
@@ -17133,7 +17382,7 @@ namespace LuoEasyPrint
 					}
 					section = "表格默认设置";
 					text = Module1.GetINI(section, "表格总列数", "0", schemefilename);
-					int num16 = Convert.ToInt32(text);
+					int num16 = Conversions.ToInteger(text);
 					if (num16 != 0)
 					{
 						text = Module1.GetINI(section, "标题字段名默认字体", "", schemefilename);
@@ -17161,9 +17410,9 @@ namespace LuoEasyPrint
 						color3 = Module1.ConvertStringToColor(text);
 						dataGridView.DefaultCellStyle.BackColor = color3;
 						text = Module1.GetINI(section, "默认行高[毫米]", "0", schemefilename);
-						if (DataTypeConversion.IsNumeric(text))
+						if (Versioned.IsNumeric(text))
 						{
-							float num17 = Convert.ToSingle(text);
+							float num17 = Conversions.ToSingle(text);
 							try
 							{
 								if (num17 != 0f)
@@ -17190,7 +17439,7 @@ namespace LuoEasyPrint
 						}
 						text = Module1.GetINI(section, "奇数行默认前景颜色", Module1.ConvertColorToString(Color.FromArgb(0)), schemefilename);
 						color3 = Module1.ConvertStringToColor(text);
-						Color color4=new Color();
+						Color color4;
 						if (color3.ToArgb() == 0)
 						{
 							dataGridView.AlternatingRowsDefaultCellStyle.ForeColor = color4;
@@ -17210,7 +17459,7 @@ namespace LuoEasyPrint
 							dataGridView.AlternatingRowsDefaultCellStyle.BackColor = color3;
 						}
 						text = Strings.Trim(Module1.GetINI("分组汇总排序设置", "第一列前添加行号", "", schemefilename));
-						myaddrowid = (String.Compare(text, "1", false) == 0 | String.Compare(text, "是", false) == 0);
+						myaddrowid = (Operators.CompareString(text, "1", false) == 0 | Operators.CompareString(text, "是", false) == 0);
 						if (num16 != dataGridView.ColumnCount)
 						{
 							if (this.IsShowErrorMSG)
@@ -17218,9 +17467,9 @@ namespace LuoEasyPrint
 								Interaction.MsgBox(string.Concat(new string[]
 								{
 									"无法应用方案文件中的表格各列详细设置参数（除此之外的其余参数都成功应用了），原因是当前要打印的表格有【",
-									Convert.ToString(dataGridView.ColumnCount),
+									Conversions.ToString(dataGridView.ColumnCount),
 									"列】而方案文件中保存的表格有〖",
-									Convert.ToString(num16),
+									Conversions.ToString(num16),
 									"列〗，两者数不一致，不能使用。\r\n如果您只需要应用方案文件中除要表格各列详细参数设置外的其他参数，您应该将方案文件中的<表格总列数>设为0，或者在保存方案时就不保存表格参数设置"
 								}), MsgBoxStyle.OkOnly, "提示信息");
 							}
@@ -17233,7 +17482,7 @@ namespace LuoEasyPrint
 							int num22 = num16;
 							for (int j = num21; j <= num22; j++)
 							{
-								section = "第" + Convert.ToString(j) + "列";
+								section = "第" + Conversions.ToString(j) + "列";
 								array2[j - 1] = Module1.GetINI(section, "名称", "", schemefilename);
 								array[j - 1] = Module1.GetINI(section, "显示的文本", "", schemefilename);
 							}
@@ -17241,7 +17490,7 @@ namespace LuoEasyPrint
 							int num23 = 0;
 							int num24 = num16 - 1;
 							int k = num23;
-							IL_14BF:
+						IL_14BF:
 							while (k <= num24)
 							{
 								int num25 = k + 1;
@@ -17249,10 +17498,10 @@ namespace LuoEasyPrint
 								int l = num25;
 								while (l <= num26)
 								{
-									if (String.Compare(array2[k], array2[l], false) == 0)
+									if (Operators.CompareString(array2[k], array2[l], false) == 0)
 									{
 										flag = true;
-										IL_14B5:
+									IL_14B5:
 										if (!flag)
 										{
 											k++;
@@ -17265,9 +17514,9 @@ namespace LuoEasyPrint
 										l++;
 									}
 								}
-								
+								goto IL_14B5;
 							}
-							IL_14C5:
+						IL_14C5:
 							if (flag)
 							{
 								if (this.IsShowErrorMSG)
@@ -17288,7 +17537,7 @@ namespace LuoEasyPrint
 								int num27 = 0;
 								int num28 = num16 - 1;
 								k = num27;
-								IL_1567:
+							IL_1567:
 								while (k <= num28)
 								{
 									int num29 = k + 1;
@@ -17296,10 +17545,10 @@ namespace LuoEasyPrint
 									int m = num29;
 									while (m <= num30)
 									{
-										if (String.Compare(array[k], array[m], false) == 0)
+										if (Operators.CompareString(array[k], array[m], false) == 0)
 										{
 											flag = true;
-											IL_155D:
+										IL_155D:
 											if (!flag)
 											{
 												k++;
@@ -17312,9 +17561,9 @@ namespace LuoEasyPrint
 											m++;
 										}
 									}
-								
+									goto IL_155D;
 								}
-								IL_156D:
+							IL_156D:
 								if (flag)
 								{
 									if (this.IsShowErrorMSG)
@@ -17334,7 +17583,7 @@ namespace LuoEasyPrint
 									int num31 = 0;
 									int num32 = num16 - 1;
 									int j = num31;
-									IL_1621:
+								IL_1621:
 									while (j <= num32)
 									{
 										flag = false;
@@ -17344,10 +17593,10 @@ namespace LuoEasyPrint
 										k = num33;
 										while (k <= num34)
 										{
-											if (String.Compare(text, dataGridView.Columns[k].Name, false) == 0)
+											if (Operators.CompareString(text, dataGridView.Columns[k].Name, false) == 0)
 											{
 												flag = true;
-												IL_1614:
+											IL_1614:
 												if (flag)
 												{
 													j++;
@@ -17371,19 +17620,19 @@ namespace LuoEasyPrint
 												k++;
 											}
 										}
-							
+										goto IL_1614;
 									}
 									int num35 = 0;
 									int num36 = dataGridView.ColumnCount - 1;
 									for (j = num35; j <= num36; j++)
 									{
-										section = "第" + Convert.ToString(j + 1) + "列";
+										section = "第" + Conversions.ToString(j + 1) + "列";
 										string ini = Module1.GetINI(section, "名称", "", schemefilename);
 										string ini2 = Module1.GetINI(section, "显示的文本", "", schemefilename);
 										dataGridView.Columns[ini].HeaderText = ini2;
 										dataGridView.Columns[ini].DisplayIndex = j;
 										text = Module1.GetINI(section, "是否打印[0-1]", "1", schemefilename);
-										if (String.Compare(text, "1", false) == 0)
+										if (Operators.CompareString(text, "1", false) == 0)
 										{
 											dataGridView.Columns[ini].Visible = true;
 										}
@@ -17405,19 +17654,19 @@ namespace LuoEasyPrint
 										dataGridView.Columns[ini].DefaultCellStyle.BackColor = color3;
 										text = Module1.GetINI(section, "文本对齐方式", "", schemefilename);
 										string left3 = text;
-										if (String.Compare(left3, "居中对齐", false) == 0)
+										if (Operators.CompareString(left3, "居中对齐", false) == 0)
 										{
 											dataGridView.Columns[ini].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 										}
-										else if (String.Compare(left3, "左对齐", false) == 0)
+										else if (Operators.CompareString(left3, "左对齐", false) == 0)
 										{
 											dataGridView.Columns[ini].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 										}
-										else if (String.Compare(left3, "未设置", false) == 0)
+										else if (Operators.CompareString(left3, "未设置", false) == 0)
 										{
 											dataGridView.Columns[ini].DefaultCellStyle.Alignment = DataGridViewContentAlignment.NotSet;
 										}
-										else if (String.Compare(left3, "右对齐", false) == 0)
+										else if (Operators.CompareString(left3, "右对齐", false) == 0)
 										{
 											dataGridView.Columns[ini].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 										}
@@ -17427,24 +17676,24 @@ namespace LuoEasyPrint
 										}
 										text = Module1.GetINI(section, "文本允许换行", "", schemefilename);
 										string left4 = text;
-										if (String.Compare(left4, "未设置", false) == 0)
+										if (Operators.CompareString(left4, "未设置", false) == 0)
 										{
 											dataGridView.Columns[ini].DefaultCellStyle.WrapMode = DataGridViewTriState.NotSet;
 										}
-										else if (String.Compare(left4, "允许", false) == 0)
+										else if (Operators.CompareString(left4, "允许", false) == 0)
 										{
 											dataGridView.Columns[ini].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 										}
-										else if (String.Compare(left4, "不允许", false) == 0)
+										else if (Operators.CompareString(left4, "不允许", false) == 0)
 										{
 											dataGridView.Columns[ini].DefaultCellStyle.WrapMode = DataGridViewTriState.False;
 										}
 										text = Module1.GetINI(section, "列宽(毫米)", "", schemefilename);
-										if (DataTypeConversion.IsNumeric(text))
+										if (Versioned.IsNumeric(text))
 										{
 											try
 											{
-												dataGridView.Columns[ini].Width = (int)Math.Round((double)this.ConvFromMMToDisplay(Convert.ToSingle(Convert.ToDecimal(text))));
+												dataGridView.Columns[ini].Width = (int)Math.Round((double)this.ConvFromMMToDisplay(Convert.ToSingle(Conversions.ToDecimal(text))));
 											}
 											catch (Exception ex4)
 											{
@@ -17475,21 +17724,21 @@ namespace LuoEasyPrint
 									}
 									myhzbackcolor = color3;
 									text = Module1.GetINI(section, "汇总行数字对齐方式[0-2]", "1", schemefilename);
-									if (!DataTypeConversion.IsNumeric(text))
+									if (!Versioned.IsNumeric(text))
 									{
 										text = "1";
 									}
-									sumNumberAlign = (StringAlignment)Convert.ToInt32(text);
+									sumNumberAlign = (StringAlignment)Conversions.ToInteger(text);
 									mysortcolumn = Module1.GetINI(section, "要排序的列", "", schemefilename);
 									text = Strings.Trim(Module1.GetINI(section, "升序排序", "", schemefilename));
-									mysorttype = (String.Compare(text, "1", false) == 0 | String.Compare(text, "是", false) == 0);
+									mysorttype = (Operators.CompareString(text, "1", false) == 0 | Operators.CompareString(text, "是", false) == 0);
 									mygroupcolumn = Module1.GetINI(section, "要分组列", "", schemefilename);
 									text = Strings.Trim(Module1.GetINI(section, "每组换新页打印", "", schemefilename));
-									mygroupnewpage = (String.Compare(text, "1", false) == 0 | String.Compare(text, "是", false) == 0);
+									mygroupnewpage = (Operators.CompareString(text, "1", false) == 0 | Operators.CompareString(text, "是", false) == 0);
 									text = Strings.Trim(Module1.GetINI(section, "第一列前添加行号", "", schemefilename));
-									myaddrowid = (String.Compare(text, "1", false) == 0 | String.Compare(text, "是", false) == 0);
+									myaddrowid = (Operators.CompareString(text, "1", false) == 0 | Operators.CompareString(text, "是", false) == 0);
 									text = Strings.Trim(Module1.GetINI(section, "每组行号重新编号", "", schemefilename));
-									myaddrownew = (String.Compare(text, "1", false) == 0 | String.Compare(text, "是", false) == 0);
+									myaddrownew = (Operators.CompareString(text, "1", false) == 0 | Operators.CompareString(text, "是", false) == 0);
 								}
 							}
 						}
@@ -17503,7 +17752,7 @@ namespace LuoEasyPrint
 					Interaction.MsgBox("使用方案文件【" + schemefilename + "】进行打印输出时，读方案文件时出现异常，可能与当前要打印的表格不兼容，将采用默认的设置进行打印输出", MsgBoxStyle.OkOnly, "提示信息");
 				}
 			}
-			IL_1C53:
+		IL_1C53:
 			if (this.PageUnits != VB2008Print.PageExportUnit.CentiMeter)
 			{
 				num3 = (float)((double)num3 / 2.54);
@@ -17524,15 +17773,15 @@ namespace LuoEasyPrint
 			dataGridView.Dispose();
 			this.IsAutoAddEmptyRow = isAutoAddEmptyRow2;
 			this.IsDrawTableFooterEveryPage = isDrawTableFooterEveryPage2;
-			bool isUseDoubleLine2=false;
+			bool isUseDoubleLine2;
 			this.IsUseDoubleLine = isUseDoubleLine2;
-			float doubleLineSpace=0;
+			float doubleLineSpace;
 			this.DoubleLineSpace = doubleLineSpace;
-			bool outerBorder2=false;
+			bool outerBorder2;
 			this.OuterBorder = outerBorder2;
-			Color outerBorderColor2=new Color();
+			Color outerBorderColor2;
 			this.OuterBorderColor = outerBorderColor2;
-			float outerBorderWidth=0;
+			float outerBorderWidth;
 			this.OuterBorderWidth = outerBorderWidth;
 			this.myforecolor = color;
 			this.myshapedepth = num;
@@ -17558,7 +17807,7 @@ namespace LuoEasyPrint
 			{
 				bottomfont = new Font("宋体", 10f, FontStyle.Regular);
 			}
-			if (String.Compare(mysortcolumn + "", "", false) != 0)
+			if (Operators.CompareString(mysortcolumn + "", "", false) != 0)
 			{
 				try
 				{
@@ -17621,19 +17870,19 @@ namespace LuoEasyPrint
 							columnheadertree2 = null;
 						}
 						int fromrow = 0;
-						if (String.Compare(mygroupcolumn, "", false) != 0)
+						if (Operators.CompareString(mygroupcolumn, "", false) != 0)
 						{
 							try
 							{
-								Convert.ToString(dgvtoprint.Columns[mygroupcolumn].Width);
+								Conversions.ToString(dgvtoprint.Columns[mygroupcolumn].Width);
 							}
 							catch (Exception ex2)
 							{
 								mygroupcolumn = "";
 							}
 						}
-						float num4=0;
-						if (String.Compare(mygroupcolumn, "", false) == 0)
+						float num4;
+						if (Operators.CompareString(mygroupcolumn, "", false) == 0)
 						{
 							if (myaddrowid)
 							{
@@ -17657,7 +17906,7 @@ namespace LuoEasyPrint
 							Module1.CreateFzHz(dgvtoprint, mygroupcolumn, myhzcolumns, myhzfont, myhzforecolor, myhzbackcolor, myaddrowid, myaddrownew, SumNumberAlign);
 							if (mygroupnewpage)
 							{
-								if (String.Compare(myhzcolumns + "", "", false) != 0)
+								if (Operators.CompareString(myhzcolumns + "", "", false) != 0)
 								{
 									dgvtoprint.Rows.Remove(dgvtoprint.Rows[dgvtoprint.RowCount - 1]);
 								}
@@ -17666,10 +17915,10 @@ namespace LuoEasyPrint
 								int num6 = dgvtoprint.RowCount - 1;
 								for (int j = num5; j <= num6; j++)
 								{
-									if (String.Compare(Convert.ToString(dgvtoprint.Rows[j].Tag) + "", "分组", false) == 0)
+									if (Operators.CompareString(Conversions.ToString(dgvtoprint.Rows[j].Tag) + "", "分组", false) == 0)
 									{
 										int torow = j;
-										string groupcontent = Convert.ToString(dgvtoprint.Rows[j].Cells[mygroupcolumn].FormattedValue);
+										string groupcontent = Conversions.ToString(dgvtoprint.Rows[j].Cells[mygroupcolumn].FormattedValue);
 										Module1.CopyDataGridView(dgvtoprint, this.mydgv2, fromrow, torow, false);
 										if (Module1.GetDGVVisibleRows(this.mydgv2) > 0)
 										{
@@ -17695,7 +17944,7 @@ namespace LuoEasyPrint
 									}
 								}
 							}
-							else if (String.Compare(myhzcolumns + "", "", false) != 0)
+							else if (Operators.CompareString(myhzcolumns + "", "", false) != 0)
 							{
 								if (myaddrowid)
 								{
@@ -17711,10 +17960,10 @@ namespace LuoEasyPrint
 								int num8 = dgvtoprint.RowCount - 1;
 								for (int k = num7; k <= num8; k++)
 								{
-									if (String.Compare(Convert.ToString(dgvtoprint.Rows[k].Tag) + "", "分组", false) == 0)
+									if (Operators.CompareString(Conversions.ToString(dgvtoprint.Rows[k].Tag) + "", "分组", false) == 0)
 									{
 										int torow = k;
-										string groupcontent = Convert.ToString(dgvtoprint.Rows[k].Cells[mygroupcolumn].FormattedValue);
+										string groupcontent = Conversions.ToString(dgvtoprint.Rows[k].Cells[mygroupcolumn].FormattedValue);
 										Module1.CopyDataGridView(dgvtoprint, this.mydgv2, fromrow, torow, false);
 										if (Module1.GetDGVVisibleRows(this.mydgv2) > 0)
 										{
@@ -17763,46 +18012,45 @@ namespace LuoEasyPrint
 				myprintdgv.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 				myprintdgv.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
 			}
-			float result=0;
 			checked
 			{
-				
+				float result=0;
 				switch (printtype)
 				{
-				case 1:
-					if (printwidth <= 0f)
-					{
-						result = this.PrintDGV(myprintdgv, ztitle, ztitlefont, ftitle, ftitlefont, bgalignment, myborder, zoomtopaperwidth, autoresizerowheight, topfont, tablel, tablem, tabler, bottomfont, tableleft, tablemiddle, tableright, minfontsize, reppagetitle, printbackcolor, mytitletextstyle, mysubtitlestyle, false, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign);
-					}
-					else
-					{
-						result = this.PrintDGVFixedWidth(myprintdgv, printwidth, ztitle, ztitlefont, ftitle, ftitlefont, bgalignment, myborder, zoomtopaperwidth, autoresizerowheight, topfont, tablel, tablem, tabler, bottomfont, tableleft, tablemiddle, tableright, minfontsize, reppagetitle, printbackcolor, mytitletextstyle, mysubtitlestyle, false, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign);
-					}
-					break;
-				case 2:
-					result = this.PrintDGVColS(myprintdgv, mycolumns, ztitle, ztitlefont, ftitle, ftitlefont, topfont, tablel, tablem, tabler, bottomfont, tableleft, tablemiddle, tableright, 0f, columnspace, myborder, minfontsize, reppagetitle, lastpagemode, printbackcolor, autoresizerowheight, mytitletextstyle, mysubtitlestyle, false, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign);
-					break;
-				case 3:
-				{
-					int num = fixedcols;
-					if (myaddrowid)
-					{
-						fixedcols++;
-					}
-					result = this.PrintDGVPages(myprintdgv, fixedcols, ztitle, ztitlefont, ftitle, ftitlefont, bgalignment, myborder, zoomtopaperwidth, topfont, tablel, tablem, tabler, bottomfont, tableleft, tablemiddle, tableright, minfontsize, reppagetitle, printbackcolor, mytitletextstyle, mysubtitlestyle, false, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign);
-					fixedcols = num;
-					break;
-				}
-				case 4:
-					if (!gzwrap)
-					{
-						result = this.PrintDGVgzt(myprintdgv, ztitle, ztitlefont, ftitle, ftitlefont, bgalignment, myborder, zoomtopaperwidth, autoresizerowheight, minfontsize, reppagetitle, linespace, printzero, printbackcolor, mytitletextstyle, mysubtitlestyle, false, columnheadertree);
-					}
-					else
-					{
-						result = this.PrintDGVgzt2(myprintdgv, ztitle, ztitlefont, ftitle, ftitlefont, myborder, minfontsize, reppagetitle, linespace, printzero, printbackcolor, mytitletextstyle, mysubtitlestyle, false);
-					}
-					break;
+					case 1:
+						if (printwidth <= 0f)
+						{
+							result = this.PrintDGV(myprintdgv, ztitle, ztitlefont, ftitle, ftitlefont, bgalignment, myborder, zoomtopaperwidth, autoresizerowheight, topfont, tablel, tablem, tabler, bottomfont, tableleft, tablemiddle, tableright, minfontsize, reppagetitle, printbackcolor, mytitletextstyle, mysubtitlestyle, false, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign);
+						}
+						else
+						{
+							result = this.PrintDGVFixedWidth(myprintdgv, printwidth, ztitle, ztitlefont, ftitle, ftitlefont, bgalignment, myborder, zoomtopaperwidth, autoresizerowheight, topfont, tablel, tablem, tabler, bottomfont, tableleft, tablemiddle, tableright, minfontsize, reppagetitle, printbackcolor, mytitletextstyle, mysubtitlestyle, false, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign);
+						}
+						break;
+					case 2:
+						result = this.PrintDGVColS(myprintdgv, mycolumns, ztitle, ztitlefont, ftitle, ftitlefont, topfont, tablel, tablem, tabler, bottomfont, tableleft, tablemiddle, tableright, 0f, columnspace, myborder, minfontsize, reppagetitle, lastpagemode, printbackcolor, autoresizerowheight, mytitletextstyle, mysubtitlestyle, false, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign);
+						break;
+					case 3:
+						{
+							int num = fixedcols;
+							if (myaddrowid)
+							{
+								fixedcols++;
+							}
+							result = this.PrintDGVPages(myprintdgv, fixedcols, ztitle, ztitlefont, ftitle, ftitlefont, bgalignment, myborder, zoomtopaperwidth, topfont, tablel, tablem, tabler, bottomfont, tableleft, tablemiddle, tableright, minfontsize, reppagetitle, printbackcolor, mytitletextstyle, mysubtitlestyle, false, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign);
+							fixedcols = num;
+							break;
+						}
+					case 4:
+						if (!gzwrap)
+						{
+							result = this.PrintDGVgzt(myprintdgv, ztitle, ztitlefont, ftitle, ftitlefont, bgalignment, myborder, zoomtopaperwidth, autoresizerowheight, minfontsize, reppagetitle, linespace, printzero, printbackcolor, mytitletextstyle, mysubtitlestyle, false, columnheadertree);
+						}
+						else
+						{
+							result = this.PrintDGVgzt2(myprintdgv, ztitle, ztitlefont, ftitle, ftitlefont, myborder, minfontsize, reppagetitle, linespace, printzero, printbackcolor, mytitletextstyle, mysubtitlestyle, false);
+						}
+						break;
 				}
 				return result;
 			}
@@ -18027,7 +18275,7 @@ namespace LuoEasyPrint
 					{
 						array[i] = this.myms.Columns[i].Width;
 					}
-					array2[0] = Convert.ToInt32(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0));
+					array2[0] = Conversions.ToInteger(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0));
 					int num4 = 0;
 					int num5 = this.myms.RowCount - 1;
 					for (int i = num4; i <= num5; i++)
@@ -18080,7 +18328,7 @@ namespace LuoEasyPrint
 					{
 						StringFormat stringFormat = new StringFormat(StringFormat.GenericTypographic);
 						num = 0f;
-						float num12 = this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false);
+						float num12 = this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false);
 						stringFormat.FormatFlags &= ~StringFormatFlags.NoWrap;
 						int num13 = 0;
 						int num14 = columnCount - 1;
@@ -18098,7 +18346,7 @@ namespace LuoEasyPrint
 						StringAlignment myHalg = StringAlignment.Near;
 						bool flag = VB2008Print.CanSpanPrint(lefttitle, middletitle, righttitle, ref text, ref myHalg);
 						float num15;
-						if (String.Compare(lefttitle, "", false) == 0 & String.Compare(middletitle, "", false) == 0 & String.Compare(righttitle, "", false) == 0)
+						if (Operators.CompareString(lefttitle, "", false) == 0 & Operators.CompareString(middletitle, "", false) == 0 & Operators.CompareString(righttitle, "", false) == 0)
 						{
 							num15 = 0f;
 							flag = false;
@@ -18106,15 +18354,15 @@ namespace LuoEasyPrint
 						else if (flag)
 						{
 							num15 = this.MeasureCell(text, topfont, this.PaperPrintWidth, stringFormat).Height;
-							if (String.Compare(lefttitle, "", false) != 0)
+							if (Operators.CompareString(lefttitle, "", false) != 0)
 							{
 								myHalg = TableTopLeftTitleAlign;
 							}
-							else if (String.Compare(middletitle, "", false) != 0)
+							else if (Operators.CompareString(middletitle, "", false) != 0)
 							{
 								myHalg = TableTopMiddleTitleAlign;
 							}
-							else if (String.Compare(righttitle, "", false) != 0)
+							else if (Operators.CompareString(righttitle, "", false) != 0)
 							{
 								myHalg = TableTopRightTitleAlign;
 							}
@@ -18164,7 +18412,7 @@ namespace LuoEasyPrint
 						int num21;
 						unchecked
 						{
-							if (String.Compare(bl, "", false) == 0 & String.Compare(br, "", false) == 0 & String.Compare(bm, "", false) == 0)
+							if (Operators.CompareString(bl, "", false) == 0 & Operators.CompareString(br, "", false) == 0 & Operators.CompareString(bm, "", false) == 0)
 							{
 								num18 = 0f;
 								flag2 = false;
@@ -18174,15 +18422,15 @@ namespace LuoEasyPrint
 								if (flag2)
 								{
 									num18 = this.MeasureCell(text2, bottomfont, this.PaperPrintWidth, stringFormat).Height;
-									if (String.Compare(bl, "", false) != 0)
+									if (Operators.CompareString(bl, "", false) != 0)
 									{
 										myHalg2 = TableBottomLeftTitleAlign;
 									}
-									else if (String.Compare(bm, "", false) != 0)
+									else if (Operators.CompareString(bm, "", false) != 0)
 									{
 										myHalg2 = TableBottomMiddleTitleAlign;
 									}
-									else if (String.Compare(br, "", false) != 0)
+									else if (Operators.CompareString(br, "", false) != 0)
 									{
 										myHalg2 = TableBottomRightTitleAlign;
 									}
@@ -18215,7 +18463,7 @@ namespace LuoEasyPrint
 								num15 += this.DoubleLineSpace / 2f;
 								num18 += this.DoubleLineSpace / 2f;
 							}
-							num19 = height2 + num16 + height3 + num17 + num15 + Convert.ToSingle(Interaction.IIf(LastPageMode & this.IsDrawTableFooterEveryPage, num18, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0))));
+							num19 = height2 + num16 + height3 + num17 + num15 + Conversions.ToSingle(Interaction.IIf(LastPageMode & this.IsDrawTableFooterEveryPage, num18, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0))));
 							num20 = -1;
 							num21 = 0;
 						}
@@ -18225,7 +18473,7 @@ namespace LuoEasyPrint
 							if (this.myms.Rows[i].Visible)
 							{
 								num20 = i;
-								IL_85C:
+							IL_85C:
 								unchecked
 								{
 									if (num20 == -1)
@@ -18269,7 +18517,7 @@ namespace LuoEasyPrint
 											}
 											else
 											{
-												num = num12 + num23 + Convert.ToSingle(Interaction.IIf(LastPageMode & this.IsDrawTableFooterEveryPage, num18, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0))));
+												num = num12 + num23 + Conversions.ToSingle(Interaction.IIf(LastPageMode & this.IsDrawTableFooterEveryPage, num18, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0))));
 											}
 										}
 										if (num > this.PaperPrintHeight)
@@ -18364,18 +18612,18 @@ namespace LuoEasyPrint
 									{
 										if (i == 0 || reppagetitle)
 										{
-											if (String.Compare(title, "", false) != 0)
+											if (Operators.CompareString(title, "", false) != 0)
 											{
 												this.DrawText(title, this.PaperPrintWidth, height2, titleFont, StringAlignment.Center, StringAlignment.Center, true, false, false, false, 0f, titletextstyle);
 												this.NewRow(height2 + num16);
 											}
 											this.Currentx = 0f;
-											if (String.Compare(subtitle, "", false) != 0)
+											if (Operators.CompareString(subtitle, "", false) != 0)
 											{
 												this.DrawText(subtitle, this.PaperPrintWidth, height3, subtitlefont, StringAlignment.Center, StringAlignment.Center, true, false, false, false, 0f, subtitlestyle);
 												this.NewRow(height3 + num17);
 											}
-											if (String.Compare(lefttitle, "", false) == 0 & String.Compare(middletitle, "", false) == 0 & String.Compare(righttitle, "", false) == 0)
+											if (Operators.CompareString(lefttitle, "", false) == 0 & Operators.CompareString(middletitle, "", false) == 0 & Operators.CompareString(righttitle, "", false) == 0)
 											{
 												this.NewRow(num15);
 											}
@@ -18418,7 +18666,7 @@ namespace LuoEasyPrint
 												}
 												else if (stringAlignment == StringAlignment.Center)
 												{
-													this.Currentx = (float)j * columnwidth + (columnwidth - num) / 2f + Convert.ToSingle(Interaction.IIf(j == 0, 0, (this.PaperPrintWidth - columnwidth * (float)columns) / (float)(checked(columns - 1)) * (float)j));
+													this.Currentx = (float)j * columnwidth + (columnwidth - num) / 2f + Conversions.ToSingle(Interaction.IIf(j == 0, 0, (this.PaperPrintWidth - columnwidth * (float)columns) / (float)(checked(columns - 1)) * (float)j));
 												}
 												else
 												{
@@ -18429,7 +18677,7 @@ namespace LuoEasyPrint
 											}
 											if (LastPageMode | (!LastPageMode & j == num25 - 1))
 											{
-												this.PrintDGVOut(0, thecol, num41 + 1, num38 + 1, "", titleFont, "", subtitlefont, StringAlignment.Near, myborder, false, false, reppagetitle, topfont, "", "", "", bottomfont, "", "", "", minfontsize, 0.001f, 0f, 0f, 0f, 0f, PrintBackColor, titletextstyle, subtitlestyle, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign, true, Convert.ToSingle(Interaction.IIf(this.IsAutoAddEmptyRow, num18, 0)), 0f);
+												this.PrintDGVOut(0, thecol, num41 + 1, num38 + 1, "", titleFont, "", subtitlefont, StringAlignment.Near, myborder, false, false, reppagetitle, topfont, "", "", "", bottomfont, "", "", "", minfontsize, 0.001f, 0f, 0f, 0f, 0f, PrintBackColor, titletextstyle, subtitlestyle, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign, true, Conversions.ToSingle(Interaction.IIf(this.IsAutoAddEmptyRow, num18, 0)), 0f);
 											}
 											else
 											{
@@ -18452,7 +18700,7 @@ namespace LuoEasyPrint
 												}
 												else if (stringAlignment == StringAlignment.Center)
 												{
-													this.Currentx = (float)j * columnwidth + (columnwidth - num) / 2f + Convert.ToSingle(Interaction.IIf(j == 0, 0, (this.PaperPrintWidth - columnwidth * (float)columns) / (float)(checked(columns - 1)) * (float)j));
+													this.Currentx = (float)j * columnwidth + (columnwidth - num) / 2f + Conversions.ToSingle(Interaction.IIf(j == 0, 0, (this.PaperPrintWidth - columnwidth * (float)columns) / (float)(checked(columns - 1)) * (float)j));
 												}
 												else
 												{
@@ -18463,7 +18711,7 @@ namespace LuoEasyPrint
 											}
 											if (i == num26 - 1 & (LastPageMode | (!LastPageMode & j == num25 - 1)))
 											{
-												this.PrintDGVOut(0, thecol, num41 + 1, num38 + 1, "", titleFont, "", subtitlefont, StringAlignment.Near, myborder, false, false, reppagetitle, topfont, "", "", "", bottomfont, "", "", "", minfontsize, 0.001f, 0f, 0f, 0f, 0f, PrintBackColor, titletextstyle, subtitlestyle, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign, true, Convert.ToSingle(Interaction.IIf(this.IsAutoAddEmptyRow, num18, 0)), 0f);
+												this.PrintDGVOut(0, thecol, num41 + 1, num38 + 1, "", titleFont, "", subtitlefont, StringAlignment.Near, myborder, false, false, reppagetitle, topfont, "", "", "", bottomfont, "", "", "", minfontsize, 0.001f, 0f, 0f, 0f, 0f, PrintBackColor, titletextstyle, subtitlestyle, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign, true, Conversions.ToSingle(Interaction.IIf(this.IsAutoAddEmptyRow, num18, 0)), 0f);
 											}
 											else
 											{
@@ -18476,7 +18724,7 @@ namespace LuoEasyPrint
 									{
 										if (i == checked(num26 - 1))
 										{
-											if (!(String.Compare(bl, "", false) == 0 & String.Compare(bm, "", false) == 0 & String.Compare(br, "", false) == 0) && LastPageMode)
+											if (!(Operators.CompareString(bl, "", false) == 0 & Operators.CompareString(bm, "", false) == 0 & Operators.CompareString(br, "", false) == 0) && LastPageMode)
 											{
 												if (this.IsAutoAddEmptyRow)
 												{
@@ -18617,6 +18865,7 @@ namespace LuoEasyPrint
 								return num;
 							}
 						}
+						goto IL_85C;
 					}
 					int[] thecol2 = new int[201];
 					result = this.PrintDGVOut(this.myms, 0, thecol2, 0, 0, title, titleFont, subtitle, subtitlefont, StringAlignment.Center, myborder, false, autoresizerowheight, reppagetitle, this.TextFont, "", "", "", this.TextFont, "", "", "", minfontsize, 0f, 0f, 0f, 0f, 0f, PrintBackColor, titletextstyle, subtitlestyle, false, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign, true, 0f, 0f);
@@ -18715,7 +18964,7 @@ namespace LuoEasyPrint
 						array3[j] = this.myms.Columns[j].DisplayIndex;
 					}
 					Array.Sort<int, int>(array3, array2);
-					int num5=0;
+					int num5;
 					if (fixedcols != 0)
 					{
 						int num3 = 0;
@@ -18754,7 +19003,7 @@ namespace LuoEasyPrint
 						{
 							array4[j] = array[j];
 						}
-						float num12 = this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false);
+						float num12 = this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false);
 						float num13;
 						float num14;
 						float num15;
@@ -18781,7 +19030,7 @@ namespace LuoEasyPrint
 							string txt2 = "";
 							StringAlignment stringAlignment2 = StringAlignment.Near;
 							bool flag = VB2008Print.CanSpanPrint(bl, bm, br, ref txt2, ref stringAlignment2);
-							if (String.Compare(bl, "", false) == 0 & String.Compare(br, "", false) == 0 & String.Compare(bm, "", false) == 0)
+							if (Operators.CompareString(bl, "", false) == 0 & Operators.CompareString(br, "", false) == 0 & Operators.CompareString(bm, "", false) == 0)
 							{
 								num14 = 0f;
 							}
@@ -18810,7 +19059,7 @@ namespace LuoEasyPrint
 								num14 += this.MeasureText("测试", new Font("宋体", 12f)).Height / 8f;
 							}
 							bool flag2 = VB2008Print.CanSpanPrint(lefttitle, middletitle, righttitle, ref txt, ref stringAlignment);
-							if (String.Compare(lefttitle, "", false) == 0 & String.Compare(middletitle, "", false) == 0 & String.Compare(righttitle, "", false) == 0)
+							if (Operators.CompareString(lefttitle, "", false) == 0 & Operators.CompareString(middletitle, "", false) == 0 & Operators.CompareString(righttitle, "", false) == 0)
 							{
 								num15 = 0f;
 							}
@@ -18862,7 +19111,7 @@ namespace LuoEasyPrint
 								num15 += this.DoubleLineSpace / 2f;
 								num14 += this.DoubleLineSpace / 2f;
 							}
-							num19 = num16 + num17 + height2 + num18 + num15 + Convert.ToSingle(Interaction.IIf(this.IsDrawTableFooterEveryPage, num14, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0))));
+							num19 = num16 + num17 + height2 + num18 + num15 + Conversions.ToSingle(Interaction.IIf(this.IsDrawTableFooterEveryPage, num14, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0))));
 							num20 = -1;
 							num21 = 0;
 						}
@@ -18872,7 +19121,7 @@ namespace LuoEasyPrint
 							if (this.myms.Rows[j].Visible)
 							{
 								num20 = j;
-								IL_68E:
+							IL_68E:
 								float currenty;
 								int[] array5;
 								int[,] array6;
@@ -18921,7 +19170,7 @@ namespace LuoEasyPrint
 											}
 											else
 											{
-												num13 = num12 + num24 + Convert.ToSingle(Interaction.IIf(this.IsDrawTableFooterEveryPage, num14, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0))));
+												num13 = num12 + num24 + Conversions.ToSingle(Interaction.IIf(this.IsDrawTableFooterEveryPage, num14, RuntimeHelpers.GetObjectValue(Interaction.IIf(this.OuterBorder, this.DoubleLineSpace + this.OuterBorderWidth / 2f, 0))));
 											}
 										}
 										if (num13 > this.PaperPrintHeight)
@@ -19109,7 +19358,7 @@ namespace LuoEasyPrint
 								return num13;
 							}
 						}
-						
+						goto IL_68E;
 					}
 					if (this.IsShowErrorMSG)
 					{
@@ -19205,7 +19454,7 @@ namespace LuoEasyPrint
 					{
 						array4[i] = this.myms.Columns[array2[i]].Width;
 					}
-					array5[0] = Convert.ToInt32(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0));
+					array5[0] = Conversions.ToInteger(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0));
 					int num7 = 0;
 					int num8 = this.myms.RowCount - 1;
 					for (int i = num7; i <= num8; i++)
@@ -19300,7 +19549,7 @@ namespace LuoEasyPrint
 							num10 = this.PaperPrintWidth - num9;
 						}
 						int currentPage = this.GetCurrentPage();
-						num23 = this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false);
+						num23 = this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false);
 						stringFormat.FormatFlags &= ~StringFormatFlags.NoWrap;
 						height = this.MeasureText(title, titleFont, this.PaperPrintWidth - this.Currentx, stringFormat).Height;
 						if (height == 0f)
@@ -19329,7 +19578,7 @@ namespace LuoEasyPrint
 						if (this.myms.Rows[i].Visible)
 						{
 							num26 = i;
-							IL_534:
+						IL_534:
 							int currentPage;
 							mytree mytree2;
 							float doubleLineSpace;
@@ -19340,17 +19589,17 @@ namespace LuoEasyPrint
 							{
 								if (num26 == -1)
 								{
-									this.MyIsNewPage(height + num24 + height2 + num25 + this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false), true);
+									this.MyIsNewPage(height + num24 + height2 + num25 + this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false), true);
 								}
 								else
 								{
 									if (this.Currenty > 0f)
 									{
-										this.MyIsNewPage(height + num24 + height2 + num25 + this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false) + this.ConvFromDisplay((float)this.myms.Rows[num26].Height, false), true);
+										this.MyIsNewPage(height + num24 + height2 + num25 + this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false) + this.ConvFromDisplay((float)this.myms.Rows[num26].Height, false), true);
 									}
-									if (height + num24 + height2 + num25 + this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false) + this.ConvFromDisplay((float)this.myms.Rows[num26].Height, false) > this.PaperPrintHeight)
+									if (height + num24 + height2 + num25 + this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false) + this.ConvFromDisplay((float)this.myms.Rows[num26].Height, false) > this.PaperPrintHeight)
 									{
-										this.myms.Rows[num26].Height = checked((int)Math.Round((double)this.ConvToDisplay(unchecked(this.PaperPrintHeight - (height + num24 + height2 + num25 + this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false))), false)));
+										this.myms.Rows[num26].Height = checked((int)Math.Round((double)this.ConvToDisplay(unchecked(this.PaperPrintHeight - (height + num24 + height2 + num25 + this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false))), false)));
 									}
 								}
 								currentPage = this.GetCurrentPage();
@@ -19378,14 +19627,14 @@ namespace LuoEasyPrint
 										flag = true;
 										if (i == 0 || reppagetitle)
 										{
-											if (String.Compare(title, "", false) != 0)
+											if (Operators.CompareString(title, "", false) != 0)
 											{
 												this.Currentx = num21;
 												this.DrawText(title, this.PaperPrintWidth - num21, height, titleFont, StringAlignment.Center, StringAlignment.Center, true, false, false, false, 0f, titletextstyle);
 												this.NewRow(height + num24);
 											}
 											this.Currentx = num21;
-											if (String.Compare(subtitle, "", false) != 0)
+											if (Operators.CompareString(subtitle, "", false) != 0)
 											{
 												this.DrawText(subtitle, this.PaperPrintWidth - num21, height2, subtitlefont, StringAlignment.Center, StringAlignment.Center, true, false, false, false, 0f, subtitlestyle);
 												this.NewRow(height2 + num25);
@@ -19416,7 +19665,7 @@ namespace LuoEasyPrint
 															if (dataGridViewColumn.Visible)
 															{
 																string left;
-																if (String.Compare(Versioned.TypeName(dataGridViewColumn), "DataGridViewImageColumn", false) == 0)
+																if (Operators.CompareString(Versioned.TypeName(dataGridViewColumn), "DataGridViewImageColumn", false) == 0)
 																{
 																	if (dataGridViewRow.Cells[array[j]].FormattedValue == null)
 																	{
@@ -19429,9 +19678,9 @@ namespace LuoEasyPrint
 																}
 																else
 																{
-																	left = Convert.ToString(dataGridViewRow.Cells[array[j]].FormattedValue) + "";
+																	left = Conversions.ToString(dataGridViewRow.Cells[array[j]].FormattedValue) + "";
 																}
-																if (printzero | (!printzero & String.Compare(left, "", false) != 0 & String.Compare(left, "0", false) != 0 & String.Compare(left, "0.00", false) != 0))
+																if (printzero | (!printzero & Operators.CompareString(left, "", false) != 0 & Operators.CompareString(left, "0", false) != 0 & Operators.CompareString(left, "0.00", false) != 0))
 																{
 																	if (this.IsUseDoubleLine)
 																	{
@@ -19582,7 +19831,7 @@ namespace LuoEasyPrint
 										currenty = this.Currenty;
 										num32 = 0f;
 										int num42 = 0;
-										float num45=0;
+										float num45;
 										checked
 										{
 											int num43 = columnCount - 1;
@@ -19596,7 +19845,7 @@ namespace LuoEasyPrint
 														float num44 = array6[j];
 														num45 = this.ConvFromDisplay((float)dataGridViewRow.Height, false);
 														string left;
-														if (String.Compare(Versioned.TypeName(dataGridViewColumn), "DataGridViewImageColumn", false) == 0)
+														if (Operators.CompareString(Versioned.TypeName(dataGridViewColumn), "DataGridViewImageColumn", false) == 0)
 														{
 															if (dataGridViewRow.Cells[array[j]].FormattedValue == null)
 															{
@@ -19609,9 +19858,9 @@ namespace LuoEasyPrint
 														}
 														else
 														{
-															left = Convert.ToString(dataGridViewRow.Cells[array[j]].FormattedValue) + "";
+															left = Conversions.ToString(dataGridViewRow.Cells[array[j]].FormattedValue) + "";
 														}
-														if (printzero | (!printzero & String.Compare(left, "", false) != 0 & String.Compare(left, "0", false) != 0 & String.Compare(left, "0.00", false) != 0))
+														if (printzero | (!printzero & Operators.CompareString(left, "", false) != 0 & Operators.CompareString(left, "0", false) != 0 & Operators.CompareString(left, "0.00", false) != 0))
 														{
 															if (this.IsUseDoubleLine)
 															{
@@ -19746,7 +19995,7 @@ namespace LuoEasyPrint
 							return result;
 						}
 					}
-					
+					goto IL_534;
 				}
 				result = 0f;
 				return result;
@@ -19804,7 +20053,7 @@ namespace LuoEasyPrint
 					{
 						array4[i] = this.myms.Columns[array2[i]].Width;
 					}
-					array5[0] = Convert.ToInt32(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0));
+					array5[0] = Conversions.ToInteger(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0));
 					int num7 = 0;
 					int num8 = this.myms.RowCount - 1;
 					for (int i = num7; i <= num8; i++)
@@ -19828,7 +20077,7 @@ namespace LuoEasyPrint
 					}
 					result = 0f;
 					float num12 = currentx;
-					float num13 = this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false);
+					float num13 = this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false);
 					stringFormat.FormatFlags &= ~StringFormatFlags.NoWrap;
 					float height;
 					float num14;
@@ -19865,36 +20114,36 @@ namespace LuoEasyPrint
 						if (this.myms.Rows[i].Visible)
 						{
 							num16 = i;
-							IL_3D5:
+						IL_3D5:
 							float mycellheight;
 							int num19;
 							unchecked
 							{
 								if (num16 == -1)
 								{
-									this.MyIsNewPage(height + num14 + height2 + num15 + this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false), true);
+									this.MyIsNewPage(height + num14 + height2 + num15 + this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false), true);
 								}
 								else
 								{
 									if (this.Currenty > 0f)
 									{
-										this.MyIsNewPage(height + num14 + height2 + num15 + this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false) + this.ConvFromDisplay((float)this.myms.Rows[num16].Height, false), true);
+										this.MyIsNewPage(height + num14 + height2 + num15 + this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false) + this.ConvFromDisplay((float)this.myms.Rows[num16].Height, false), true);
 									}
-									if (height + num14 + height2 + num15 + this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false) + this.ConvFromDisplay((float)this.myms.Rows[num16].Height, false) > this.PaperPrintHeight)
+									if (height + num14 + height2 + num15 + this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false) + this.ConvFromDisplay((float)this.myms.Rows[num16].Height, false) > this.PaperPrintHeight)
 									{
-										this.myms.Rows[num16].Height = checked((int)Math.Round((double)this.ConvToDisplay(unchecked(this.PaperPrintHeight - (height + num14 + height2 + num15 + this.ConvFromDisplay(Convert.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false))), false)));
+										this.myms.Rows[num16].Height = checked((int)Math.Round((double)this.ConvToDisplay(unchecked(this.PaperPrintHeight - (height + num14 + height2 + num15 + this.ConvFromDisplay(Conversions.ToSingle(Interaction.IIf(this.myms.ColumnHeadersVisible, this.myms.ColumnHeadersHeight, 0)), false))), false)));
 									}
 								}
 								mycellheight = this.ConvFromDisplay((float)this.myms.ColumnHeadersHeight, false);
 								VB2008Print.ParaseBorder(myborder);
-								if (String.Compare(title, "", false) != 0)
+								if (Operators.CompareString(title, "", false) != 0)
 								{
 									this.Currentx = num12;
 									this.DrawText(title, this.PaperPrintWidth - num12, height, titleFont, StringAlignment.Center, StringAlignment.Center, true, false, false, false, 0f, titletextstyle);
 									this.NewRow(height + num14);
 								}
 								this.Currentx = num12;
-								if (String.Compare(subtitle, "", false) != 0)
+								if (Operators.CompareString(subtitle, "", false) != 0)
 								{
 									this.DrawText(subtitle, this.PaperPrintWidth - num12, height2, subtitlefont, StringAlignment.Center, StringAlignment.Center, true, false, false, false, 0f, subtitlestyle);
 									this.NewRow(height2 + num15);
@@ -19922,7 +20171,7 @@ namespace LuoEasyPrint
 											if (dataGridViewColumn.Visible)
 											{
 												string left;
-												if (String.Compare(Versioned.TypeName(dataGridViewColumn), "DataGridViewImageColumn", false) == 0)
+												if (Operators.CompareString(Versioned.TypeName(dataGridViewColumn), "DataGridViewImageColumn", false) == 0)
 												{
 													if (dataGridViewRow.Cells[array[j]].FormattedValue == null)
 													{
@@ -19935,9 +20184,9 @@ namespace LuoEasyPrint
 												}
 												else
 												{
-													left = Convert.ToString(dataGridViewRow.Cells[array[j]].FormattedValue) + "";
+													left = Conversions.ToString(dataGridViewRow.Cells[array[j]].FormattedValue) + "";
 												}
-												if (printzero | (!printzero & String.Compare(left, "", false) != 0 & String.Compare(left, "0", false) != 0 & String.Compare(left, "0.00", false) != 0))
+												if (printzero | (!printzero & Operators.CompareString(left, "", false) != 0 & Operators.CompareString(left, "0", false) != 0 & Operators.CompareString(left, "0.00", false) != 0))
 												{
 													if (this.Currentx + array6[j] > this.PaperPrintWidth)
 													{
@@ -19948,14 +20197,14 @@ namespace LuoEasyPrint
 														{
 															if (reppagetitle)
 															{
-																if (String.Compare(title, "", false) != 0)
+																if (Operators.CompareString(title, "", false) != 0)
 																{
 																	this.Currentx = num12;
 																	this.DrawText(title, this.PaperPrintWidth - num12, height, titleFont, StringAlignment.Center, StringAlignment.Center, true, false, false, false, 0f, titletextstyle);
 																	this.NewRow(height + num14);
 																}
 																this.Currentx = num12;
-																if (String.Compare(subtitle, "", false) != 0)
+																if (Operators.CompareString(subtitle, "", false) != 0)
 																{
 																	this.DrawText(subtitle, this.PaperPrintWidth - num12, height2, subtitlefont, StringAlignment.Center, StringAlignment.Center, true, false, false, false, 0f, subtitlestyle);
 																	this.NewRow(height2 + num15);
@@ -19991,14 +20240,14 @@ namespace LuoEasyPrint
 										{
 											if (reppagetitle)
 											{
-												if (String.Compare(title, "", false) != 0)
+												if (Operators.CompareString(title, "", false) != 0)
 												{
 													this.Currentx = num12;
 													this.DrawText(title, this.PaperPrintWidth - num12, height, titleFont, StringAlignment.Center, StringAlignment.Center, true, false, false, false, 0f, titletextstyle);
 													this.NewRow(height + num14);
 												}
 												this.Currentx = num12;
-												if (String.Compare(subtitle, "", false) != 0)
+												if (Operators.CompareString(subtitle, "", false) != 0)
 												{
 													this.DrawText(subtitle, this.PaperPrintWidth - num12, height2, subtitlefont, StringAlignment.Center, StringAlignment.Center, true, false, false, false, 0f, subtitlestyle);
 													this.NewRow(height2 + num15);
@@ -20052,13 +20301,29 @@ namespace LuoEasyPrint
 							return result;
 						}
 					}
+					goto IL_3D5;
 				}
 				result = 0f;
 				return result;
 			}
 		}
 
-		
+		// Token: 0x0600156A RID: 5482 RVA: 0x000B5514 File Offset: 0x000B3714
+		public DataGridView ConvertDataGridToDGV(DataGridView myd)
+		{
+			DataGridView result;
+			if (myd == null)
+			{
+				result = null;
+			}
+			else
+			{
+				result = Module1.ConvertDataGridToDGV(myd, true, true);
+			}
+			return result;
+		}
+
+		// Token: 0x0600156B RID: 5483 RVA: 0x000B5534 File Offset: 0x000B3734
 		private void DrawTextHollow(string text, RectangleF myrect, Font myf, Color textforecolor, StringFormat myformat, float angle = 0f, float minfontsize = 0f)
 		{
 			this.DrawOutText(text, myrect.X, myrect.Y, myrect.Width, myrect.Height, myf, "", textforecolor, myformat, minfontsize, false, Color.White, Color.Black, 1, angle);
@@ -20184,7 +20449,7 @@ namespace LuoEasyPrint
 		public void SetCurrentPrinterName(string printername)
 		{
 			printername = printername.Trim();
-			if (Module1.IsValidPrinterName(printername) && String.Compare(this.Pd.PrinterSettings.PrinterName.ToLower(), printername.ToLower(), false) != 0)
+			if (Module1.IsValidPrinterName(printername) && Operators.CompareString(this.Pd.PrinterSettings.PrinterName.ToLower(), printername.ToLower(), false) != 0)
 			{
 				this.Pd.PrinterSettings.PrinterName = printername;
 				this.mypagesetting.PrinterSettings.PrinterName = printername;
@@ -20391,18 +20656,18 @@ namespace LuoEasyPrint
 				{
 					switch (copyrange)
 					{
-					case VB2008Print.DGVCopyRange.SelectedRows:
-						Module1.CopyDataGridView(sdv, ddv, Module1.GetDGVSelectedMinRowIndex(sdv), Module1.GetDGVSelectedMaxRowIndex(sdv), false);
-						Module1.SetDGVSelectedRowsVisible(sdv, ddv, Module1.GetDGVSelectedMinRowIndex(sdv));
-						break;
-					case VB2008Print.DGVCopyRange.SelectedColumns:
-						Module1.CopyDataGridView(sdv, ddv, false);
-						Module1.SetDGVSelectedColumnsVisible(sdv, ddv);
-						break;
-					case VB2008Print.DGVCopyRange.SelectedRowsAndColumns:
-						Module1.CopyDataGridView(sdv, ddv, Module1.GetDGVSelectedMinRowIndex(sdv), Module1.GetDGVSelectedMaxRowIndex(sdv), false);
-						Module1.SetDGVSelectedRowsAndColumnsVisible(sdv, ddv, Module1.GetDGVSelectedMinRowIndex(sdv));
-						break;
+						case VB2008Print.DGVCopyRange.SelectedRows:
+							Module1.CopyDataGridView(sdv, ddv, Module1.GetDGVSelectedMinRowIndex(sdv), Module1.GetDGVSelectedMaxRowIndex(sdv), false);
+							Module1.SetDGVSelectedRowsVisible(sdv, ddv, Module1.GetDGVSelectedMinRowIndex(sdv));
+							break;
+						case VB2008Print.DGVCopyRange.SelectedColumns:
+							Module1.CopyDataGridView(sdv, ddv, false);
+							Module1.SetDGVSelectedColumnsVisible(sdv, ddv);
+							break;
+						case VB2008Print.DGVCopyRange.SelectedRowsAndColumns:
+							Module1.CopyDataGridView(sdv, ddv, Module1.GetDGVSelectedMinRowIndex(sdv), Module1.GetDGVSelectedMaxRowIndex(sdv), false);
+							Module1.SetDGVSelectedRowsAndColumnsVisible(sdv, ddv, Module1.GetDGVSelectedMinRowIndex(sdv));
+							break;
 					}
 				}
 				catch (Exception ex)
@@ -20460,7 +20725,7 @@ namespace LuoEasyPrint
 				}
 				StringFormat stringFormat = new StringFormat(StringFormat.GenericTypographic);
 				stringFormat.Alignment = StringAlignment.Center;
-				if (String.Compare(title, "", false) != 0)
+				if (Operators.CompareString(title, "", false) != 0)
 				{
 					this.DrawText(title, this.PaperPrintWidth, titlefont, titlecolor, stringFormat, titlestyle);
 					this.NewRow((float)((double)this.LastDrawTextHeight * 1.8));
@@ -20478,7 +20743,7 @@ namespace LuoEasyPrint
 		{
 			if (!this.CancelDocument && !(level != 0 & checked(node.Level + 1) > level))
 			{
-				Image minusbox = Properties.Resources.minusbox;
+				Image minusbox = Resources.minusbox;
 				float height = this.MeasureCell("游平阳艳华", tv.Font).Height;
 				float num = height / 3f * 2f;
 				this.Currenty = y;
@@ -20554,7 +20819,7 @@ namespace LuoEasyPrint
 				}
 				this.DrawCell(text, width, height, font, foreColor, "0000", StringAlignment.Center, StringAlignment.Center, false, true, false, false, font.Size, backcolor, Color.Black, 0);
 				this.Currenty = this.Currenty + height + num3;
-				node.Tag = Convert.ToString(x + height / 2f);
+				node.Tag = Conversions.ToString(x + height / 2f);
 				if (node.NextNode != null)
 				{
 					if (node.Nodes.Count > 0)
@@ -20595,7 +20860,7 @@ namespace LuoEasyPrint
 			{
 				try
 				{
-					float num = Convert.ToSingle(node.Tag);
+					float num = Conversions.ToSingle(node.Tag);
 					if (node.NextNode != null)
 					{
 						this.DrawDashLine(num, y, num, y + lineheight, tv.LineColor, 1f, DashStyle.Dot);
@@ -20616,11 +20881,11 @@ namespace LuoEasyPrint
 			{
 				if (node.Checked)
 				{
-					result = Properties.Resources.check;
+					result = Resources.check;
 				}
 				else
 				{
-					result = Properties.Resources.uncheck;
+					result = Resources.uncheck;
 				}
 			}
 			else if (tv.StateImageList == null)
@@ -20651,7 +20916,7 @@ namespace LuoEasyPrint
 				{
 					image = null;
 				}
-				IL_87:
+			IL_87:
 				result = image;
 			}
 			return result;
@@ -20689,7 +20954,7 @@ namespace LuoEasyPrint
 				{
 					image = null;
 				}
-				IL_6A:
+			IL_6A:
 				if (image == null)
 				{
 					if (tv.ImageIndex >= 0)
@@ -20714,7 +20979,7 @@ namespace LuoEasyPrint
 						image = null;
 					}
 				}
-				IL_C8:
+			IL_C8:
 				result = image;
 			}
 			return result;
@@ -20781,7 +21046,7 @@ namespace LuoEasyPrint
 							text = " " + text;
 						}
 						string text2;
-						if (String.Compare(Strings.Right(text, 1), "0", false) == 0)
+						if (Operators.CompareString(Strings.Right(text, 1), "0", false) == 0)
 						{
 							text2 = "整";
 						}
@@ -20789,44 +21054,44 @@ namespace LuoEasyPrint
 						{
 							text2 = "";
 						}
-						for (;;)
+						for (; ; )
 						{
-							int num=0;
+							int num;
 							num++;
 							int num2 = Strings.Len(text);
 							string text3 = Strings.Right(text, 1);
 							text = Strings.Left(text, num2 - 1);
-							if (String.Compare(text3, " ", false) == 0 | (String.Compare(text, " ", false) == 0 & String.Compare(text3, "0", false) == 0))
+							if (Operators.CompareString(text3, " ", false) == 0 | (Operators.CompareString(text, " ", false) == 0 & Operators.CompareString(text3, "0", false) == 0))
 							{
 								break;
 							}
-							if (String.Compare(text3, ".", false) != 0)
+							if (Operators.CompareString(text3, ".", false) != 0)
 							{
-								if (String.Compare(text3, "-", false) == 0)
+								if (Operators.CompareString(text3, "-", false) == 0)
 								{
 									text2 = "负" + text2;
 								}
-								else if (String.Compare(text3, "0", false) != 0)
+								else if (Operators.CompareString(text3, "0", false) != 0)
 								{
-									text2 = array2[Convert.ToInt32(text3)] + array[num] + text2;
+									text2 = array2[Conversions.ToInteger(text3)] + array[num] + text2;
 									bool flag = true;
 								}
 								else
 								{
-									bool flag=false;
+									bool flag;
 									if (flag)
 									{
-										if ((num != 4 & num != 2) | Convert.ToSingle(text) != 0f)
+										if ((num != 4 & num != 2) | Conversions.ToSingle(text) != 0f)
 										{
 											text2 = "零" + text2;
 										}
 										flag = false;
 									}
-									if ((num == 12 | num == 8) && String.Compare(Strings.Right(text, 3), "000", false) != 0)
+									if ((num == 12 | num == 8) && Operators.CompareString(Strings.Right(text, 3), "000", false) != 0)
 									{
 										text2 = array[num] + text2;
 									}
-									if (num == 4 && Convert.ToSingle(text) != 0f)
+									if (num == 4 && Conversions.ToSingle(text) != 0f)
 									{
 										text2 = array[num] + text2;
 									}
@@ -20843,12 +21108,12 @@ namespace LuoEasyPrint
 		// Token: 0x06001599 RID: 5529 RVA: 0x000B66C4 File Offset: 0x000B48C4
 		public SizeF GetQRBarSize(string txt, string character)
 		{
-			if (String.Compare(character, "", false) == 0)
+			if (Operators.CompareString(character, "", false) == 0)
 			{
 				character = "UTF-8";
 			}
 			SizeF result;
-			if (String.Compare(txt, "", false) == 0)
+			if (Operators.CompareString(txt, "", false) == 0)
 			{
 				SizeF sizeF = new SizeF(0f, 0f);
 				result = sizeF;
@@ -20856,10 +21121,10 @@ namespace LuoEasyPrint
 			else
 			{
 				MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-				BitMatrix bitMatrix = multiFormatWriter.encode(txt, ZXing.BarcodeFormat.QR_CODE, 1, 1, new Dictionary<EncodeHintType, object>
+				BitMatrix bitMatrix = multiFormatWriter.encode(txt, (ZXing.BarcodeFormat)2048, 1, 1, new Dictionary<EncodeHintType, object>
 				{
 					{
-						EncodeHintType.CHARACTER_SET,
+						(EncodeHintType)4,
 						character
 					}
 				});
@@ -20891,7 +21156,7 @@ namespace LuoEasyPrint
 				thewidth = this.GetQRBarSize(txt).Width;
 			}
 			int num = checked((int)Math.Round(Math.Ceiling((double)this.ConvToDisplay(thewidth, true))));
-			if (String.Compare(character, "", false) == 0)
+			if (Operators.CompareString(character, "", false) == 0)
 			{
 				character = "UTF-8";
 			}
@@ -21019,61 +21284,61 @@ namespace LuoEasyPrint
 			float currenty = this.Currenty;
 			switch (barType)
 			{
-			case VB2008Print.BarCode.EAN13:
-				this.DrawBarCodeEAN13(code, width, height, tfont, theforecolor, IsPrintText);
-				goto IL_2B9;
-			case VB2008Print.BarCode.ENA8:
-				this.DrawBarCodeEAN8(code, width, height, tfont, theforecolor, IsPrintText);
-				goto IL_2B9;
-			case VB2008Print.BarCode.Code39:
-				this.DrawBarCode39(code, width, height, tfont, theforecolor, IsPrintText);
-				goto IL_2B9;
-			case VB2008Print.BarCode.Code128:
-			{
-				Code128New code128New = new Code128New(code);
-				try
-				{
-					this.DrawBar(code, code128New.Encoded_Value, width, height, tfont, Color.Transparent, theforecolor, IsPrintText);
+				case VB2008Print.BarCode.EAN13:
+					this.DrawBarCodeEAN13(code, width, height, tfont, theforecolor, IsPrintText);
 					goto IL_2B9;
-				}
-				catch (Exception ex)
-				{
+				case VB2008Print.BarCode.ENA8:
+					this.DrawBarCodeEAN8(code, width, height, tfont, theforecolor, IsPrintText);
 					goto IL_2B9;
-				}
-				break;
-			}
-			case VB2008Print.BarCode.Code128A:
-				break;
-			case VB2008Print.BarCode.Code128B:
-				goto IL_103;
-			case VB2008Print.BarCode.Code128C:
-				goto IL_142;
-			case VB2008Print.BarCode.Codabar:
-				goto IL_181;
-			case VB2008Print.BarCode.Code11:
-				goto IL_1BC;
-			case VB2008Print.BarCode.Code25:
-				goto IL_1FA;
-			case VB2008Print.BarCode.Code25_Stand:
-			{
-				Code_stand25 code_stand = new Code_stand25(code);
-				try
-				{
-					this.DrawBar(code_stand.RawData, code_stand.Encoded_Value, width, height, tfont, Color.Transparent, theforecolor, IsPrintText);
+				case VB2008Print.BarCode.Code39:
+					this.DrawBarCode39(code, width, height, tfont, theforecolor, IsPrintText);
 					goto IL_2B9;
-				}
-				catch (Exception ex2)
-				{
+				case VB2008Print.BarCode.Code128:
+					{
+						Code128New code128New = new Code128New(code);
+						try
+						{
+							this.DrawBar(code, code128New.Encoded_Value, width, height, tfont, Color.Transparent, theforecolor, IsPrintText);
+							goto IL_2B9;
+						}
+						catch (Exception ex)
+						{
+							goto IL_2B9;
+						}
+						break;
+					}
+				case VB2008Print.BarCode.Code128A:
+					break;
+				case VB2008Print.BarCode.Code128B:
+					goto IL_103;
+				case VB2008Print.BarCode.Code128C:
+					goto IL_142;
+				case VB2008Print.BarCode.Codabar:
+					goto IL_181;
+				case VB2008Print.BarCode.Code11:
+					goto IL_1BC;
+				case VB2008Print.BarCode.Code25:
+					goto IL_1FA;
+				case VB2008Print.BarCode.Code25_Stand:
+					{
+						Code_stand25 code_stand = new Code_stand25(code);
+						try
+						{
+							this.DrawBar(code_stand.RawData, code_stand.Encoded_Value, width, height, tfont, Color.Transparent, theforecolor, IsPrintText);
+							goto IL_2B9;
+						}
+						catch (Exception ex2)
+						{
+							goto IL_2B9;
+						}
+						goto IL_247;
+					}
+				case VB2008Print.BarCode.ISBN:
+					goto IL_247;
+				case VB2008Print.BarCode.CODE39Extended:
+					goto IL_283;
+				default:
 					goto IL_2B9;
-				}
-				goto IL_247;
-			}
-			case VB2008Print.BarCode.ISBN:
-				goto IL_247;
-			case VB2008Print.BarCode.CODE39Extended:
-				goto IL_283;
-			default:
-				goto IL_2B9;
 			}
 			Code128 code2 = new Code128(code, Code128.Code128Type.A);
 			try
@@ -21085,7 +21350,7 @@ namespace LuoEasyPrint
 			{
 				goto IL_2B9;
 			}
-			IL_103:
+		IL_103:
 			Code128 code3 = new Code128(code, Code128.Code128Type.B);
 			try
 			{
@@ -21096,7 +21361,7 @@ namespace LuoEasyPrint
 			{
 				goto IL_2B9;
 			}
-			IL_142:
+		IL_142:
 			Code128 code4 = new Code128(code, Code128.Code128Type.C);
 			try
 			{
@@ -21107,7 +21372,7 @@ namespace LuoEasyPrint
 			{
 				goto IL_2B9;
 			}
-			IL_181:
+		IL_181:
 			Codabar codabar = new Codabar(code);
 			try
 			{
@@ -21118,7 +21383,7 @@ namespace LuoEasyPrint
 			{
 				goto IL_2B9;
 			}
-			IL_1BC:
+		IL_1BC:
 			Code11 code5 = new Code11(code);
 			try
 			{
@@ -21129,10 +21394,10 @@ namespace LuoEasyPrint
 			{
 				goto IL_2B9;
 			}
-			IL_1FA:
+		IL_1FA:
 			this.DrawBarCode25(code, width, height, tfont, theforecolor, IsPrintText);
 			goto IL_2B9;
-			IL_247:
+		IL_247:
 			ISBN isbn = new ISBN(code);
 			try
 			{
@@ -21144,7 +21409,7 @@ namespace LuoEasyPrint
 			{
 				goto IL_2B9;
 			}
-			IL_283:
+		IL_283:
 			CODE39Extended code39Extended = new CODE39Extended(code, true);
 			try
 			{
@@ -21153,7 +21418,7 @@ namespace LuoEasyPrint
 			catch (Exception ex9)
 			{
 			}
-			IL_2B9:
+		IL_2B9:
 			this.Currentx = currentx;
 			this.Currenty = currenty;
 		}
@@ -21270,7 +21535,7 @@ namespace LuoEasyPrint
 			{
 				int num6 = code.Length - 1;
 				int i = num5;
-				IL_5A7:
+			IL_5A7:
 				while (i <= num6)
 				{
 					int num7 = 0;
@@ -21279,7 +21544,7 @@ namespace LuoEasyPrint
 						num7++;
 						if (num7 > 43)
 						{
-							IL_58C:
+						IL_58C:
 							if (num7 < 44)
 							{
 								text += "0";
@@ -21290,7 +21555,7 @@ namespace LuoEasyPrint
 						}
 					}
 					text += array[num7, 1];
-				
+					goto IL_58C;
 				}
 				text += array[39, 1];
 				text += "0000000000";
@@ -21306,7 +21571,7 @@ namespace LuoEasyPrint
 				for (int j = num8; j <= num9; j++)
 				{
 					RectangleF myrect2 = new RectangleF(num3, currenty, num2, height);
-					if (String.Compare(Convert.ToString(text[j]), "1", false) == 0)
+					if (Operators.CompareString(Conversions.ToString(text[j]), "1", false) == 0)
 					{
 						this.DrawFillRect(myrect2, theforecolor);
 					}
@@ -21412,7 +21677,7 @@ namespace LuoEasyPrint
 						if (num5 < 7)
 						{
 							int num6 = Convert.ToInt32(Convert.ToString(Code[num5]));
-							if (String.Compare(Convert.ToString(array4[num4][num5 - 1]), "A", false) == 0)
+							if (Operators.CompareString(Conversions.ToString(array4[num4][num5 - 1]), "A", false) == 0)
 							{
 								text += array[num6];
 							}
@@ -21485,7 +21750,7 @@ namespace LuoEasyPrint
 						}
 					}
 					while (num9 <= 10);
-					if (String.Compare(Convert.ToString(text[num8]), "1", false) == 0)
+					if (Operators.CompareString(Conversions.ToString(text[num8]), "1", false) == 0)
 					{
 						this.DrawFillRect(myrect2, theforecolor);
 					}
@@ -21648,7 +21913,7 @@ namespace LuoEasyPrint
 						}
 					}
 					while (num8 <= 10);
-					if (String.Compare(Convert.ToString(text[num7]), "1", false) == 0)
+					if (Operators.CompareString(Conversions.ToString(text[num7]), "1", false) == 0)
 					{
 						this.DrawFillRect(myrect2, theforecolor);
 					}
@@ -21745,7 +22010,7 @@ namespace LuoEasyPrint
 					int num7 = text.Length - 1;
 					for (int j = num6; j <= num7; j++)
 					{
-						if (String.Compare(Convert.ToString(text[j]), "0", false) == 0)
+						if (Operators.CompareString(Conversions.ToString(text[j]), "0", false) == 0)
 						{
 							text3 += "1";
 						}
@@ -21753,7 +22018,7 @@ namespace LuoEasyPrint
 						{
 							text3 += "111";
 						}
-						if (String.Compare(Convert.ToString(text2[j]), "0", false) == 0)
+						if (Operators.CompareString(Conversions.ToString(text2[j]), "0", false) == 0)
 						{
 							text3 += "0";
 						}
@@ -21778,7 +22043,7 @@ namespace LuoEasyPrint
 				for (int k = num9; k <= num10; k++)
 				{
 					RectangleF myrect2 = new RectangleF(num, currenty, num8, height);
-					if (String.Compare(Convert.ToString(text3[k]), "1", false) == 0)
+					if (Operators.CompareString(Conversions.ToString(text3[k]), "1", false) == 0)
 					{
 						this.DrawFillRect(myrect2, theforecolor);
 					}
@@ -21891,7 +22156,7 @@ namespace LuoEasyPrint
 					int num5 = Encoded_Value.Length - 1;
 					for (int i = num4; i <= num5; i++)
 					{
-						if (String.Compare(Convert.ToString(Encoded_Value[i]), "1", false) == 0)
+						if (Operators.CompareString(Conversions.ToString(Encoded_Value[i]), "1", false) == 0)
 						{
 							myrect2.X = num2;
 							myrect2.Width = num;
@@ -22204,10 +22469,10 @@ namespace LuoEasyPrint
 		{
 			if (!this.CancelDocument)
 			{
-				if (String.Compare(shtml, "", false) != 0)
+				if (Operators.CompareString(shtml, "", false) != 0)
 				{
 					string text = HtmlAndRtf.HTML_To_RTF(shtml);
-					if (String.Compare(text, "", false) != 0)
+					if (Operators.CompareString(text, "", false) != 0)
 					{
 						this.DrawRichTextBox(text);
 					}
@@ -22220,10 +22485,10 @@ namespace LuoEasyPrint
 		{
 			if (!this.CancelDocument)
 			{
-				if (String.Compare(sxml, "", false) != 0)
+				if (Operators.CompareString(sxml, "", false) != 0)
 				{
 					string text = XMLtoRTF.XML2RTF(sxml);
-					if (String.Compare(text, "", false) != 0)
+					if (Operators.CompareString(text, "", false) != 0)
 					{
 						this.DrawRichTextBox(text);
 					}
@@ -22275,7 +22540,7 @@ namespace LuoEasyPrint
 						num4 = this.ConvertInchToMm(num4 / 100f);
 					}
 					int i = 0;
-					float num9=0;
+					float num9;
 					checked
 					{
 						Margins papermargin = new Margins((int)Math.Round((double)(unchecked((num5 + num4) * 10f))), (int)Math.Round((double)(unchecked(num6 * 10f))), (int)Math.Round((double)(unchecked((num7 + num3) * 10f))), (int)Math.Round((double)(unchecked(num8 * 10f))));
@@ -22401,7 +22666,7 @@ namespace LuoEasyPrint
 					int num9 = 0;
 					Margins papermargin = checked(new Margins((int)Math.Round((double)(unchecked((num5 + num4) * 10f))), (int)Math.Round((double)(unchecked(num6 * 10f))), (int)Math.Round((double)(unchecked((num7 + num3) * 10f))), (int)Math.Round((double)(unchecked(num8 * 10f)))));
 					float num10 = RichBoxPrint.DrawRTF(rtb, this.myg, false, num, num2, papermargin, 0, rtb.TextLength, ref num9);
-					this.MyWrite("rtf", Convert.ToString(this.W_myrtfnum), Convert.ToString(0), Convert.ToString(num9), Convert.ToString(num), Convert.ToString(num2), Convert.ToString((num5 + num4) * 10f), Convert.ToString(num6 * 10f), Convert.ToString((num7 + num3) * 10f), Convert.ToString(num8 * 10f));
+					this.MyWrite("rtf", Conversions.ToString(this.W_myrtfnum), Conversions.ToString(0), Conversions.ToString(num9), Conversions.ToString(num), Conversions.ToString(num2), Conversions.ToString((num5 + num4) * 10f), Conversions.ToString(num6 * 10f), Conversions.ToString((num7 + num3) * 10f), Conversions.ToString(num8 * 10f));
 					if (num9 < rtb.TextLength)
 					{
 						papermargin = checked(new Margins((int)Math.Round((double)(unchecked(num5 * 10f))), (int)Math.Round((double)(unchecked(num6 * 10f))), (int)Math.Round((double)(unchecked(num7 * 10f))), (int)Math.Round((double)(unchecked(num8 * 10f)))));
@@ -22410,7 +22675,7 @@ namespace LuoEasyPrint
 							this.MyNewPage();
 							int num11 = num9;
 							num10 = RichBoxPrint.DrawRTF(rtb, this.myg, false, num, num2, papermargin, num11, rtb.TextLength, ref num9);
-							this.MyWrite("rtf", Convert.ToString(this.W_myrtfnum), Convert.ToString(num11), Convert.ToString(num9), Convert.ToString(num), Convert.ToString(num2), Convert.ToString(num5 * 10f), Convert.ToString(num6 * 10f), Convert.ToString(num7 * 10f), Convert.ToString(num8 * 10f));
+							this.MyWrite("rtf", Conversions.ToString(this.W_myrtfnum), Conversions.ToString(num11), Conversions.ToString(num9), Conversions.ToString(num), Conversions.ToString(num2), Conversions.ToString(num5 * 10f), Conversions.ToString(num6 * 10f), Conversions.ToString(num7 * 10f), Conversions.ToString(num8 * 10f));
 						}
 					}
 					RichBoxPrint.RTBFormatRangeDone(rtb);
@@ -22471,7 +22736,7 @@ namespace LuoEasyPrint
 			this.PY(this.myg);
 			checked
 			{
-				int i=0;
+				int i;
 				RichBoxPrint.DrawRTF(richTextBox, this.myg, true, myw, myh, new Margins((int)Math.Round((double)lmargin), (int)Math.Round((double)rmargin), (int)Math.Round((double)tmargin), (int)Math.Round((double)bmargin)), fromchar, tochar, ref i);
 				while (i < tochar)
 				{
@@ -22531,15 +22796,15 @@ namespace LuoEasyPrint
 				this.IsNeedCheckNewPage = false;
 				switch (Alg)
 				{
-				case StringAlignment.Center:
-					this.Currentx = x + (this.PaperPrintWidth - x - num) / 2f;
-					break;
-				case StringAlignment.Far:
-					this.Currentx = this.PaperPrintWidth - num;
-					break;
-				default:
-					this.Currentx = x;
-					break;
+					case StringAlignment.Center:
+						this.Currentx = x + (this.PaperPrintWidth - x - num) / 2f;
+						break;
+					case StringAlignment.Far:
+						this.Currentx = this.PaperPrintWidth - num;
+						break;
+					default:
+						this.Currentx = x;
+						break;
 				}
 				Margins margins = (Margins)this.CellMargin.Clone();
 				this.CellMargin = new Margins(0, 0, 0, 0);
@@ -22578,8 +22843,8 @@ namespace LuoEasyPrint
 				{
 					List<Control> list = new List<Control>();
 					int num2 = 0;
-					Control control=new Control();
-					float num9=0;
+					Control control;
+					float num9;
 					checked
 					{
 						int num3 = pl.Controls.Count - 1;
@@ -22602,13 +22867,13 @@ namespace LuoEasyPrint
 							Control control3 = list[num7];
 							unchecked
 							{
-								if (control3.Visible & String.Compare(Convert.ToString(control3.Tag), "不打印", false) != 0)
+								if (control3.Visible & Operators.CompareString(Conversions.ToString(control3.Tag), "不打印", false) != 0)
 								{
 									float currentx2 = currentx + this.ConvFromDisplay(basex + (float)control3.Location.X, true);
 									float currenty = num + this.ConvFromDisplay(basey + (float)control3.Location.Y, false);
 									float mywidth = this.ConvFromDisplay((float)control3.Width, true);
 									float num8 = this.ConvFromDisplay((float)control3.Height, false);
-									if (String.Compare(Versioned.TypeName(control3).ToLower(), "panel", false) != 0 & String.Compare(Versioned.TypeName(control3).ToLower(), "groupbox", false) != 0 & String.Compare(Versioned.TypeName(control3).ToLower(), "tablelayoutpanel", false) != 0 & String.Compare(Versioned.TypeName(control3).ToLower(), "splitcontainer", false) != 0)
+									if (Operators.CompareString(Versioned.TypeName(control3).ToLower(), "panel", false) != 0 & Operators.CompareString(Versioned.TypeName(control3).ToLower(), "groupbox", false) != 0 & Operators.CompareString(Versioned.TypeName(control3).ToLower(), "tablelayoutpanel", false) != 0 & Operators.CompareString(Versioned.TypeName(control3).ToLower(), "splitcontainer", false) != 0)
 									{
 										checked
 										{
@@ -22683,25 +22948,25 @@ namespace LuoEasyPrint
 										control = control3;
 									}
 									string left = Versioned.TypeName(control3).ToLower();
-									if (String.Compare(left, "textbox", false) == 0)
+									if (Operators.CompareString(left, "textbox", false) == 0)
 									{
 										TextBox textBox = (TextBox)control3;
 										StringAlignment myHalg;
 										switch (textBox.TextAlign)
 										{
-										case HorizontalAlignment.Right:
-											myHalg = StringAlignment.Far;
-											break;
-										case HorizontalAlignment.Center:
-											myHalg = StringAlignment.Center;
-											break;
-										default:
-											myHalg = StringAlignment.Near;
-											break;
+											case HorizontalAlignment.Right:
+												myHalg = StringAlignment.Far;
+												break;
+											case HorizontalAlignment.Center:
+												myHalg = StringAlignment.Center;
+												break;
+											default:
+												myHalg = StringAlignment.Near;
+												break;
 										}
 										this.DrawCell(textBox.Text, mywidth, num8, textBox.Font, textforecolor, "0000", myHalg, StringAlignment.Center, textBox.WordWrap, true, false, false, 20f, backcolor, Color.Black, 0);
 									}
-									else if (String.Compare(left, "label", false) == 0)
+									else if (Operators.CompareString(left, "label", false) == 0)
 									{
 										Label label = (Label)control3;
 										if (label.Image != null)
@@ -22710,17 +22975,17 @@ namespace LuoEasyPrint
 										}
 										StringAlignment valign = mbsjmodule.GetValign(label.TextAlign);
 										StringAlignment myHalg = mbsjmodule.GetHalign(label.TextAlign);
-										this.DrawCell(label.Text, mywidth, num8, label.Font, textforecolor, Convert.ToString(Interaction.IIf(label.BorderStyle == BorderStyle.None, "0000", "1111")), myHalg, valign, DataTypeConversion.ToBoolean(Interaction.IIf(label.AutoSize, false, true)), true, false, false, 20f, backcolor, Color.Black, 0);
+										this.DrawCell(label.Text, mywidth, num8, label.Font, textforecolor, Conversions.ToString(Interaction.IIf(label.BorderStyle == BorderStyle.None, "0000", "1111")), myHalg, valign, Conversions.ToBoolean(Interaction.IIf(label.AutoSize, false, true)), true, false, false, 20f, backcolor, Color.Black, 0);
 									}
 									else
 									{
-										if (String.Compare(left, "groupbox", false) != 0)
+										if (Operators.CompareString(left, "groupbox", false) != 0)
 										{
-											if (String.Compare(left, "panel", false) != 0)
+											if (Operators.CompareString(left, "panel", false) != 0)
 											{
-												if (String.Compare(left, "tablelayoutpanel", false) != 0)
+												if (Operators.CompareString(left, "tablelayoutpanel", false) != 0)
 												{
-													if (String.Compare(left, "splitcontainer", false) != 0)
+													if (Operators.CompareString(left, "splitcontainer", false) != 0)
 													{
 														Control control4 = control3;
 														Color foreColor = control4.ForeColor;
@@ -22759,7 +23024,7 @@ namespace LuoEasyPrint
 										}
 									}
 								}
-								IL_61C:;
+							IL_61C:;
 							}
 							num7++;
 						}
@@ -22796,7 +23061,7 @@ namespace LuoEasyPrint
 			{
 				float currentx = this.Currentx;
 				this.Currentx = cx;
-				if (String.Compare(Versioned.TypeName(pl).ToLower(), "panel", false) == 0)
+				if (Operators.CompareString(Versioned.TypeName(pl).ToLower(), "panel", false) == 0)
 				{
 					Panel panel = new Panel();
 					if (!isDrawBkcolor)
@@ -22823,7 +23088,7 @@ namespace LuoEasyPrint
 					this.DrawControl(panel, this.Currentx, this.Currenty);
 					panel.Dispose();
 				}
-				else if (String.Compare(Versioned.TypeName(pl).ToLower(), "groupbox", false) == 0)
+				else if (Operators.CompareString(Versioned.TypeName(pl).ToLower(), "groupbox", false) == 0)
 				{
 					GroupBox groupBox = new GroupBox();
 					if (!isDrawBkcolor)
@@ -23064,7 +23329,7 @@ namespace LuoEasyPrint
 		// Token: 0x060015E1 RID: 5601 RVA: 0x00007CB1 File Offset: 0x00005EB1
 		public void Rotate(double degrees, PointF point)
 		{
-			this.MyWrite("rotate", Convert.ToString(degrees), Convert.ToString(this.MyConvTo(point.X)), Convert.ToString(this.MyConvTo(point.Y)));
+			this.MyWrite("rotate", Conversions.ToString(degrees), Conversions.ToString(this.MyConvTo(point.X)), Conversions.ToString(this.MyConvTo(point.Y)));
 		}
 
 		// Token: 0x060015E2 RID: 5602 RVA: 0x000BA08C File Offset: 0x000B828C
@@ -23088,13 +23353,13 @@ namespace LuoEasyPrint
 		// Token: 0x060015E4 RID: 5604 RVA: 0x00007CF5 File Offset: 0x00005EF5
 		public void TranslateTransform(float dx, float dy)
 		{
-			this.MyWrite("ttf", Convert.ToString(this.MyConvTo(dx)), Convert.ToString(this.MyConvTo(dy)));
+			this.MyWrite("ttf", Conversions.ToString(this.MyConvTo(dx)), Conversions.ToString(this.MyConvTo(dy)));
 		}
 
 		// Token: 0x060015E5 RID: 5605 RVA: 0x00007D1A File Offset: 0x00005F1A
 		public void TranslateTransform(float dx, float dy, MatrixOrder order)
 		{
-			this.MyWrite("ttf2", Convert.ToString(this.MyConvTo(dx)), Convert.ToString(this.MyConvTo(dy)), Convert.ToString((int)order));
+			this.MyWrite("ttf2", Conversions.ToString(this.MyConvTo(dx)), Conversions.ToString(this.MyConvTo(dy)), Conversions.ToString((int)order));
 		}
 
 		// Token: 0x060015E6 RID: 5606 RVA: 0x00007D45 File Offset: 0x00005F45
@@ -23112,13 +23377,13 @@ namespace LuoEasyPrint
 		// Token: 0x060015E8 RID: 5608 RVA: 0x00007D64 File Offset: 0x00005F64
 		public void RotateTransform(float angle)
 		{
-			this.MyWrite("rtff", Convert.ToString(angle));
+			this.MyWrite("rtff", Conversions.ToString(angle));
 		}
 
 		// Token: 0x060015E9 RID: 5609 RVA: 0x00007D77 File Offset: 0x00005F77
 		public void RotateTransform(float angle, MatrixOrder order)
 		{
-			this.MyWrite("rtff2", Convert.ToString(angle), Convert.ToString((int)order));
+			this.MyWrite("rtff2", Conversions.ToString(angle), Conversions.ToString((int)order));
 		}
 
 		// Token: 0x060015EA RID: 5610 RVA: 0x00007D90 File Offset: 0x00005F90
@@ -23170,8 +23435,8 @@ namespace LuoEasyPrint
 							float num = (float)(((double)length / 2.0 - (double)i - 0.5) * (double)txtspace);
 							sizeF = this.MeasureString(array[i], txtfont, true);
 							rectangleF = new RectangleF(0f, 0f, sizeF.Width, sizeF.Height);
-							float x = (float)((double)cPointf.X - (double)rx * Math.Sin((double)num * 3.1415926535897931 / 180.0) - (double)(sizeF.Width / 2f) * Math.Cos((double)num * 3.1415926535897931 / 180.0));
-							float y = (float)((double)cPointf.Y - (double)ry * Math.Cos((double)num * 3.1415926535897931 / 180.0) + (double)(sizeF.Height / 2f) * Math.Sin((double)num * 3.1415926535897931 / 180.0));
+							float x = (float)((double)cPointf.X - (double)rx * Math.Sin((double)num * 3.141592653589793 / 180.0) - (double)(sizeF.Width / 2f) * Math.Cos((double)num * 3.141592653589793 / 180.0));
+							float y = (float)((double)cPointf.Y - (double)ry * Math.Cos((double)num * 3.141592653589793 / 180.0) + (double)(sizeF.Height / 2f) * Math.Sin((double)num * 3.141592653589793 / 180.0));
 							double degrees = (double)(num * -1f);
 							PointF point = new PointF(x, y);
 							this.Rotate(degrees, point);
@@ -23187,8 +23452,8 @@ namespace LuoEasyPrint
 						unchecked
 						{
 							float num = (float)(((double)i - (double)length / 2.0 + 0.5) * (double)txtspace);
-							float x = (float)((double)cPointf.X + (double)rx * Math.Sin((double)num * 3.1415926535897931 / 180.0) - (double)(sizeF.Width / 2f) * Math.Cos((double)num * 3.1415926535897931 / 180.0));
-							float y = (float)((double)cPointf.Y - (double)ry * Math.Cos((double)num * 3.1415926535897931 / 180.0) - (double)(sizeF.Height / 2f) * Math.Sin((double)num * 3.1415926535897931 / 180.0));
+							float x = (float)((double)cPointf.X + (double)rx * Math.Sin((double)num * 3.141592653589793 / 180.0) - (double)(sizeF.Width / 2f) * Math.Cos((double)num * 3.141592653589793 / 180.0));
+							float y = (float)((double)cPointf.Y - (double)ry * Math.Cos((double)num * 3.141592653589793 / 180.0) - (double)(sizeF.Height / 2f) * Math.Sin((double)num * 3.141592653589793 / 180.0));
 							sizeF = this.MeasureString(array[i], txtfont, true);
 							rectangleF = new RectangleF(0f, 0f, sizeF.Width, sizeF.Height);
 							double degrees2 = (double)num;
@@ -23212,8 +23477,8 @@ namespace LuoEasyPrint
 							float num = (float)(((double)(checked(length - 1)) / 2.0 - (double)i) * (double)txtspace);
 							sizeF = this.MeasureString(array[i], txtfont, true);
 							rectangleF = new RectangleF(0f, 0f, sizeF.Width, sizeF.Height);
-							float x = (float)((double)cPointf.X - (double)rx * Math.Sin((double)num * 3.1415926535897931 / 180.0) - (double)(sizeF.Width / 2f) * Math.Cos((double)num * 3.1415926535897931 / 180.0));
-							float y = (float)((double)cPointf.Y - (double)ry * Math.Cos((double)num * 3.1415926535897931 / 180.0) + (double)(sizeF.Height / 2f) * Math.Sin((double)num * 3.1415926535897931 / 180.0));
+							float x = (float)((double)cPointf.X - (double)rx * Math.Sin((double)num * 3.141592653589793 / 180.0) - (double)(sizeF.Width / 2f) * Math.Cos((double)num * 3.141592653589793 / 180.0));
+							float y = (float)((double)cPointf.Y - (double)ry * Math.Cos((double)num * 3.141592653589793 / 180.0) + (double)(sizeF.Height / 2f) * Math.Sin((double)num * 3.141592653589793 / 180.0));
 							double degrees3 = (double)(num * -1f);
 							PointF point = new PointF(x, y);
 							this.Rotate(degrees3, point);
@@ -23229,8 +23494,8 @@ namespace LuoEasyPrint
 						unchecked
 						{
 							float num = (float)(((double)i - (double)(checked(length - 1)) / 2.0) * (double)txtspace);
-							float x = (float)((double)cPointf.X + (double)rx * Math.Sin((double)num * 3.1415926535897931 / 180.0) - (double)(sizeF.Width / 2f) * Math.Cos((double)num * 3.1415926535897931 / 180.0));
-							float y = (float)((double)cPointf.Y - (double)ry * Math.Cos((double)num * 3.1415926535897931 / 180.0) - (double)(sizeF.Height / 2f) * Math.Sin((double)num * 3.1415926535897931 / 180.0));
+							float x = (float)((double)cPointf.X + (double)rx * Math.Sin((double)num * 3.141592653589793 / 180.0) - (double)(sizeF.Width / 2f) * Math.Cos((double)num * 3.141592653589793 / 180.0));
+							float y = (float)((double)cPointf.Y - (double)ry * Math.Cos((double)num * 3.141592653589793 / 180.0) - (double)(sizeF.Height / 2f) * Math.Sin((double)num * 3.141592653589793 / 180.0));
 							sizeF = this.MeasureString(array[i], txtfont, true);
 							rectangleF = new RectangleF(0f, 0f, sizeF.Width, sizeF.Height);
 							double degrees4 = (double)num;
@@ -23256,14 +23521,14 @@ namespace LuoEasyPrint
 			{
 				if (array2.Length == 1)
 				{
-					if (DataTypeConversion.IsNumeric(myborder) & Strings.Len(myborder) == 4 & Strings.InStr(myborder, ".", CompareMethod.Binary) <= 0)
+					if (Versioned.IsNumeric(myborder) & Strings.Len(myborder) == 4 & Strings.InStr(myborder, ".", CompareMethod.Binary) <= 0)
 					{
 						array[0] = (float)Conversion.Val(Strings.Mid(myborder, 1, 1));
 						array[1] = (float)Conversion.Val(Strings.Mid(myborder, 2, 1));
 						array[2] = (float)Conversion.Val(Strings.Mid(myborder, 3, 1));
 						array[3] = (float)Conversion.Val(Strings.Mid(myborder, 4, 1));
 					}
-					else if (DataTypeConversion.IsNumeric(myborder))
+					else if (Versioned.IsNumeric(myborder))
 					{
 						array[0] = (float)Conversion.Val(myborder);
 						array[1] = (float)Conversion.Val(myborder);
@@ -23307,14 +23572,14 @@ namespace LuoEasyPrint
 		private string SavePenAsString(Pen pp)
 		{
 			string str = "\u0001\u0005";
-			string str2 = Convert.ToString((int)pp.Alignment);
+			string str2 = Conversions.ToString((int)pp.Alignment);
 			str2 = str2 + str + this.SaveBrush(pp.Brush);
-			str2 = str2 + str + Convert.ToString(this.MyConvTo(pp.Width));
-			str2 = str2 + str + Convert.ToString((int)pp.DashCap);
-			str2 = str2 + str + Convert.ToString(pp.DashOffset);
-			str2 = str2 + str + Convert.ToString((int)pp.DashStyle);
-			str2 = str2 + str + Convert.ToString((int)pp.EndCap);
-			return str2 + str + Convert.ToString((int)pp.StartCap);
+			str2 = str2 + str + Conversions.ToString(this.MyConvTo(pp.Width));
+			str2 = str2 + str + Conversions.ToString((int)pp.DashCap);
+			str2 = str2 + str + Conversions.ToString(pp.DashOffset);
+			str2 = str2 + str + Conversions.ToString((int)pp.DashStyle);
+			str2 = str2 + str + Conversions.ToString((int)pp.EndCap);
+			return str2 + str + Conversions.ToString((int)pp.StartCap);
 		}
 
 		// Token: 0x060015F0 RID: 5616 RVA: 0x000BA928 File Offset: 0x000B8B28
@@ -23325,14 +23590,14 @@ namespace LuoEasyPrint
 			try
 			{
 				string[] array = Strings.Split(ss, delimiter, -1, CompareMethod.Binary);
-				result = new Pen(VB2008Print.RestoreBrush(array[1]), Convert.ToSingle(array[2]))
+				result = new Pen(VB2008Print.RestoreBrush(array[1]), Conversions.ToSingle(array[2]))
 				{
-					Alignment = (PenAlignment)Convert.ToInt32(array[0]),
-					DashCap = (DashCap)Convert.ToInt32(array[3]),
-					DashOffset = Convert.ToSingle(array[4]),
-					DashStyle = (DashStyle)Convert.ToInt32(array[5]),
-					EndCap = (LineCap)Convert.ToInt32(array[6]),
-					StartCap = (LineCap)Convert.ToInt32(array[7])
+					Alignment = (PenAlignment)Conversions.ToInteger(array[0]),
+					DashCap = (DashCap)Conversions.ToInteger(array[3]),
+					DashOffset = Conversions.ToSingle(array[4]),
+					DashStyle = (DashStyle)Conversions.ToInteger(array[5]),
+					EndCap = (LineCap)Conversions.ToInteger(array[6]),
+					StartCap = (LineCap)Conversions.ToInteger(array[7])
 				};
 			}
 			catch (Exception ex)
@@ -23365,7 +23630,7 @@ namespace LuoEasyPrint
 						{
 							if (i == 0)
 							{
-								text2 = Convert.ToString((float)this.mypagesetting.Margins.Left + this.MyConvTo(pp.PathPoints[i].X)) + "," + Convert.ToString((float)this.mypagesetting.Margins.Top + this.MyConvTo(pp.PathPoints[i].Y));
+								text2 = Conversions.ToString((float)this.mypagesetting.Margins.Left + this.MyConvTo(pp.PathPoints[i].X)) + "," + Conversions.ToString((float)this.mypagesetting.Margins.Top + this.MyConvTo(pp.PathPoints[i].Y));
 							}
 							else
 							{
@@ -23373,9 +23638,9 @@ namespace LuoEasyPrint
 								{
 									text2,
 									";",
-									Convert.ToString((float)this.mypagesetting.Margins.Left + this.MyConvTo(pp.PathPoints[i].X)),
+									Conversions.ToString((float)this.mypagesetting.Margins.Left + this.MyConvTo(pp.PathPoints[i].X)),
 									",",
-									Convert.ToString((float)this.mypagesetting.Margins.Top + this.MyConvTo(pp.PathPoints[i].Y))
+									Conversions.ToString((float)this.mypagesetting.Margins.Top + this.MyConvTo(pp.PathPoints[i].Y))
 								});
 							}
 						}
@@ -23392,11 +23657,11 @@ namespace LuoEasyPrint
 			checked
 			{
 				GraphicsPath result;
-				if (String.Compare(pathtype, "", false) == 0)
+				if (Operators.CompareString(pathtype, "", false) == 0)
 				{
 					result = null;
 				}
-				else if (String.Compare(pathpoint, "", false) == 0)
+				else if (Operators.CompareString(pathpoint, "", false) == 0)
 				{
 					result = null;
 				}
@@ -23422,8 +23687,8 @@ namespace LuoEasyPrint
 							for (int i = num; i <= num2; i++)
 							{
 								string[] array3 = Strings.Split(array[i], ",", -1, CompareMethod.Binary);
-								array2[i].X = Convert.ToSingle(array3[0]);
-								array2[i].Y = Convert.ToSingle(array3[1]);
+								array2[i].X = Conversions.ToSingle(array3[0]);
+								array2[i].Y = Conversions.ToSingle(array3[1]);
 							}
 						}
 						catch (Exception ex)
@@ -23456,7 +23721,7 @@ namespace LuoEasyPrint
 		private static Brush RestoreBrush(string ss)
 		{
 			Brush result;
-			if (String.Compare(ss, "", false) == 0)
+			if (Operators.CompareString(ss, "", false) == 0)
 			{
 				result = null;
 			}
@@ -23466,23 +23731,23 @@ namespace LuoEasyPrint
 				{
 					string[] array = Strings.Split(ss, "\u0003\u0005", -1, CompareMethod.Binary);
 					string left = array[0];
-					if (String.Compare(left, "1", false) == 0)
+					if (Operators.CompareString(left, "1", false) == 0)
 					{
 						result = VB2008Print.RestoreSolidBrushFromString(array[1]);
 					}
-					else if (String.Compare(left, "2", false) == 0)
+					else if (Operators.CompareString(left, "2", false) == 0)
 					{
 						result = VB2008Print.RestoreTexttureBrushFromString(array[1]);
 					}
-					else if (String.Compare(left, "3", false) == 0)
+					else if (Operators.CompareString(left, "3", false) == 0)
 					{
 						result = VB2008Print.RestoreLinearGradientBrushFromString1(array[1]);
 					}
-					else if (String.Compare(left, "4", false) == 0)
+					else if (Operators.CompareString(left, "4", false) == 0)
 					{
 						result = VB2008Print.RestoreLinearGradientBrushFromString2(array[1]);
 					}
-					else if (String.Compare(left, "5", false) == 0)
+					else if (Operators.CompareString(left, "5", false) == 0)
 					{
 						result = VB2008Print.RestoreHatchBrushFromString(array[1]);
 					}
@@ -23590,7 +23855,7 @@ namespace LuoEasyPrint
 			{
 				string text = Module1.ConvertColorToString(sb.BackgroundColor);
 				text = text + "\u0002\u0005" + Module1.ConvertColorToString(sb.ForegroundColor);
-				text = text + "\u0002\u0005" + Convert.ToString((int)sb.HatchStyle);
+				text = text + "\u0002\u0005" + Conversions.ToString((int)sb.HatchStyle);
 				result = text;
 			}
 			return result;
@@ -23603,7 +23868,7 @@ namespace LuoEasyPrint
 			HatchBrush result;
 			try
 			{
-				result = new HatchBrush((HatchStyle)Convert.ToInt32(array[2]), Module1.ConvertStringToColor(array[1]), Module1.ConvertStringToColor(array[0]));
+				result = new HatchBrush((HatchStyle)Conversions.ToInteger(array[2]), Module1.ConvertStringToColor(array[1]), Module1.ConvertStringToColor(array[0]));
 			}
 			catch (Exception ex)
 			{
@@ -23623,7 +23888,7 @@ namespace LuoEasyPrint
 			else
 			{
 				string text = Module1.ConvertImageToString(sb.Image);
-				text = text + "\u0002\u0005" + Convert.ToString((int)sb.WrapMode);
+				text = text + "\u0002\u0005" + Conversions.ToString((int)sb.WrapMode);
 				result = text;
 			}
 			return result;
@@ -23636,11 +23901,11 @@ namespace LuoEasyPrint
 			TextureBrush result;
 			try
 			{
-				result = new TextureBrush(Module1.ConvertStringToImage(array[0]), (WrapMode)Convert.ToInt32(array[1]));
+				result = new TextureBrush(Module1.ConvertStringToImage(array[0]), (WrapMode)Conversions.ToInteger(array[1]));
 			}
 			catch (Exception ex)
 			{
-				result = new TextureBrush(null, (WrapMode)Convert.ToInt32(array[1]));
+				result = new TextureBrush(null, (WrapMode)Conversions.ToInteger(array[1]));
 			}
 			return result;
 		}
@@ -23658,12 +23923,12 @@ namespace LuoEasyPrint
 				string text = sb.GammaCorrection ? "1" : "0";
 				text = text + "\u0002\u0005" + Module1.ConvertColorToString(sb.LinearColors[0]);
 				text = text + "\u0002\u0005" + Module1.ConvertColorToString(sb.LinearColors[1]);
-				text = text + "\u0002\u0005" + Convert.ToString((float)this.mypagesetting.Margins.Left + this.MyConvTo(sb.Rectangle.X));
-				text = text + "\u0002\u0005" + Convert.ToString(this.MyConvTo(sb.Rectangle.Width));
-				text = text + "\u0002\u0005" + Convert.ToString((float)this.mypagesetting.Margins.Top + this.MyConvTo(sb.Rectangle.Y));
-				text = text + "\u0002\u0005" + Convert.ToString(this.MyConvTo(sb.Rectangle.Height));
-				text = text + "\u0002\u0005" + Convert.ToString((int)sb.WrapMode);
-				text = text + "\u0002\u0005" + Convert.ToString((int)mymode);
+				text = text + "\u0002\u0005" + Conversions.ToString((float)this.mypagesetting.Margins.Left + this.MyConvTo(sb.Rectangle.X));
+				text = text + "\u0002\u0005" + Conversions.ToString(this.MyConvTo(sb.Rectangle.Width));
+				text = text + "\u0002\u0005" + Conversions.ToString((float)this.mypagesetting.Margins.Top + this.MyConvTo(sb.Rectangle.Y));
+				text = text + "\u0002\u0005" + Conversions.ToString(this.MyConvTo(sb.Rectangle.Height));
+				text = text + "\u0002\u0005" + Conversions.ToString((int)sb.WrapMode);
+				text = text + "\u0002\u0005" + Conversions.ToString((int)mymode);
 				text = text + "\u0002\u0005" + VB2008Print.SaveArrayAsString(sb.Blend.Factors);
 				text = text + "\u0002\u0005" + VB2008Print.SaveArrayAsString(sb.Blend.Positions);
 				result = text;
@@ -23680,16 +23945,16 @@ namespace LuoEasyPrint
 			color = Module1.ConvertStringToColor(array[1]);
 			color2 = Module1.ConvertStringToColor(array[2]);
 			RectangleF rect=new RectangleF();
-			rect.X = Convert.ToSingle(array[3]);
-			rect.Width = Convert.ToSingle(array[4]);
-			rect.Y = Convert.ToSingle(array[5]);
-			rect.Height = Convert.ToSingle(array[6]);
+			rect.X = Conversions.ToSingle(array[3]);
+			rect.Width = Conversions.ToSingle(array[4]);
+			rect.Y = Conversions.ToSingle(array[5]);
+			rect.Height = Conversions.ToSingle(array[6]);
 			LinearGradientBrush linearGradientBrush;
 			try
 			{
-				linearGradientBrush = new LinearGradientBrush(rect, color, color2, (LinearGradientMode)Convert.ToInt32(array[8]));
-				linearGradientBrush.GammaCorrection = DataTypeConversion.ToBoolean(array[0]);
-				linearGradientBrush.WrapMode = (WrapMode)Convert.ToInt32(array[7]);
+				linearGradientBrush = new LinearGradientBrush(rect, color, color2, (LinearGradientMode)Conversions.ToInteger(array[8]));
+				linearGradientBrush.GammaCorrection = Conversions.ToBoolean(array[0]);
+				linearGradientBrush.WrapMode = (WrapMode)Conversions.ToInteger(array[7]);
 				linearGradientBrush.Blend = new Blend
 				{
 					Factors = VB2008Print.RestoreArrayFromString(array[9]),
@@ -23701,8 +23966,8 @@ namespace LuoEasyPrint
 				try
 				{
 					linearGradientBrush = new LinearGradientBrush(rect, color, color2, LinearGradientMode.Horizontal);
-					linearGradientBrush.GammaCorrection = DataTypeConversion.ToBoolean(array[0]);
-					linearGradientBrush.WrapMode = (WrapMode)Convert.ToInt32(array[7]);
+					linearGradientBrush.GammaCorrection = Conversions.ToBoolean(array[0]);
+					linearGradientBrush.WrapMode = (WrapMode)Conversions.ToInteger(array[7]);
 				}
 				catch (Exception ex2)
 				{
@@ -23725,12 +23990,12 @@ namespace LuoEasyPrint
 				string text = sb.GammaCorrection ? "1" : "0";
 				text = text + "\u0002\u0005" + Module1.ConvertColorToString(sb.LinearColors[0]);
 				text = text + "\u0002\u0005" + Module1.ConvertColorToString(sb.LinearColors[1]);
-				text = text + "\u0002\u0005" + Convert.ToString((float)this.mypagesetting.Margins.Left + this.MyConvTo(sb.Rectangle.X));
-				text = text + "\u0002\u0005" + Convert.ToString(this.MyConvTo(sb.Rectangle.Width));
-				text = text + "\u0002\u0005" + Convert.ToString((float)this.mypagesetting.Margins.Top + this.MyConvTo(sb.Rectangle.Y));
-				text = text + "\u0002\u0005" + Convert.ToString(this.MyConvTo(sb.Rectangle.Height));
-				text = text + "\u0002\u0005" + Convert.ToString((int)sb.WrapMode);
-				text = text + "\u0002\u0005" + Convert.ToString(myangle);
+				text = text + "\u0002\u0005" + Conversions.ToString((float)this.mypagesetting.Margins.Left + this.MyConvTo(sb.Rectangle.X));
+				text = text + "\u0002\u0005" + Conversions.ToString(this.MyConvTo(sb.Rectangle.Width));
+				text = text + "\u0002\u0005" + Conversions.ToString((float)this.mypagesetting.Margins.Top + this.MyConvTo(sb.Rectangle.Y));
+				text = text + "\u0002\u0005" + Conversions.ToString(this.MyConvTo(sb.Rectangle.Height));
+				text = text + "\u0002\u0005" + Conversions.ToString((int)sb.WrapMode);
+				text = text + "\u0002\u0005" + Conversions.ToString(myangle);
 				text = text + "\u0002\u0005" + VB2008Print.SaveArrayAsString(sb.Blend.Factors);
 				text = text + "\u0002\u0005" + VB2008Print.SaveArrayAsString(sb.Blend.Positions);
 				result = text;
@@ -23747,16 +24012,16 @@ namespace LuoEasyPrint
 			color = Module1.ConvertStringToColor(array[1]);
 			color2 = Module1.ConvertStringToColor(array[2]);
 			RectangleF rect=new RectangleF();
-			rect.X = Convert.ToSingle(array[3]);
-			rect.Width = Convert.ToSingle(array[4]);
-			rect.Y = Convert.ToSingle(array[5]);
-			rect.Height = Convert.ToSingle(array[6]);
+			rect.X = Conversions.ToSingle(array[3]);
+			rect.Width = Conversions.ToSingle(array[4]);
+			rect.Y = Conversions.ToSingle(array[5]);
+			rect.Height = Conversions.ToSingle(array[6]);
 			LinearGradientBrush linearGradientBrush;
 			try
 			{
-				linearGradientBrush = new LinearGradientBrush(rect, color, color2, Convert.ToSingle(array[8]));
-				linearGradientBrush.GammaCorrection = DataTypeConversion.ToBoolean(array[0]);
-				linearGradientBrush.WrapMode = (WrapMode)Convert.ToInt32(array[7]);
+				linearGradientBrush = new LinearGradientBrush(rect, color, color2, Conversions.ToSingle(array[8]));
+				linearGradientBrush.GammaCorrection = Conversions.ToBoolean(array[0]);
+				linearGradientBrush.WrapMode = (WrapMode)Conversions.ToInteger(array[7]);
 				linearGradientBrush.Blend = new Blend
 				{
 					Factors = VB2008Print.RestoreArrayFromString(array[9]),
@@ -23768,8 +24033,8 @@ namespace LuoEasyPrint
 				try
 				{
 					linearGradientBrush = new LinearGradientBrush(rect, color, color2, LinearGradientMode.Horizontal);
-					linearGradientBrush.GammaCorrection = DataTypeConversion.ToBoolean(array[0]);
-					linearGradientBrush.WrapMode = (WrapMode)Convert.ToInt32(array[7]);
+					linearGradientBrush.GammaCorrection = Conversions.ToBoolean(array[0]);
+					linearGradientBrush.WrapMode = (WrapMode)Conversions.ToInteger(array[7]);
 				}
 				catch (Exception ex2)
 				{
@@ -23795,12 +24060,12 @@ namespace LuoEasyPrint
 				}
 				else
 				{
-					string text = Convert.ToString(pp[0]);
+					string text = Conversions.ToString(pp[0]);
 					int num = 1;
 					int num2 = pp.Length - 1;
 					for (int i = num; i <= num2; i++)
 					{
-						text = text + "," + Convert.ToString(pp[i]);
+						text = text + "," + Conversions.ToString(pp[i]);
 					}
 					result = text;
 				}
@@ -23814,7 +24079,7 @@ namespace LuoEasyPrint
 			checked
 			{
 				float[] result;
-				if (String.Compare(ss, "", false) == 0)
+				if (Operators.CompareString(ss, "", false) == 0)
 				{
 					result = null;
 				}
@@ -23826,7 +24091,7 @@ namespace LuoEasyPrint
 					int num2 = array.Length - 1;
 					for (int i = num; i <= num2; i++)
 					{
-						array2[i] = Convert.ToSingle(array[i]);
+						array2[i] = Conversions.ToSingle(array[i]);
 					}
 					result = array2;
 				}
@@ -23837,7 +24102,7 @@ namespace LuoEasyPrint
 		// Token: 0x06001603 RID: 5635 RVA: 0x000BB6CC File Offset: 0x000B98CC
 		public void DrawTextEx(string s, Font font, Brush brush, float linespace)
 		{
-			if (String.Compare(s, "", false) == 0)
+			if (Operators.CompareString(s, "", false) == 0)
 			{
 				this.mylastdrawtextheight = 0f;
 				this.mylastdrawtextwidth = 0f;
@@ -23852,7 +24117,7 @@ namespace LuoEasyPrint
 				{
 					font = new Font("宋体", 12f, FontStyle.Regular);
 				}
-				if (String.Compare(s, "", false) == 0)
+				if (Operators.CompareString(s, "", false) == 0)
 				{
 					this.mylastdrawtextheight = 0f;
 					this.mylastdrawtextwidth = 0f;
@@ -23871,8 +24136,8 @@ namespace LuoEasyPrint
 					mysize = this.MeasureString("测试", font, false);
 					mysize.Width = this.PaperPrintWidth - this.Currentx;
 					SizeF sizeF = default(SizeF);
-					int num=0;
-					int num2=0;
+					int num;
+					int num2;
 					sizeF = this.MeasureString(s, font, mysize, stringFormat, ref num, ref num2, false);
 					string text = Strings.Mid(s, 1, num);
 					s = Strings.Mid(s, checked(num + 1));
@@ -23881,7 +24146,7 @@ namespace LuoEasyPrint
 						string text2 = text;
 						RectangleF myrect = new RectangleF(this.Currentx, this.Currenty, sizeF.Width, sizeF.Height);
 						this.DrawText(text2, myrect, font, brush, stringFormat, font.Size);
-						if (String.Compare(s, "", false) == 0)
+						if (Operators.CompareString(s, "", false) == 0)
 						{
 							stringFormat.Dispose();
 							break;
@@ -23904,7 +24169,7 @@ namespace LuoEasyPrint
 		{
 			if (mywidth > 0f)
 			{
-				if (String.Compare(s, "", false) == 0)
+				if (Operators.CompareString(s, "", false) == 0)
 				{
 					this.mylastdrawtextheight = 0f;
 					this.mylastdrawtextwidth = 0f;
@@ -23919,7 +24184,7 @@ namespace LuoEasyPrint
 					{
 						font = new Font("宋体", 12f, FontStyle.Regular);
 					}
-					if (String.Compare(s, "", false) == 0)
+					if (Operators.CompareString(s, "", false) == 0)
 					{
 						this.mylastdrawtextheight = 0f;
 						this.mylastdrawtextwidth = 0f;
@@ -23939,8 +24204,8 @@ namespace LuoEasyPrint
 						mysize = this.MeasureString("测试", font, false);
 						mysize.Width = mywidth;
 						SizeF sizeF = default(SizeF);
-						int num=0;
-						int num2=0;
+						int num;
+						int num2;
 						sizeF = this.MeasureString(s, font, mysize, stringFormat, ref num, ref num2, false);
 						string text = Strings.Mid(s, 1, num);
 						s = Strings.Mid(s, checked(num + 1));
@@ -23949,7 +24214,7 @@ namespace LuoEasyPrint
 							string text2 = text;
 							RectangleF myrect = new RectangleF(currentx, this.Currenty, sizeF.Width, sizeF.Height);
 							this.DrawText(text2, myrect, font, brush, stringFormat, font.Size);
-							if (String.Compare(s, "", false) == 0)
+							if (Operators.CompareString(s, "", false) == 0)
 							{
 								stringFormat.Dispose();
 								break;
@@ -23972,7 +24237,7 @@ namespace LuoEasyPrint
 		public void DrawTextEx(string s, Font font, Brush brush, float linespace, float charspace)
 		{
 			s = Strings.Replace(s, "\n", "", 1, -1, CompareMethod.Binary);
-			if (String.Compare(s, "", false) == 0)
+			if (Operators.CompareString(s, "", false) == 0)
 			{
 				this.mylastdrawtextheight = 0f;
 				this.mylastdrawtextwidth = 0f;
@@ -24054,7 +24319,7 @@ namespace LuoEasyPrint
 			s = Strings.Replace(s, "\n", "", 1, -1, CompareMethod.Binary);
 			if (mywidth > 0f)
 			{
-				if (String.Compare(s, "", false) == 0)
+				if (Operators.CompareString(s, "", false) == 0)
 				{
 					this.mylastdrawtextheight = 0f;
 					this.mylastdrawtextwidth = 0f;
@@ -24069,7 +24334,7 @@ namespace LuoEasyPrint
 					{
 						font = new Font("宋体", 12f, FontStyle.Regular);
 					}
-					if (String.Compare(s, "", false) == 0)
+					if (Operators.CompareString(s, "", false) == 0)
 					{
 						this.mylastdrawtextheight = 0f;
 						this.mylastdrawtextwidth = 0f;
@@ -24106,7 +24371,7 @@ namespace LuoEasyPrint
 									{
 										return;
 									}
-									if (String.Compare(text, "", false) != 0)
+									if (Operators.CompareString(text, "", false) != 0)
 									{
 										this.DrawTextExSingleChar(text, font, brush);
 									}
@@ -24160,7 +24425,7 @@ namespace LuoEasyPrint
 			{
 				result = -1f;
 			}
-			else if (String.Compare(s, "", false) == 0)
+			else if (Operators.CompareString(s, "", false) == 0)
 			{
 				result = 0f;
 			}
@@ -24189,12 +24454,12 @@ namespace LuoEasyPrint
 				mysize = this.MeasureString("测试", font, false);
 				mysize.Width = mywidth;
 				SizeF sizeF = default(SizeF);
-				int num=0;
-				int num2=0;
+				int num;
+				int num2;
 				sizeF = this.MeasureString(s, font, mysize, stringFormat, ref num, ref num2, false);
 				s = Strings.Mid(s, checked(num + 1));
 				float num3 = height;
-				while (String.Compare(s, "", false) != 0)
+				while (Operators.CompareString(s, "", false) != 0)
 				{
 					num3 = num3 + height + linespace;
 					mysize.Height = height;
@@ -24221,7 +24486,7 @@ namespace LuoEasyPrint
 			{
 				StringFormat stringFormat = new StringFormat(StringFormat.GenericTypographic);
 				stringFormat.FormatFlags = (stringFormat.FormatFlags | StringFormatFlags.LineLimit | StringFormatFlags.MeasureTrailingSpaces);
-				if (String.Compare(s, "", false) == 0)
+				if (Operators.CompareString(s, "", false) == 0)
 				{
 					result = 0f;
 				}
@@ -24309,7 +24574,7 @@ namespace LuoEasyPrint
 			{
 				result = -1f;
 			}
-			else if (String.Compare(s, "", false) == 0)
+			else if (Operators.CompareString(s, "", false) == 0)
 			{
 				result = 0f;
 			}
@@ -24370,7 +24635,7 @@ namespace LuoEasyPrint
 			{
 				result = -1f;
 			}
-			else if (String.Compare(s, "", false) == 0)
+			else if (Operators.CompareString(s, "", false) == 0)
 			{
 				result = 0f;
 			}
@@ -24434,7 +24699,7 @@ namespace LuoEasyPrint
 		{
 			s = Strings.Replace(s, "\n", "", 1, -1, CompareMethod.Binary);
 			float result;
-			if (String.Compare(s, "", false) == 0)
+			if (Operators.CompareString(s, "", false) == 0)
 			{
 				result = 0f;
 			}
@@ -24468,7 +24733,7 @@ namespace LuoEasyPrint
 		private float MeasureTextExWidthSingleLine(string s, Font thefont, float charspace)
 		{
 			float result;
-			if (String.Compare(s, "", false) == 0)
+			if (Operators.CompareString(s, "", false) == 0)
 			{
 				result = 0f;
 			}
@@ -24504,7 +24769,7 @@ namespace LuoEasyPrint
 		// Token: 0x0600160D RID: 5645 RVA: 0x000BC71C File Offset: 0x000BA91C
 		private void DrawTextExSingleChar(string s, Font font, Brush brush)
 		{
-			if (String.Compare(s, "", false) == 0)
+			if (Operators.CompareString(s, "", false) == 0)
 			{
 				this.mylastdrawtextheight = 0f;
 				this.mylastdrawtextwidth = 0f;
@@ -24635,7 +24900,7 @@ namespace LuoEasyPrint
 		// Token: 0x06001613 RID: 5651 RVA: 0x000BCA50 File Offset: 0x000BAC50
 		public void SetClip(RectangleF rect, CombineMode combineMode)
 		{
-			this.MyWrite("setclip", Convert.ToString((float)this.mypagesetting.Margins.Left + this.MyConvTo(rect.X)), Convert.ToString((float)this.mypagesetting.Margins.Top + this.MyConvTo(rect.Y)), Convert.ToString(this.MyConvTo(rect.Width)), Convert.ToString(this.MyConvTo(rect.Height)), Convert.ToString((int)combineMode));
+			this.MyWrite("setclip", Conversions.ToString((float)this.mypagesetting.Margins.Left + this.MyConvTo(rect.X)), Conversions.ToString((float)this.mypagesetting.Margins.Top + this.MyConvTo(rect.Y)), Conversions.ToString(this.MyConvTo(rect.Width)), Conversions.ToString(this.MyConvTo(rect.Height)), Conversions.ToString((int)combineMode));
 		}
 
 		// Token: 0x06001614 RID: 5652 RVA: 0x00007DD9 File Offset: 0x00005FD9
@@ -24650,7 +24915,7 @@ namespace LuoEasyPrint
 			string t = "";
 			string t2 = "";
 			this.SaveGraphicsPath(path, ref t, ref t2);
-			this.MyWrite("setclip2", t, t2, Convert.ToString((int)combineMode));
+			this.MyWrite("setclip2", t, t2, Conversions.ToString((int)combineMode));
 		}
 
 		// Token: 0x06001616 RID: 5654 RVA: 0x000BCB14 File Offset: 0x000BAD14
@@ -24660,7 +24925,7 @@ namespace LuoEasyPrint
 			{
 				Graphics graphics = this.myg;
 				RectangleF rect = new RectangleF(x, y, mywidth, myheight);
-				graphics.SetClip(rect, (CombineMode)Convert.ToInt32(tt));
+				graphics.SetClip(rect, (CombineMode)Conversions.ToInteger(tt));
 			}
 		}
 
@@ -24670,7 +24935,7 @@ namespace LuoEasyPrint
 			GraphicsPath graphicsPath = VB2008Print.RestoreGraphicsPath(s1, s2);
 			if (graphicsPath != null && this.myg != null)
 			{
-				this.myg.SetClip(graphicsPath, (CombineMode)Convert.ToInt32(tt));
+				this.myg.SetClip(graphicsPath, (CombineMode)Conversions.ToInteger(tt));
 			}
 		}
 
@@ -24698,7 +24963,7 @@ namespace LuoEasyPrint
 				UnicodeEncoding unicodeEncoding = new UnicodeEncoding();
 				byte[] bytes = unicodeEncoding.GetBytes(text);
 				text = Convert.ToBase64String(bytes);
-				this.MyWrite("drawexpress", Convert.ToString(this.MyConvTo((float)this.PaperMargins.Left + rect.Left)), Convert.ToString(this.MyConvTo((float)this.PaperMargins.Top + rect.Top)), Convert.ToString(this.MyConvTo(rect.Width)), Convert.ToString(this.MyConvTo(rect.Height)), text);
+				this.MyWrite("drawexpress", Conversions.ToString(this.MyConvTo((float)this.PaperMargins.Left + rect.Left)), Conversions.ToString(this.MyConvTo((float)this.PaperMargins.Top + rect.Top)), Conversions.ToString(this.MyConvTo(rect.Width)), Conversions.ToString(this.MyConvTo(rect.Height)), text);
 			}
 		}
 
@@ -24743,7 +25008,7 @@ namespace LuoEasyPrint
 				UnicodeEncoding unicodeEncoding = new UnicodeEncoding();
 				byte[] bytes = unicodeEncoding.GetBytes(text);
 				text = Convert.ToBase64String(bytes);
-				this.MyWrite("drawchartlet", Convert.ToString(this.MyConvTo((float)this.PaperMargins.Left + rect.Left)), Convert.ToString(this.MyConvTo((float)this.PaperMargins.Top + rect.Top)), Convert.ToString(this.MyConvTo(rect.Width)), Convert.ToString(this.MyConvTo(rect.Height)), text);
+				this.MyWrite("drawchartlet", Conversions.ToString(this.MyConvTo((float)this.PaperMargins.Left + rect.Left)), Conversions.ToString(this.MyConvTo((float)this.PaperMargins.Top + rect.Top)), Conversions.ToString(this.MyConvTo(rect.Width)), Conversions.ToString(this.MyConvTo(rect.Height)), text);
 			}
 		}
 
@@ -24796,7 +25061,7 @@ namespace LuoEasyPrint
 					num--;
 					if (num >= 1)
 					{
-						this.cpage.Text = "第" + Convert.ToString(num) + "页";
+						this.cpage.Text = "第" + Conversions.ToString(num) + "页";
 					}
 					else
 					{
@@ -24821,11 +25086,11 @@ namespace LuoEasyPrint
 					num++;
 					if (num <= this.GetPages())
 					{
-						this.cpage.Text = "第" + Convert.ToString(num) + "页";
+						this.cpage.Text = "第" + Conversions.ToString(num) + "页";
 					}
 					else
 					{
-						this.cpage.Text = "第" + Convert.ToString(this.GetPages()) + "页";
+						this.cpage.Text = "第" + Conversions.ToString(this.GetPages()) + "页";
 					}
 				}
 				catch (Exception ex)
@@ -24840,7 +25105,7 @@ namespace LuoEasyPrint
 		{
 			try
 			{
-				this.cpage.Text = "第" + Convert.ToString(this.GetPages()) + "页";
+				this.cpage.Text = "第" + Conversions.ToString(this.GetPages()) + "页";
 			}
 			catch (Exception ex)
 			{
@@ -24854,7 +25119,7 @@ namespace LuoEasyPrint
 			if (myicon != null && !this.CancelDocument)
 			{
 				string t = Module1.ConvertIcoToString(myicon);
-				this.MyWrite("drawicon", Convert.ToString(this.MyConvTo((float)this.PaperMargins.Left + x)), Convert.ToString(this.MyConvTo((float)this.PaperMargins.Top + y)), t);
+				this.MyWrite("drawicon", Conversions.ToString(this.MyConvTo((float)this.PaperMargins.Left + x)), Conversions.ToString(this.MyConvTo((float)this.PaperMargins.Top + y)), t);
 			}
 		}
 
@@ -24984,7 +25249,7 @@ namespace LuoEasyPrint
 				this.DrawRectangle(mypen, myrect);
 				this.DrawLine(mypen, currentx, currenty, currentx + w, currenty + h);
 				float num = (float)Math.Sqrt((double)(h / 2f * h / 2f + w * w));
-				float num2 = (float)(Math.Asin((double)(h / 2f / num)) * 180.0 / 3.1415926535897931);
+				float num2 = (float)(Math.Asin((double)(h / 2f / num)) * 180.0 / 3.141592653589793);
 				this.Currentx = currentx;
 				float height = this.MeasureText("测试", rowheaderfont).Height;
 				this.Currenty = currenty - height / 2f;
@@ -24994,7 +25259,7 @@ namespace LuoEasyPrint
 				this.DrawText(rowheadertext, num, height, rowheaderfont, mycolor, StringAlignment.Center, StringAlignment.Center, false, true, false, false, 6f, 0);
 				this.ResetTransform();
 				num = (float)Math.Sqrt((double)(h * h + w * w));
-				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.1415926535897931);
+				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.141592653589793);
 				height = this.MeasureText("测试", colheaderfont).Height;
 				this.Currentx = currentx;
 				this.Currenty = currenty + height / 6f;
@@ -25027,7 +25292,7 @@ namespace LuoEasyPrint
 				this.DrawLine(mypen, currentx + w / 2f, currenty, currentx + w, currenty + h);
 				this.DrawLine(mypen, currentx, currenty + h / 2f, currentx + w, currenty + h);
 				float num = (float)Math.Sqrt((double)(h * h + w / 2f * w / 2f));
-				float num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.1415926535897931);
+				float num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.141592653589793);
 				this.Currentx = currentx + w / 2f;
 				float height = this.MeasureText("测试", rowheaderfont).Height;
 				this.Currenty = currenty - height;
@@ -25037,7 +25302,7 @@ namespace LuoEasyPrint
 				this.DrawText(rowheadertext, num, height, rowheaderfont, mycolor, StringAlignment.Center, StringAlignment.Center, false, true, false, false, 6f, 0);
 				this.ResetTransform();
 				num = (float)Math.Sqrt((double)(h * h + w * w));
-				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.1415926535897931);
+				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.141592653589793);
 				height = this.MeasureText("测试", dataheaderfont).Height;
 				this.Currenty = currenty - height / 2f;
 				this.Currentx = currentx;
@@ -25047,7 +25312,7 @@ namespace LuoEasyPrint
 				this.DrawText(dataheadertext, num, height, dataheaderfont, mycolor, StringAlignment.Center, StringAlignment.Center, false, true, false, false, 6f, 0);
 				this.ResetTransform();
 				num = (float)Math.Sqrt((double)(h / 2f * h / 2f + w * w));
-				num2 = (float)(Math.Asin((double)(h / 2f / num)) * 180.0 / 3.1415926535897931);
+				num2 = (float)(Math.Asin((double)(h / 2f / num)) * 180.0 / 3.141592653589793);
 				height = this.MeasureText("测试", colheaderfont).Height;
 				this.Currenty = currenty + h / 2f;
 				this.Currentx = currentx;
@@ -25080,7 +25345,7 @@ namespace LuoEasyPrint
 				this.DrawLine(mypen, currentx, currenty, currentx + w, currenty + h / 2f);
 				this.DrawLine(mypen, currentx, currenty, currentx + w, currenty + h);
 				float num = (float)Math.Sqrt((double)(h / 2f * h / 2f + w * w));
-				float num2 = (float)(Math.Asin((double)(h / 2f / num)) * 180.0 / 3.1415926535897931);
+				float num2 = (float)(Math.Asin((double)(h / 2f / num)) * 180.0 / 3.141592653589793);
 				this.Currentx = currentx;
 				float height = this.MeasureText("测试", rowheaderfont1).Height;
 				this.Currenty = currenty - height;
@@ -25090,7 +25355,7 @@ namespace LuoEasyPrint
 				this.DrawText(rowheadertext1, num, height, rowheaderfont1, mycolor, StringAlignment.Center, StringAlignment.Center, false, true, false, false, 6f, 0);
 				this.ResetTransform();
 				num = (float)Math.Sqrt((double)(h * 3f / 4f * h * 3f / 4f + w * w));
-				num2 = (float)(Math.Asin((double)(h * 3f / 4f / num)) * 180.0 / 3.1415926535897931);
+				num2 = (float)(Math.Asin((double)(h * 3f / 4f / num)) * 180.0 / 3.141592653589793);
 				height = this.MeasureText("测试", rowheaderfont2).Height;
 				this.Currenty = currenty - height / 2f;
 				this.Currentx = currentx;
@@ -25100,7 +25365,7 @@ namespace LuoEasyPrint
 				this.DrawText(rowheadertext2, num, height, rowheaderfont2, mycolor, StringAlignment.Center, StringAlignment.Center, false, true, false, false, 6f, 0);
 				this.ResetTransform();
 				num = (float)Math.Sqrt((double)(h * h + w / 2f * w / 2f));
-				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.1415926535897931);
+				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.141592653589793);
 				height = this.MeasureText("测试", colheaderfont).Height;
 				this.Currenty = currenty - height / 2f;
 				this.Currentx = currentx;
@@ -25133,7 +25398,7 @@ namespace LuoEasyPrint
 				this.DrawLine(mypen, currentx, currenty, currentx + w, currenty + h);
 				this.DrawLine(mypen, currentx, currenty, currentx + w / 2f, currenty + h);
 				float num = (float)Math.Sqrt((double)(h / 2f * h / 2f + w * w));
-				float num2 = (float)(Math.Asin((double)(h / 2f / num)) * 180.0 / 3.1415926535897931);
+				float num2 = (float)(Math.Asin((double)(h / 2f / num)) * 180.0 / 3.141592653589793);
 				this.Currentx = currentx;
 				float height = this.MeasureText("测试", rowheaderfont).Height;
 				this.Currenty = currenty - height / 2f;
@@ -25143,7 +25408,7 @@ namespace LuoEasyPrint
 				this.DrawText(rowheadertext, num, height, rowheaderfont, mycolor, StringAlignment.Center, StringAlignment.Center, false, true, false, false, 6f, 0);
 				this.ResetTransform();
 				num = (float)Math.Sqrt((double)(h * h + w * 3f / 4f * w * 3f / 4f));
-				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.1415926535897931);
+				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.141592653589793);
 				height = this.MeasureText("测试", colheaderfont1).Height;
 				this.Currenty = currenty - height / 2f;
 				this.Currentx = currentx;
@@ -25153,7 +25418,7 @@ namespace LuoEasyPrint
 				this.DrawText(colheadertext1, num, height, colheaderfont1, mycolor, StringAlignment.Center, StringAlignment.Center, false, true, false, false, 6f, 0);
 				this.ResetTransform();
 				num = (float)Math.Sqrt((double)(h * h + w / 2f * w / 2f));
-				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.1415926535897931);
+				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.141592653589793);
 				height = this.MeasureText("测试", colheaderfont2).Height;
 				this.Currenty = currenty + height / 6f;
 				this.Currentx = currentx;
@@ -25187,7 +25452,7 @@ namespace LuoEasyPrint
 				this.DrawLine(mypen, currentx, currenty, currentx + w, currenty + h);
 				this.DrawLine(mypen, currentx, currenty, currentx + w / 2f, currenty + h);
 				float num = (float)Math.Sqrt((double)(h / 2f * h / 2f + w * w));
-				float num2 = (float)(Math.Asin((double)(h / 2f / num)) * 180.0 / 3.1415926535897931);
+				float num2 = (float)(Math.Asin((double)(h / 2f / num)) * 180.0 / 3.141592653589793);
 				this.Currentx = currentx;
 				float height = this.MeasureText("测试", rowheaderfont1).Height;
 				this.Currenty = currenty - height;
@@ -25197,7 +25462,7 @@ namespace LuoEasyPrint
 				this.DrawText(rowheadertext1, num, height, rowheaderfont1, mycolor, StringAlignment.Center, StringAlignment.Center, false, true, false, false, 6f, 0);
 				this.ResetTransform();
 				num = (float)Math.Sqrt((double)(h * 3f / 4f * h * 3f / 4f + w * w));
-				num2 = (float)(Math.Asin((double)(h * 3f / 4f / num)) * 180.0 / 3.1415926535897931);
+				num2 = (float)(Math.Asin((double)(h * 3f / 4f / num)) * 180.0 / 3.141592653589793);
 				height = this.MeasureText("测试", rowheaderfont2).Height;
 				this.Currenty = currenty - height / 2f;
 				this.Currentx = currentx;
@@ -25207,7 +25472,7 @@ namespace LuoEasyPrint
 				this.DrawText(rowheadertext2, num, height, rowheaderfont2, mycolor, StringAlignment.Center, StringAlignment.Center, false, true, false, false, 6f, 0);
 				this.ResetTransform();
 				num = (float)Math.Sqrt((double)(h * h + w * 3f / 4f * w * 3f / 4f));
-				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.1415926535897931);
+				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.141592653589793);
 				height = this.MeasureText("测试", colheaderfont1).Height;
 				this.Currenty = currenty - height / 2f;
 				this.Currentx = currentx;
@@ -25216,7 +25481,7 @@ namespace LuoEasyPrint
 				this.Rotate(degrees3, point);
 				this.DrawText(colheadertext1, num, height, colheaderfont1, mycolor, StringAlignment.Center, StringAlignment.Center, false, true, false, false, 6f, 0);
 				num = (float)Math.Sqrt((double)(h * h + w / 2f * w / 2f));
-				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.1415926535897931);
+				num2 = (float)(Math.Asin((double)(h / num)) * 180.0 / 3.141592653589793);
 				height = this.MeasureText("测试", colheaderfont2).Height;
 				this.Currenty = currenty + height / 6f;
 				this.Currentx = currentx;
@@ -25347,7 +25612,7 @@ namespace LuoEasyPrint
 				}
 				else
 				{
-					if (String.Compare(filename, "", false) == 0)
+					if (Operators.CompareString(filename, "", false) == 0)
 					{
 						SaveFileDialog saveFileDialog = new SaveFileDialog();
 						saveFileDialog.Title = "请选择要保存的图像文件名";
@@ -25366,25 +25631,25 @@ namespace LuoEasyPrint
 					this.m_mypageinfo = typeFromHandle.GetField("pageInfo", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.ExactBinding);
 					PreviewPageInfo[] array = (PreviewPageInfo[])this.m_mypageinfo.GetValue(this.PrintPreviewControl1);
 					string left = Strings.UCase(Path.GetExtension(filename));
-					if (String.Compare(left, ".JPEG", false) != 0)
+					if (Operators.CompareString(left, ".JPEG", false) != 0)
 					{
-						if (String.Compare(left, ".JPG", false) != 0)
+						if (Operators.CompareString(left, ".JPG", false) != 0)
 						{
-							if (String.Compare(left, ".BMP", false) != 0)
+							if (Operators.CompareString(left, ".BMP", false) != 0)
 							{
-								if (String.Compare(left, ".GIF", false) != 0)
+								if (Operators.CompareString(left, ".GIF", false) != 0)
 								{
-									if (String.Compare(left, ".TIFF", false) == 0)
+									if (Operators.CompareString(left, ".TIFF", false) == 0)
 									{
 										array[pagenumber - 1].Image.Save(filename, ImageFormat.Tiff);
 										goto IL_2AC;
 									}
-									if (String.Compare(left, ".WMF", false) == 0)
+									if (Operators.CompareString(left, ".WMF", false) == 0)
 									{
 										array[pagenumber - 1].Image.Save(filename, ImageFormat.Wmf);
 										goto IL_2AC;
 									}
-									if (String.Compare(left, ".EMF", false) == 0)
+									if (Operators.CompareString(left, ".EMF", false) == 0)
 									{
 										array[pagenumber - 1].Image.Save(filename, ImageFormat.Emf);
 										goto IL_2AC;
@@ -25400,16 +25665,16 @@ namespace LuoEasyPrint
 					graphics.Clear(Color.White);
 					graphics.DrawImage(array[pagenumber - 1].Image, 0, 0, bitmap.Width, bitmap.Height);
 					string left2 = Strings.UCase(Path.GetExtension(filename));
-					if (String.Compare(left2, ".JPEG", false) != 0)
+					if (Operators.CompareString(left2, ".JPEG", false) != 0)
 					{
-						if (String.Compare(left2, ".JPG", false) != 0)
+						if (Operators.CompareString(left2, ".JPG", false) != 0)
 						{
-							if (String.Compare(left2, ".BMP", false) == 0)
+							if (Operators.CompareString(left2, ".BMP", false) == 0)
 							{
 								bitmap.Save(filename, ImageFormat.Bmp);
 								goto IL_298;
 							}
-							if (String.Compare(left2, ".GIF", false) == 0)
+							if (Operators.CompareString(left2, ".GIF", false) == 0)
 							{
 								bitmap.Save(filename, ImageFormat.Gif);
 								goto IL_298;
@@ -25418,10 +25683,10 @@ namespace LuoEasyPrint
 						}
 					}
 					bitmap.Save(filename, ImageFormat.Jpeg);
-					IL_298:
+				IL_298:
 					graphics.Dispose();
 					bitmap.Dispose();
-					IL_2AC:
+				IL_2AC:
 					this.m_mypageinfo = null;
 					result = true;
 				}
@@ -25478,7 +25743,7 @@ namespace LuoEasyPrint
 				}
 				else
 				{
-					if (String.Compare(filepath, "", false) == 0)
+					if (Operators.CompareString(filepath, "", false) == 0)
 					{
 						FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
 						folderBrowserDialog.Description = "请选择要保存的文件夹";
@@ -25507,16 +25772,16 @@ namespace LuoEasyPrint
 						progressexcel.Label1.Text = string.Concat(new string[]
 						{
 							"正在保存第〖",
-							Convert.ToString(i + 1),
+							Conversions.ToString(i + 1),
 							"〗页，共〖",
-							Convert.ToString(this.GetPages()),
+							Conversions.ToString(this.GetPages()),
 							"〗页，已完成〖",
 							Strings.Format((double)i / (double)this.GetPages(), "###.##%"),
 							"〗"
 						});
 						Application.DoEvents();
 						progressexcel.ProgressBar1.Value = i;
-						this.SaveAsImage(i + 1, MyProject.Computer.FileSystem.CombinePath(filepath, "第" + Convert.ToString(i + 1) + "页.png"));
+						this.SaveAsImage(i + 1, MyProject.Computer.FileSystem.CombinePath(filepath, "第" + Conversions.ToString(i + 1) + "页.png"));
 					}
 					progressexcel.Label1.Text = "保存完成";
 					progressexcel.ProgressBar1.Value = this.GetPages();
@@ -25566,7 +25831,10 @@ namespace LuoEasyPrint
 			{
 				Interaction.MsgBox("不能保存，原因是当前打印作业是空的", MsgBoxStyle.OkOnly, "提示信息");
 			}
-			
+			else if (this.SaveAsPdf("", true))
+			{
+				Interaction.MsgBox("保存成功", MsgBoxStyle.OkOnly, "提示信息");
+			}
 		}
 
 		// Token: 0x06001640 RID: 5696 RVA: 0x00007EE2 File Offset: 0x000060E2
@@ -25576,9 +25844,17 @@ namespace LuoEasyPrint
 			{
 				Interaction.MsgBox("不能保存，原因是当前打印作业是空的", MsgBoxStyle.OkOnly, "提示信息");
 			}
-			
+			else if (this.SaveAsPdf("", false))
+			{
+				Interaction.MsgBox("保存成功", MsgBoxStyle.OkOnly, "提示信息");
+			}
 		}
 
+		// Token: 0x06001641 RID: 5697 RVA: 0x000BE7E0 File Offset: 0x000BC9E0
+	
+
+		// Token: 0x06001642 RID: 5698 RVA: 0x000BEA50 File Offset: 0x000BCC50
+		
 
 		// Token: 0x06001643 RID: 5699 RVA: 0x000BEC24 File Offset: 0x000BCE24
 		private void mysave_DropDownOpening(object sender, EventArgs e)
@@ -25647,7 +25923,7 @@ namespace LuoEasyPrint
 						return result;
 					}
 					PropertyInfo property = type.GetProperty("PageCount");
-					int num = Convert.ToInt32(property.GetValue(RuntimeHelpers.GetObjectValue(obj), null));
+					int num = Conversions.ToInteger(property.GetValue(RuntimeHelpers.GetObjectValue(obj), null));
 					result = num;
 					obj = null;
 				}
@@ -25706,7 +25982,7 @@ namespace LuoEasyPrint
 						PageNum = 1;
 					}
 					PropertyInfo property = type.GetProperty("PageCount");
-					int num = Convert.ToInt32(property.GetValue(RuntimeHelpers.GetObjectValue(obj), null));
+					int num = Conversions.ToInteger(property.GetValue(RuntimeHelpers.GetObjectValue(obj), null));
 					if (PageNum > num)
 					{
 						result = null;
@@ -25861,11 +26137,11 @@ namespace LuoEasyPrint
 					frompage = Convert.ToInt32(this.g_pp.fpage.Value);
 					topage = Convert.ToInt32(this.g_pp.tpage.Value);
 				}
-				bool fx = String.Compare(Convert.ToString(this.g_pp.fx.SelectedItem), "横向", false) == 0;
+				bool fx = Operators.CompareString(Conversions.ToString(this.g_pp.fx.SelectedItem), "横向", false) == 0;
 				PaperSize paperSize;
 				if (this.g_pp.paperkind > PaperKind.Custom)
 				{
-					paperSize = definepaper.GetPrintForm(Convert.ToString(this.g_pp.printername.SelectedItem), this.g_pp.paperkind);
+					paperSize = definepaper.GetPrintForm(Conversions.ToString(this.g_pp.printername.SelectedItem), this.g_pp.paperkind);
 				}
 				else if (decimal.Compare(this.g_pp.mypaperwidth, 0m) > 0 & decimal.Compare(this.g_pp.mypaperheight, 0m) > 0)
 				{
@@ -25873,12 +26149,12 @@ namespace LuoEasyPrint
 				}
 				else
 				{
-					paperSize = definepaper.GetPrintForm(Convert.ToString(this.g_pp.printername.SelectedItem), this.g_pp.papername);
+					paperSize = definepaper.GetPrintForm(Conversions.ToString(this.g_pp.printername.SelectedItem), this.g_pp.papername);
 				}
 				PaperSize paper;
 				if (paperSize == null)
 				{
-					if (String.Compare(Strings.Trim(this.g_pp.papername), "", false) == 0)
+					if (Operators.CompareString(Strings.Trim(this.g_pp.papername), "", false) == 0)
 					{
 						this.g_pp.papername = "[自定义纸张]";
 					}
@@ -25890,12 +26166,12 @@ namespace LuoEasyPrint
 				}
 				switch (dialogResult)
 				{
-				case DialogResult.OK:
-					this.myPrintDraft(paper, fx, frompage, topage, num2, Convert.ToString(this.g_pp.printername.SelectedItem), this.g_pp.CheckBox1.Checked, false);
-					break;
-				case DialogResult.Yes:
-					this.myPrintDraft(paper, fx, frompage, topage, num2, Convert.ToString(this.g_pp.printername.SelectedItem), this.g_pp.CheckBox1.Checked, true);
-					break;
+					case DialogResult.OK:
+						this.myPrintDraft(paper, fx, frompage, topage, num2, Conversions.ToString(this.g_pp.printername.SelectedItem), this.g_pp.CheckBox1.Checked, false);
+						break;
+					case DialogResult.Yes:
+						this.myPrintDraft(paper, fx, frompage, topage, num2, Conversions.ToString(this.g_pp.printername.SelectedItem), this.g_pp.CheckBox1.Checked, true);
+						break;
 				}
 			}
 		}
@@ -25963,226 +26239,226 @@ namespace LuoEasyPrint
 						bool flag = vb2008Print.PaperHeight >= vb2008Print.PaperWidth;
 						switch (pages)
 						{
-						case 1:
-						{
-							int num2 = frompage;
-							int num3 = topage;
-							for (int i = num2; i <= num3; i++)
-							{
-								Image image = this.SaveAsImage(i);
-								vb2008Print.NewPage();
-								VB2008Print vb2008Print2 = vb2008Print;
-								Image myimage = image;
-								RectangleF myrectf = new RectangleF(0f, 0f, vb2008Print.PaperWidth, vb2008Print.PaperHeight);
-								vb2008Print2.DrawImage(myimage, myrectf);
-								image.Dispose();
-							}
-							break;
-						}
-						case 2:
-						{
-							int num4 = frompage;
-							int num5 = topage;
-							for (int j = num4; j <= num5; j += 2)
-							{
-								float num6 = 0f;
-								float num7 = 0f;
-								float num8;
-								float num9;
-								if (flag)
+							case 1:
 								{
-									num8 = vb2008Print.PaperWidth;
-									num9 = vb2008Print.PaperHeight / 2f;
-								}
-								else
-								{
-									num8 = vb2008Print.PaperWidth / 2f;
-									num9 = vb2008Print.PaperHeight;
-								}
-								Image image = this.SaveAsImage(j);
-								vb2008Print.NewPage();
-								VB2008Print vb2008Print3 = vb2008Print;
-								Image myimage2 = image;
-								RectangleF myrectf = new RectangleF(num6, num7, num8, num9);
-								vb2008Print3.DrawImage(myimage2, myrectf);
-								image.Dispose();
-								if (flag)
-								{
-									num6 = 0f;
-									num7 = vb2008Print.PaperHeight / 2f;
-								}
-								else
-								{
-									num6 = vb2008Print.PaperWidth / 2f;
-									num7 = 0f;
-								}
-								if (drawline)
-								{
-									vb2008Print.DrawLine(Pens.Black, num6, num7, num8, num9);
-								}
-								if (j + 1 > topage)
-								{
-									break;
-								}
-								image = this.SaveAsImage(j + 1);
-								VB2008Print vb2008Print4 = vb2008Print;
-								Image myimage3 = image;
-								myrectf = new RectangleF(num6, num7, num8, num9);
-								vb2008Print4.DrawImage(myimage3, myrectf);
-								image.Dispose();
-							}
-							break;
-						}
-						case 3:
-						{
-							int num10 = frompage;
-							int num11 = topage;
-							for (int k = num10; k <= num11; k += 3)
-							{
-								float num6 = 0f;
-								float num7 = 0f;
-								float num8;
-								float num9;
-								if (flag)
-								{
-									num8 = vb2008Print.PaperWidth;
-									num9 = vb2008Print.PaperHeight / 3f;
-								}
-								else
-								{
-									num8 = vb2008Print.PaperWidth / 3f;
-									num9 = vb2008Print.PaperHeight;
-								}
-								Image image = this.SaveAsImage(k);
-								vb2008Print.NewPage();
-								VB2008Print vb2008Print5 = vb2008Print;
-								Image myimage4 = image;
-								RectangleF myrectf = new RectangleF(num6, num7, num8, num9);
-								vb2008Print5.DrawImage(myimage4, myrectf);
-								image.Dispose();
-								if (flag)
-								{
-									num6 = 0f;
-									num7 = vb2008Print.PaperHeight / 3f;
-								}
-								else
-								{
-									num6 = vb2008Print.PaperWidth / 3f;
-									num7 = 0f;
-								}
-								if (drawline)
-								{
-									vb2008Print.DrawLine(Pens.Black, num6, num7, num8, num9);
-								}
-								if (k + 1 > topage)
-								{
-									break;
-								}
-								image = this.SaveAsImage(k + 1);
-								VB2008Print vb2008Print6 = vb2008Print;
-								Image myimage5 = image;
-								myrectf = new RectangleF(num6, num7, num8, num9);
-								vb2008Print6.DrawImage(myimage5, myrectf);
-								image.Dispose();
-								unchecked
-								{
-									if (flag)
+									int num2 = frompage;
+									int num3 = topage;
+									for (int i = num2; i <= num3; i++)
 									{
-										num6 = 0f;
-										num7 = vb2008Print.PaperHeight / 3f * 2f;
+										Image image = this.SaveAsImage(i);
+										vb2008Print.NewPage();
+										VB2008Print vb2008Print2 = vb2008Print;
+										Image myimage = image;
+										RectangleF myrectf = new RectangleF(0f, 0f, vb2008Print.PaperWidth, vb2008Print.PaperHeight);
+										vb2008Print2.DrawImage(myimage, myrectf);
+										image.Dispose();
 									}
-									else
+									break;
+								}
+							case 2:
+								{
+									int num4 = frompage;
+									int num5 = topage;
+									for (int j = num4; j <= num5; j += 2)
 									{
-										num6 = vb2008Print.PaperWidth / 3f * 2f;
+										float num6 = 0f;
+										float num7 = 0f;
+										float num8;
+										float num9;
+										if (flag)
+										{
+											num8 = vb2008Print.PaperWidth;
+											num9 = vb2008Print.PaperHeight / 2f;
+										}
+										else
+										{
+											num8 = vb2008Print.PaperWidth / 2f;
+											num9 = vb2008Print.PaperHeight;
+										}
+										Image image = this.SaveAsImage(j);
+										vb2008Print.NewPage();
+										VB2008Print vb2008Print3 = vb2008Print;
+										Image myimage2 = image;
+										RectangleF myrectf = new RectangleF(num6, num7, num8, num9);
+										vb2008Print3.DrawImage(myimage2, myrectf);
+										image.Dispose();
+										if (flag)
+										{
+											num6 = 0f;
+											num7 = vb2008Print.PaperHeight / 2f;
+										}
+										else
+										{
+											num6 = vb2008Print.PaperWidth / 2f;
+											num7 = 0f;
+										}
+										if (drawline)
+										{
+											vb2008Print.DrawLine(Pens.Black, num6, num7, num8, num9);
+										}
+										if (j + 1 > topage)
+										{
+											break;
+										}
+										image = this.SaveAsImage(j + 1);
+										VB2008Print vb2008Print4 = vb2008Print;
+										Image myimage3 = image;
+										myrectf = new RectangleF(num6, num7, num8, num9);
+										vb2008Print4.DrawImage(myimage3, myrectf);
+										image.Dispose();
+									}
+									break;
+								}
+							case 3:
+								{
+									int num10 = frompage;
+									int num11 = topage;
+									for (int k = num10; k <= num11; k += 3)
+									{
+										float num6 = 0f;
+										float num7 = 0f;
+										float num8;
+										float num9;
+										if (flag)
+										{
+											num8 = vb2008Print.PaperWidth;
+											num9 = vb2008Print.PaperHeight / 3f;
+										}
+										else
+										{
+											num8 = vb2008Print.PaperWidth / 3f;
+											num9 = vb2008Print.PaperHeight;
+										}
+										Image image = this.SaveAsImage(k);
+										vb2008Print.NewPage();
+										VB2008Print vb2008Print5 = vb2008Print;
+										Image myimage4 = image;
+										RectangleF myrectf = new RectangleF(num6, num7, num8, num9);
+										vb2008Print5.DrawImage(myimage4, myrectf);
+										image.Dispose();
+										if (flag)
+										{
+											num6 = 0f;
+											num7 = vb2008Print.PaperHeight / 3f;
+										}
+										else
+										{
+											num6 = vb2008Print.PaperWidth / 3f;
+											num7 = 0f;
+										}
+										if (drawline)
+										{
+											vb2008Print.DrawLine(Pens.Black, num6, num7, num8, num9);
+										}
+										if (k + 1 > topage)
+										{
+											break;
+										}
+										image = this.SaveAsImage(k + 1);
+										VB2008Print vb2008Print6 = vb2008Print;
+										Image myimage5 = image;
+										myrectf = new RectangleF(num6, num7, num8, num9);
+										vb2008Print6.DrawImage(myimage5, myrectf);
+										image.Dispose();
+										unchecked
+										{
+											if (flag)
+											{
+												num6 = 0f;
+												num7 = vb2008Print.PaperHeight / 3f * 2f;
+											}
+											else
+											{
+												num6 = vb2008Print.PaperWidth / 3f * 2f;
+												num7 = 0f;
+											}
+											if (drawline)
+											{
+												vb2008Print.DrawLine(Pens.Black, num6, num7, num8 * 2f, num9 * 2f);
+											}
+										}
+										if (k + 2 > topage)
+										{
+											break;
+										}
+										image = this.SaveAsImage(k + 2);
+										VB2008Print vb2008Print7 = vb2008Print;
+										Image myimage6 = image;
+										myrectf = new RectangleF(num6, num7, num8, num9);
+										vb2008Print7.DrawImage(myimage6, myrectf);
+										image.Dispose();
+									}
+									break;
+								}
+							case 4:
+								{
+									int num12 = frompage;
+									int num13 = topage;
+									for (int l = num12; l <= num13; l += 4)
+									{
+										float num6 = 0f;
+										float num7 = 0f;
+										float num8 = vb2008Print.PaperWidth / 2f;
+										float num9 = vb2008Print.PaperHeight / 2f;
+										Image image = this.SaveAsImage(l);
+										vb2008Print.NewPage();
+										VB2008Print vb2008Print8 = vb2008Print;
+										Image myimage7 = image;
+										RectangleF myrectf = new RectangleF(num6, num7, num8, num9);
+										vb2008Print8.DrawImage(myimage7, myrectf);
+										image.Dispose();
+										num6 = vb2008Print.PaperWidth / 2f;
 										num7 = 0f;
+										if (drawline)
+										{
+											vb2008Print.DrawLine(Pens.Black, num6, num7, num8, num9);
+											vb2008Print.DrawLine(Pens.Black, 0f, num9, num8, num9);
+										}
+										if (l + 1 > topage)
+										{
+											break;
+										}
+										image = this.SaveAsImage(l + 1);
+										VB2008Print vb2008Print9 = vb2008Print;
+										Image myimage8 = image;
+										myrectf = new RectangleF(num6, num7, num8, num9);
+										vb2008Print9.DrawImage(myimage8, myrectf);
+										image.Dispose();
+										if (drawline)
+										{
+											vb2008Print.DrawLine(Pens.Black, num8, num9, unchecked(num8 * 2f), num9);
+										}
+										num6 = 0f;
+										num7 = vb2008Print.PaperHeight / 2f;
+										if (l + 2 > topage)
+										{
+											break;
+										}
+										image = this.SaveAsImage(l + 2);
+										VB2008Print vb2008Print10 = vb2008Print;
+										Image myimage9 = image;
+										myrectf = new RectangleF(num6, num7, num8, num9);
+										vb2008Print10.DrawImage(myimage9, myrectf);
+										image.Dispose();
+										num6 = num8;
+										num7 = num9;
+										if (drawline)
+										{
+											vb2008Print.DrawLine(Pens.Black, num6, num7, num8, unchecked(num9 * 2f));
+										}
+										if (l + 3 > topage)
+										{
+											break;
+										}
+										image = this.SaveAsImage(l + 3);
+										VB2008Print vb2008Print11 = vb2008Print;
+										Image myimage10 = image;
+										myrectf = new RectangleF(num6, num7, num8, num9);
+										vb2008Print11.DrawImage(myimage10, myrectf);
+										image.Dispose();
 									}
-									if (drawline)
-									{
-										vb2008Print.DrawLine(Pens.Black, num6, num7, num8 * 2f, num9 * 2f);
-									}
-								}
-								if (k + 2 > topage)
-								{
 									break;
 								}
-								image = this.SaveAsImage(k + 2);
-								VB2008Print vb2008Print7 = vb2008Print;
-								Image myimage6 = image;
-								myrectf = new RectangleF(num6, num7, num8, num9);
-								vb2008Print7.DrawImage(myimage6, myrectf);
-								image.Dispose();
-							}
-							break;
-						}
-						case 4:
-						{
-							int num12 = frompage;
-							int num13 = topage;
-							for (int l = num12; l <= num13; l += 4)
-							{
-								float num6 = 0f;
-								float num7 = 0f;
-								float num8 = vb2008Print.PaperWidth / 2f;
-								float num9 = vb2008Print.PaperHeight / 2f;
-								Image image = this.SaveAsImage(l);
-								vb2008Print.NewPage();
-								VB2008Print vb2008Print8 = vb2008Print;
-								Image myimage7 = image;
-								RectangleF myrectf = new RectangleF(num6, num7, num8, num9);
-								vb2008Print8.DrawImage(myimage7, myrectf);
-								image.Dispose();
-								num6 = vb2008Print.PaperWidth / 2f;
-								num7 = 0f;
-								if (drawline)
-								{
-									vb2008Print.DrawLine(Pens.Black, num6, num7, num8, num9);
-									vb2008Print.DrawLine(Pens.Black, 0f, num9, num8, num9);
-								}
-								if (l + 1 > topage)
-								{
-									break;
-								}
-								image = this.SaveAsImage(l + 1);
-								VB2008Print vb2008Print9 = vb2008Print;
-								Image myimage8 = image;
-								myrectf = new RectangleF(num6, num7, num8, num9);
-								vb2008Print9.DrawImage(myimage8, myrectf);
-								image.Dispose();
-								if (drawline)
-								{
-									vb2008Print.DrawLine(Pens.Black, num8, num9, unchecked(num8 * 2f), num9);
-								}
-								num6 = 0f;
-								num7 = vb2008Print.PaperHeight / 2f;
-								if (l + 2 > topage)
-								{
-									break;
-								}
-								image = this.SaveAsImage(l + 2);
-								VB2008Print vb2008Print10 = vb2008Print;
-								Image myimage9 = image;
-								myrectf = new RectangleF(num6, num7, num8, num9);
-								vb2008Print10.DrawImage(myimage9, myrectf);
-								image.Dispose();
-								num6 = num8;
-								num7 = num9;
-								if (drawline)
-								{
-									vb2008Print.DrawLine(Pens.Black, num6, num7, num8, unchecked(num9 * 2f));
-								}
-								if (l + 3 > topage)
-								{
-									break;
-								}
-								image = this.SaveAsImage(l + 3);
-								VB2008Print vb2008Print11 = vb2008Print;
-								Image myimage10 = image;
-								myrectf = new RectangleF(num6, num7, num8, num9);
-								vb2008Print11.DrawImage(myimage10, myrectf);
-								image.Dispose();
-							}
-							break;
-						}
 						}
 						if (ispreview)
 						{
@@ -26203,7 +26479,7 @@ namespace LuoEasyPrint
 		{
 			string t = sp.SaveAsString();
 			this.TranslateTransform(x + (float)this.PaperMargins.Left, y + (float)this.PaperMargins.Top);
-			this.MyWrite("shape", "LcdDigital", t, Convert.ToString(this.MyConvTo(width)), Convert.ToString(this.MyConvTo(height)));
+			this.MyWrite("shape", "LcdDigital", t, Conversions.ToString(this.MyConvTo(width)), Conversions.ToString(this.MyConvTo(height)));
 			this.ResetTransform();
 		}
 
@@ -26211,7 +26487,7 @@ namespace LuoEasyPrint
 		private void MyDrawShape(string thename, string ss, float width, float height)
 		{
 			Shape shape = null;
-			if (String.Compare(thename, "LcdDigital", false) == 0)
+			if (Operators.CompareString(thename, "LcdDigital", false) == 0)
 			{
 				shape = new LcdDigital();
 			}
@@ -26248,7 +26524,7 @@ namespace LuoEasyPrint
 					XmlPageSetup xmlPageSetup = new XmlPageSetup(xmlNode);
 					xmlPageSetup.Parse();
 					float num;
-					if (String.Compare(xmlPageSetup.PageWidth, "", false) == 0)
+					if (Operators.CompareString(xmlPageSetup.PageWidth, "", false) == 0)
 					{
 						num = 0f;
 					}
@@ -26257,7 +26533,7 @@ namespace LuoEasyPrint
 						num = float.Parse(xmlPageSetup.PageWidth);
 					}
 					float num2;
-					if (String.Compare(xmlPageSetup.PageHeight, "", false) == 0)
+					if (Operators.CompareString(xmlPageSetup.PageHeight, "", false) == 0)
 					{
 						num2 = 0f;
 					}
@@ -26265,20 +26541,20 @@ namespace LuoEasyPrint
 					{
 						num2 = float.Parse(xmlPageSetup.PageHeight);
 					}
-					if (String.Compare(xmlPageSetup.PrinterName, "", false) != 0)
+					if (Operators.CompareString(xmlPageSetup.PrinterName, "", false) != 0)
 					{
 						this.SetCurrentPrinterName(xmlPageSetup.PrinterName);
 					}
 					string text = xmlPageSetup.PaperName;
-					if (String.Compare(text, "", false) == 0 & num2 == 0f & num == 0f)
+					if (Operators.CompareString(text, "", false) == 0 & num2 == 0f & num == 0f)
 					{
 						text = "A4";
 					}
-					else if (String.Compare(text, "", false) == 0)
+					else if (Operators.CompareString(text, "", false) == 0)
 					{
 						text = "[自定义纸张]";
 					}
-					if (String.Compare(xmlPageSetup.DocumentName, "", false) != 0)
+					if (Operators.CompareString(xmlPageSetup.DocumentName, "", false) != 0)
 					{
 						this.DocumentName = xmlPageSetup.DocumentName;
 					}
@@ -26287,7 +26563,7 @@ namespace LuoEasyPrint
 						this.DocumentName = xmlfilename;
 					}
 					this.PaperSize = checked(new PaperSize(text, (int)Math.Round((double)(unchecked(this.ConvertCmToInch(num) * 10f))), (int)Math.Round((double)(unchecked(this.ConvertCmToInch(num2) * 10f)))));
-					if (String.Compare(xmlPageSetup.PaperLandscape.ToLower(), "true", false) == 0 | String.Compare(xmlPageSetup.PaperLandscape, "1", false) == 0)
+					if (Operators.CompareString(xmlPageSetup.PaperLandscape.ToLower(), "true", false) == 0 | Operators.CompareString(xmlPageSetup.PaperLandscape, "1", false) == 0)
 					{
 						this.PaperLandscape = true;
 					}
@@ -26296,7 +26572,7 @@ namespace LuoEasyPrint
 						this.PaperLandscape = false;
 					}
 					float num3;
-					if (String.Compare(xmlPageSetup.LeftMargin, "", false) != 0)
+					if (Operators.CompareString(xmlPageSetup.LeftMargin, "", false) != 0)
 					{
 						num3 = float.Parse(xmlPageSetup.LeftMargin) * 10f;
 					}
@@ -26305,7 +26581,7 @@ namespace LuoEasyPrint
 						num3 = 150f;
 					}
 					float num4;
-					if (String.Compare(xmlPageSetup.RightMargin, "", false) != 0)
+					if (Operators.CompareString(xmlPageSetup.RightMargin, "", false) != 0)
 					{
 						num4 = float.Parse(xmlPageSetup.RightMargin) * 10f;
 					}
@@ -26314,7 +26590,7 @@ namespace LuoEasyPrint
 						num4 = 150f;
 					}
 					float num5;
-					if (String.Compare(xmlPageSetup.TopMargin, "", false) != 0)
+					if (Operators.CompareString(xmlPageSetup.TopMargin, "", false) != 0)
 					{
 						num5 = float.Parse(xmlPageSetup.TopMargin) * 10f;
 					}
@@ -26323,7 +26599,7 @@ namespace LuoEasyPrint
 						num5 = 150f;
 					}
 					float num6;
-					if (String.Compare(xmlPageSetup.BottomMargin, "", false) != 0)
+					if (Operators.CompareString(xmlPageSetup.BottomMargin, "", false) != 0)
 					{
 						num6 = float.Parse(xmlPageSetup.BottomMargin) * 10f;
 					}
@@ -26359,15 +26635,15 @@ namespace LuoEasyPrint
 					XmlNode xmlNode = (XmlNode)obj;
 					string text7 = xmlNode.Name.ToLower();
 					string left = text7;
-					if (String.Compare(left, "page", false) == 0)
+					if (Operators.CompareString(left, "page", false) == 0)
 					{
 						this.xmlDrawNewpage(xmlNode);
 					}
-					else if (String.Compare(left, "rectangle", false) == 0)
+					else if (Operators.CompareString(left, "rectangle", false) == 0)
 					{
 						this.xmlDrawRectangle(xmlNode);
 					}
-					else if (String.Compare(left, "pageheader", false) == 0)
+					else if (Operators.CompareString(left, "pageheader", false) == 0)
 					{
 						XmlPageHeaderAndFooter xmlPageHeaderAndFooter = new XmlPageHeaderAndFooter(xmlNode);
 						xmlPageHeaderAndFooter.Parse();
@@ -26375,12 +26651,12 @@ namespace LuoEasyPrint
 						text = xmlPageHeaderAndFooter.LeftText;
 						text3 = xmlPageHeaderAndFooter.MiddleText;
 						text2 = xmlPageHeaderAndFooter.RightText;
-						if (String.Compare(xmlPageHeaderAndFooter.TextFormat.ForeColor, "", false) != 0)
+						if (Operators.CompareString(xmlPageHeaderAndFooter.TextFormat.ForeColor, "", false) != 0)
 						{
 							mycolor = XmlParserBase.GetColorFrom(xmlPageHeaderAndFooter.TextFormat.ForeColor);
 						}
 					}
-					else if (String.Compare(left, "pagefooter", false) == 0)
+					else if (Operators.CompareString(left, "pagefooter", false) == 0)
 					{
 						XmlPageHeaderAndFooter xmlPageHeaderAndFooter2 = new XmlPageHeaderAndFooter(xmlNode);
 						xmlPageHeaderAndFooter2.Parse();
@@ -26388,64 +26664,64 @@ namespace LuoEasyPrint
 						text4 = xmlPageHeaderAndFooter2.LeftText;
 						text6 = xmlPageHeaderAndFooter2.MiddleText;
 						text5 = xmlPageHeaderAndFooter2.RightText;
-						if (String.Compare(xmlPageHeaderAndFooter2.TextFormat.ForeColor, "", false) != 0)
+						if (Operators.CompareString(xmlPageHeaderAndFooter2.TextFormat.ForeColor, "", false) != 0)
 						{
 							mycolor2 = XmlParserBase.GetColorFrom(xmlPageHeaderAndFooter2.TextFormat.ForeColor);
 						}
 					}
-					else if (String.Compare(left, "dot", false) == 0)
+					else if (Operators.CompareString(left, "dot", false) == 0)
 					{
 						this.xmlDrawDot(xmlNode);
 					}
-					else if (String.Compare(left, "line", false) == 0)
+					else if (Operators.CompareString(left, "line", false) == 0)
 					{
 						this.xmlDrawLine(xmlNode);
 					}
-					else if (String.Compare(left, "ellipse", false) == 0)
+					else if (Operators.CompareString(left, "ellipse", false) == 0)
 					{
 						this.xmlDrawellipse(xmlNode);
 					}
-					else if (String.Compare(left, "circle", false) == 0)
+					else if (Operators.CompareString(left, "circle", false) == 0)
 					{
 						this.xmlDrawCircle(xmlNode);
 					}
-					else if (String.Compare(left, "text", false) == 0)
+					else if (Operators.CompareString(left, "text", false) == 0)
 					{
 						this.xmlDraweText(xmlNode, hashablecs, dgvhashtable);
 					}
-					else if (String.Compare(left, "textex", false) == 0)
+					else if (Operators.CompareString(left, "textex", false) == 0)
 					{
 						this.xmlDraweTextEx(xmlNode, hashablecs, dgvhashtable);
 					}
-					else if (String.Compare(left, "table", false) == 0)
+					else if (Operators.CompareString(left, "table", false) == 0)
 					{
 						XmlTable xmlTable = new XmlTable(xmlNode);
 						xmlTable.Parse();
 						xmlTable.GetDataTable();
 					}
-					else if (String.Compare(left, "cell", false) == 0)
+					else if (Operators.CompareString(left, "cell", false) == 0)
 					{
 						this.xmlDrawCell(xmlNode, hashablecs, dgvhashtable);
 					}
-					else if (String.Compare(left, "embedtable", false) == 0)
+					else if (Operators.CompareString(left, "embedtable", false) == 0)
 					{
 						this.xmlDraweEmbedTable(xmlNode, hashablecs, dgvhashtable);
 					}
 					else
 					{
-						if (String.Compare(left, "datatext", false) == 0)
+						if (Operators.CompareString(left, "datatext", false) == 0)
 						{
 							break;
 						}
-						if (String.Compare(left, "ellipsetextbox", false) == 0)
+						if (Operators.CompareString(left, "ellipsetextbox", false) == 0)
 						{
 							break;
 						}
-						if (String.Compare(left, "cylinder", false) == 0)
+						if (Operators.CompareString(left, "cylinder", false) == 0)
 						{
 							break;
 						}
-						if (String.Compare(left, "table", false) == 0)
+						if (Operators.CompareString(left, "table", false) == 0)
 						{
 							break;
 						}
@@ -26454,11 +26730,15 @@ namespace LuoEasyPrint
 			}
 			finally
 			{
-				
+				IEnumerator enumerator;
+				if (enumerator is IDisposable)
+				{
+					(enumerator as IDisposable).Dispose();
+				}
 			}
 			checked
 			{
-				if (String.Compare(text, "", false) != 0 | String.Compare(text3, "", false) != 0 | String.Compare(text2, "", false) != 0 | String.Compare(text4, "", false) != 0 | String.Compare(text6, "", false) != 0 | String.Compare(text5, "", false) != 0)
+				if (Operators.CompareString(text, "", false) != 0 | Operators.CompareString(text3, "", false) != 0 | Operators.CompareString(text2, "", false) != 0 | Operators.CompareString(text4, "", false) != 0 | Operators.CompareString(text6, "", false) != 0 | Operators.CompareString(text5, "", false) != 0)
 				{
 					int num = 1;
 					int num2 = this.GetPages();
@@ -26492,7 +26772,7 @@ namespace LuoEasyPrint
 			}
 			else
 			{
-				DictionaryEntry dictionaryEntry2=new DictionaryEntry();
+				DictionaryEntry dictionaryEntry2;
 				if (dgvhastable != null && dgvhastable.Count > 0)
 				{
 					try
@@ -26502,7 +26782,7 @@ namespace LuoEasyPrint
 							DictionaryEntry dictionaryEntry = (obj != null) ? ((DictionaryEntry)obj) : dictionaryEntry2;
 							if (dictionaryEntry.Value is DataGridView && ((DataGridView)dictionaryEntry.Value).RowCount > 0)
 							{
-								mytxtvalue = Convert.ToString(this.MyxmlReplace2(mytxtvalue, Convert.ToString(dictionaryEntry.Key), (DataGridView)dictionaryEntry.Value, 0));
+								mytxtvalue = Conversions.ToString(this.MyxmlReplace2(mytxtvalue, Conversions.ToString(dictionaryEntry.Key), (DataGridView)dictionaryEntry.Value, 0));
 							}
 						}
 					}
@@ -26516,8 +26796,8 @@ namespace LuoEasyPrint
 					foreach (object obj2 in myhas)
 					{
 						DictionaryEntry dictionaryEntry3 = (obj2 != null) ? ((DictionaryEntry)obj2) : dictionaryEntry2;
-						string text = Convert.ToString(dictionaryEntry3.Key);
-						string text2 = Convert.ToString(dictionaryEntry3.Value);
+						string text = Conversions.ToString(dictionaryEntry3.Key);
+						string text2 = Conversions.ToString(dictionaryEntry3.Value);
 						if (text2 != null)
 						{
 							text = "[" + text + "]";
@@ -26525,13 +26805,13 @@ namespace LuoEasyPrint
 						}
 					}
 				}
-				mytxtvalue = Strings.Replace(mytxtvalue, "[总页数]", Convert.ToString(this.GetPages()), 1, -1, CompareMethod.Binary);
-				mytxtvalue = Strings.Replace(mytxtvalue, "[页码]", Convert.ToString(this.GetCurrentPage()), 1, -1, CompareMethod.Binary);
+				mytxtvalue = Strings.Replace(mytxtvalue, "[总页数]", Conversions.ToString(this.GetPages()), 1, -1, CompareMethod.Binary);
+				mytxtvalue = Strings.Replace(mytxtvalue, "[页码]", Conversions.ToString(this.GetCurrentPage()), 1, -1, CompareMethod.Binary);
 				mytxtvalue = Strings.Replace(mytxtvalue, "[当前日期]", Strings.Format(DateAndTime.Today, "yyyy-M-d"), 1, -1, CompareMethod.Binary);
 				mytxtvalue = Strings.Replace(mytxtvalue, "[当前日期2]", Strings.Format(DateAndTime.Today, "yyyy年M月d日"), 1, -1, CompareMethod.Binary);
-				mytxtvalue = Strings.Replace(mytxtvalue, "[当前年]", Convert.ToString(DateAndTime.Today.Year), 1, -1, CompareMethod.Binary);
-				mytxtvalue = Strings.Replace(mytxtvalue, "[当前月]", Convert.ToString(DateAndTime.Today.Month), 1, -1, CompareMethod.Binary);
-				mytxtvalue = Strings.Replace(mytxtvalue, "[当前日]", Convert.ToString(DateAndTime.Today.Day), 1, -1, CompareMethod.Binary);
+				mytxtvalue = Strings.Replace(mytxtvalue, "[当前年]", Conversions.ToString(DateAndTime.Today.Year), 1, -1, CompareMethod.Binary);
+				mytxtvalue = Strings.Replace(mytxtvalue, "[当前月]", Conversions.ToString(DateAndTime.Today.Month), 1, -1, CompareMethod.Binary);
+				mytxtvalue = Strings.Replace(mytxtvalue, "[当前日]", Conversions.ToString(DateAndTime.Today.Day), 1, -1, CompareMethod.Binary);
 				mytxtvalue = Strings.Replace(mytxtvalue, "[当前时间]", Strings.Format(DateAndTime.Now, "H:m:s"), 1, -1, CompareMethod.Binary);
 				result = mytxtvalue;
 			}
@@ -26587,10 +26867,10 @@ namespace LuoEasyPrint
 											image = null;
 											goto IL_1C1;
 										}
-										IL_10E:
+									IL_10E:
 										text = "";
 										goto IL_127;
-										IL_1C1:
+									IL_1C1:
 										if (image != null)
 										{
 											return image;
@@ -26599,9 +26879,9 @@ namespace LuoEasyPrint
 									}
 									else
 									{
-										text = Convert.ToString(VB2008Print.GetFieldValue(dgv, name, currow));
+										text = Conversions.ToString(VB2008Print.GetFieldValue(dgv, name, currow));
 									}
-									IL_127:
+								IL_127:
 									if (text != null)
 									{
 										try
@@ -26659,7 +26939,7 @@ namespace LuoEasyPrint
 				}
 				else
 				{
-					result = Convert.ToString(dgv.Rows[currow].Cells[cc].Value);
+					result = Conversions.ToString(dgv.Rows[currow].Cells[cc].Value);
 				}
 			}
 			else
@@ -26687,7 +26967,7 @@ namespace LuoEasyPrint
 						int num2 = dgv.ColumnCount - 1;
 						for (int i = num; i <= num2; i++)
 						{
-							if (String.Compare(Strings.Trim(columnname.ToUpper()), Strings.Trim(dgv.Columns[i].Name.ToUpper()), false) == 0)
+							if (Operators.CompareString(Strings.Trim(columnname.ToUpper()), Strings.Trim(dgv.Columns[i].Name.ToUpper()), false) == 0)
 							{
 								return true;
 							}
@@ -26709,7 +26989,7 @@ namespace LuoEasyPrint
 			XmlRectangle xmlRectangle = new XmlRectangle(node);
 			xmlRectangle.Parse();
 			float num;
-			if (String.Compare(xmlRectangle.X, "", false) != 0)
+			if (Operators.CompareString(xmlRectangle.X, "", false) != 0)
 			{
 				num = float.Parse(xmlRectangle.X) * 10f;
 			}
@@ -26718,7 +26998,7 @@ namespace LuoEasyPrint
 				num = this.Currentx;
 			}
 			float num2;
-			if (String.Compare(xmlRectangle.Y, "", false) != 0)
+			if (Operators.CompareString(xmlRectangle.Y, "", false) != 0)
 			{
 				num2 = float.Parse(xmlRectangle.Y) * 10f;
 			}
@@ -26746,14 +27026,14 @@ namespace LuoEasyPrint
 			XmlPageSetup xmlPageSetup = new XmlPageSetup(node);
 			xmlPageSetup.Parse();
 			PaperSize paperSize;
-			if ((String.Compare(xmlPageSetup.PageHeight, "", false) == 0 | String.Compare(xmlPageSetup.PageWidth, "", false) == 0) & String.Compare(xmlPageSetup.PaperName, "", false) == 0)
+			if ((Operators.CompareString(xmlPageSetup.PageHeight, "", false) == 0 | Operators.CompareString(xmlPageSetup.PageWidth, "", false) == 0) & Operators.CompareString(xmlPageSetup.PaperName, "", false) == 0)
 			{
 				paperSize = null;
 			}
 			else
 			{
 				float num;
-				if (String.Compare(xmlPageSetup.PageWidth, "", false) == 0)
+				if (Operators.CompareString(xmlPageSetup.PageWidth, "", false) == 0)
 				{
 					num = 0f;
 				}
@@ -26762,7 +27042,7 @@ namespace LuoEasyPrint
 					num = float.Parse(xmlPageSetup.PageWidth);
 				}
 				float num2;
-				if (String.Compare(xmlPageSetup.PageHeight, "", false) == 0)
+				if (Operators.CompareString(xmlPageSetup.PageHeight, "", false) == 0)
 				{
 					num2 = 0f;
 				}
@@ -26771,18 +27051,18 @@ namespace LuoEasyPrint
 					num2 = float.Parse(xmlPageSetup.PageHeight);
 				}
 				string text = xmlPageSetup.PaperName;
-				if (String.Compare(text, "", false) == 0 & num2 == 0f & num == 0f)
+				if (Operators.CompareString(text, "", false) == 0 & num2 == 0f & num == 0f)
 				{
 					text = "A4";
 				}
-				else if (String.Compare(text, "", false) == 0)
+				else if (Operators.CompareString(text, "", false) == 0)
 				{
 					text = "[自定义纸张]";
 				}
 				paperSize = checked(new PaperSize(text, (int)Math.Round((double)(unchecked(this.ConvertCmToInch(num) * 10f))), (int)Math.Round((double)(unchecked(this.ConvertCmToInch(num2) * 10f)))));
 			}
 			float num3;
-			if (String.Compare(xmlPageSetup.LeftMargin, "", false) != 0)
+			if (Operators.CompareString(xmlPageSetup.LeftMargin, "", false) != 0)
 			{
 				num3 = float.Parse(xmlPageSetup.LeftMargin) * 10f;
 			}
@@ -26791,7 +27071,7 @@ namespace LuoEasyPrint
 				num3 = (float)this.PaperMargins.Left;
 			}
 			float num4;
-			if (String.Compare(xmlPageSetup.RightMargin, "", false) != 0)
+			if (Operators.CompareString(xmlPageSetup.RightMargin, "", false) != 0)
 			{
 				num4 = float.Parse(xmlPageSetup.RightMargin) * 10f;
 			}
@@ -26800,7 +27080,7 @@ namespace LuoEasyPrint
 				num4 = (float)this.PaperMargins.Right;
 			}
 			float num5;
-			if (String.Compare(xmlPageSetup.TopMargin, "", false) != 0)
+			if (Operators.CompareString(xmlPageSetup.TopMargin, "", false) != 0)
 			{
 				num5 = float.Parse(xmlPageSetup.TopMargin) * 10f;
 			}
@@ -26809,7 +27089,7 @@ namespace LuoEasyPrint
 				num5 = (float)this.PaperMargins.Top;
 			}
 			float num6;
-			if (String.Compare(xmlPageSetup.BottomMargin, "", false) != 0)
+			if (Operators.CompareString(xmlPageSetup.BottomMargin, "", false) != 0)
 			{
 				num6 = float.Parse(xmlPageSetup.BottomMargin) * 10f;
 			}
@@ -26818,7 +27098,7 @@ namespace LuoEasyPrint
 				num6 = (float)this.PaperMargins.Bottom;
 			}
 			Margins thePaperMargin = checked(new Margins((int)Math.Round((double)num3), (int)Math.Round((double)num4), (int)Math.Round((double)num5), (int)Math.Round((double)num6)));
-			if (String.Compare(xmlPageSetup.PaperLandscape, "", false) == 0)
+			if (Operators.CompareString(xmlPageSetup.PaperLandscape, "", false) == 0)
 			{
 				if (paperSize == null)
 				{
@@ -26831,7 +27111,7 @@ namespace LuoEasyPrint
 			}
 			else
 			{
-				bool isPaperLandscape = String.Compare(xmlPageSetup.PaperLandscape.ToLower(), "true", false) == 0 | String.Compare(xmlPageSetup.PaperLandscape, "1", false) == 0;
+				bool isPaperLandscape = Operators.CompareString(xmlPageSetup.PaperLandscape.ToLower(), "true", false) == 0 | Operators.CompareString(xmlPageSetup.PaperLandscape, "1", false) == 0;
 				if (paperSize == null)
 				{
 					this.NewPage(thePaperMargin, isPaperLandscape);
@@ -26849,7 +27129,7 @@ namespace LuoEasyPrint
 			XmlDot xmlDot = new XmlDot(node);
 			xmlDot.Parse();
 			float num;
-			if (String.Compare(xmlDot.X, "", false) != 0)
+			if (Operators.CompareString(xmlDot.X, "", false) != 0)
 			{
 				num = float.Parse(xmlDot.X) * 10f;
 			}
@@ -26858,7 +27138,7 @@ namespace LuoEasyPrint
 				num = this.Currentx;
 			}
 			float num2;
-			if (String.Compare(xmlDot.Y, "", false) != 0)
+			if (Operators.CompareString(xmlDot.Y, "", false) != 0)
 			{
 				num2 = float.Parse(xmlDot.Y) * 10f;
 			}
@@ -26867,7 +27147,7 @@ namespace LuoEasyPrint
 				num2 = this.Currenty;
 			}
 			float num3;
-			if (String.Compare(xmlDot.Width, "-1", false) == 0 | String.Compare(xmlDot.Width, "", false) == 0)
+			if (Operators.CompareString(xmlDot.Width, "-1", false) == 0 | Operators.CompareString(xmlDot.Width, "", false) == 0)
 			{
 				num3 = 5f;
 			}
@@ -26886,7 +27166,7 @@ namespace LuoEasyPrint
 			xmlLine.Parse();
 			LineFormat lineFormat = new LineFormat(xmlLine.LineFormat);
 			float num;
-			if (String.Compare(xmlLine.X, "", false) != 0)
+			if (Operators.CompareString(xmlLine.X, "", false) != 0)
 			{
 				num = float.Parse(xmlLine.X) * 10f;
 			}
@@ -26895,7 +27175,7 @@ namespace LuoEasyPrint
 				num = this.Currentx;
 			}
 			float num2;
-			if (String.Compare(xmlLine.Y, "", false) != 0)
+			if (Operators.CompareString(xmlLine.Y, "", false) != 0)
 			{
 				num2 = float.Parse(xmlLine.Y) * 10f;
 			}
@@ -26904,7 +27184,7 @@ namespace LuoEasyPrint
 				num2 = this.Currenty;
 			}
 			float num3;
-			if (String.Compare(xmlLine.X2, "", false) != 0)
+			if (Operators.CompareString(xmlLine.X2, "", false) != 0)
 			{
 				num3 = float.Parse(xmlLine.X2) * 10f;
 			}
@@ -26913,7 +27193,7 @@ namespace LuoEasyPrint
 				num3 = this.Currentx;
 			}
 			float num4;
-			if (String.Compare(xmlLine.Y2, "", false) != 0)
+			if (Operators.CompareString(xmlLine.Y2, "", false) != 0)
 			{
 				num4 = float.Parse(xmlLine.Y2) * 10f;
 			}
@@ -26936,7 +27216,7 @@ namespace LuoEasyPrint
 			XmlEllipse xmlEllipse = new XmlEllipse(node);
 			xmlEllipse.Parse();
 			float num;
-			if (String.Compare(xmlEllipse.X, "", false) != 0)
+			if (Operators.CompareString(xmlEllipse.X, "", false) != 0)
 			{
 				num = float.Parse(xmlEllipse.X) * 10f;
 			}
@@ -26945,7 +27225,7 @@ namespace LuoEasyPrint
 				num = this.Currentx;
 			}
 			float num2;
-			if (String.Compare(xmlEllipse.Y, "", false) != 0)
+			if (Operators.CompareString(xmlEllipse.Y, "", false) != 0)
 			{
 				num2 = float.Parse(xmlEllipse.Y) * 10f;
 			}
@@ -26973,7 +27253,7 @@ namespace LuoEasyPrint
 			XmlEllipse xmlEllipse = new XmlEllipse(node);
 			xmlEllipse.Parse();
 			float num;
-			if (String.Compare(xmlEllipse.X, "", false) != 0)
+			if (Operators.CompareString(xmlEllipse.X, "", false) != 0)
 			{
 				num = float.Parse(xmlEllipse.X) * 10f;
 			}
@@ -26982,7 +27262,7 @@ namespace LuoEasyPrint
 				num = this.Currentx;
 			}
 			float num2;
-			if (String.Compare(xmlEllipse.Y, "", false) != 0)
+			if (Operators.CompareString(xmlEllipse.Y, "", false) != 0)
 			{
 				num2 = float.Parse(xmlEllipse.Y) * 10f;
 			}
@@ -27009,7 +27289,7 @@ namespace LuoEasyPrint
 		{
 			XmlTextLabel xmlTextLabel = new XmlTextLabel(node);
 			xmlTextLabel.Parse();
-			if (String.Compare(xmlTextLabel.X, "", false) != 0)
+			if (Operators.CompareString(xmlTextLabel.X, "", false) != 0)
 			{
 				float num = float.Parse(xmlTextLabel.X) * 10f;
 			}
@@ -27017,7 +27297,7 @@ namespace LuoEasyPrint
 			{
 				float currentx = this.Currentx;
 			}
-			if (String.Compare(xmlTextLabel.Y, "", false) != 0)
+			if (Operators.CompareString(xmlTextLabel.Y, "", false) != 0)
 			{
 				float num2 = float.Parse(xmlTextLabel.Y) * 10f;
 			}
@@ -27041,7 +27321,7 @@ namespace LuoEasyPrint
 		{
 			XmlTextLabel xmlTextLabel = new XmlTextLabel(node);
 			xmlTextLabel.Parse();
-			if (String.Compare(xmlTextLabel.X, "", false) != 0)
+			if (Operators.CompareString(xmlTextLabel.X, "", false) != 0)
 			{
 				float num = float.Parse(xmlTextLabel.X) * 10f;
 			}
@@ -27049,7 +27329,7 @@ namespace LuoEasyPrint
 			{
 				float currentx = this.Currentx;
 			}
-			if (String.Compare(xmlTextLabel.Y, "", false) != 0)
+			if (Operators.CompareString(xmlTextLabel.Y, "", false) != 0)
 			{
 				float num2 = float.Parse(xmlTextLabel.Y) * 10f;
 			}
@@ -27065,7 +27345,7 @@ namespace LuoEasyPrint
 			Font font = textFormat.Font;
 			color = textFormat.ForeColor;
 			float linespace;
-			if (String.Compare(xmlTextLabel.LineSpace, "", false) == 0)
+			if (Operators.CompareString(xmlTextLabel.LineSpace, "", false) == 0)
 			{
 				linespace = 0f;
 			}
@@ -27074,7 +27354,7 @@ namespace LuoEasyPrint
 				linespace = float.Parse(xmlTextLabel.LineSpace);
 			}
 			float charspace;
-			if (String.Compare(xmlTextLabel.CharSpace, "", false) == 0)
+			if (Operators.CompareString(xmlTextLabel.CharSpace, "", false) == 0)
 			{
 				charspace = 0f;
 			}
@@ -27091,7 +27371,7 @@ namespace LuoEasyPrint
 			XmlTextBox xmlTextBox = new XmlTextBox(node);
 			xmlTextBox.Parse();
 			float x;
-			if (String.Compare(xmlTextBox.X, "", false) != 0)
+			if (Operators.CompareString(xmlTextBox.X, "", false) != 0)
 			{
 				x = float.Parse(xmlTextBox.X) * 10f;
 			}
@@ -27100,7 +27380,7 @@ namespace LuoEasyPrint
 				x = this.Currentx;
 			}
 			float y;
-			if (String.Compare(xmlTextBox.Y, "", false) != 0)
+			if (Operators.CompareString(xmlTextBox.Y, "", false) != 0)
 			{
 				y = float.Parse(xmlTextBox.Y) * 10f;
 			}
@@ -27118,7 +27398,7 @@ namespace LuoEasyPrint
 			Font font = textFormat.Font;
 			textforecolor = textFormat.ForeColor;
 			Color linecolor;
-			if (String.Compare(xmlTextBox.LineColor, "", false) == 0)
+			if (Operators.CompareString(xmlTextBox.LineColor, "", false) == 0)
 			{
 				linecolor = Color.Black;
 			}
@@ -27131,7 +27411,7 @@ namespace LuoEasyPrint
 			checked
 			{
 				string text2;
-				if (String.Compare(xmlTextBox.Border, "", false) != 0)
+				if (Operators.CompareString(xmlTextBox.Border, "", false) != 0)
 				{
 					string[] array = Strings.Split(xmlTextBox.Border, ",", -1, CompareMethod.Binary);
 					text2 = "";
@@ -27141,13 +27421,13 @@ namespace LuoEasyPrint
 					{
 						unchecked
 						{
-							if (String.Compare(text2, "", false) == 0)
+							if (Operators.CompareString(text2, "", false) == 0)
 							{
-								text2 = Convert.ToString(float.Parse(array[i]) * 10f);
+								text2 = Conversions.ToString(float.Parse(array[i]) * 10f);
 							}
 							else
 							{
-								text2 = text2 + "," + Convert.ToString(float.Parse(array[i]) * 10f);
+								text2 = text2 + "," + Conversions.ToString(float.Parse(array[i]) * 10f);
 							}
 						}
 					}
@@ -27177,7 +27457,7 @@ namespace LuoEasyPrint
 				text = this.myxmlreplace(text, myhash, dgvhashtable);
 				Font titleFont = xmlEmbedTable.TitleFont;
 				DataGridView dataGridView = null;
-				if (String.Compare(xmlEmbedTable.src, "", false) != 0)
+				if (Operators.CompareString(xmlEmbedTable.src, "", false) != 0)
 				{
 					try
 					{
@@ -27190,7 +27470,7 @@ namespace LuoEasyPrint
 					}
 				}
 				dataGridView = (DataGridView)dgvhashtable[0];
-				IL_92:
+			IL_92:
 				string text2;
 				Margins cellMargin;
 				bool isUseDGVPadding;
@@ -27206,7 +27486,7 @@ namespace LuoEasyPrint
 				TreeView columnheadertree;
 				checked
 				{
-					if (String.Compare(xmlEmbedTable.Border, "", false) != 0)
+					if (Operators.CompareString(xmlEmbedTable.Border, "", false) != 0)
 					{
 						string[] array = Strings.Split(xmlEmbedTable.Border, ",", -1, CompareMethod.Binary);
 						text2 = "";
@@ -27216,13 +27496,13 @@ namespace LuoEasyPrint
 						{
 							unchecked
 							{
-								if (String.Compare(text2, "", false) == 0)
+								if (Operators.CompareString(text2, "", false) == 0)
 								{
-									text2 = Convert.ToString(float.Parse(array[i]) * 10f);
+									text2 = Conversions.ToString(float.Parse(array[i]) * 10f);
 								}
 								else
 								{
-									text2 = text2 + "," + Convert.ToString(float.Parse(array[i]) * 10f);
+									text2 = text2 + "," + Conversions.ToString(float.Parse(array[i]) * 10f);
 								}
 							}
 						}
@@ -27261,7 +27541,7 @@ namespace LuoEasyPrint
 					isDrawTableFooterEveryPage = this.IsDrawTableFooterEveryPage;
 					this.IsDrawTableFooterEveryPage = xmlEmbedTable.DrawTableFooterEveryPage;
 					gridColor = dataGridView.GridColor;
-					if (String.Compare(xmlEmbedTable.LineColor, "", false) != 0)
+					if (Operators.CompareString(xmlEmbedTable.LineColor, "", false) != 0)
 					{
 						Color colorFrom = XmlParserBase.GetColorFrom(xmlEmbedTable.LineColor);
 						if (!colorFrom.IsEmpty)
@@ -27279,7 +27559,7 @@ namespace LuoEasyPrint
 					}
 					Module1.CopyDataGridView(dataGridView, this.myms);
 				}
-				Color color = new Color();
+				Color color;
 				this.StartDo(this.myms, xmlEmbedTable.SortColumn, xmlEmbedTable.SortType, xmlEmbedTable.GroupColumn, "", xmlEmbedTable.AddRowId, false, null, color, color, xmlEmbedTable.AutoFormat, xmlEmbedTable.PrintType, text, titleFont, text3, xmlEmbedTable.SubTitleFont, xmlEmbedTable.Alignemnt, text2, xmlEmbedTable.ZoomToPaperWidth, xmlEmbedTable.AutoResizeRowHeight, xmlEmbedTable.TableHeaderFont, text4, text5, text6, xmlEmbedTable.TableFooterFont, tableleft, tablemiddle, tableright, xmlEmbedTable.MinFontSize, xmlEmbedTable.RepPageTitle, xmlEmbedTable.PrintBackColor, 0, 0, xmlEmbedTable.FixedCols, xmlEmbedTable.AddRowId, xmlEmbedTable.Columns, xmlEmbedTable.ColumnSpace * 10f, xmlEmbedTable.LastPageMode, xmlEmbedTable.Linespace * 10f, xmlEmbedTable.PrintZero, columnheadertree, StringAlignment.Near, StringAlignment.Center, StringAlignment.Far, StringAlignment.Near, StringAlignment.Center, StringAlignment.Far, StringAlignment.Center, xmlEmbedTable.AutoWrap, 0f);
 				this.CellMargin = cellMargin;
 				this.IsUseDGVPadding = isUseDGVPadding;
@@ -27990,7 +28270,7 @@ namespace LuoEasyPrint
 		private float myheaderlineposition;
 
 		// Token: 0x04000A61 RID: 2657
-		private VB2008Print.PageExportUnit mypageunits;
+		public PageExportUnit mypageunits;
 
 		// Token: 0x04000A62 RID: 2658
 		private bool myisautoaddemptyrow;

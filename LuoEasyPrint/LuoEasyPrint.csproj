@@ -7,8 +7,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="itext7" Version="7.2.3" />
+		<PackageReference Include="iTextSharp.LGPLv2.Core" Version="1.8.0" />
 		<PackageReference Include="Microsoft.Office.Interop.Word" Version="15.0.4797.1004" />
+		<PackageReference Include="Microsoft.VisualBasic" Version="10.3.0" />
 		<PackageReference Include="NPOI" Version="2.5.6" />
 		<PackageReference Include="RtfPipe" Version="2.0.7677.4303" />
 		<PackageReference Include="ZXing.Net" Version="0.16.8" />

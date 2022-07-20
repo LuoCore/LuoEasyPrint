@@ -26,7 +26,7 @@ namespace LuoEasyPrint
 		// (set) Token: 0x060011F9 RID: 4601 RVA: 0x0000698C File Offset: 0x00004B8C
 		
 
-		internal virtual DotNetPrint myp
+		internal virtual VB2008Print myp
 		{
 			get
 			{
@@ -41,6 +41,6 @@ namespace LuoEasyPrint
 
 		// Token: 0x04000954 RID: 2388
 		[AccessedThroughProperty("myp")]
-		private DotNetPrint _myp;
+		private VB2008Print _myp;
 	}
 }

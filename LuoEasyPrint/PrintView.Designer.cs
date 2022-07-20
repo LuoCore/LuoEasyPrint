@@ -27,7 +27,7 @@
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager componentResourceManager = new System.ComponentModel.ComponentResourceManager(typeof(PrintView));
-			this.myp = new DotNetPrint();
+			this.myp = new VB2008Print();
 			this.SuspendLayout();
 			this.myp.CanOpenReport = true;
 			this.myp.CanSaveReport = true;
@@ -65,7 +65,7 @@
 			this.myp.OuterBorder = false;
 			this.myp.OuterBorderColor = System.Drawing.Color.Black;
 			this.myp.OuterBorderWidth = 2f;
-			this.myp.PageUnits = DotNetPrint.PageExportUnit.Inch;
+			this.myp.PageUnits = VB2008Print.PageExportUnit.Inch;
 			this.myp.PaperKind = System.Drawing.Printing.PaperKind.A4;
 			this.myp.PaperLandscape = false;
 			this.myp.PaperMargins = new System.Drawing.Printing.Margins(100, 100, 100, 100);
@@ -90,7 +90,7 @@
 			this.myp.ZDXPosition = 0f;
 			this.myp.ZDXText = "装订线";
 			this.myp.ZDXTextColor = System.Drawing.Color.Black;
-			this.myp.ZDXType = DotNetPrint.TheZDXTYPE.LEFT;
+			this.myp.ZDXType = VB2008Print.TheZDXTYPE.LEFT;
 			this.myp.ZDYButton2Text = "";
 			this.myp.ZDYButton2ToolTipText = "";
 			this.myp.ZDYButton2Visible = false;

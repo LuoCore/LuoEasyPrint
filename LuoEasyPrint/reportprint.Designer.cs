@@ -27,7 +27,7 @@ namespace LuoEasyPrint
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager componentResourceManager = new System.ComponentModel.ComponentResourceManager(typeof(reportprint));
-			this.p = new VB2008Print();
+			this.p = new DotNetPrint();
 			this.SuspendLayout();
 			this.p.CanOpenReport = false;
 			this.p.CanSaveReport = true;
@@ -73,7 +73,7 @@ namespace LuoEasyPrint
 			this.p.OuterBorderColor = System.Drawing.Color.Black;
 			this.p.OuterBorderWidth = 2f;
 			this.p.PageScale = 1f;
-			this.p.PageUnits = VB2008Print.PageExportUnit.CentiMeter;
+			this.p.PageUnits = DotNetPrint.PageExportUnit.CentiMeter;
 			this.p.PaperBackColor = System.Drawing.SystemColors.AppWorkspace;
 			this.p.PaperForeColor = System.Drawing.Color.White;
 			this.p.PaperKind = System.Drawing.Printing.PaperKind.A4;
@@ -100,7 +100,7 @@ namespace LuoEasyPrint
 			this.p.ZDXPosition = 0f;
 			this.p.ZDXText = "装订线";
 			this.p.ZDXTextColor = System.Drawing.Color.Black;
-			this.p.ZDXType = VB2008Print.TheZDXTYPE.LEFT;
+			this.p.ZDXType = DotNetPrint.TheZDXTYPE.LEFT;
 			this.p.ZDYButton2Text = "";
 			this.p.ZDYButton2ToolTipText = "";
 			this.p.ZDYButton2Visible = true;
