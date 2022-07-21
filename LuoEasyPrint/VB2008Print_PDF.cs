@@ -8,12 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace LuoEasyPrint
 {
-	public partial class VB2008Print_PDF:VB2008Print
+	public static partial class VB2008Print_PDF
 	{
-		public  bool SaveAsPdf(Document thedocument, int pagenumber)
-		{
+		public static  bool SaveAsPdf(this VB2008Print print, Document thedocument, int pagenumber)
+		{ 
 			bool result;
 			try
 			{
@@ -21,29 +22,29 @@ namespace LuoEasyPrint
 				{
 					result = false;
 				}
-				else if (pagenumber > this.GetPages() | pagenumber <= 0)
+				else if (pagenumber > print.GetPages() | pagenumber <= 0)
 				{
 					result = false;
 				}
 				else
 				{
 					string text = MyProject.Computer.FileSystem.GetTempFileName() + ".png";
-					this.SaveAsImage(pagenumber, text);
-					this.GetPageAndPaperSettings(pagenumber);
+					print.SaveAsImage(pagenumber, text);
+					print.GetPageAndPaperSettings(pagenumber);
 					float num;
 					float num2;
-					if (this.PageUnits == PageExportUnit.Inch)
+					if (print.PageUnits == VB2008Print_EnumType.PageExportUnit.Inch)
 					{
-						num = this.PaperWidth * 72f / 100f;
-						num2 = this.PaperHeight * 72f / 100f;
+						num = print.PaperWidth * 72f / 100f;
+						num2 = print.PaperHeight * 72f / 100f;
 					}
 					else
 					{
-						num = this.ConvertCmToInch(this.PaperWidth) * 72f / 100f;
-						num2 = this.ConvertCmToInch(this.PaperHeight) * 72f / 100f;
+						num = print.ConvertCmToInch(print.PaperWidth) * 72f / 100f;
+						num2 = print.ConvertCmToInch(print.PaperHeight) * 72f / 100f;
 					}
                     iTextSharp.text.Rectangle rectangle;
-					if (this.PaperLandscape | num > num2)
+					if (print.PaperLandscape | num > num2)
 					{
 						rectangle = new iTextSharp.text.Rectangle(0f, 0f, num2, num);
 						thedocument.SetMargins(0f, 0f, 0f, 0f);
@@ -57,7 +58,7 @@ namespace LuoEasyPrint
 					}
 					thedocument.NewPage();
                     iTextSharp.text.Image instance = iTextSharp.text.Image.GetInstance(text);
-					if (this.PaperLandscape | num > num2)
+					if (print.PaperLandscape | num > num2)
 					{
 						instance.ScaleAbsolute(rectangle.Height, rectangle.Width);
 					}
@@ -76,7 +77,7 @@ namespace LuoEasyPrint
 			}
 			return result;
 		}
-		public  bool SaveAsPdf(string filename, bool onlycurrentpage)
+		public  static bool SaveAsPdf(this VB2008Print print, string filename, bool onlycurrentpage)
 		{
 			progressexcel progressexcel = new progressexcel();
 			checked
@@ -84,7 +85,7 @@ namespace LuoEasyPrint
 				bool result;
 				try
 				{
-					if (this.GetCurrentPage() <= 0 | this.GetPages() <= 0)
+					if (print.GetCurrentPage() <= 0 | print.GetPages() <= 0)
 					{
 						result = false;
 					}
@@ -112,17 +113,17 @@ namespace LuoEasyPrint
 						document.Open();
 						if (onlycurrentpage)
 						{
-							SaveAsPdf(document, this.GetCurrentPage());
+							print.SaveAsPdf(document, print.GetCurrentPage());
 						}
 						else
 						{
 							Module1.G_CancelExportDGVToExcel = false;
 							progressexcel.Text = "保存为PDF文件";
 							progressexcel.ProgressBar1.Value = 0;
-							progressexcel.ProgressBar1.Maximum = this.GetPages();
-							progressexcel.Show(this.ParentForm);
+							progressexcel.ProgressBar1.Maximum = print.GetPages();
+							progressexcel.Show(print.ParentForm);
 							int num = 1;
-							int num2 = this.GetPages();
+							int num2 = print.GetPages();
 							for (int i = num; i <= num2; i++)
 							{
 								if (Module1.G_CancelExportDGVToExcel)
@@ -137,16 +138,16 @@ namespace LuoEasyPrint
 									"正在保存第〖",
 									Conversions.ToString(i),
 									"〗页，共〖",
-									Conversions.ToString(this.GetPages()),
+									Conversions.ToString(print.GetPages()),
 									"〗页，已完成〖",
-									Strings.Format((double)(i - 1) / (double)this.GetPages(), "###.##%"),
+									Strings.Format((double)(i - 1) / (double)print.GetPages(), "###.##%"),
 									"〗"
 								});
 								Application.DoEvents();
 								progressexcel.ProgressBar1.Value = i - 1;
-								SaveAsPdf(document, i);
+								print.SaveAsPdf(document, i);
 							}
-							progressexcel.ProgressBar1.Value = this.GetPages();
+							progressexcel.ProgressBar1.Value = print.GetPages();
 							progressexcel.Label1.Text = "保存完成，正在做最后处理";
 							progressexcel.Dispose();
 							progressexcel = null;

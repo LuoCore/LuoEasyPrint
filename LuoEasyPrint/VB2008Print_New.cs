@@ -5,6 +5,7 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
 
 namespace LuoEasyPrint
@@ -50,7 +51,7 @@ namespace LuoEasyPrint
         {
             return print.IsNewPage(theheight, autonewpage, true);
         }
-        public static bool IsNewPage(this VB2008Print print,float theheight, bool autonewpage, bool newpageUsePriorPageset)
+        public static bool IsNewPage(this VB2008Print print, float theheight, bool autonewpage, bool newpageUsePriorPageset)
         {
             bool flag = theheight + print.Currenty > print.PaperPrintHeight;
             if (flag && autonewpage)
@@ -84,7 +85,7 @@ namespace LuoEasyPrint
             }
         }
 
-      
+
         public static void NewPage(this VB2008Print print, bool isPaperLandscape)
         {
             if (!print.CancelDocument)
@@ -98,7 +99,7 @@ namespace LuoEasyPrint
             }
         }
 
-       
+
         public static void NewPage(this VB2008Print print, PaperKind mypaperkind, bool isPaperLandscape)
         {
             if (!print.CancelDocument)
@@ -120,14 +121,14 @@ namespace LuoEasyPrint
                 }
                 finally
                 {
-                   
+
                 }
                 print.isstarting = flag;
                 NewPageAfter(print);
             }
         }
 
-    
+
         public static void NewPage(this VB2008Print print, PaperKind mypaperkind)
         {
             if (!print.CancelDocument)
@@ -148,7 +149,7 @@ namespace LuoEasyPrint
                 }
                 finally
                 {
-                
+
                 }
                 print.isstarting = flag;
                 NewPageAfter(print);
@@ -175,7 +176,7 @@ namespace LuoEasyPrint
                 }
                 finally
                 {
-                  
+
                 }
                 print.PaperMargins = thePaperMargin;
                 print.isstarting = flag;
@@ -202,7 +203,7 @@ namespace LuoEasyPrint
                 }
                 finally
                 {
-                    
+
                 }
                 print.PaperMargins = thePaperMargin;
                 print.isstarting = flag;
@@ -261,7 +262,7 @@ namespace LuoEasyPrint
                 Application.DoEvents();
             }
         }
-        public static void NewPage(this VB2008Print print,PaperSize newpapersize, bool isPaperLandscape)
+        public static void NewPage(this VB2008Print print, PaperSize newpapersize, bool isPaperLandscape)
         {
             if (!print.CancelDocument)
             {
@@ -314,7 +315,7 @@ namespace LuoEasyPrint
             }
         }
 
-       
+
         public static void NewRow(this VB2008Print print, float currentrowheight)
         {
             if (!Module1.G_CancelDocument)
@@ -328,41 +329,11 @@ namespace LuoEasyPrint
             }
         }
 
-
-        public static void SavePageCS(this VB2008Print print)
+        public static void TheWrite(this VB2008Print print, int thepage, string thename, string thevalue)
         {
-            PaperSize paperSize = print.mypagesetting.PaperSize;
-            print.SavePaperHeightAndWidth(paperSize);
-            print.mypages[0].Append("\u0002\u0004");
-            print.TheWrite(0, "papersize", Conversions.ToString((int)paperSize.Kind));
-            if (paperSize.Kind == PaperKind.Custom)
-            {
-                print.TheWrite(0, "paperzdy", string.Concat(new string[]
-                {
-                    paperSize.PaperName,
-                    "\u0006",
-                    Conversions.ToString(paperSize.Width),
-                    "\u0006",
-                    Conversions.ToString(paperSize.Height)
-                }));
-            }
-            else
-            {
-                print.TheWrite(0, "paperzdy", string.Concat(new string[]
-                {
-                    "[",
-                    paperSize.PaperName,
-                    "]\u0006",
-                    Conversions.ToString(paperSize.Width),
-                    "\u0006",
-                    Conversions.ToString(paperSize.Height)
-                }));
-            }
-            print.TheWrite(0, "orientation", Conversions.ToString(Interaction.IIf(print.mypagesetting.Landscape, "1", "0")));
-            print.TheWrite(0, "leftmargin", Conversions.ToString(print.mypagesetting.Margins.Left));
-            print.TheWrite(0, "topmargin", Conversions.ToString(print.mypagesetting.Margins.Top));
-            print.TheWrite(0, "bottommargin", Conversions.ToString(print.mypagesetting.Margins.Bottom));
-            print.TheWrite(0, "rightmargin", Conversions.ToString(print.mypagesetting.Margins.Right));
+            string str = thename + "\0" + thevalue;
+            print.mypages[thepage].Append("\u0001\u0003" + str);
         }
+        
     }
 }

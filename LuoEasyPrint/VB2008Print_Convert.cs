@@ -8,20 +8,27 @@ using Microsoft.VisualBasic.CompilerServices;
 
 namespace LuoEasyPrint
 {
-	public partial class VB2008Print_Convert:VB2008Print
+	public static partial class VB2008Print_Convert
 	{
-		public static float MyConvTo(float oldvalue)
+		public static float ConvFromMMToDisplay(this VB2008Print print, float myw)
 		{
-			switch (this.mypageunits)
+			float num = (float)((double)(myw / 10f) / 2.54);
+			float num2 = print.PIXELSPERINCHX;
+			num2 = num * num2;
+			return Convert.ToSingle(Math.Floor(new decimal(num2)));
+		}
+		public static float MyConvTo(this VB2008Print print, float oldvalue)
+		{
+			switch (print.mypageunits)
 			{
-				case VB2008Print.PageExportUnit.CentiMeter:
+				case VB2008Print_EnumType.PageExportUnit.CentiMeter:
 					return (float)((double)oldvalue / 2.54);
-				case VB2008Print.PageExportUnit.Inch:
+				case VB2008Print_EnumType.PageExportUnit.Inch:
 					return oldvalue;
 			}
 			return oldvalue;
 		}
-		public static string ConvertPointsToString( PointF[] points)
+		public static string ConvertPointsToString(this VB2008Print print, PointF[] points)
 		{
 			checked
 			{
@@ -36,7 +43,7 @@ namespace LuoEasyPrint
 				}
 				else
 				{
-					string text = Conversions.ToString(this.MyConvTo(points[0].X)) + "," + Conversions.ToString(this.MyConvTo(points[0].Y));
+					string text = Conversions.ToString(print.MyConvTo(points[0].X)) + "," + Conversions.ToString(print.MyConvTo(points[0].Y));
 					int num = 1;
 					int num2 = points.Length - 1;
 					for (int i = num; i <= num2; i++)
@@ -45,9 +52,9 @@ namespace LuoEasyPrint
 						{
 							text,
 							";",
-							Conversions.ToString(MyConvTo(points[i].X)),
+							Conversions.ToString(print.MyConvTo(points[i].X)),
 							",",
-							Conversions.ToString(MyConvTo(points[i].Y))
+							Conversions.ToString(print.MyConvTo(points[i].Y))
 						});
 					}
 					result = text;
@@ -57,7 +64,7 @@ namespace LuoEasyPrint
 		}
 
 		// Token: 0x060014B8 RID: 5304 RVA: 0x000A81C8 File Offset: 0x000A63C8
-		public static PointF[] ConvertStringToPoints( string ss)
+		public static PointF[] ConvertStringToPoints(this VB2008Print print, string ss)
 		{
 			checked
 			{
@@ -83,8 +90,8 @@ namespace LuoEasyPrint
 							string[] array3 = Strings.Split(array[i], ",", -1, CompareMethod.Binary);
 							unchecked
 							{
-								array2[i].X = Conversions.ToSingle(array3[0]) + (float)this.mypagesetting.Margins.Left;
-								array2[i].Y = Conversions.ToSingle(array3[1]) + (float)this.mypagesetting.Margins.Top;
+								array2[i].X = Conversions.ToSingle(array3[0]) + (float)print.mypagesetting.Margins.Left;
+								array2[i].Y = Conversions.ToSingle(array3[1]) + (float)print.mypagesetting.Margins.Top;
 							}
 						}
 						result = array2;
@@ -93,15 +100,11 @@ namespace LuoEasyPrint
 				return result;
 			}
 		}
-
-		// Token: 0x060014B9 RID: 5305 RVA: 0x000A8290 File Offset: 0x000A6490
-		public static string ConvertPointToString( PointF point)
+		public static string ConvertPointToString(this VB2008Print print, PointF point)
 		{
-			return Conversions.ToString(MyConvTo( point.X)) + "," + Conversions.ToString(MyConvTo(point.Y));
+			return Conversions.ToString(print.MyConvTo( point.X)) + "," + Conversions.ToString(print.MyConvTo(point.Y));
 		}
-
-		// Token: 0x060014BA RID: 5306 RVA: 0x000A82D8 File Offset: 0x000A64D8
-		public static PointF ConvertStringToPoint(string ss)
+		public static PointF ConvertStringToPoint(this VB2008Print print, string ss)
 		{
 			PointF result = new PointF();
 			if (Operators.CompareString(ss, "", false) == 0)
@@ -119,43 +122,43 @@ namespace LuoEasyPrint
 				else
 				{
 					PointF pointF2 = new PointF();
-					pointF2.X = Conversions.ToSingle(array[0]) + (float)this.mypagesetting.Margins.Left;
-					pointF2.Y = Conversions.ToSingle(array[1]) + (float)this.mypagesetting.Margins.Top;
+					pointF2.X = Conversions.ToSingle(array[0]) + (float)print.mypagesetting.Margins.Left;
+					pointF2.Y = Conversions.ToSingle(array[1]) + (float)print.mypagesetting.Margins.Top;
 					result = pointF2;
 				}
 			}
 			return result;
 		}
 
-		// Token: 0x060014BB RID: 5307 RVA: 0x000A835C File Offset: 0x000A655C
-		public static string ConvertRectToString( RectangleF rec)
+	
+		public static string ConvertRectToString(this VB2008Print print, RectangleF rec)
 		{
 			return string.Concat(new string[]
 			{
-				Conversions.ToString(this.MyConvTo(rec.X)),
+				Conversions.ToString(print.MyConvTo(rec.X)),
 				",",
-				Conversions.ToString(this.MyConvTo(rec.Y)),
+				Conversions.ToString(print.MyConvTo(rec.Y)),
 				",",
-				Conversions.ToString(this.MyConvTo(rec.Width)),
+				Conversions.ToString(print.MyConvTo(rec.Width)),
 				",",
-				Conversions.ToString(this.MyConvTo(rec.Height))
+				Conversions.ToString(print.MyConvTo(rec.Height))
 			});
 		}
 
-		// Token: 0x060014BC RID: 5308 RVA: 0x000A83EC File Offset: 0x000A65EC
-		public static RectangleF ConvertStringToRect( string ss)
+	
+		public static RectangleF ConvertStringToRect(this VB2008Print print, string ss)
 		{
+			
 			string[] array = Strings.Split(ss, ",", -1, CompareMethod.Binary);
 			RectangleF result = new RectangleF();
-			result.X = Conversions.ToSingle(array[0]) + (float)this.mypagesetting.Margins.Left;
-			result.Y = Conversions.ToSingle(array[1]) + (float)this.mypagesetting.Margins.Top;
+			result.X = Conversions.ToSingle(array[0]) + (float)print.mypagesetting.Margins.Left;
+			result.Y = Conversions.ToSingle(array[1]) + (float)print.mypagesetting.Margins.Top;
 			result.Width = Conversions.ToSingle(array[2]);
 			result.Height = Conversions.ToSingle(array[3]);
 			return result;
 		}
 
-		// Token: 0x060014BD RID: 5309 RVA: 0x000A846C File Offset: 0x000A666C
-		public static string ConvertRectSToString( RectangleF[] rec)
+		public static string ConvertRectSToString(this VB2008Print print, RectangleF[] rec)
 		{
 			checked
 			{
@@ -170,12 +173,12 @@ namespace LuoEasyPrint
 				}
 				else
 				{
-					string text = this.ConvertRectToString(rec[0]);
+					string text = print.ConvertRectToString(rec[0]);
 					int num = 1;
 					int num2 = rec.Length - 1;
 					for (int i = num; i <= num2; i++)
 					{
-						text = text + ";" + this.ConvertRectToString(rec[i]);
+						text = text + ";" + print.ConvertRectToString(rec[i]);
 					}
 					result = text;
 				}
@@ -183,8 +186,7 @@ namespace LuoEasyPrint
 			}
 		}
 
-		// Token: 0x060014BE RID: 5310 RVA: 0x000A84E0 File Offset: 0x000A66E0
-		public static RectangleF[] ConvertStringToRectS( string ss)
+		public static RectangleF[] ConvertStringToRectS(this VB2008Print print, string ss)
 		{
 			checked
 			{
@@ -203,7 +205,7 @@ namespace LuoEasyPrint
 						int num2 = array.Length - 1;
 						for (int i = num; i <= num2; i++)
 						{
-							array2[i] = this.ConvertStringToRect(array[i]);
+							array2[i] = print.ConvertStringToRect(array[i]);
 						}
 						result = array2;
 					}
