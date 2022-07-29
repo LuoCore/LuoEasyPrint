@@ -15,7 +15,7 @@ namespace LuoEasyPrint
             // Token: 0x04000AA7 RID: 2727
             Inch = 3
         }
-        private  enum MyPrintPageRange
+        public  enum MyPrintPageRange
         {
             // Token: 0x04000A87 RID: 2695
             PageRange_JS = 1,

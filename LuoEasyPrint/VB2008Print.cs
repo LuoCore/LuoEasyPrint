@@ -26,6 +26,10 @@ using Microsoft.VisualBasic.FileIO;
 
 using ZXing;
 using ZXing.Common;
+
+using static LuoEasyPrint.VB2008Print_EnumType;
+
+using BarcodeFormat = LuoEasyPrint.VB2008Print_EnumType.BarcodeFormat;
 using Font = System.Drawing.Font;
 using Image = System.Drawing.Image;
 using Rectangle = System.Drawing.Rectangle;
@@ -3743,7 +3747,7 @@ namespace LuoEasyPrint
         // (get) Token: 0x06001364 RID: 4964 RVA: 0x00094C74 File Offset: 0x00092E74
         // (set) Token: 0x06001365 RID: 4965 RVA: 0x00006F98 File Offset: 0x00005198
         [Description("设置页面输出单位,CentiMeter表示1/100厘米，Inch表示1/100英寸")]
-        public VB2008Print.PageExportUnit PageUnits
+        public PageExportUnit PageUnits
         {
             get
             {
@@ -3929,9 +3933,7 @@ namespace LuoEasyPrint
             }
         }
 
-        // Token: 0x170006D0 RID: 1744
-        // (get) Token: 0x06001376 RID: 4982 RVA: 0x00094E30 File Offset: 0x00093030
-        // (set) Token: 0x06001377 RID: 4983 RVA: 0x00007046 File Offset: 0x00005246
+
         [Description("打印预览窗口工具栏是否可见")]
         public bool ToolBarVisible
         {
@@ -3946,9 +3948,7 @@ namespace LuoEasyPrint
             }
         }
 
-        // Token: 0x170006D1 RID: 1745
-        // (get) Token: 0x06001378 RID: 4984 RVA: 0x00094E44 File Offset: 0x00093044
-        // (set) Token: 0x06001379 RID: 4985 RVA: 0x0000705B File Offset: 0x0000525B
+
         [Description("是否允许打开报表文件")]
         public bool CanOpenReport
         {
@@ -4068,20 +4068,14 @@ namespace LuoEasyPrint
                     }
                     finally
                     {
-                        IEnumerator enumerator;
-                        if (enumerator is IDisposable)
-                        {
-                            (enumerator as IDisposable).Dispose();
-                        }
+                       
                     }
                     this.Pd.DefaultPageSettings = this.mypagesetting;
                 }
             }
         }
 
-        // Token: 0x170006D5 RID: 1749
-        // (get) Token: 0x06001380 RID: 4992 RVA: 0x00095090 File Offset: 0x00093290
-        // (set) Token: 0x06001381 RID: 4993 RVA: 0x000950B8 File Offset: 0x000932B8
+     
         [Description("设置纸张打印方向")]
         public bool PaperLandscape
         {
@@ -4105,8 +4099,7 @@ namespace LuoEasyPrint
             }
         }
 
-        // Token: 0x170006D6 RID: 1750
-        // (get) Token: 0x06001382 RID: 4994 RVA: 0x0009510C File Offset: 0x0009330C
+     
         public float PaperWidth
         {
             get
@@ -4147,8 +4140,7 @@ namespace LuoEasyPrint
             }
         }
 
-        // Token: 0x170006D7 RID: 1751
-        // (get) Token: 0x06001383 RID: 4995 RVA: 0x000951CC File Offset: 0x000933CC
+   
         public float PaperHeight
         {
             get
@@ -4671,297 +4663,7 @@ namespace LuoEasyPrint
         }
 
         // Token: 0x060013AA RID: 5034 RVA: 0x00095B8C File Offset: 0x00093D8C
-        private void MyDrawDGVHeaderCell(DataGridViewColumn mycolumn, float mycellwidth, float mycellheight, string myborder, bool isprintbackcolor, float minfontsize)
-        {
-            if (mycolumn != null)
-            {
-                DataGridView dataGridView = mycolumn.DataGridView;
-                if (mycolumn.Visible)
-                {
-                    if (mycellwidth <= 0f)
-                    {
-                        mycellwidth = this.ConvFromDisplay((float)mycolumn.Width, true);
-                    }
-                    if (mycellheight <= 0f)
-                    {
-                        mycellheight = this.ConvFromDisplay((float)dataGridView.ColumnHeadersHeight, false);
-                    }
-                    Font dgvheaderFont = Module1.GetDGVHeaderFont(mycolumn);
-                    Color dgvheaderForeColor = Module1.GetDGVHeaderForeColor(mycolumn);
-                    bool mulline = Module1.GetDGVHeaderMulline(mycolumn);
-                    Color dgvheaderBackColor = Module1.GetDGVHeaderBackColor(mycolumn);
-                    mulline = true;
-                    if (!isprintbackcolor)
-                    {
-                        this.DrawCell(mycolumn.HeaderText, mycellwidth, mycellheight, dgvheaderFont, dgvheaderForeColor, myborder, StringAlignment.Center, StringAlignment.Center, mulline, false, false, false, minfontsize, Color.White, dataGridView.GridColor, 0);
-                    }
-                    else
-                    {
-                        this.DrawCell(mycolumn.HeaderText, mycellwidth, mycellheight, dgvheaderFont, dgvheaderForeColor, myborder, StringAlignment.Center, StringAlignment.Center, mulline, false, false, false, minfontsize, dgvheaderBackColor, dataGridView.GridColor, 0);
-                    }
-                }
-                try
-                {
-                }
-                catch (Exception ex)
-                {
-                }
-            }
-        }
-
-
-        private void MyDrawDGVCell(DataGridViewCell dgvcell, float mycellwidth, float mycellheight, string myborder, bool isprintbackcolor, float minfontsize)
-        {
-            checked
-            {
-                if (dgvcell != null)
-                {
-                    DataGridView dataGridView = dgvcell.DataGridView;
-                    string s = "";
-                    Bitmap bitmap = null;
-                    DataGridViewColumn dataGridViewColumn = dataGridView.Columns[dgvcell.ColumnIndex];
-                    DataGridViewRow dataGridViewRow = dataGridView.Rows[dgvcell.RowIndex];
-                    if (dataGridViewColumn.Visible)
-                    {
-                        Margins cellMargin = this.CellMargin;
-                        if (this.IsUseDGVPadding)
-                        {
-                            Margins dgvcellPadding = Module1.GetDGVCellPadding(dgvcell);
-                            this.CellMargin = new Margins((int)Math.Round((double)this.ConvFromDisplay((float)dgvcellPadding.Left, true)), (int)Math.Round((double)this.ConvFromDisplay((float)dgvcellPadding.Right, true)), (int)Math.Round((double)this.ConvFromDisplay((float)dgvcellPadding.Top, false)), (int)Math.Round((double)this.ConvFromDisplay((float)dgvcellPadding.Bottom, false)));
-                        }
-                        if (mycellwidth <= 0f)
-                        {
-                            mycellwidth = this.ConvFromDisplay((float)dataGridViewColumn.Width, true);
-                        }
-                        if (mycellheight <= 0f)
-                        {
-                            mycellheight = this.ConvFromDisplay((float)dataGridViewRow.Height, false);
-                        }
-                        Font myf = Module1.GetDGVCellFont(dgvcell);
-                        DataGridViewCellStyle dataGridViewCellStyle = Module1.GetDGVCellStyle(dgvcell);
-                        Color dgvcellForeColor = Module1.GetDGVCellForeColor(dgvcell);
-                        Color dgvcellBackColor = Module1.GetDGVCellBackColor(dgvcell);
-                        bool dgvcellMulline = Module1.GetDGVCellMulline(dgvcell);
-                        bool flag = false;
-                        int num;
-                        if (Operators.CompareString(Versioned.TypeName(dataGridViewColumn), "DataGridViewCheckBoxColumn", false) == 0)
-                        {
-                            CheckBox checkBox = new CheckBox();
-                            Control control = checkBox;
-                            Size size = new Size(14, 14);
-                            control.Size = size;
-                            if (isprintbackcolor)
-                            {
-                                checkBox.BackColor = dgvcellBackColor;
-                            }
-                            else
-                            {
-                                checkBox.BackColor = Color.Transparent;
-                            }
-                            if (Operators.CompareString(Versioned.TypeName(RuntimeHelpers.GetObjectValue(dgvcell.FormattedValue)), "Boolean", false) == 0)
-                            {
-                                if (Conversions.ToBoolean(dgvcell.FormattedValue))
-                                {
-                                    checkBox.Checked = true;
-                                }
-                                else
-                                {
-                                    checkBox.Checked = false;
-                                }
-                            }
-                            else
-                            {
-                                switch (Conversions.ToInteger(dgvcell.FormattedValue))
-                                {
-                                    case 0:
-                                        checkBox.Checked = false;
-                                        break;
-                                    case 1:
-                                        checkBox.Checked = true;
-                                        break;
-                                    default:
-                                        checkBox.CheckState = CheckState.Indeterminate;
-                                        break;
-                                }
-                            }
-                            if (bitmap != null)
-                            {
-                                try
-                                {
-                                    bitmap.Dispose();
-                                    bitmap = null;
-                                }
-                                catch (Exception ex)
-                                {
-                                }
-                            }
-                            try
-                            {
-                                bitmap = new Bitmap((int)Math.Round((double)this.ConvToDisplay(mycellwidth, true)), (int)Math.Round((double)this.ConvToDisplay(mycellheight, false)));
-                                Graphics graphics = Graphics.FromImage(bitmap);
-                                Brush brush;
-                                if (isprintbackcolor)
-                                {
-                                    brush = new SolidBrush(dgvcellBackColor);
-                                }
-                                else
-                                {
-                                    brush = Brushes.White;
-                                }
-                                Graphics graphics2 = graphics;
-                                Brush brush2 = brush;
-                                Rectangle rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-                                graphics2.FillRectangle(brush2, rectangle);
-                                if (bitmap.Height < checkBox.Height)
-                                {
-                                    checkBox.Height = bitmap.Height;
-                                }
-                                if (bitmap.Width < checkBox.Width)
-                                {
-                                    checkBox.Width = bitmap.Width;
-                                }
-                                Control control2 = checkBox;
-                                Bitmap bitmap2 = bitmap;
-                                rectangle = new Rectangle((int)Math.Round((double)(bitmap.Width - checkBox.Width) / 2.0), (int)Math.Round((double)(bitmap.Height - checkBox.Height) / 2.0), checkBox.Width, checkBox.Height);
-                                control2.DrawToBitmap(bitmap2, rectangle);
-                                graphics.Dispose();
-                                checkBox.Dispose();
-                                checkBox = null;
-                            }
-                            catch (Exception ex2)
-                            {
-                            }
-                            flag = true;
-                            num = 2;
-                        }
-                        else if (Operators.CompareString(Versioned.TypeName(dataGridViewColumn), "DataGridViewButtonColumn", false) == 0)
-                        {
-                            Button button = new Button();
-                            button.AutoSize = false;
-                            Control control3 = button;
-                            Size size = new Size((int)Math.Round((double)this.ConvToDisplay(mycellwidth, true)), (int)Math.Round((double)this.ConvToDisplay(mycellheight, false)));
-                            control3.Size = size;
-                            button.Text = "";
-                            if (isprintbackcolor)
-                            {
-                                button.BackColor = dgvcellBackColor;
-                            }
-                            else
-                            {
-                                button.BackColor = Color.Transparent;
-                            }
-                            float currentx = this.Currentx;
-                            float currenty = this.Currenty;
-                            try
-                            {
-                                bitmap = new Bitmap(button.Width, dataGridViewRow.Height);
-                                Control control4 = button;
-                                Bitmap bitmap3 = bitmap;
-                                Rectangle rectangle = new Rectangle(0, 0, button.Width, (int)Math.Round((double)this.ConvToDisplay(mycellheight, false)));
-                                control4.DrawToBitmap(bitmap3, rectangle);
-                                this.DrawCellImage(bitmap, this.Currentx, this.Currenty, mycellwidth, mycellheight, dataGridView.GridColor, "0000", true, StringAlignment.Center, StringAlignment.Center);
-                                bitmap.Dispose();
-                                bitmap = null;
-                                button.Dispose();
-                            }
-                            catch (Exception ex3)
-                            {
-                            }
-                            this.Currentx = currentx;
-                            this.Currenty = currenty;
-                            flag = true;
-                            num = 3;
-                        }
-                        else if (Operators.CompareString(Versioned.TypeName(dataGridViewColumn), "DataGridViewImageColumn", false) == 0)
-                        {
-                            flag = true;
-                            num = 1;
-                        }
-                        else
-                        {
-                            s = Conversions.ToString(dgvcell.FormattedValue) + "";
-                        }
-                        if (!flag)
-                        {
-                            if (!isprintbackcolor)
-                            {
-                                this.DrawCell(s, mycellwidth, mycellheight, myf, dgvcellForeColor, myborder, Module1.GetHAlignment(dataGridViewCellStyle.Alignment), Module1.GetVAlignment(dataGridViewCellStyle.Alignment, this.IsDGVCellValignmentCenter), dgvcellMulline, true, false, false, minfontsize, Color.White, dataGridView.GridColor, 0);
-                            }
-                            else
-                            {
-                                this.DrawCell(s, mycellwidth, mycellheight, myf, dgvcellForeColor, myborder, Module1.GetHAlignment(dataGridViewCellStyle.Alignment), Module1.GetVAlignment(dataGridViewCellStyle.Alignment, this.IsDGVCellValignmentCenter), dgvcellMulline, false, false, false, minfontsize, dgvcellBackColor, dataGridView.GridColor, 0);
-                            }
-                        }
-                        else if (num == 1)
-                        {
-                            DataGridViewImageCell dataGridViewImageCell = (DataGridViewImageCell)dgvcell;
-                            this.DrawCellImage((Bitmap)dgvcell.FormattedValue, this.Currentx, this.Currenty, mycellwidth, mycellheight, dataGridView.GridColor, myborder, dataGridViewImageCell.ImageLayout, Module1.GetHAlignment(dataGridViewCellStyle.Alignment), Module1.GetVAlignment(dataGridViewCellStyle.Alignment, this.IsDGVCellValignmentCenter));
-                        }
-                        else if (num == 2)
-                        {
-                            this.DrawCellImage(bitmap, this.Currentx, this.Currenty, mycellwidth, mycellheight, dataGridView.GridColor, myborder, true, StringAlignment.Center, StringAlignment.Center);
-                        }
-                        else if (num == 3)
-                        {
-                            s = Conversions.ToString(dgvcell.FormattedValue) + "";
-                            this.DrawCell(s, mycellwidth, mycellheight, myf, dgvcellForeColor, myborder, Module1.GetHAlignment(dataGridViewCellStyle.Alignment), Module1.GetVAlignment(dataGridViewCellStyle.Alignment, this.IsDGVCellValignmentCenter), dgvcellMulline, true, false, false, minfontsize, Color.White, dataGridView.GridColor, 0);
-                        }
-                        if (this.IsUseDGVPadding)
-                        {
-                            this.CellMargin = cellMargin;
-                        }
-                    }
-                    if (bitmap != null)
-                    {
-                        try
-                        {
-                            bitmap.Dispose();
-                            bitmap = null;
-                        }
-                        catch (Exception ex4)
-                        {
-                        }
-                    }
-                    try
-                    {
-                        dataGridView = null;
-                        Font myf = null;
-                        DataGridViewCellStyle dataGridViewCellStyle = null;
-                    }
-                    catch (Exception ex5)
-                    {
-                    }
-                }
-            }
-        }
-
-        // Token: 0x060013AC RID: 5036 RVA: 0x0009633C File Offset: 0x0009453C
-        private static int GetDGVVisibleCols(DataGridView myd)
-        {
-            checked
-            {
-                int result;
-                if (myd == null)
-                {
-                    result = 0;
-                }
-                else
-                {
-                    int num = 0;
-                    int num2 = 0;
-                    int num3 = myd.ColumnCount - 1;
-                    for (int i = num2; i <= num3; i++)
-                    {
-                        if (myd.Columns[i].Visible)
-                        {
-                            num++;
-                        }
-                    }
-                    result = num;
-                }
-                return result;
-            }
-        }
+    
 
         // Token: 0x060013AD RID: 5037 RVA: 0x00096384 File Offset: 0x00094584
         
@@ -5039,9 +4741,9 @@ namespace LuoEasyPrint
         {
             switch (this.mypageunits)
             {
-                case VB2008Print.PageExportUnit.CentiMeter:
+                case PageExportUnit.CentiMeter:
                     return (float)((double)oldvalue / 2.54);
-                case VB2008Print.PageExportUnit.Inch:
+                case PageExportUnit.Inch:
                     return oldvalue;
             }
             return oldvalue;
@@ -5052,9 +4754,9 @@ namespace LuoEasyPrint
         {
             switch (this.mypageunits)
             {
-                case VB2008Print.PageExportUnit.CentiMeter:
+                case PageExportUnit.CentiMeter:
                     return (float)((double)oldvalue * 2.54);
-                case VB2008Print.PageExportUnit.Inch:
+                case PageExportUnit.Inch:
                     return oldvalue;
             }
             return oldvalue;
@@ -5067,39 +4769,8 @@ namespace LuoEasyPrint
             return (float)((double)(myw / pixelsperinchx) * 2.54 * 10.0);
         }
 
-        // Token: 0x060013C4 RID: 5060 RVA: 0x000976C0 File Offset: 0x000958C0
-    
-
-        // Token: 0x060013C5 RID: 5061 RVA: 0x00097700 File Offset: 0x00095900
-        private static bool CanSpanPrint(string myleft, string mymiddle, string myright, ref string mys, ref StringAlignment alg)
-        {
-            int num = 0;
-            StringAlignment stringAlignment = StringAlignment.Near;
-            checked
-            {
-                if (Operators.CompareString(myleft, "", false) != 0)
-                {
-                    num++;
-                    stringAlignment = StringAlignment.Near;
-                    mys = myleft;
-                }
-                if (Operators.CompareString(mymiddle, "", false) != 0)
-                {
-                    num++;
-                    stringAlignment = StringAlignment.Center;
-                    mys = mymiddle;
-                }
-                if (Operators.CompareString(myright, "", false) != 0)
-                {
-                    num++;
-                    stringAlignment = StringAlignment.Far;
-                    mys = myright;
-                }
-                bool result = num == 1;
-                alg = stringAlignment;
-                return result;
-            }
-        }
+     
+     
 
 
        
@@ -5150,11 +4821,7 @@ namespace LuoEasyPrint
                 }
                 finally
                 {
-                    IEnumerator enumerator;
-                    if (enumerator is IDisposable)
-                    {
-                        (enumerator as IDisposable).Dispose();
-                    }
+                    
                 }
             }
             this.TheWrite(0, "papersize", Conversions.ToString((int)this.mypagesetting.PaperSize.Kind));
@@ -5236,7 +4903,7 @@ namespace LuoEasyPrint
                     this.SetCurrentPage(num3);
                     float num4 = 1f;
                     float num5 = 10f;
-                    if (this.PageUnits == VB2008Print.PageExportUnit.Inch)
+                    if (this.PageUnits == PageExportUnit.Inch)
                     {
                         num4 = (float)((double)num4 / 2.54);
                         num5 = (float)((double)num5 / 2.54);
@@ -5254,7 +4921,7 @@ namespace LuoEasyPrint
                         this.DrawLine(0f, 0f - num5, this.PaperPrintWidth, 0f - num5, Color.Black, num4);
                     }
                     num5 = 10f;
-                    if (this.PageUnits == VB2008Print.PageExportUnit.Inch)
+                    if (this.PageUnits == PageExportUnit.Inch)
                     {
                         num4 = (float)((double)num4 / 2.54);
                         num5 = (float)((double)num5 / 2.54);
@@ -5506,8 +5173,8 @@ namespace LuoEasyPrint
             while (mysize.Height > num)
             {
                 mysize.Height = num;
-                int num2;
-                int num3;
+                int num2=0;
+                int num3=0;
                 sizeF = this.MeasureString(text, myf, mysize, myformat, ref num2, ref num3, includemargins);
                 string text2 = Strings.Mid(text, 1, num2);
                 this.Currentx = currentx;
@@ -5540,8 +5207,8 @@ namespace LuoEasyPrint
             {
                 mysize.Height = num;
                 mysize.Width = mywidth;
-                int num2;
-                int num3;
+                int num2=0;
+                int num3=0;
                 sizeF = this.MeasureString(text, myf, mysize, myformat, ref num2, ref num3, includemargins);
                 string text2 = Strings.Mid(text, 1, num2);
                 string text3 = text2;
@@ -5625,8 +5292,8 @@ namespace LuoEasyPrint
                 SizeF mysize = new SizeF(mywidth, myheight);
                 if (flag)
                 {
-                    int num2;
-                    int num3;
+                    int num2=0;
+                    int num3=0;
                     sizeF = this.MeasureString(s, myf, mysize, myformat, ref num2, ref num3, includemargins);
                     while (num2 < Strings.Len(s) & num > minfontsize)
                     {
@@ -5730,8 +5397,8 @@ namespace LuoEasyPrint
                 SizeF mysize = new SizeF(mywidth, myheight);
                 if (flag)
                 {
-                    int num2;
-                    int num3;
+                    int num2=0;
+                    int num3=0;
                     sizeF = this.MeasureString(s, myf, mysize, myformat, ref num2, ref num3, includemargins);
                     while (num2 < Strings.Len(s) & num > minfontsize)
                     {
@@ -5955,7 +5622,7 @@ namespace LuoEasyPrint
             if (Operators.CompareString(myborder, "", false) != 0)
             {
                 float[] array = new float[4];
-                array = VB2008Print.ParaseBorder(myborder);
+                array = this.ParaseBorder(myborder);
                 if (array[0] == array[1] & array[1] == array[2] & array[2] == array[3])
                 {
                     if (array[0] != 0f)
@@ -6053,7 +5720,7 @@ namespace LuoEasyPrint
             if (Operators.CompareString(myborder, "", false) != 0)
             {
                 float[] array = new float[4];
-                array = VB2008Print.ParaseBorder(myborder);
+                array = this.ParaseBorder(myborder);
                 if (array[0] == array[1] & array[1] == array[2] & array[2] == array[3])
                 {
                     if (array[0] != 0f)
@@ -6420,11 +6087,7 @@ namespace LuoEasyPrint
                             }
                             finally
                             {
-                                IEnumerator enumerator;
-                                if (enumerator is IDisposable)
-                                {
-                                    (enumerator as IDisposable).Dispose();
-                                }
+                               
                             }
                             goto IL_E7;
                         }
@@ -6483,7 +6146,7 @@ namespace LuoEasyPrint
                             }
                             else
                             {
-                                Color color;
+                                Color color=new Color();
                                 if (Operators.CompareString(left, "l", false) == 0)
                                 {
                                     float x = Conversions.ToSingle(array2[1]);
@@ -7144,206 +6807,10 @@ namespace LuoEasyPrint
       
 
         // Token: 0x060013F2 RID: 5106 RVA: 0x0009EB6C File Offset: 0x0009CD6C
-        private static float GetHMergeWidth(DataGridView ms, int cols, int curcol, int currow, int[] mycol, float[] cellwidth, ref int colsmerged, bool dobz = true)
-        {
-            DataGridViewCell dataGridViewCell = ms.Rows[currow].Cells[mycol[curcol]];
-            float num = cellwidth[curcol];
-            checked
-            {
-                try
-                {
-                    if (Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "水平合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "右合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "右上合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "右下合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "上边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "下边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "左边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "右边合并", false) != 0)
-                    {
-                        colsmerged = 1;
-                        return num;
-                    }
-                    if (curcol == cols - 1)
-                    {
-                        colsmerged = 1;
-                        return num;
-                    }
-                    int num2 = curcol + 1;
-                    int num3 = cols - 1;
-                    for (int i = num2; i <= num3; i++)
-                    {
-                        if (ms.Columns[mycol[i]].Visible)
-                        {
-                            DataGridViewCell dataGridViewCell2 = ms.Rows[currow].Cells[mycol[i]];
-                            if (!(Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "水平合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左上合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左下合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "上边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "下边合并", false) != 0) && dataGridViewCell.FormattedValue.Equals(RuntimeHelpers.GetObjectValue(dataGridViewCell2.FormattedValue)))
-                            {
-                                unchecked
-                                {
-                                    num += cellwidth[i];
-                                }
-                                if (!(Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左合并", false) == 0 | Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左上合并", false) == 0 | Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左下合并", false) == 0 | Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左边合并", false) == 0))
-                                {
-                                    if (dobz)
-                                    {
-                                        ms.Rows[currow].Cells[mycol[i]].Tag = "#*已水平合并*#";
-                                        goto IL_331;
-                                    }
-                                    goto IL_331;
-                                }
-                                else
-                                {
-                                    if (dobz)
-                                    {
-                                        ms.Rows[currow].Cells[mycol[i]].Tag = "#*已水平合并*#";
-                                    }
-                                    i++;
-                                }
-                            }
-                        IL_36B:
-                            colsmerged = i - curcol;
-                            goto IL_385;
-                        }
-                    IL_331:;
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    colsmerged = 1;
-                }
-            IL_385:
-                return num;
-            }
-        }
-
-        // Token: 0x060013F3 RID: 5107 RVA: 0x0009EF20 File Offset: 0x0009D120
-        private float GetVMergeHeight(DataGridView ms, int curcol, int currow, int[] mycol, int torow, ref int rowsmerged, bool dobz = true)
-        {
-            DataGridViewCell dataGridViewCell = ms.Rows[currow].Cells[mycol[curcol]];
-            float num = this.ConvFromDisplay((float)ms.Rows[currow].Height, false);
-            checked
-            {
-                try
-                {
-                    if (Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "垂直合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "下合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "左下合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "右下合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "上边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "下边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "左边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell.Tag), "右边合并", false) != 0)
-                    {
-                        rowsmerged = 1;
-                        return num;
-                    }
-                    if (currow == torow)
-                    {
-                        rowsmerged = 1;
-                        return num;
-                    }
-                    for (int i = currow + 1; i <= torow; i++)
-                    {
-                        if (ms.Rows[i].Visible)
-                        {
-                            DataGridViewCell dataGridViewCell2 = ms.Rows[i].Cells[mycol[curcol]];
-                            if (!(Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "垂直合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "上合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左上合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "右上合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "上边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左边合并", false) != 0 & Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "右边合并", false) != 0) && dataGridViewCell.FormattedValue.Equals(RuntimeHelpers.GetObjectValue(dataGridViewCell2.FormattedValue)))
-                            {
-                                float num2 = this.ConvFromDisplay((float)ms.Rows[i].Height, false);
-                                if (!this.MyIsNewPage(unchecked(num + num2), false))
-                                {
-                                    unchecked
-                                    {
-                                        num += num2;
-                                    }
-                                    if (!(Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "上合并", false) == 0 | Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "右上合并", false) == 0 | Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "左上合并", false) == 0 | Operators.CompareString(Conversions.ToString(dataGridViewCell2.Tag), "上边合并", false) == 0))
-                                    {
-                                        if (dobz)
-                                        {
-                                            ms.Rows[i].Cells[mycol[curcol]].Tag = "#*已垂直合并*#";
-                                            goto IL_36A;
-                                        }
-                                        goto IL_36A;
-                                    }
-                                    else
-                                    {
-                                        if (dobz)
-                                        {
-                                            ms.Rows[i].Cells[mycol[curcol]].Tag = "#*已垂直合并*#";
-                                        }
-                                        i++;
-                                    }
-                                }
-                            }
-                        IL_3A4:
-                            rowsmerged = i - currow;
-                            goto IL_3BE;
-                        }
-                    IL_36A:;
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    rowsmerged = 1;
-                }
-            IL_3BE:
-                return num;
-            }
-        }
+     
 
         // Token: 0x060013F4 RID: 5108 RVA: 0x0009F30C File Offset: 0x0009D50C
-        private void GetHVMergeWidthAndHeight(DataGridView ms, int cols, int curcol, int currow, int[] mycol, float[] cellwidth, int torow, ref float mywidth, ref float myheight)
-        {
-            int num;
-            myheight = this.GetVMergeHeight(ms, curcol, currow, mycol, torow, ref num, false);
-            checked
-            {
-                if (num == 1)
-                {
-                    int num2;
-                    mywidth = VB2008Print.GetHMergeWidth(ms, cols, curcol, currow, mycol, cellwidth, ref num2, true);
-                }
-                else
-                {
-                    int num2;
-                    mywidth = VB2008Print.GetHMergeWidth(ms, cols, curcol, currow, mycol, cellwidth, ref num2, false);
-                    if (num2 == 1)
-                    {
-                        myheight = this.GetVMergeHeight(ms, curcol, currow, mycol, torow, ref num, true);
-                    }
-                    else
-                    {
-                        mywidth = cellwidth[curcol];
-                        int i = 1;
-                        while (i <= num - 1)
-                        {
-                            if (ms.Rows[i].Visible)
-                            {
-                                if (Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "右合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "右上合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "右下合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "右边合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "上边合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow + i].Cells[mycol[curcol]].Tag), "下边合并", false) != 0)
-                                {
-                                    return;
-                                }
-                                i++;
-                            }
-                        }
-                        myheight = this.GetVMergeHeight(ms, curcol, currow, mycol, torow, ref num, true);
-                        int num3 = curcol + 1;
-                        int num4 = curcol + num2 - 1;
-                        for (int j = num3; j <= num4; j++)
-                        {
-                            unchecked
-                            {
-                                if (ms.Columns[mycol[j]].Visible)
-                                {
-                                    int num5;
-                                    this.GetVMergeHeight(ms, j, currow, mycol, torow, ref num5, false);
-                                    if (num5 < num | (Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左上合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左下合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左边合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "上边合并", false) != 0 & Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "下边合并", false) != 0))
-                                    {
-                                        break;
-                                    }
-                                    mywidth += cellwidth[j];
-                                    this.GetVMergeHeight(ms, j, currow, mycol, torow, ref num5, true);
-                                    if (Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左合并", false) == 0 | Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左上合并", false) == 0 | Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左下合并", false) == 0 | Operators.CompareString(Conversions.ToString(ms.Rows[currow].Cells[mycol[j]].Tag), "左边合并", false) == 0)
-                                    {
-                                        ms.Rows[currow].Cells[mycol[j]].Tag = "#*已水平合并*#";
-                                        break;
-                                    }
-                                    ms.Rows[currow].Cells[mycol[j]].Tag = "#*已水平合并*#";
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+   
 
         // Token: 0x060013F5 RID: 5109 RVA: 0x0009F874 File Offset: 0x0009DA74
       
@@ -8929,7 +8396,7 @@ namespace LuoEasyPrint
         // Token: 0x0600142D RID: 5165 RVA: 0x000A2868 File Offset: 0x000A0A68
         private void zdybutton_Click(object sender, EventArgs e)
         {
-            VB2008Print.ZDYButtonClickEventHandler zdybuttonClickEvent = this.ZDYButtonClickEvent;
+            VB2008Print.ZDYButtonClickEventHandler zdybuttonClickEvent = ZDYButtonClickEvent;
             if (zdybuttonClickEvent != null)
             {
                 zdybuttonClickEvent();
@@ -8939,7 +8406,7 @@ namespace LuoEasyPrint
         // Token: 0x0600142E RID: 5166 RVA: 0x000A2888 File Offset: 0x000A0A88
         private void zdybutton2_Click(object sender, EventArgs e)
         {
-            VB2008Print.ZDYButton2ClickEventHandler zdybutton2ClickEvent = this.ZDYButton2ClickEvent;
+            VB2008Print.ZDYButton2ClickEventHandler zdybutton2ClickEvent = ZDYButton2ClickEvent;
             if (zdybutton2ClickEvent != null)
             {
                 zdybutton2ClickEvent();
@@ -9514,7 +8981,7 @@ namespace LuoEasyPrint
                                     this.SetCurrentPage(j);
                                     float num18 = 1f;
                                     float num19 = 10f;
-                                    if (this.PageUnits == VB2008Print.PageExportUnit.Inch)
+                                    if (this.PageUnits == PageExportUnit.Inch)
                                     {
                                         num18 = (float)((double)num18 / 2.54);
                                         num19 = (float)((double)num19 / 2.54);
@@ -10937,8 +10404,8 @@ namespace LuoEasyPrint
                             this.MyDrawDGVCell(dgv.Rows[rowid].Cells[array2[l]], mycellwidth, mycellheight, myborder, PrintBackColor, (float)minfontsize);
                             goto IL_52D;
                         IL_4EF:
-                            int num20;
-                            mycellwidth = VB2008Print.GetHMergeWidth(dgv, columnCount, l, rowid, array2, array4, ref num20, true);
+                            int num20=0;
+                            mycellwidth = this.GetHMergeWidth(dgv, columnCount, l, rowid, array2, array4, ref num20, true);
                             goto IL_501;
                         }
                         this.Currentx = currentx;
@@ -11161,7 +10628,7 @@ namespace LuoEasyPrint
             {
                 float num = this.PaperPrintWidth / 3f;
                 float num2;
-                if (this.PageUnits == VB2008Print.PageExportUnit.Inch)
+                if (this.PageUnits == PageExportUnit.Inch)
                 {
                     num2 = 18f;
                 }
@@ -14090,11 +13557,11 @@ namespace LuoEasyPrint
                         this.w_duplexto = endpage;
                         if (startpage % 2 == 0)
                         {
-                            this.w_myprintrange = VB2008Print.MyPrintPageRange.PageRange_OS;
+                            this.w_myprintrange = MyPrintPageRange.PageRange_OS;
                         }
                         else
                         {
-                            this.w_myprintrange = VB2008Print.MyPrintPageRange.PageRange_JS;
+                            this.w_myprintrange = MyPrintPageRange.PageRange_JS;
                         }
                         this.SaveCS();
                         try
@@ -17907,7 +17374,7 @@ namespace LuoEasyPrint
         }
 
         // Token: 0x0600158B RID: 5515 RVA: 0x000B5BD4 File Offset: 0x000B3DD4
-        public void CopyDataGridViewSelectedRange(DataGridView sdv, DataGridView ddv, VB2008Print.DGVCopyRange copyrange)
+        public void CopyDataGridViewSelectedRange(DataGridView sdv, DataGridView ddv, DGVCopyRange copyrange)
         {
             if (sdv != null && ddv != null)
             {
@@ -17915,15 +17382,15 @@ namespace LuoEasyPrint
                 {
                     switch (copyrange)
                     {
-                        case VB2008Print.DGVCopyRange.SelectedRows:
+                        case DGVCopyRange.SelectedRows:
                             Module1.CopyDataGridView(sdv, ddv, Module1.GetDGVSelectedMinRowIndex(sdv), Module1.GetDGVSelectedMaxRowIndex(sdv), false);
                             Module1.SetDGVSelectedRowsVisible(sdv, ddv, Module1.GetDGVSelectedMinRowIndex(sdv));
                             break;
-                        case VB2008Print.DGVCopyRange.SelectedColumns:
+                        case DGVCopyRange.SelectedColumns:
                             Module1.CopyDataGridView(sdv, ddv, false);
                             Module1.SetDGVSelectedColumnsVisible(sdv, ddv);
                             break;
-                        case VB2008Print.DGVCopyRange.SelectedRowsAndColumns:
+                        case DGVCopyRange.SelectedRowsAndColumns:
                             Module1.CopyDataGridView(sdv, ddv, Module1.GetDGVSelectedMinRowIndex(sdv), Module1.GetDGVSelectedMaxRowIndex(sdv), false);
                             Module1.SetDGVSelectedRowsAndColumnsVisible(sdv, ddv, Module1.GetDGVSelectedMinRowIndex(sdv));
                             break;
@@ -18469,19 +17936,19 @@ namespace LuoEasyPrint
         }
 
         // Token: 0x0600159E RID: 5534 RVA: 0x000B68B4 File Offset: 0x000B4AB4
-        public void DrawBarZxing(string txt, VB2008Print.BarcodeFormat bartype, float width, float height)
+        public void DrawBarZxing(string txt, BarcodeFormat bartype, float width, float height)
         {
             this.DrawBarZxing(txt, bartype, width, height, Color.Black, Color.White, 4, "");
         }
 
         // Token: 0x0600159F RID: 5535 RVA: 0x000B68DC File Offset: 0x000B4ADC
-        public void DrawBarZxing(string txt, VB2008Print.BarcodeFormat bartype, float width, float height, Color forecolor, Color backcolor, int margin)
+        public void DrawBarZxing(string txt, BarcodeFormat bartype, float width, float height, Color forecolor, Color backcolor, int margin)
         {
             this.DrawBarZxing(txt, bartype, width, height, forecolor, backcolor, margin, "");
         }
 
         // Token: 0x060015A0 RID: 5536 RVA: 0x000B6900 File Offset: 0x000B4B00
-        public void DrawBarZxing(string txt, VB2008Print.BarcodeFormat bartype, float width, float height, Color forecolor, Color backcolor, int margin, string character)
+        public void DrawBarZxing(string txt, BarcodeFormat bartype, float width, float height, Color forecolor, Color backcolor, int margin, string character)
         {
             checked
             {
@@ -18531,28 +17998,28 @@ namespace LuoEasyPrint
         }
 
         // Token: 0x060015A3 RID: 5539 RVA: 0x00007A70 File Offset: 0x00005C70
-        public void DrawBar(VB2008Print.BarCode barType, string code, float width, float height, Font tfont, Color theforecolor)
+        public void DrawBar(BarCode barType, string code, float width, float height, Font tfont, Color theforecolor)
         {
             this.DrawBar(barType, code, width, height, tfont, theforecolor, true);
         }
 
         // Token: 0x060015A4 RID: 5540 RVA: 0x000B69F8 File Offset: 0x000B4BF8
-        public void DrawBar(VB2008Print.BarCode barType, string code, float width, float height, Font tfont, Color theforecolor, bool IsPrintText)
+        public void DrawBar(BarCode barType, string code, float width, float height, Font tfont, Color theforecolor, bool IsPrintText)
         {
             float currentx = this.Currentx;
             float currenty = this.Currenty;
             switch (barType)
             {
-                case VB2008Print.BarCode.EAN13:
+                case BarCode.EAN13:
                     this.DrawBarCodeEAN13(code, width, height, tfont, theforecolor, IsPrintText);
                     goto IL_2B9;
-                case VB2008Print.BarCode.ENA8:
+                case BarCode.ENA8:
                     this.DrawBarCodeEAN8(code, width, height, tfont, theforecolor, IsPrintText);
                     goto IL_2B9;
-                case VB2008Print.BarCode.Code39:
+                case BarCode.Code39:
                     this.DrawBarCode39(code, width, height, tfont, theforecolor, IsPrintText);
                     goto IL_2B9;
-                case VB2008Print.BarCode.Code128:
+                case BarCode.Code128:
                     {
                         Code128New code128New = new Code128New(code);
                         try
@@ -18566,19 +18033,19 @@ namespace LuoEasyPrint
                         }
                         break;
                     }
-                case VB2008Print.BarCode.Code128A:
+                case BarCode.Code128A:
                     break;
-                case VB2008Print.BarCode.Code128B:
+                case BarCode.Code128B:
                     goto IL_103;
-                case VB2008Print.BarCode.Code128C:
+                case BarCode.Code128C:
                     goto IL_142;
-                case VB2008Print.BarCode.Codabar:
+                case BarCode.Codabar:
                     goto IL_181;
-                case VB2008Print.BarCode.Code11:
+                case BarCode.Code11:
                     goto IL_1BC;
-                case VB2008Print.BarCode.Code25:
+                case BarCode.Code25:
                     goto IL_1FA;
-                case VB2008Print.BarCode.Code25_Stand:
+                case BarCode.Code25_Stand:
                     {
                         Code_stand25 code_stand = new Code_stand25(code);
                         try
@@ -18592,9 +18059,9 @@ namespace LuoEasyPrint
                         }
                         goto IL_247;
                     }
-                case VB2008Print.BarCode.ISBN:
+                case BarCode.ISBN:
                     goto IL_247;
-                case VB2008Print.BarCode.CODE39Extended:
+                case BarCode.CODE39Extended:
                     goto IL_283;
                 default:
                     goto IL_2B9;
@@ -20772,60 +20239,7 @@ namespace LuoEasyPrint
         }
 
         // Token: 0x060015EE RID: 5614 RVA: 0x000BA6E0 File Offset: 0x000B88E0
-        private static float[] ParaseBorder(string myborder)
-        {
-            float[] array = new float[4];
-            string[] array2 = Strings.Split(myborder, ",", -1, CompareMethod.Binary);
-            try
-            {
-                if (array2.Length == 1)
-                {
-                    if (Versioned.IsNumeric(myborder) & Strings.Len(myborder) == 4 & Strings.InStr(myborder, ".", CompareMethod.Binary) <= 0)
-                    {
-                        array[0] = (float)Conversion.Val(Strings.Mid(myborder, 1, 1));
-                        array[1] = (float)Conversion.Val(Strings.Mid(myborder, 2, 1));
-                        array[2] = (float)Conversion.Val(Strings.Mid(myborder, 3, 1));
-                        array[3] = (float)Conversion.Val(Strings.Mid(myborder, 4, 1));
-                    }
-                    else if (Versioned.IsNumeric(myborder))
-                    {
-                        array[0] = (float)Conversion.Val(myborder);
-                        array[1] = (float)Conversion.Val(myborder);
-                        array[2] = (float)Conversion.Val(myborder);
-                        array[3] = (float)Conversion.Val(myborder);
-                    }
-                    else
-                    {
-                        array[0] = 0f;
-                        array[1] = 0f;
-                        array[2] = 0f;
-                        array[3] = 0f;
-                    }
-                }
-                else if (array2.Length == 4)
-                {
-                    array[0] = (float)Conversion.Val(array2[0]);
-                    array[1] = (float)Conversion.Val(array2[1]);
-                    array[2] = (float)Conversion.Val(array2[2]);
-                    array[3] = (float)Conversion.Val(array2[3]);
-                }
-                else
-                {
-                    array[0] = 0f;
-                    array[1] = 0f;
-                    array[2] = 0f;
-                    array[3] = 0f;
-                }
-            }
-            catch (Exception ex)
-            {
-                array[0] = 0f;
-                array[1] = 0f;
-                array[2] = 0f;
-                array[3] = 0f;
-            }
-            return array;
-        }
+      
 
         // Token: 0x060015EF RID: 5615 RVA: 0x000BA874 File Offset: 0x000B8A74
         private string SavePenAsString(Pen pp)
@@ -25223,7 +24637,7 @@ namespace LuoEasyPrint
         private PaperKind temppaperkind;
 
         // Token: 0x040009FB RID: 2555
-        private VB2008Print.PageExportUnit temppageunits;
+        private PageExportUnit temppageunits;
 
         // Token: 0x040009FC RID: 2556
         private int tempmargintleft;
@@ -25391,7 +24805,7 @@ namespace LuoEasyPrint
         private float w_CE;
 
         // Token: 0x04000A33 RID: 2611
-        private VB2008Print.MyPrintPageRange w_myprintrange;
+        private MyPrintPageRange w_myprintrange;
 
         // Token: 0x04000A34 RID: 2612
         private int w_duplexfrom;
@@ -25589,7 +25003,7 @@ namespace LuoEasyPrint
         private float myZDXposition;
 
         // Token: 0x04000A7D RID: 2685
-        private VB2008Print.TheZDXTYPE myZDXtype;
+        private TheZDXTYPE myZDXtype;
 
         // Token: 0x04000A7E RID: 2686
         private bool myisdrawZDX;

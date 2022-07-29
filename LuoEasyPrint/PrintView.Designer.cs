@@ -1,4 +1,6 @@
-﻿namespace LuoEasyPrint
+﻿using static LuoEasyPrint.VB2008Print_EnumType;
+
+namespace LuoEasyPrint
 {
 	// Token: 0x02000084 RID: 132
 	
@@ -65,7 +67,7 @@
 			this.myp.OuterBorder = false;
 			this.myp.OuterBorderColor = System.Drawing.Color.Black;
 			this.myp.OuterBorderWidth = 2f;
-			this.myp.PageUnits = VB2008Print.PageExportUnit.Inch;
+			this.myp.PageUnits = PageExportUnit.Inch;
 			this.myp.PaperKind = System.Drawing.Printing.PaperKind.A4;
 			this.myp.PaperLandscape = false;
 			this.myp.PaperMargins = new System.Drawing.Printing.Margins(100, 100, 100, 100);
@@ -90,7 +92,7 @@
 			this.myp.ZDXPosition = 0f;
 			this.myp.ZDXText = "装订线";
 			this.myp.ZDXTextColor = System.Drawing.Color.Black;
-			this.myp.ZDXType = VB2008Print.TheZDXTYPE.LEFT;
+			this.myp.ZDXType = TheZDXTYPE.LEFT;
 			this.myp.ZDYButton2Text = "";
 			this.myp.ZDYButton2ToolTipText = "";
 			this.myp.ZDYButton2Visible = false;

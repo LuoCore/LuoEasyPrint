@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+
 using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.CompilerServices;
 
@@ -11,7 +13,7 @@ namespace LuoEasyPrint
 {
     public static class VB2008Print_DGV
     {
-        public static float PrintDGVFa(this VB2008Print print,DataGridView mydgvToPrint, string schemefilename, bool AutoCreateIfFileNotExist = true, TreeView columnheadertree = null)
+        public static float PrintDGVFa(this VB2008Print print, DataGridView mydgvToPrint, string schemefilename, bool AutoCreateIfFileNotExist = true, TreeView columnheadertree = null)
         {
             DataGridView dataGridView = new DataGridView();
             Module1.CopyDataGridView(mydgvToPrint, dataGridView);
@@ -30,7 +32,7 @@ namespace LuoEasyPrint
                     if (print.IsShowErrorMSG)
                     {
                         MessageBox.Show("直接使用打印方案文件打印输出表格失败，方案文件【" + schemefilename + "】不存在，且指定的方案文件不是有效的文件，而是路径，故没法自动用该文件名创建方案文件，因此没能将表格打印输出，如有疑问，请与程序员联系", "提示信息");
-                    
+
                     }
                     return 0f;
                 }
@@ -94,18 +96,18 @@ namespace LuoEasyPrint
                 print.CreateFa(schemefilename, dataGridView);
             }
             text = Module1.GetINI(section, "新页[0-1]", "0", schemefilename);
-            StringAlignment bgalignment= StringAlignment.Near;
+            StringAlignment bgalignment = StringAlignment.Near;
             bool isAutoAddEmptyRow = false;
-            bool isUseDoubleLine=false;
-            float num10=0;
+            bool isUseDoubleLine = false;
+            float num10 = 0;
             bool outerBorder = false;
             float num11 = 0;
-            Color outerBorderColor=new Color();
-            bool myaddrowid=false;
+            Color outerBorderColor = new Color();
+            bool myaddrowid = false;
             Color myhzforecolor = new Color();
             Color myhzbackcolor = new Color();
-            bool mygroupnewpage=false;
-            bool myaddrownew=false;
+            bool mygroupnewpage = false;
+            bool myaddrownew = false;
             try
             {
                 if (Operators.CompareString(text, "1", false) == 0 | Operators.CompareString(text, "是", false) == 0)
@@ -113,8 +115,8 @@ namespace LuoEasyPrint
                     text = Module1.GetINI(section, "纸张", "9", schemefilename);
                     int num7 = Conversions.ToInteger(text);
                     string text2 = "";
-                    int num8=0;
-                    int num9=0;
+                    int num8 = 0;
+                    int num9 = 0;
                     if (num7 <= 0)
                     {
                         try
@@ -305,25 +307,25 @@ namespace LuoEasyPrint
                 outerBorderColor = Module1.ConvertStringToColor(text);
                 section = "单元格默认边距";
                 text = Module1.GetINI(section, "左边距(毫米)", "-1", schemefilename);
-                float num12=0;
+                float num12 = 0;
                 if (Operators.CompareString(text, "-1", false) != 0)
                 {
                     num12 = (float)Conversion.Val(text);
                 }
                 text = Module1.GetINI(section, "右边距(毫米)", "-1", schemefilename);
-                float num13=0;
+                float num13 = 0;
                 if (Operators.CompareString(text, "-1", false) != 0)
                 {
                     num13 = (float)Conversion.Val(text);
                 }
                 text = Module1.GetINI(section, "上边距(毫米)", "-1", schemefilename);
-                float num14=0;
+                float num14 = 0;
                 if (Operators.CompareString(text, "-1", false) != 0)
                 {
                     num14 = (float)Conversion.Val(text);
                 }
                 text = Module1.GetINI(section, "下边距(毫米)", "-1", schemefilename);
-                float num15=0;
+                float num15 = 0;
                 if (Operators.CompareString(text, "-1", false) != 0)
                 {
                     num15 = (float)Conversion.Val(text);
@@ -510,7 +512,7 @@ namespace LuoEasyPrint
                         }
                         text = Module1.GetINI(section, "奇数行默认前景颜色", Module1.ConvertColorToString(Color.FromArgb(0)), schemefilename);
                         color3 = Module1.ConvertStringToColor(text);
-                        Color color4=new Color();
+                        Color color4 = new Color();
                         if (color3.ToArgb() == 0)
                         {
                             dataGridView.AlternatingRowsDefaultCellStyle.ForeColor = color4;
@@ -843,15 +845,15 @@ namespace LuoEasyPrint
             dataGridView.Dispose();
             print.IsAutoAddEmptyRow = isAutoAddEmptyRow2;
             print.IsDrawTableFooterEveryPage = isDrawTableFooterEveryPage2;
-            bool isUseDoubleLine2=false;
+            bool isUseDoubleLine2 = false;
             print.IsUseDoubleLine = isUseDoubleLine2;
-            float doubleLineSpace=0;
+            float doubleLineSpace = 0;
             print.DoubleLineSpace = doubleLineSpace;
-            bool outerBorder2=false;
+            bool outerBorder2 = false;
             print.OuterBorder = outerBorder2;
-            Color outerBorderColor2=new Color();
+            Color outerBorderColor2 = new Color();
             print.OuterBorderColor = outerBorderColor2;
-            float outerBorderWidth=0;
+            float outerBorderWidth = 0;
             print.OuterBorderWidth = outerBorderWidth;
             print.myforecolor = color;
             print.myshapedepth = num;
@@ -868,13 +870,13 @@ namespace LuoEasyPrint
             }
             else
             {
-                Module1.CopyDataGridView(mymstoprint, this.myms);
+                Module1.CopyDataGridView(mymstoprint, print.myms);
                 if (autoformat)
                 {
-                    this.myms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                    this.myms.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
+                    print.myms.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                    print.myms.AutoResizeRows(DataGridViewAutoSizeRowsMode.AllCells);
                 }
-                result = this.PrintDGVOut(colsnum, thecol, fromrow, torow, title, titleFont, subtitle, subtitlefont, alignment, myborder, autoresizewidth, autoresizerowheight, reppagetitle, topfont, lefttitle, middletitle, righttitle, bottomfont, bl, bm, br, minfontsize, mytitleheight, myoneline1height, mysubtitleheight, myoneline2height, mytopheight, PrintBackColor, titletextstyle, subtitlestyle, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign, CanAddEmptyRow, mybottomheight, printwidth);
+                result = print.PrintDGVOut(colsnum, thecol, fromrow, torow, title, titleFont, subtitle, subtitlefont, alignment, myborder, autoresizewidth, autoresizerowheight, reppagetitle, topfont, lefttitle, middletitle, righttitle, bottomfont, bl, bm, br, minfontsize, mytitleheight, myoneline1height, mysubtitleheight, myoneline2height, mytopheight, PrintBackColor, titletextstyle, subtitlestyle, columnheadertree, TableTopLeftTitleAlign, TableTopMiddleTitleAlign, TableTopRightTitleAlign, TableBottomLeftTitleAlign, TableBottomMiddleTitleAlign, TableBottomRightTitleAlign, CanAddEmptyRow, mybottomheight, printwidth);
             }
             return result;
         }
@@ -1120,6 +1122,7 @@ namespace LuoEasyPrint
             StringAlignment myHalg2 = StringAlignment.Near;
             string text2 = "";
             bool flag2 = false;
+
             if (flag = print.CanSpanPrint(lefttitle, middletitle, righttitle, ref text, ref myHalg))
             {
                 if (Operators.CompareString(lefttitle, "", false) != 0)
@@ -1135,7 +1138,7 @@ namespace LuoEasyPrint
                     myHalg = TableTopRightTitleAlign;
                 }
             }
-            if (flag2 = VB2008Print.CanSpanPrint(bl, bm, br, ref text2, ref myHalg2))
+            if (flag2 = print.CanSpanPrint(bl, bm, br, ref text2, ref myHalg2))
             {
                 if (Operators.CompareString(bl, "", false) != 0)
                 {
@@ -1271,9 +1274,9 @@ namespace LuoEasyPrint
                         float num42;
                         bool flag3;
                         float[] array8;
-                        float currenty;
+                        float currenty=0;
                         Color textforecolor = new Color();
-                        bool mulline;
+                        bool mulline=false;
                         unchecked
                         {
                             if (num36 == -1)
@@ -1306,7 +1309,7 @@ namespace LuoEasyPrint
                             num42 = 0f;
                             flag3 = true;
                             array8 = new float[4];
-                            array8 = VB2008Print.ParaseBorder(myborder);
+                            array8 = print.ParaseBorder(myborder);
                             int num43 = fromrow;
                             int num44 = torow;
                             k = num43;
@@ -1612,7 +1615,7 @@ namespace LuoEasyPrint
                                                     }
                                                 }
                                                 int num56;
-                                                num40 = VB2008Print.GetHMergeWidth(print.myms, num5, l, k, array, array5, ref num56, true);
+                                                num40 = print.GetHMergeWidth(print.myms, num5, l, k, array, array5, ref num56, true);
                                             IL_1878:
                                                 if (print.IsUseDoubleLine)
                                                 {
@@ -1946,6 +1949,309 @@ namespace LuoEasyPrint
                 }
 
             }
+
+            return result;
         }
+
+
+
+
+
+        public static void MyDrawDGVCell(this VB2008Print print, DataGridViewCell dgvcell, float mycellwidth, float mycellheight, string myborder, bool isprintbackcolor, float minfontsize)
+        {
+            checked
+            {
+                if (dgvcell != null)
+                {
+                    DataGridView dataGridView = dgvcell.DataGridView;
+                    string s = "";
+                    Bitmap bitmap = null;
+                    DataGridViewColumn dataGridViewColumn = dataGridView.Columns[dgvcell.ColumnIndex];
+                    DataGridViewRow dataGridViewRow = dataGridView.Rows[dgvcell.RowIndex];
+                    if (dataGridViewColumn.Visible)
+                    {
+                        Margins cellMargin = print.CellMargin;
+                        if (print.IsUseDGVPadding)
+                        {
+                            Margins dgvcellPadding = Module1.GetDGVCellPadding(dgvcell);
+                            print.CellMargin = new Margins((int)Math.Round((double)print.ConvFromDisplay((float)dgvcellPadding.Left, true)), (int)Math.Round((double)print.ConvFromDisplay((float)dgvcellPadding.Right, true)), (int)Math.Round((double)print.ConvFromDisplay((float)dgvcellPadding.Top, false)), (int)Math.Round((double)print.ConvFromDisplay((float)dgvcellPadding.Bottom, false)));
+                        }
+                        if (mycellwidth <= 0f)
+                        {
+                            mycellwidth = print.ConvFromDisplay((float)dataGridViewColumn.Width, true);
+                        }
+                        if (mycellheight <= 0f)
+                        {
+                            mycellheight = print.ConvFromDisplay((float)dataGridViewRow.Height, false);
+                        }
+                        Font myf = Module1.GetDGVCellFont(dgvcell);
+                        DataGridViewCellStyle dataGridViewCellStyle = Module1.GetDGVCellStyle(dgvcell);
+                        Color dgvcellForeColor = Module1.GetDGVCellForeColor(dgvcell);
+                        Color dgvcellBackColor = Module1.GetDGVCellBackColor(dgvcell);
+                        bool dgvcellMulline = Module1.GetDGVCellMulline(dgvcell);
+                        bool flag = false;
+                        int num=0;
+                        if (Operators.CompareString(Versioned.TypeName(dataGridViewColumn), "DataGridViewCheckBoxColumn", false) == 0)
+                        {
+                            CheckBox checkBox = new CheckBox();
+                            Control control = checkBox;
+                            Size size = new Size(14, 14);
+                            control.Size = size;
+                            if (isprintbackcolor)
+                            {
+                                checkBox.BackColor = dgvcellBackColor;
+                            }
+                            else
+                            {
+                                checkBox.BackColor = Color.Transparent;
+                            }
+                            if (Operators.CompareString(Versioned.TypeName(RuntimeHelpers.GetObjectValue(dgvcell.FormattedValue)), "Boolean", false) == 0)
+                            {
+                                if (Conversions.ToBoolean(dgvcell.FormattedValue))
+                                {
+                                    checkBox.Checked = true;
+                                }
+                                else
+                                {
+                                    checkBox.Checked = false;
+                                }
+                            }
+                            else
+                            {
+                                switch (Conversions.ToInteger(dgvcell.FormattedValue))
+                                {
+                                    case 0:
+                                        checkBox.Checked = false;
+                                        break;
+                                    case 1:
+                                        checkBox.Checked = true;
+                                        break;
+                                    default:
+                                        checkBox.CheckState = CheckState.Indeterminate;
+                                        break;
+                                }
+                            }
+                            if (bitmap != null)
+                            {
+                                try
+                                {
+                                    bitmap.Dispose();
+                                    bitmap = null;
+                                }
+                                catch (Exception ex)
+                                {
+                                }
+                            }
+                            try
+                            {
+                                bitmap = new Bitmap((int)Math.Round((double)print.ConvToDisplay(mycellwidth, true)), (int)Math.Round((double)print.ConvToDisplay(mycellheight, false)));
+                                Graphics graphics = Graphics.FromImage(bitmap);
+                                Brush brush;
+                                if (isprintbackcolor)
+                                {
+                                    brush = new SolidBrush(dgvcellBackColor);
+                                }
+                                else
+                                {
+                                    brush = Brushes.White;
+                                }
+                                Graphics graphics2 = graphics;
+                                Brush brush2 = brush;
+                                Rectangle rectangle = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
+                                graphics2.FillRectangle(brush2, rectangle);
+                                if (bitmap.Height < checkBox.Height)
+                                {
+                                    checkBox.Height = bitmap.Height;
+                                }
+                                if (bitmap.Width < checkBox.Width)
+                                {
+                                    checkBox.Width = bitmap.Width;
+                                }
+                                Control control2 = checkBox;
+                                Bitmap bitmap2 = bitmap;
+                                rectangle = new Rectangle((int)Math.Round((double)(bitmap.Width - checkBox.Width) / 2.0), (int)Math.Round((double)(bitmap.Height - checkBox.Height) / 2.0), checkBox.Width, checkBox.Height);
+                                control2.DrawToBitmap(bitmap2, rectangle);
+                                graphics.Dispose();
+                                checkBox.Dispose();
+                                checkBox = null;
+                            }
+                            catch (Exception ex2)
+                            {
+                            }
+                            flag = true;
+                            num = 2;
+                        }
+                        else if (Operators.CompareString(Versioned.TypeName(dataGridViewColumn), "DataGridViewButtonColumn", false) == 0)
+                        {
+                            Button button = new Button();
+                            button.AutoSize = false;
+                            Control control3 = button;
+                            Size size = new Size((int)Math.Round((double)print.ConvToDisplay(mycellwidth, true)), (int)Math.Round((double)print.ConvToDisplay(mycellheight, false)));
+                            control3.Size = size;
+                            button.Text = "";
+                            if (isprintbackcolor)
+                            {
+                                button.BackColor = dgvcellBackColor;
+                            }
+                            else
+                            {
+                                button.BackColor = Color.Transparent;
+                            }
+                            float currentx = print.Currentx;
+                            float currenty = print.Currenty;
+                            try
+                            {
+                                bitmap = new Bitmap(button.Width, dataGridViewRow.Height);
+                                Control control4 = button;
+                                Bitmap bitmap3 = bitmap;
+                                Rectangle rectangle = new Rectangle(0, 0, button.Width, (int)Math.Round((double)print.ConvToDisplay(mycellheight, false)));
+                                control4.DrawToBitmap(bitmap3, rectangle);
+                                print.DrawCellImage(bitmap, print.Currentx, print.Currenty, mycellwidth, mycellheight, dataGridView.GridColor, "0000", true, StringAlignment.Center, StringAlignment.Center);
+                                bitmap.Dispose();
+                                bitmap = null;
+                                button.Dispose();
+                            }
+                            catch (Exception ex3)
+                            {
+                            }
+                            print.Currentx = currentx;
+                            print.Currenty = currenty;
+                            flag = true;
+                            num = 3;
+                        }
+                        else if (Operators.CompareString(Versioned.TypeName(dataGridViewColumn), "DataGridViewImageColumn", false) == 0)
+                        {
+                            flag = true;
+                            num = 1;
+                        }
+                        else
+                        {
+                            s = Conversions.ToString(dgvcell.FormattedValue) + "";
+                        }
+                        if (!flag)
+                        {
+                            if (!isprintbackcolor)
+                            {
+                                print.DrawCell(s, mycellwidth, mycellheight, myf, dgvcellForeColor, myborder, Module1.GetHAlignment(dataGridViewCellStyle.Alignment), Module1.GetVAlignment(dataGridViewCellStyle.Alignment, print.IsDGVCellValignmentCenter), dgvcellMulline, true, false, false, minfontsize, Color.White, dataGridView.GridColor, 0);
+                            }
+                            else
+                            {
+                                print.DrawCell(s, mycellwidth, mycellheight, myf, dgvcellForeColor, myborder, Module1.GetHAlignment(dataGridViewCellStyle.Alignment), Module1.GetVAlignment(dataGridViewCellStyle.Alignment, print.IsDGVCellValignmentCenter), dgvcellMulline, false, false, false, minfontsize, dgvcellBackColor, dataGridView.GridColor, 0);
+                            }
+                        }
+                        else if (num == 1)
+                        {
+                            DataGridViewImageCell dataGridViewImageCell = (DataGridViewImageCell)dgvcell;
+                            print.DrawCellImage((Bitmap)dgvcell.FormattedValue, print.Currentx, print.Currenty, mycellwidth, mycellheight, dataGridView.GridColor, myborder, dataGridViewImageCell.ImageLayout, Module1.GetHAlignment(dataGridViewCellStyle.Alignment), Module1.GetVAlignment(dataGridViewCellStyle.Alignment, print.IsDGVCellValignmentCenter));
+                        }
+                        else if (num == 2)
+                        {
+                            print.DrawCellImage(bitmap, print.Currentx, print.Currenty, mycellwidth, mycellheight, dataGridView.GridColor, myborder, true, StringAlignment.Center, StringAlignment.Center);
+                        }
+                        else if (num == 3)
+                        {
+                            s = Conversions.ToString(dgvcell.FormattedValue) + "";
+                            print.DrawCell(s, mycellwidth, mycellheight, myf, dgvcellForeColor, myborder, Module1.GetHAlignment(dataGridViewCellStyle.Alignment), Module1.GetVAlignment(dataGridViewCellStyle.Alignment, print.IsDGVCellValignmentCenter), dgvcellMulline, true, false, false, minfontsize, Color.White, dataGridView.GridColor, 0);
+                        }
+                        if (print.IsUseDGVPadding)
+                        {
+                            print.CellMargin = cellMargin;
+                        }
+                    }
+                    if (bitmap != null)
+                    {
+                        try
+                        {
+                            bitmap.Dispose();
+                            bitmap = null;
+                        }
+                        catch (Exception ex4)
+                        {
+                        }
+                    }
+                    try
+                    {
+                        dataGridView = null;
+                        Font myf = null;
+                        DataGridViewCellStyle dataGridViewCellStyle = null;
+                    }
+                    catch (Exception ex5)
+                    {
+                    }
+                }
+            }
+        }
+
+
+
+        public static void MyDrawDGVHeaderCell(this VB2008Print print, DataGridViewColumn mycolumn, float mycellwidth, float mycellheight, string myborder, bool isprintbackcolor, float minfontsize)
+        {
+            if (mycolumn != null)
+            {
+                DataGridView dataGridView = mycolumn.DataGridView;
+                if (mycolumn.Visible)
+                {
+                    if (mycellwidth <= 0f)
+                    {
+                        mycellwidth = print.ConvFromDisplay((float)mycolumn.Width, true);
+                    }
+                    if (mycellheight <= 0f)
+                    {
+                        mycellheight = print.ConvFromDisplay((float)dataGridView.ColumnHeadersHeight, false);
+                    }
+                    Font dgvheaderFont = Module1.GetDGVHeaderFont(mycolumn);
+                    Color dgvheaderForeColor = Module1.GetDGVHeaderForeColor(mycolumn);
+                    bool mulline = Module1.GetDGVHeaderMulline(mycolumn);
+                    Color dgvheaderBackColor = Module1.GetDGVHeaderBackColor(mycolumn);
+                    mulline = true;
+                    if (!isprintbackcolor)
+                    {
+                        print.DrawCell(mycolumn.HeaderText, mycellwidth, mycellheight, dgvheaderFont, dgvheaderForeColor, myborder, StringAlignment.Center, StringAlignment.Center, mulline, false, false, false, minfontsize, Color.White, dataGridView.GridColor, 0);
+                    }
+                    else
+                    {
+                        print.DrawCell(mycolumn.HeaderText, mycellwidth, mycellheight, dgvheaderFont, dgvheaderForeColor, myborder, StringAlignment.Center, StringAlignment.Center, mulline, false, false, false, minfontsize, dgvheaderBackColor, dataGridView.GridColor, 0);
+                    }
+                }
+                try
+                {
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+        }
+
+
+
+
+        // Token: 0x060013AC RID: 5036 RVA: 0x0009633C File Offset: 0x0009453C
+        public static int GetDGVVisibleCols(this DataGridView myd)
+        {
+            checked
+            {
+                int result;
+                if (myd == null)
+                {
+                    result = 0;
+                }
+                else
+                {
+                    int num = 0;
+                    int num2 = 0;
+                    int num3 = myd.ColumnCount - 1;
+                    for (int i = num2; i <= num3; i++)
+                    {
+                        if (myd.Columns[i].Visible)
+                        {
+                            num++;
+                        }
+                    }
+                    result = num;
+                }
+                return result;
+            }
+        }
+
     }
 }
